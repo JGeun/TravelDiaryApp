@@ -3,6 +3,7 @@ package com.hansung.traveldiary.src
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hansung.traveldiary.src.home.HomeFragment
 import com.hansung.traveldiary.R
