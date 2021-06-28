@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "37794027650",
+    "project_id": "traveldiaryapp-2b2bc",
+    "storage_bucket": "traveldiaryapp-2b2bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37794027650:android:0bff90a7b764455cbbbc9b",
+        "android_client_info": {
+          "package_name": "com.hansung.traveldiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37794027650-lg0eoj8v74c309eepbo0vsql1bdvnkf3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hansung.traveldiary",
+            "certificate_hash": "9c3af9222540dcb94bdb29601f5518a2d966e353"
+          }
+        },
+        {
+          "client_id": "37794027650-p459md52sk3l1o846mmm5fj37jrldcju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQIxOFl3sKlLq-nbRNnJfPbcgW1mWd40g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37794027650-p459md52sk3l1o846mmm5fj37jrldcju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
