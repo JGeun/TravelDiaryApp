@@ -18,6 +18,7 @@ class ProfileFragment : Fragment(){
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         println("jyy test")
+        println("push test")
         return binding.root
     }
 }
