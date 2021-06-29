@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.hansung.traveldiary.databinding.ActivityLoginBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.util.StatusBarUtil
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -18,6 +19,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.MAIN_STATUS_BAR)
 
         auth = FirebaseAuth.getInstance()
 
@@ -47,9 +50,9 @@ class LoginActivity : AppCompatActivity() {
                 }
         }
 
-        binding.signupBtn.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
+//        binding.signupBtn.setOnClickListener {
+//            startActivity(Intent(this, RegisterActivity::class.java))
+//        }
     }
 
     fun moveHomePage(user: FirebaseUser?){
