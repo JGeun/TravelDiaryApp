@@ -17,6 +17,7 @@ class ProfileFragment : Fragment(){
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
+        println("jyy test")
         return binding.root
     }
 }
