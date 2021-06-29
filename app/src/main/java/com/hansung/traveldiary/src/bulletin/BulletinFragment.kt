@@ -18,6 +18,7 @@ class BulletinFragment : Fragment(){
     ): View? {
         binding = FragmentBulletinBinding.inflate(inflater, container, false)
 
+        println("준호")
         return binding.root
     }
 }
