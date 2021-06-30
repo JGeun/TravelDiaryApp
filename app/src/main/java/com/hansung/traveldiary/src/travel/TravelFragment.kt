@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.hansung.traveldiary.databinding.FragmentHomeBinding
+import androidx.fragment.app.FragmentManager
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.hansung.traveldiary.databinding.FragmentTravelBinding
 
 class TravelFragment : Fragment(){
@@ -18,5 +20,18 @@ class TravelFragment : Fragment(){
         binding = FragmentTravelBinding.inflate(inflater, container, false)
 
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        configureTopNavigation()
+    }
+
+    private fun configureTopNavigation(){
+        val pagerAdapter = FragmentAdapter(childFragmentManager)
+        val pager = binding.viewPager
+        pager.adapter = pagerAdapter
+        val tab = binding.tab
+        tab.setupWithViewPager(pager)
     }
 }
