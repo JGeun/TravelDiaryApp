@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.login.RegisterActivity"></activity>
+        <activity android:name=".src.travel.DiaryActivity"></activity>
+        <activity android:name=".src.login.RegisterActivity" />
         <activity android:name=".src.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".src.MainActivity">
-        </activity>
+        <activity android:name=".src.MainActivity"></activity>
     </application>
 
 </manifest>

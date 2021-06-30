@@ -10,9 +10,9 @@ class FragmentAdapter (fragmentManager: FragmentManager) : FragmentPagerAdapter(
     override fun getItem(position: Int): Fragment {
         val fragment =  when(position)
         {
-            0-> tab1Fragment().newInstant()
-            1-> tab2Fragment().newInstant()
-            else -> tab1Fragment().newInstant()
+            0-> LasttripFragment().newInstant()
+            1-> TriptogoFragment().newInstant()
+            else -> LasttripFragment().newInstant()
         }
         return fragment
     }

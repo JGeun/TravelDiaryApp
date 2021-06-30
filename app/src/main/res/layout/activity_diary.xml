@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".src.travel.DiaryActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="42dp"
+            android:text="DAY - 1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/travel_rv"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:ems="10"
+            android:inputType="textMultiLine|textPersonName"
+            android:text="오늘은 해운대랑 국제 시장을 다녀왔다. 점심으로 삼겹살 먹음. 맛있음. 해운대 바다 이쁨. 국제시장 신기" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

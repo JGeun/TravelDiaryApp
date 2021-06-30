@@ -7,20 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.hansung.traveldiary.R
 
-class tab1Fragment : Fragment() {
+class LasttripFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab1, container, false)
+        return inflater.inflate(R.layout.fragment_lasttrip, container, false)
     }
 
-    fun newInstant() : tab1Fragment
+    fun newInstant() : LasttripFragment
     {
         val args = Bundle()
-        val frag = tab1Fragment()
+        val frag = LasttripFragment()
         frag.arguments = args
         return frag
     }
