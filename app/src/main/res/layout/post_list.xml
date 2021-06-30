@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="467dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="85dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="33dp"
+            android:layout_weight="5"
+            android:text="Day"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tag"
+            android:layout_width="128dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:text="#부산 #해운대"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_day" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/iv_diary"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_weight="1"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/gwangwhamun" />
+
+</LinearLayout>
