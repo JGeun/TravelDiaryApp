@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.hansung.traveldiary.databinding.FragmentHomeBinding
 import com.hansung.traveldiary.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment(){
@@ -16,6 +15,7 @@ class ProfileFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+
 
         println("jyy test")
         println("push test")
