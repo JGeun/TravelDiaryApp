@@ -14,13 +14,13 @@ class TriptogoFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lasttrip, container, false)
+        return inflater.inflate(R.layout.fragment_triptogo, container, false)
     }
 
-    fun newInstant() : LasttripFragment
+    fun newInstant() : TriptogoFragment
     {
         val args = Bundle()
-        val frag = LasttripFragment()
+        val frag = TriptogoFragment()
         frag.arguments = args
         return frag
     }
