@@ -13,12 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
         <activity android:name=".src.splash.SplashActivity">
-
         </activity>
         <activity android:name=".src.login.RegisterActivity"></activity>
         <activity android:name=".src.login.LoginActivity">
 
         </activity>
+        <activity android:name=".src.bulletin.PostActivity"></activity>
         <activity android:name=".src.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
