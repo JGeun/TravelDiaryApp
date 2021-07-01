@@ -1,6 +1,7 @@
 package com.hansung.traveldiary.src.bulletin
-
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
+
 import android.view.MenuItem
 import android.os.Bundle
 import android.view.*

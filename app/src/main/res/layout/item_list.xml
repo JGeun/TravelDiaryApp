@@ -45,7 +45,8 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="13dp"
                 android:background="@drawable/roundtv"
-                android:textAlignment="center" />
+                android:hint="글을 적어주세요"
+                android:textColor="#ffffff"/>
 
             <TextView
                 android:id="@+id/tv_tag"
@@ -53,8 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
-                android:text="# 부산 # 해운대"
-                android:textAlignment="center"
+                android:text="#부산 #해운대"
                 android:textSize="10sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
