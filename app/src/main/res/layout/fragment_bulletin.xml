@@ -27,6 +27,8 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="#E2C5FD"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
