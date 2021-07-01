@@ -21,11 +21,6 @@ class LasttripFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLasttripBinding.inflate(inflater, container, false)
 
-        binding.button2.setOnClickListener {
-            startActivity(Intent(it.context, DiaryActivity::class.java))
-
-        }
-
         return binding.root
     }
 

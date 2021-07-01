@@ -50,9 +50,9 @@ class LoginActivity : AppCompatActivity() {
                 }
         }
 
-//        binding.signupBtn.setOnClickListener {
-//            startActivity(Intent(this, RegisterActivity::class.java))
-//        }
+        binding.signup.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     fun moveHomePage(user: FirebaseUser?){

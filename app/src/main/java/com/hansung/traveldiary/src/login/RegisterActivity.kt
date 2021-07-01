@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import android.widget.Toolbar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.hansung.traveldiary.databinding.ActivityRegisterBinding
@@ -19,6 +21,15 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+
+        setSupportActionBar(binding.loginToolbar)
+
+        supportActionBar?.apply {
+            title = "회원가입"
+
+            setDisplayHomeAsUpEnabled(true)
+        }
+
 
         binding.button.setOnClickListener {
             if (binding.signupId.text.toString().isEmpty()){
@@ -44,5 +55,10 @@ class RegisterActivity : AppCompatActivity() {
                 }
             Log.d("가입", "register")
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
