@@ -6,42 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".src.travel.DiaryActivity">
 
-    <LinearLayout
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_back_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="40dp"
-        android:orientation="vertical">
+        android:padding="50dp">
 
-        <TextView
-            android:id="@+id/day"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:text="DAY - 1"
-            android:textSize="24sp"
-            android:textStyle="bold|italic" />
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/travel_rv"
-            android:layout_width="300dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="50dp"
-            >
+            <TextView
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="DAY - 1"
+                android:textSize="24sp"
+                android:textStyle="bold|italic" />
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/travel_rv"
+                android:layout_width="300dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="50dp">
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="300dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center_horizontal"
-            android:ems="10"
-            android:gravity="top"
-            android:inputType="textMultiLine|textPersonName"
-            android:text="오늘은 해운대랑 국제 시장을 다녀왔다. 점심으로 삼겹살 먹음. 맛있음. 해운대 바다 이쁨. 국제시장 신기"
-            android:textSize="16sp" />
+            </androidx.recyclerview.widget.RecyclerView>
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="300dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="textMultiLine|textPersonName"
+                android:text="오늘은 해운대랑 국제 시장을 다녀왔다. 점심으로 삼겹살 먹음. 맛있음. 해운대 바다 이쁨. 국제시장 신기"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/bg_diary_checkpoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/bg_diary_checkpoint" />
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
