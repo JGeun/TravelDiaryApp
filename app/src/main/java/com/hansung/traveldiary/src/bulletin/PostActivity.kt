@@ -15,10 +15,11 @@ class PostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.rv2.setHasFixedSize(true)
+        var count=1
         val PostryList=arrayListOf(
-                DiaryData(R.drawable.gwangwhamun),
-                DiaryData(R.drawable.gwangwhamun),
-                DiaryData(R.drawable.gwangwhamun)
+                DiaryData(R.drawable.gwangwhamun,count++),
+                DiaryData(R.drawable.gwangwhamun,count++),
+                DiaryData(R.drawable.gwangwhamun,count++)
         )
         val adapter= DiaryAdapter(PostryList)
         binding.rv2.adapter=adapter

@@ -18,6 +18,5 @@ class DiaryActivity : AppCompatActivity() {
 
         val adapter = DiaryImageAdapter(diaryImageList)
         binding.travelRv.adapter = adapter
-        binding.travelRv.
     }
 }
