@@ -11,7 +11,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@null"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_back_btn"
@@ -21,6 +21,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
         android:padding="50dp">
 
         <LinearLayout
@@ -48,12 +49,13 @@
 
             <EditText
                 android:id="@+id/editTextTextPersonName"
-                android:layout_width="300dp"
+                android:layout_width="wrap_content"
                 android:layout_height="250dp"
                 android:layout_gravity="center_horizontal"
-                android:ems="10"
+                android:ems="20"
                 android:gravity="top"
                 android:inputType="textMultiLine|textPersonName"
+                android:background="@android:color/transparent"
                 android:text="오늘은 해운대랑 국제 시장을 다녀왔다. 점심으로 삼겹살 먹음. 맛있음. 해운대 바다 이쁨. 국제시장 신기"
                 android:textSize="16sp" />
 
