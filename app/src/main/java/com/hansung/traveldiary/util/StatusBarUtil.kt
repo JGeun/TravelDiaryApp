@@ -11,6 +11,7 @@ class StatusBarUtil {
         // 색 지정
         WHITE_STATUS_BAR(R.color.white),
         DEFAULT_STATUS_BAR(R.color.white),
+        DIARY_SECTION_STATUS_BAR(R.color.diary_section_bgcolor),
         MAIN_STATUS_BAR(R.color.maincolor)
     }
 
