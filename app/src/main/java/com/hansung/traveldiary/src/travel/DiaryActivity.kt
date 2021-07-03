@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.*
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityDiaryBinding
 import com.hansung.traveldiary.databinding.ActivityLoginBinding
+import com.hansung.traveldiary.databinding.ItemDiaryimageBinding
 import com.hansung.traveldiary.src.travel.adapter.DiaryImageAdapter
 
 class DiaryActivity : AppCompatActivity() {
