@@ -11,7 +11,7 @@ class DiaryAdapter(private val viewModel:ArrayList<DiaryData>): RecyclerView.Ada
         fun setContents(position: Int){
             with(viewModel[position]){
                 binding.ivDiary.setImageResource(viewModel.get(position).Day_Picture)
-
+                binding.tvDay.text="Day - ${day}"
             }
         }
     }
