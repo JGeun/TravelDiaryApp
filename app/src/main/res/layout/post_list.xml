@@ -2,51 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="395dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="3dp"
     android:background="@drawable/shadow"
-    android:elevation="25dp"
-    android:orientation="horizontal">
+    android:elevation="10dp"
+    android:orientation="horizontal"
+    android:weightSum="3">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="467dp"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="vertical">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/tv_day"
             android:layout_width="78dp"
             android:layout_height="21dp"
             android:layout_marginTop="72dp"
-            android:layout_weight="5"
             android:text="Day"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/tag"
             android:layout_width="128dp"
             android:layout_height="62dp"
             android:layout_marginBottom="28dp"
-            android:layout_weight="1"
             android:text="#부산 #해운대"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.545"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textAlignment="center" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_diary"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="191dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/gwangwhamun" />
 
