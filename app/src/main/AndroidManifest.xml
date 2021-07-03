@@ -20,7 +20,7 @@
         <activity android:name=".src.login.LoginActivity">
 
         </activity>
-        <activity android:name=".src.bulletin.PostActivity"></activity>
+        <activity android:name=".src.bulletin.DiarySectionActivity"></activity>
         <activity android:name=".src.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
