@@ -29,8 +29,9 @@
         <activity android:name=".src.MainActivity">
 
         </activity>
-    </application>
-    <meta-data
+        <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="avjpx313dk" />
+    </application>
+    
 </manifest>
