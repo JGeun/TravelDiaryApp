@@ -3,6 +3,7 @@ package com.hansung.traveldiary.src.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -40,6 +41,11 @@ class LoginActivity : AppCompatActivity() {
                 ?.addOnCompleteListener {
                     task->
                     if (task.isSuccessful){
+                        val pref = applicationContext.getSharedPreferences("login", 0)
+                        val editor = pref.edit().apply(){
+                            putString("login", "success")
+                        }.commit()
+
                         moveHomePage(task.result?.user)
                     }
                     else{
@@ -57,8 +63,12 @@ class LoginActivity : AppCompatActivity() {
 
     fun moveHomePage(user: FirebaseUser?){
         if (user!=null){
+            showCustomToast("로그인 되었습니다")
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
+    fun showCustomToast(message : String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 }

@@ -30,7 +30,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        println("예은 git test")
+        val pref = applicationContext.getSharedPreferences("login", 0)
+        Log.d("MainActivity", pref.getString("login", "")!!)
+
         supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).commitAllowingStateLoss()
 
         binding.mainBtmNav.setOnNavigationItemSelectedListener(
@@ -69,3 +71,4 @@ class MainActivity : AppCompatActivity() {
             })
     }
 }
+

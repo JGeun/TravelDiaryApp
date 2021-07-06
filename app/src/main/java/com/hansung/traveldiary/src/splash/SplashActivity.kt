@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.hansung.traveldiary.databinding.ActivitySplashBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.login.LoginActivity
 import com.hansung.traveldiary.util.StatusBarUtil
 
@@ -20,8 +21,15 @@ class SplashActivity : AppCompatActivity() {
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
         val runnable : Runnable = Runnable {
-            startActivity(Intent(this, LoginActivity::class.java))
-            overridePendingTransition(0, 0);
+            val pref = getSharedPreferences("login", 0)
+
+            if(!pref.getString("login", "").equals("success")){
+                startActivity(Intent(this, LoginActivity::class.java))
+            }else{
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+
+
         }
 
         handler.postDelayed(runnable,1500)
