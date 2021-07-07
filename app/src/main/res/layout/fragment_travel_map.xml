@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.naver.maps.map.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="match_parent">
+
+    </com.naver.maps.map.MapView>
+
+    <LinearLayout
+        android:id="@+id/plan_btm_dialogsheet"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_plan_btm_dialog"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="10dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <View
+            android:id="@+id/plan_btm_dialogBtn"
+            android:layout_width="50dp"
+            android:layout_height="5dp"
+            android:background="@drawable/bg_plan_btm_btn"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+</FrameLayout>
