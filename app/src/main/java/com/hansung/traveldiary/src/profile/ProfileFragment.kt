@@ -15,6 +15,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentProfileBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.login.LoginActivity
+import com.hansung.traveldiary.src.profile.edit_info.EditInfoActivity
 
 class ProfileFragment : Fragment(){
     private lateinit var pref : SharedPreferences
@@ -27,6 +28,9 @@ class ProfileFragment : Fragment(){
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         pref = context?.getSharedPreferences("login", 0)!!
 
+        binding.profileLlEdit.setOnClickListener{
+            startActivity(Intent(context, EditInfoActivity::class.java))
+        }
         logout()
         deleteUser()
         return binding.root

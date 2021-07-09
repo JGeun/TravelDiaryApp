@@ -18,25 +18,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentTriptogoBinding
-<<<<<<< HEAD
 import com.hansung.traveldiary.src.travel.adapter.PlanTripAdapter
-import okhttp3.internal.notify
+
+import com.naver.maps.map.util.FusedLocationSource
 import java.util.*
 import kotlin.collections.ArrayList
 
 data class PlanTripinData(val image : Drawable, val title : String)
 
-class TriptogoFragment : Fragment() {
-    private lateinit var binding: FragmentTriptogoBinding
-    private val tripPlanList = ArrayList<PlanTripinData>()
-
-=======
-import com.naver.maps.map.util.FusedLocationSource
 
 class TriptogoFragment : Fragment() {
     private lateinit var binding: FragmentTriptogoBinding
     private lateinit var mLocationSource:FusedLocationSource
->>>>>>> yjh
+    private val tripPlanList = ArrayList<PlanTripinData>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -48,7 +43,6 @@ class TriptogoFragment : Fragment() {
 //            startActivity(Intent(it.context, DiaryActivity::class.java))
             showDialog()
         }
-<<<<<<< HEAD
 
         initTripPlanList()
 
@@ -57,8 +51,6 @@ class TriptogoFragment : Fragment() {
         binding.plantripRv.layoutManager = GridLayoutManager(context, 3)
         binding.plantripRv.setHasFixedSize(false)
 
-=======
->>>>>>> yjh
         return binding.root
     }
 

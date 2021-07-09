@@ -5,7 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,18 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-
-        <activity android:name=".src.splash.SplashActivity">
-
-        </activity>
-        <activity android:name=".src.login.RegisterActivity"></activity>
-        <activity android:name=".src.travel.DiaryActivity"></activity>
-        <activity android:name=".src.login.LoginActivity">
-
-        </activity>
-        <activity android:name=".src.bulletin.DiarySectionActivity"></activity>
-        <activity android:name=".src.plan.TravelDiaryActivity">
-        </activity>
+        <activity android:name=".src.profile.gallery.SelectPictureActivity"></activity>
+        <activity android:name=".src.profile.edit_info.EditInfoActivity" />
+        <activity android:name=".src.splash.SplashActivity" />
+        <activity android:name=".src.login.RegisterActivity" />
+        <activity android:name=".src.travel.DiaryActivity" />
+        <activity android:name=".src.login.LoginActivity" />
+        <activity android:name=".src.bulletin.DiarySectionActivity" />
+        <activity android:name=".src.plan.TravelDiaryActivity" />
         <activity android:name=".src.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,9 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="avjpx313dk" />
     </application>
-    
+
 </manifest>
