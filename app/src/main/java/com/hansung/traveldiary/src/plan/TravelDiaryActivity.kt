@@ -14,8 +14,10 @@ import com.naver.maps.geometry.Utmk
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
+import kotlin.math.*
 
 class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback {
     private lateinit var TF: travelMap
@@ -86,31 +88,52 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback {
             }
             return
         }
-        val cameraUpdate = CameraUpdate.scrollTo(LatLng(100.0, 100.0))
-        naverMap.moveCamera(cameraUpdate)
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
     //지도객체 생성
-    override fun onMapReady(nMap: NaverMap) {
+    override fun onMapReady(nMap: NaverMap){
         //복수개의 마커
         val markers:ArrayList<Marker> =ArrayList<Marker>()
         val latLngs:ArrayList<LatLng> =ArrayList<LatLng>()
+        val lat_arr:ArrayList<DoubleArray> =ArrayList<DoubleArray>()
         var count:Int =0
         naverMap = nMap
         infoWindow = InfoWindow()
         val marker = Marker()
         val marker1=Marker()
+
         val lovationOverlay = naverMap.locationOverlay
         infoWindow.open(marker)
         //마커 이미지 변경
         val image = OverlayImage.fromResource(R.drawable.mapmaker)
         //롱클릭리스너로 마커위치 변경경
        naverMap.setOnMapLongClickListener(NaverMap.OnMapLongClickListener(){ pointF: PointF, latLng: LatLng ->
-            markers.add(Marker())
-            markers.get(count).position=latLng
-            markers.get(count++).map=naverMap
-            latLngs.add(latLng)
-            println(latLngs.get(0))
+
+                markers.add(Marker())
+
+                markers.get(count).position=latLng
+                latLngs.add(latLng)
+                println("위도는 ${latLngs.get(0).latitude} 경도는 ${latLngs.get(0).longitude}")
+                markers.get(count++).map=naverMap
+
+        })
+       //마커 삭제
+        naverMap.setOnMapClickListener(NaverMap.OnMapClickListener(){ pointF: PointF, latLng: LatLng ->
+            val size=markers.size-1
+
+            if(markers.size>=1){
+                for(i in 0..size){
+                    if(round(latLngs.get(i).latitude*100000)/100000==round(latLng.latitude*100000)/100000&&
+                        round(latLngs.get(i).longitude*10000)/10000==round(latLng.longitude*10000)/10000){
+                        println("Dfaccccccfd")
+                        markers.get(i).map=null
+                        markers.remove(markers.get(i))
+                        latLngs.remove(latLngs.get(i))
+                        count--
+                        break
+                    }
+                }
+            }
         })
     }
 
@@ -119,5 +142,7 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback {
     }
 
 }
+
+
 
 
