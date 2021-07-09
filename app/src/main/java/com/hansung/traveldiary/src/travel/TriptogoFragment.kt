@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentTriptogoBinding
+import com.naver.maps.map.util.FusedLocationSource
 
 class TriptogoFragment : Fragment() {
     private lateinit var binding: FragmentTriptogoBinding
-
+    private lateinit var mLocationSource:FusedLocationSource
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -22,7 +23,6 @@ class TriptogoFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             startActivity(Intent(it.context, DiaryActivity::class.java))
         }
-
         return binding.root
     }
 

@@ -10,10 +10,10 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentBulletinBinding
 import com.hansung.traveldiary.databinding.FragmentLasttripBinding
 import com.hansung.traveldiary.src.login.LoginActivity
+import com.naver.maps.map.overlay.Marker
 
 class LasttripFragment : Fragment() {
     private lateinit var binding : FragmentLasttripBinding
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?,
