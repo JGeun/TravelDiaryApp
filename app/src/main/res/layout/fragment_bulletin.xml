@@ -17,7 +17,6 @@
         android:paddingVertical="10dp"
         android:paddingStart="20dp"
         android:paddingEnd="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/rv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +45,7 @@
         android:layout_height="0dp"
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="5dp"
+        android:layout_marginTop="10dp"
         android:scrollbarThumbVertical="@android:color/darker_gray"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -66,6 +66,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:backgroundTint="#E2C5FD"
-        />
+        android:tintMode="@color/white"
+        android:src="@drawable/ic_floatbtn"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

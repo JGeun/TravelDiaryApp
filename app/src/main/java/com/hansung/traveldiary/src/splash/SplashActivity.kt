@@ -19,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.MAIN_STATUS_BAR)
         val runnable : Runnable = Runnable {
             val pref = getSharedPreferences("login", 0)
 
