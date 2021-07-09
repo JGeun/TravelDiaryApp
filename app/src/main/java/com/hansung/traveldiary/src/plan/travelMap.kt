@@ -10,6 +10,14 @@ import android.view.ViewGroup
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentHomeBinding
 import com.hansung.traveldiary.databinding.FragmentTravelMapBinding
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.LocationTrackingMode
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.util.FusedLocationSource
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,11 +29,10 @@ private const val ARG_PARAM2 = "param2"
  * Use the [travelMap.newInstance] factory method to
  * create an instance of this fragment.
  */
-class travelMap : Fragment() {
+class travelMap : Fragment(){
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -40,7 +47,6 @@ class travelMap : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentTravelMapBinding.inflate(inflater, container, false)
-
         binding.planBtmDialogBtn.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 val layoutParam = binding.planBtmDialogsheet.layoutParams
@@ -58,6 +64,7 @@ class travelMap : Fragment() {
                 return false
             }
         })
+
         return binding.root
     }
 
