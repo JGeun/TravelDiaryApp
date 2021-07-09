@@ -29,96 +29,95 @@
 
     <ImageView
         android:id="@+id/btItem_iv_user"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginStart="15dp"
         app:layout_constraintBottom_toBottomOf="@id/btItem_cardview"
         app:layout_constraintStart_toEndOf="@id/btItem_cardview"
-        app:srcCompat="@drawable/user" />
+        app:srcCompat="@drawable/user"
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/userId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:maxLines="1"
         android:text="준호예요~"
-        android:textSize="12sp"
         android:textColor="@color/nickname_color"
-        android:layout_marginStart="5dp"
-        app:layout_constraintTop_toTopOf="@id/btItem_iv_user"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@id/btItem_iv_user"
-        app:layout_constraintStart_toEndOf="@id/btItem_iv_user" />
+        app:layout_constraintStart_toEndOf="@id/btItem_iv_user"
+        app:layout_constraintTop_toTopOf="@id/btItem_iv_user" />
 
     <TextView
         android:id="@+id/btItem_tv_title"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:text="adsadadasdasdasdas"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:maxLines="2"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp"
         android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/btItem_tv_tag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btItem_cardview"
         app:layout_constraintTop_toTopOf="@id/btItem_cardview"
-        android:layout_marginStart="10dp"
-        android:layout_marginVertical="10dp"/>
+        tools:text="assssssssssssssssssssssssasdas" />
 
     <TextView
         android:id="@+id/btItem_tv_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="4dp"
-        android:text="#부산 #해운대"
-        android:textSize="10sp"
-        android:layout_marginStart="15dp"
         android:layout_marginBottom="5dp"
+        android:text="#부산 #해운대"
+        android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@id/btItem_iv_user"
-        app:layout_constraintStart_toEndOf="@id/btItem_cardview"/>
+        app:layout_constraintStart_toStartOf="@id/btItem_iv_user" />
 
     <TextView
         android:id="@+id/btItem_tv_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:text="11"
-        android:textSize="12sp"
         android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/btItem_iv_user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btItem_iv_comment"
-        app:layout_constraintBottom_toBottomOf="@id/btItem_cardview"
-        android:layout_marginStart="10dp"/>
+        app:layout_constraintTop_toTopOf="@id/btItem_iv_comment" />
 
     <ImageView
         android:id="@+id/btItem_iv_comment"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/btItem_iv_user"
         app:layout_constraintEnd_toStartOf="@id/btItem_tv_comment"
-        app:layout_constraintBottom_toBottomOf="@id/btItem_cardview"
-        app:srcCompat="@drawable/comment"
-        android:layout_marginEnd="5dp"/>
+        app:srcCompat="@drawable/comment" />
 
     <TextView
         android:id="@+id/btItem_tv_likecnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:text="23"
-        android:textSize="12sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="@id/btItem_iv_like"
-        app:layout_constraintBottom_toBottomOf="@id/btItem_iv_like"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/btItem_iv_user"
         app:layout_constraintEnd_toStartOf="@id/btItem_iv_comment"
-        android:layout_marginEnd="10dp"/>
+        app:layout_constraintTop_toTopOf="@id/btItem_iv_like" />
 
     <ImageView
         android:id="@+id/btItem_iv_like"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/btItem_cardview"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/btItem_iv_user"
         app:layout_constraintEnd_toStartOf="@id/btItem_tv_likecnt"
-        app:srcCompat="@drawable/emptyheart"
-        android:layout_marginEnd="5dp"/>
+        app:srcCompat="@drawable/emptyheart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
