@@ -4,37 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
     android:background="@drawable/shadow"
     android:elevation="10dp"
     android:orientation="horizontal"
-    android:weightSum="3"
-    android:layout_marginBottom="15dp">
+    android:weightSum="3">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="center">
+        android:paddingHorizontal="10dp">
 
         <TextView
             android:id="@+id/dsItem_tv_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Day"
-            android:layout_marginBottom="10dp"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="3dp"
+            android:text="day"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/dsItem_tv_dayCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="1"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/dsItem_tv_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="#부산 #해운대" />
+            android:text="#부산  #해운대"
+            android:textSize="10sp"
+            android:layout_marginBottom="5dp"/>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/dsItem_iv_diary"
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="140dp"
         android:layout_weight="2"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/gwangwhamun" />

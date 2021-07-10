@@ -31,6 +31,8 @@ class ProfileFragment : Fragment(){
         binding.profileLlEdit.setOnClickListener{
             startActivity(Intent(context, EditInfoActivity::class.java))
         }
+        binding.changePWSetting.setOnClickListener{
+        }
         logout()
         deleteUser()
         return binding.root

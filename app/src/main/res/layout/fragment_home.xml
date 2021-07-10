@@ -16,8 +16,8 @@
         <ImageView
             android:id="@+id/bg_home_toppanel"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="fitXY"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/bg_home_toppanel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="30dp"
             app:layout_constraintBottom_toBottomOf="@id/bg_home_toppanel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="서울"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -51,7 +51,7 @@
                 android:layout_marginEnd="20dp"
                 android:text="28°"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@id/home_userLocation"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -63,7 +63,7 @@
                 android:layout_marginEnd="20dp"
                 android:text="날씨"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
 
                 app:layout_constraintBaseline_toBaselineOf="@id/home_userLocation"
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="20dp"
             android:text="지금 서울에 계시는군요?"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -84,9 +84,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/bg_home_ll_search"
             android:gravity="center_vertical"
@@ -98,8 +98,8 @@
             app:layout_constraintTop_toBottomOf="@id/home_cl_weather">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_home_find" />
 
             <EditText
@@ -143,7 +143,7 @@
         <LinearLayout
             android:id="@+id/home_ll_bulletin"
             android:layout_width="match_parent"
-            android:layout_height="380dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/bg_ll_round"
             android:orientation="vertical"
@@ -167,6 +167,65 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:overScrollMode="never" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_ll_sale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_ll_round"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_ll_bulletin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="특가 항공권"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_rv_sale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:overScrollMode="never" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_ll_round"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_ll_sale">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여행 가기 전 이것만은 꼭!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_rv_caution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:overScrollMode="never" />
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

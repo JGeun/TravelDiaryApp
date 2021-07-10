@@ -9,7 +9,7 @@ import com.hansung.traveldiary.databinding.ItemDiarySectionBinding
 class DiarySectionAdapter(private val dataList:ArrayList<DiarySectionData>): RecyclerView.Adapter<DiarySectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemDiarySectionBinding):RecyclerView.ViewHolder(binding.root){
-        val dayText = binding.dsItemTvDay
+        val dayText = binding.dsItemTvDayCount
         val tag = binding.dsItemTvTag
         val diaryImage = binding.dsItemIvDiary
     }
@@ -21,8 +21,7 @@ class DiarySectionAdapter(private val dataList:ArrayList<DiarySectionData>): Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = dataList[position]
-        val day = "Day - ${position+1}"
-        holder.dayText.text = day
+        holder.dayText.text = (position+1).toString()
         holder.tag.text = data.tag
         Glide.with(holder.itemView.context).load(data.diaryImage).into(holder.diaryImage)
 

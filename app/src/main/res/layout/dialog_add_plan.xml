@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="20dp"
+    android:background="@drawable/bg_dialog_add_plan"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다이어리 설정"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
         android:paddingTop="20dp"
         android:text="첵 제목" />
 
@@ -13,21 +27,18 @@
         android:id="@+id/edit_title"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
         android:inputType="textPersonName" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
         android:text="여행 시작일" />
 
     <EditText
         android:id="@+id/edit_start_date"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
         android:ems="10"
         android:inputType="date" />
@@ -35,14 +46,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
         android:text="여행 종료일" />
 
     <EditText
         android:id="@+id/edit_end_date"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
         android:ems="10"
         android:inputType="date" />
@@ -50,7 +59,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
         android:text="책 색상" />
 
     <HorizontalScrollView
@@ -58,40 +66,48 @@
         android:layout_height="wrap_content">
 
         <RadioGroup
+            android:id="@+id/addPlan_rg_bookcolor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="20dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/red_btn"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="red" />
+            <TableRow>
 
-            <RadioButton
-                android:id="@+id/blue_btn"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="blue" />
+                <RadioButton
+                    android:id="@+id/addPlen_rb_red"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="red" />
 
-            <RadioButton
-                android:id="@+id/green_btn"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="green" />
+                <RadioButton
+                    android:id="@+id/addPlen_rb_blue"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="blue" />
 
-            <RadioButton
-                android:id="@+id/sky_btn"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="sky" />
+                <RadioButton
+                    android:id="@+id/addPlen_rb_green"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="green" />
+            </TableRow>
 
-            <RadioButton
-                android:id="@+id/gray_btn"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="gray" />
+            <TableRow>
+
+                <RadioButton
+                    android:id="@+id/addPlen_rb_yellow"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="yellow" />
+
+                <RadioButton
+                    android:id="@+id/addPlen_rb_gray"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="gray" />
+            </TableRow>
+
         </RadioGroup>
 
     </HorizontalScrollView>

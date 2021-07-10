@@ -17,18 +17,20 @@
         android:theme="@style/Theme.TravelDiary">
         <activity android:name=".src.profile.gallery.SelectPictureActivity"></activity>
         <activity android:name=".src.profile.edit_info.EditInfoActivity" />
-        <activity android:name=".src.splash.SplashActivity" />
+        <activity android:name=".src.splash.SplashActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".src.login.RegisterActivity" />
         <activity android:name=".src.travel.DiaryActivity" />
         <activity android:name=".src.login.LoginActivity" />
         <activity android:name=".src.bulletin.DiarySectionActivity" />
         <activity android:name=".src.plan.TravelDiaryActivity" />
         <activity android:name=".src.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

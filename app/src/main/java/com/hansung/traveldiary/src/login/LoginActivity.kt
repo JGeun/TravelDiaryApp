@@ -65,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
         if (user!=null){
             showCustomToast("로그인 되었습니다")
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 

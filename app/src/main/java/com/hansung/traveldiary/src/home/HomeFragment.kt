@@ -10,13 +10,10 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentHomeBinding
-import com.hansung.traveldiary.src.home.adapter.HomeBulletinAdapter
-import com.hansung.traveldiary.src.home.adapter.RecommandAdapter
+import com.hansung.traveldiary.src.home.adapter.*
 import com.hansung.traveldiary.src.home.model.WeatherInfo
-import com.readystatesoftware.systembartint.SystemBarTintManager
 
 data class RecommandLocationData(val image : Drawable, val name : String)
 data class HomeBulletinData(val image : Drawable, val title : String, val contents: String)
@@ -25,6 +22,8 @@ class HomeFragment : Fragment(), HomeView{
     private lateinit var binding : FragmentHomeBinding
     private val recommandLocationList = ArrayList<RecommandLocationData>()
     private val homeBulletinList = ArrayList<HomeBulletinData>()
+    private val homeSaleList = ArrayList<SaleData>()
+    private val homeCautionList = ArrayList<CautionData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +53,8 @@ class HomeFragment : Fragment(), HomeView{
 
         initRecommandLocationList()
         initBulletinList()
-
+        initSaleList()
+        initCautionList()
         binding.homeRvRecommand.apply{
             adapter = RecommandAdapter(recommandLocationList)
             setHasFixedSize(false)
@@ -64,6 +64,20 @@ class HomeFragment : Fragment(), HomeView{
 
         binding.homeRvBulletin.apply{
             adapter = HomeBulletinAdapter(homeBulletinList)
+            setHasFixedSize(false)
+            val horizontalManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = horizontalManager
+        }
+
+        binding.homeRvSale.apply{
+            adapter = HomeSaleAdapter(homeSaleList)
+            setHasFixedSize(false)
+            val horizontalManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = horizontalManager
+        }
+
+        binding.homeRvCaution.apply{
+            adapter = HomeCautionAdapter(homeCautionList)
             setHasFixedSize(false)
             val horizontalManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             layoutManager = horizontalManager
@@ -85,6 +99,28 @@ class HomeFragment : Fragment(), HomeView{
         homeBulletinList.add(HomeBulletinData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_gangneung, null)!!, "제주도 미쳤다", "힐링하려는 분들 제 글보고 가보세요"))
         homeBulletinList.add(HomeBulletinData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_seoul_nearby, null)!!, "서울근교 데이트코스가 필요하다면?", "남친이랑 다녀왔는데.."))
         homeBulletinList.add(HomeBulletinData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_daejeon, null)!!, "1박2일 가볍게 다녀왔습니다", "강릉바다 보고싶어서 다녀왔는데 아쉬웠어요"))
+    }
+
+    private fun initSaleList(){
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
+
+
+    }
+
+    private fun initCautionList(){
+        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_book, null)!!, "짐가방 체크리스트"))
+        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_redbook, null)!!, "짐가방 체크리스트"))
+        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_yellowbook, null)!!, "짐가방 체크리스트"))
+        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_graybook, null)!!, "짐가방 체크리스트"))
+        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_bluebook, null)!!, "짐가방 체크리스트"))
+        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_darkgraybook, null)!!, "짐가방 체크리스트"))
+        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_greenbook, null)!!, "짐가방 체크리스트"))
     }
 
     override fun onGetWeatherInfoSuccess(response: WeatherInfo) {

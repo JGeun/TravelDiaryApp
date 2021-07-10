@@ -25,11 +25,11 @@ class SplashActivity : AppCompatActivity() {
 
             if(!pref.getString("login", "").equals("success")){
                 startActivity(Intent(this, LoginActivity::class.java))
+                finish()
             }else{
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
-
-
         }
 
         handler.postDelayed(runnable,1500)

@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.RadioGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,12 +25,12 @@ import com.naver.maps.map.util.FusedLocationSource
 import java.util.*
 import kotlin.collections.ArrayList
 
-data class PlanTripinData(val image : Drawable, val title : String)
+data class PlanTripinData(val image: Drawable, val title: String, val color: String)
 
 
 class TriptogoFragment : Fragment() {
     private lateinit var binding: FragmentTriptogoBinding
-    private lateinit var mLocationSource:FusedLocationSource
+    private lateinit var mLocationSource: FusedLocationSource
     private val tripPlanList = ArrayList<PlanTripinData>()
 
     override fun onCreateView(
@@ -41,7 +42,9 @@ class TriptogoFragment : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
 //            startActivity(Intent(it.context, DiaryActivity::class.java))
-            showDialog()
+            //showDialog()
+            val dlg =AddPlanDialog(requireContext())
+            dlg.start()
         }
 
         initTripPlanList()
@@ -54,43 +57,84 @@ class TriptogoFragment : Fragment() {
         return binding.root
     }
 
-    private fun initTripPlanList(){
-        tripPlanList.add(PlanTripinData(ResourcesCompat.getDrawable(resources, R.drawable.ic_graybook, null)!!, "부산여행와랄라"))
-        tripPlanList.add(PlanTripinData(ResourcesCompat.getDrawable(resources, R.drawable.ic_bluebook, null)!!, "부산에가요오"))
-        tripPlanList.add(PlanTripinData(ResourcesCompat.getDrawable(resources, R.drawable.ic_redbook, null)!!, "여수"))
-        tripPlanList.add(PlanTripinData(ResourcesCompat.getDrawable(resources, R.drawable.ic_darkgraybook, null)!!, "제주도"))
-        tripPlanList.add(PlanTripinData(ResourcesCompat.getDrawable(resources, R.drawable.ic_yellowbook, null)!!, "순천"))
-        tripPlanList.add(PlanTripinData(ResourcesCompat.getDrawable(resources, R.drawable.ic_bluebook, null)!!, "렛츠고강릉요요"))
-        tripPlanList.add(PlanTripinData(ResourcesCompat.getDrawable(resources, R.drawable.ic_greenbook, null)!!, "속초"))
+    private fun initTripPlanList() {
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_graybook,
+                    null
+                )!!, "부산여행와랄라", "gray")
+
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_bluebook,
+                    null
+                )!!, "부산에가요오", "blue"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_redbook,
+                    null
+                )!!, "여수", "red"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_darkgraybook,
+                    null
+                )!!, "제주도", "gray"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_yellowbook,
+                    null
+                )!!, "순천", "yellow"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_bluebook,
+                    null
+                )!!, "렛츠고강릉요요", "blue"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_greenbook,
+                    null
+                )!!, "속초", "green"
+            )
+        )
     }
 
-    fun newInstant() : TriptogoFragment
-    {
+    fun newInstant(): TriptogoFragment {
         val args = Bundle()
         val frag = TriptogoFragment()
         frag.arguments = args
         return frag
     }
 
-    fun showDialog(){
+    fun showDialog() {
         var view = layoutInflater.inflate(R.layout.dialog_add_plan, null)
 
         var builder = AlertDialog.Builder(context)
         builder.setTitle("여행 추가하기")
-        builder.setPositiveButton("추가") { dialog, which ->
-            var title = view.findViewById<EditText>(R.id.edit_title).text.toString()
-            tripPlanList.add(
-                PlanTripinData(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.ic_greenbook,
-                        null
-                    )!!, title
-                )
-            )
-            binding.plantripRv.adapter?.notifyDataSetChanged()
-        }
-        builder.setNegativeButton("취소", null)
 
         view.findViewById<EditText>(R.id.edit_start_date).setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
@@ -99,11 +143,12 @@ class TriptogoFragment : Fragment() {
                 val month = cal.get(Calendar.MONTH)
                 val day = cal.get(Calendar.DAY_OF_MONTH)
 
-                var listener = DatePickerDialog.OnDateSetListener{
-                        _, y, m, d -> view.findViewById<EditText>(R.id.edit_start_date).setText("$y - ${m+1} - $d")
+                var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
+                    view.findViewById<EditText>(R.id.edit_start_date).setText("$y - ${m + 1} - $d")
                 }
 
-                val datePickerDialog = DatePickerDialog(requireContext(), listener, year, month, day )
+                val datePickerDialog =
+                    DatePickerDialog(requireContext(), listener, year, month, day)
                 datePickerDialog.show()
             }
         }
@@ -115,19 +160,46 @@ class TriptogoFragment : Fragment() {
                 val month = cal.get(Calendar.MONTH)
                 val day = cal.get(Calendar.DAY_OF_MONTH)
 
-                var listener = DatePickerDialog.OnDateSetListener{
-                        _, y, m, d -> view.findViewById<EditText>(R.id.edit_end_date).setText("$y - ${m+1} - $d")
+                var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
+                    view.findViewById<EditText>(R.id.edit_end_date).setText("$y - ${m + 1} - $d")
                 }
 
-                val datePickerDialog = DatePickerDialog(requireContext(), listener, year, month, day )
+                val datePickerDialog =
+                    DatePickerDialog(requireContext(), listener, year, month, day)
                 datePickerDialog.show()
             }
         }
+        var color = "null"
+        val bookColor = view.findViewById<RadioGroup>(R.id.addPlan_rg_bookcolor)
+        bookColor.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.addPlen_rb_red -> color = "red"
+                R.id.addPlen_rb_blue -> color = "blue"
+                R.id.addPlen_rb_green -> color = "green"
+                R.id.addPlen_rb_yellow -> color = "yellow"
+                R.id.addPlen_rb_gray -> color = "gray"
+            }
+            Log.d("확인", bookColor.checkedRadioButtonId.toString())
+        }
+        builder.setPositiveButton("추가") { dialog, which ->
+            var title = view.findViewById<EditText>(R.id.edit_title).text.toString()
+            tripPlanList.add(
+                PlanTripinData(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.ic_redbook,
+                        null
+                    )!!, title, color
+                )
+            )
 
+            binding.plantripRv.adapter?.notifyDataSetChanged()
+        }
+        builder.setNegativeButton("취소", null)
 
         builder.setView(view)
 
         builder.show()
     }
-
 }
+
