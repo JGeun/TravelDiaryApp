@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.travel.adapter
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,8 +12,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemTripplanBinding
+import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.plan.TravelDiaryActivity
 import com.hansung.traveldiary.src.travel.PlanTripinData
-import kotlin.properties.Delegates
 
 class PlanTripAdapter(private val planTripinData: ArrayList<PlanTripinData>) :
     RecyclerView.Adapter<PlanTripAdapter.ViewHolder>() {
@@ -50,8 +52,12 @@ class PlanTripAdapter(private val planTripinData: ArrayList<PlanTripinData>) :
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_redbook, null)!!
         }
         Glide.with(holder.itemView.context).load(image).apply(RequestOptions()).into(holder.tripinImage)
-
         holder.tripinTitle.text = data.title
+
+        val context = holder.itemView.context
+        holder.itemView.setOnClickListener{
+            (context as MainActivity).startActivity(Intent(context, TravelDiaryActivity::class.java))
+        }
     }
 
     override fun getItemCount() = planTripinData.size

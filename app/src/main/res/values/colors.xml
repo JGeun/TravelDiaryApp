@@ -11,5 +11,6 @@
     <color name="diary_section_bgcolor">#FCFCFC</color>
 
     <color name="maincolor">#E2C5FD</color>
+    <color name="loginTextColor">#3A1061</color>
     <color name="nickname_color">#A2A2A2</color>
 </resources>
