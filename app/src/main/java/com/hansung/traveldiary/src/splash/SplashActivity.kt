@@ -15,6 +15,7 @@ class SplashActivity : AppCompatActivity() {
     private val binding by lazy{
         ActivitySplashBinding.inflate(layoutInflater)
     };
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -25,11 +26,11 @@ class SplashActivity : AppCompatActivity() {
 
             if(!pref.getString("login", "").equals("success")){
                 startActivity(Intent(this, LoginActivity::class.java))
+                finish()
             }else{
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
-
-
         }
 
         handler.postDelayed(runnable,1500)

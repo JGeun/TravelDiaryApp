@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.MAIN_STATUS_BAR)
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         auth = FirebaseAuth.getInstance()
 
@@ -65,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
         if (user!=null){
             showCustomToast("로그인 되었습니다")
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 

@@ -1,6 +1,7 @@
 package com.hansung.traveldiary.src.profile.gallery
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -34,6 +35,7 @@ class GalleryAdapter(val context: Context, val images: ArrayList<String>) :
 
         holder.itemView.setOnClickListener{
             //TODO 클릭
+            Log.d("확인", images[position].toString())
         }
     }
 
