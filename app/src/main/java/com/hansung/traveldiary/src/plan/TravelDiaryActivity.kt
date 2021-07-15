@@ -11,11 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelDiaryBinding
+import com.hansung.traveldiary.src.plan.adapter.PlaceData
+import com.hansung.traveldiary.src.plan.adapter.PlanAdapter
 import com.hansung.traveldiary.src.plan.model.MapSearchInfo
 import com.hansung.traveldiary.util.StatusBarUtil
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.geometry.Tm128
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
@@ -29,6 +33,8 @@ import kotlin.math.*
 class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView {
     private lateinit var TF: travelMap
     private lateinit var DF: diary
+    private val planList = ArrayList<PlaceData>()
+    private val planAdapter = PlanAdapter(planList)
     private lateinit var binding: ActivityTravelDiaryBinding
     private lateinit var locationSource:FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -82,7 +88,13 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
                         1,
                         "random"
                     )
+
+                    planList.add(PlaceData(searchWord))
+                    Log.d(TAG, "planList-size: ${planList.size}")
+                    planAdapter.notifyDataSetChanged()
+//                    binding.planRvLocation.adapter = planAdapter
                     binding.planEtSearch.setText("")
+                    searchWord=""
                     return true
                 }
                 return false
@@ -102,12 +114,22 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
                         layoutParam.height = 800;
                     binding.planBtmDialogsheet.requestLayout()
                 }
-
                 return false
             }
         })
+
+        initPlanList()
+
+        binding.planRvLocation.apply{
+            setHasFixedSize(true)
+            adapter = planAdapter
+            layoutManager = LinearLayoutManager(this@TravelDiaryActivity)
+        }
     }
 
+    fun initPlanList(){
+
+    }
     //지도객체 생성
     fun onMapReady(nMap: MapView){
         //복수개의 마커
@@ -160,21 +182,30 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
         val mapy = response.item[0].mapy
         Log.d(TAG, mapx.toString() + " / " + mapy.toString())
 
-        Log.d(TAG, response.item[0].address)
-        Log.d(TAG, response.item[0].roadAddress)
+        Log.d(TAG, "address: " + response.item[0].address)
+        Log.d(TAG, "road: " + response.item[0].roadAddress)
         var mLat  = 0.0
         var mlng  = 0.0
-        val address = response.item[0].address
-        val geoCoder = Geocoder(this)
-        try{
-            val resultLocation = geoCoder.getFromLocationName(address, 1)
-            mLat = resultLocation.get(0).latitude
-            mlng = resultLocation.get(0).longitude
-        }catch (e: IOException){
-            e.printStackTrace()
-            Log.d(TAG, "주소변환 실패")
-        }
-        val cameraUpdate = CameraUpdate.scrollTo(LatLng(mLat, mlng))
+//        val address = response.item[0].address
+//        val geoCoder = Geocoder(this)
+//        try{
+//            val resultLocation = geoCoder.getFromLocationName(address, 1)
+//            mLat = resultLocation.get(0).latitude
+//            mlng = resultLocation.get(0).longitude
+//        }catch (e: IOException){
+//            e.printStackTrace()
+//            Log.d(TAG, "주소변환 실패")
+//        }
+//
+//        Log.d(TAG, "mLat: $mLat mlng: $mlng")
+        val tm128 = Tm128(mapx.toDouble(), mapy.toDouble())
+        val latLng = tm128.toLatLng()
+
+        val marker = Marker()
+        marker.position = latLng
+        marker.map = naverMap
+
+        val cameraUpdate = CameraUpdate.scrollAndZoomTo(latLng, 17.0)
             .reason(3)
             .animate(CameraAnimation.Easing, 2000)
             .finishCallback {
@@ -183,7 +214,6 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
             .cancelCallback {
                 showCustomToast("취소")
             }
-
         naverMap.moveCamera(cameraUpdate)
     }
 

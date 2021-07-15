@@ -121,6 +121,71 @@ class TriptogoFragment : Fragment() {
                 )!!, "속초", "green"
             )
         )
+
+//        --------------------------
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_graybook,
+                    null
+                )!!, "부산여행와랄라", "gray")
+
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_bluebook,
+                    null
+                )!!, "부산에가요오", "blue"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_redbook,
+                    null
+                )!!, "여수", "red"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_darkgraybook,
+                    null
+                )!!, "제주도", "gray"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_yellowbook,
+                    null
+                )!!, "순천", "yellow"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_bluebook,
+                    null
+                )!!, "렛츠고강릉요요", "blue"
+            )
+        )
+        tripPlanList.add(
+            PlanTripinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_greenbook,
+                    null
+                )!!, "속초", "green"
+            )
+        )
     }
 
     fun newInstant(): TriptogoFragment {

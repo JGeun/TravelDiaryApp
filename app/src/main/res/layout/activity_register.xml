@@ -18,10 +18,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/register_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:fontFamily="@font/main_font"
+        android:hint="닉네임을 입력해주세요"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:inputType="textPassword"
+        android:textColorHint="@color/loginTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerImage" />
+
+    <EditText
         android:id="@+id/register_id"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:background="?attr/editTextBackground"
         android:ems="10"
         android:fontFamily="@font/main_font"
@@ -33,14 +49,13 @@
         android:textColorHint="@color/loginTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registerImage" />
+        app:layout_constraintTop_toBottomOf="@id/register_nickname" />
 
     <EditText
         android:id="@+id/register_pw"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:fontFamily="@font/main_font"
         android:hint="비밀번호를 입력해주세요"
@@ -48,18 +63,15 @@
         android:textStyle="bold"
         android:inputType="textPassword"
         android:textColorHint="@color/loginTextColor"
-        app:layout_constraintBottom_toTopOf="@+id/register_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_id" />
-
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/register_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/radius_btn"
         android:text="회원가입"
         android:fontFamily="@font/main_font"
