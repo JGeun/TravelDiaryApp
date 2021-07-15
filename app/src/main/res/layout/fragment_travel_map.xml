@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <com.naver.maps.map.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-    </com.naver.maps.map.MapView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/icon_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="4dp"
+            android:src="@drawable/icon_search" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/map_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="원하시는 위치를 입려하세요." />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/plan_btm_dialogsheet"

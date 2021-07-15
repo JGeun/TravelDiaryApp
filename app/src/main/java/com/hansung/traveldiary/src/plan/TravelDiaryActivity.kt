@@ -2,12 +2,14 @@ package com.hansung.traveldiary.src.plan
 
 import android.graphics.PointF
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelDiaryBinding
+import com.hansung.traveldiary.src.plan.model.MapSearchInfo
 import com.hansung.traveldiary.util.StatusBarUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.geometry.Utmk
@@ -17,15 +19,27 @@ import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.*
 
-class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback {
+class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView {
     private lateinit var TF: travelMap
     private lateinit var DF: diary
     private lateinit var binding: ActivityTravelDiaryBinding
     private lateinit var locationSource:FusedLocationSource
     private lateinit var naverMap:NaverMap
     private lateinit var infoWindow:InfoWindow
+
+    companion object{
+        private const val LOCATION_PERMISSION_REQUEST_CODE=1000
+
+        val retrofit : Retrofit = Retrofit.Builder()
+            .baseUrl("https://openapi.naver.com/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityTravelDiaryBinding.inflate(layoutInflater)
         locationSource= FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
@@ -67,6 +81,12 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback {
 //        val planBottomDialog  = PlanBottomDialog()
 //        planBottomDialog.show(supportFragmentManager, planBottomDialog.tag)
     }
+
+    override fun onStart() {
+        super.onStart()
+        TravelMapService(this).tryGetSearchInfo("삼계탕", 10, 1, "random")
+    }
+
     fun replaceView(tab: Fragment){
         var selectedFragment:Fragment?=null
         selectedFragment=tab
@@ -90,6 +110,7 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
     //지도객체 생성
     override fun onMapReady(nMap: NaverMap){
         //복수개의 마커
@@ -137,8 +158,15 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback {
         })
     }
 
-    companion object{
-        private const val LOCATION_PERMISSION_REQUEST_CODE=1000
+    override fun onGetMapSearchSuccess(response: MapSearchInfo) {
+        Log.d("확인", response.item[0].title)
+    }
+
+    override fun onGetMapSearchFailure(message: String) {
+        showCustomToast("오류 : $message")
+    }
+    private fun showCustomToast(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
 }
