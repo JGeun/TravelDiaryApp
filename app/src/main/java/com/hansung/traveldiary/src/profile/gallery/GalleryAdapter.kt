@@ -1,6 +1,8 @@
 package com.hansung.traveldiary.src.profile.gallery
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemGalleryBinding
 import com.hansung.traveldiary.databinding.ItemHomebulletinBinding
 import com.hansung.traveldiary.src.home.adapter.HomeBulletinAdapter
+import com.hansung.traveldiary.src.profile.edit_info.EditInfoActivity
 
 class GalleryAdapter(val context: Context, val images: ArrayList<String>) :
     RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
@@ -34,8 +37,11 @@ class GalleryAdapter(val context: Context, val images: ArrayList<String>) :
         Glide.with(context).load(images[position]).into(holder.image)
 
         holder.itemView.setOnClickListener{
-            //TODO 클릭
-            Log.d("확인", images[position].toString())
+            val intent = Intent(holder.itemView.context, EditInfoActivity::class.java).apply{
+                putExtra("imagePath", images[position])
+            }
+            (holder.itemView.context as SelectPictureActivity).setResult(RESULT_OK, intent)
+            (holder.itemView.context as SelectPictureActivity).finish()
         }
     }
 

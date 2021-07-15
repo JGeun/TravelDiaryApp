@@ -14,7 +14,7 @@ import com.hansung.traveldiary.util.StatusBarUtil
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
-    var auth : FirebaseAuth? = null
+    var auth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,50 +26,51 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         binding.signinBtn.setOnClickListener {
-            if (binding.inputId.text.toString().isEmpty()){
-                Snackbar.make(it, "이메일을 입력하세요", Snackbar.LENGTH_SHORT).show()
+            if (binding.inputId.text.toString().isEmpty()) {
+                showCustomToast("이메일을 입력하세요")
                 return@setOnClickListener
-            }else if (binding.inputPw.text.toString().isEmpty()){
-                Snackbar.make(it, "비밀번호를 입력하세요", Snackbar.LENGTH_SHORT).show()
+            } else if (binding.inputPw.text.toString().isEmpty()) {
+                showCustomToast("비밀번호를 입력하세요")
                 return@setOnClickListener
-            }else if (binding.inputPw.text.toString().length<6){
-                Snackbar.make(it, "비밀번호는 6자 이상 입력해주세요", Snackbar.LENGTH_SHORT).show()
+            } else if (binding.inputPw.text.toString().length < 6) {
+                showCustomToast("비밀번호는 6자 이상 입력해주세요")
                 return@setOnClickListener
+            } else {
+                auth?.signInWithEmailAndPassword(
+                    binding.inputId.text.toString(),
+                    binding.inputPw.text.toString()
+                )?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val pref = applicationContext.getSharedPreferences("login", 0)
+                            val editor = pref.edit().apply() {
+                                putString("login", "success")
+                            }.commit()
+
+                            moveHomePage(task.result?.user)
+                        } else {
+                            showCustomToast("이메일과 비밀번호를 다시 확인해주세요")
+                            binding.inputId.setText("")
+                            binding.inputPw.setText("")
+                        }
+                    }
             }
-
-            auth?.signInWithEmailAndPassword(binding.inputId.text.toString(), binding.inputPw.text.toString())
-                ?.addOnCompleteListener {
-                    task->
-                    if (task.isSuccessful){
-                        val pref = applicationContext.getSharedPreferences("login", 0)
-                        val editor = pref.edit().apply(){
-                            putString("login", "success")
-                        }.commit()
-
-                        moveHomePage(task.result?.user)
-                    }
-                    else{
-                        Snackbar.make(it, "이메일과 비밀번호를 다시 확인해주세요", Snackbar.LENGTH_SHORT).show()
-                        binding.inputId.setText("")
-                        binding.inputPw.setText("")
-                    }
-                }
         }
 
         binding.signup.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+            overridePendingTransition(0, 0)
         }
     }
 
-    fun moveHomePage(user: FirebaseUser?){
-        if (user!=null){
+    fun moveHomePage(user: FirebaseUser?) {
+        if (user != null) {
             showCustomToast("로그인 되었습니다")
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }
 
-    fun showCustomToast(message : String){
+    fun showCustomToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
