@@ -1,94 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
     android:orientation="vertical"
     tools:context=".src.plan.TravelDiaryActivity">
 
+    <FrameLayout
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <LinearLayout
-        android:id="@+id/travle_title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_map_search"
         android:orientation="vertical"
-        android:layout_marginHorizontal="20dp">
-
-        <TextView
-            android:id="@+id/travle_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="뽀로로와 함께하는 여행"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/travle_period"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="21-07-06~21-07-13"
-            android:textSize="12sp"/>
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:layout_marginHorizontal="20dp"
+        android:paddingVertical="3dp"
+        android:paddingHorizontal="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/icon_search"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_margin="4dp"
-                android:src="@drawable/icon_search" />
+                android:src="@drawable/icon_search"
+                />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/plan_et_search"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="원하시는 위치를 입려하세요."
-                android:maxLines="1"
+                android:layout_height="50dp"
+                android:background="@null"
                 android:ellipsize="end"
-                android:singleLine="true"/>
+                android:hint="원하시는 위치를 입력하세요."
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_marginStart="10dp"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/plan_btm_dialogsheet"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/bg_plan_btm_dialog"
-            android:gravity="center_horizontal"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="10dp"
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/plan_btm_dialogsheet"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_plan_btm_dialog"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp">
+
+        <View
+            android:id="@+id/plan_btm_dialogBtn"
+            android:layout_width="50dp"
+            android:layout_height="5dp"
+            android:background="@drawable/bg_plan_btm_btn"
             android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
+            android:focusable="true" />
 
-            <View
-                android:id="@+id/plan_btm_dialogBtn"
-                android:layout_width="50dp"
-                android:layout_height="5dp"
-                android:background="@drawable/bg_plan_btm_btn"
-                android:clickable="true"
-                android:focusable="true"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/plan_rv_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"/>
-        </LinearLayout>
-    </FrameLayout>
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/plan_rv_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+</FrameLayout>

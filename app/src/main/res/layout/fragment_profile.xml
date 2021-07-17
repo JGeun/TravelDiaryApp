@@ -33,11 +33,12 @@
             app:cardCornerRadius="100dp">
 
             <ImageView
-                android:id="@+id/user_profile"
+                android:id="@+id/user_profileImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:layout_constraintHorizontal_bias="0.498"
-                app:srcCompat="@drawable/img_basic_profile" />
+                app:srcCompat="@drawable/img_basic_profile"
+                android:scaleType="centerCrop"/>
 
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 

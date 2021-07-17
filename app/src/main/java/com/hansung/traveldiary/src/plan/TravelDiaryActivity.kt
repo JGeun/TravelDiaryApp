@@ -90,7 +90,6 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
                     )
 
                     planList.add(PlaceData(searchWord))
-                    Log.d(TAG, "planList-size: ${planList.size}")
                     planAdapter.notifyDataSetChanged()
 //                    binding.planRvLocation.adapter = planAdapter
                     binding.planEtSearch.setText("")

@@ -27,7 +27,7 @@
         android:hint="닉네임을 입력해주세요"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:textColorHint="@color/loginTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
