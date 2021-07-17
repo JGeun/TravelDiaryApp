@@ -1,6 +1,6 @@
 package com.hansung.traveldiary.src.plan
 
-import android.location.Geocoder
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,8 +10,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelDiaryBinding
 import com.hansung.traveldiary.src.plan.adapter.PlaceData
@@ -24,13 +27,11 @@ import com.naver.maps.map.*
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
-import org.w3c.dom.Text
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 import kotlin.math.*
 
-class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView {
+class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView {
     private lateinit var TF: travelMap
     private lateinit var DF: diary
     private val planList = ArrayList<PlaceData>()
@@ -41,6 +42,8 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
     private lateinit var infoWindow:InfoWindow
     private val TAG = "TravelDiaryActivity"
     private var searchWord = ""
+    private lateinit var searchWordResultTask : ActivityResultLauncher<Intent>
+    private var searchWordResult = ""
 
     companion object{
         private const val LOCATION_PERMISSION_REQUEST_CODE=1000
@@ -58,6 +61,15 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
         setContentView(binding.root)
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
+
+        searchWordResultTask = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ){ result ->
+            if(result.resultCode == RESULT_OK){
+                searchWordResult = result.data?.getStringExtra("imagePath")!!
+                //
+            }
+        }
 
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
@@ -82,13 +94,10 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
         binding.planEtSearch.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
                 if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    TravelMapService(this@TravelDiaryActivity).tryGetSearchInfo(
+                    TravelMapService(this@TravelPlanActivity).tryGetSearchInfo(
                         searchWord,
-                        10,
-                        1,
                         "random"
                     )
-
                     planList.add(PlaceData(searchWord))
                     planAdapter.notifyDataSetChanged()
 //                    binding.planRvLocation.adapter = planAdapter
@@ -122,7 +131,7 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
         binding.planRvLocation.apply{
             setHasFixedSize(true)
             adapter = planAdapter
-            layoutManager = LinearLayoutManager(this@TravelDiaryActivity)
+            layoutManager = LinearLayoutManager(this@TravelPlanActivity)
         }
     }
 
@@ -174,47 +183,52 @@ class TravelDiaryActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapVie
 //            }
 //        })
     }
-
-    override fun onGetMapSearchSuccess(response: MapSearchInfo) {
-        Log.d("확인", response.item[0].title)
-        val mapx = response.item[0].mapx
-        val mapy = response.item[0].mapy
-        Log.d(TAG, mapx.toString() + " / " + mapy.toString())
-
-        Log.d(TAG, "address: " + response.item[0].address)
-        Log.d(TAG, "road: " + response.item[0].roadAddress)
-        var mLat  = 0.0
-        var mlng  = 0.0
-//        val address = response.item[0].address
-//        val geoCoder = Geocoder(this)
-//        try{
-//            val resultLocation = geoCoder.getFromLocationName(address, 1)
-//            mLat = resultLocation.get(0).latitude
-//            mlng = resultLocation.get(0).longitude
-//        }catch (e: IOException){
-//            e.printStackTrace()
-//            Log.d(TAG, "주소변환 실패")
-//        }
-//
-//        Log.d(TAG, "mLat: $mLat mlng: $mlng")
-        val tm128 = Tm128(mapx.toDouble(), mapy.toDouble())
-        val latLng = tm128.toLatLng()
-
-        val marker = Marker()
-        marker.position = latLng
-        marker.map = naverMap
-
-        val cameraUpdate = CameraUpdate.scrollAndZoomTo(latLng, 17.0)
-            .reason(3)
-            .animate(CameraAnimation.Easing, 2000)
-            .finishCallback {
-                showCustomToast("완료")
-            }
-            .cancelCallback {
-                showCustomToast("취소")
-            }
-        naverMap.moveCamera(cameraUpdate)
+    override fun onGetMapSearchSuccess(response: MapSearchInfo){
+        val intent = Intent(this@TravelPlanActivity, SearchWordResultActivity::class.java)
+        intent.putExtra("word", searchWord)
+        searchWordResultTask.launch(intent)
     }
+
+//    override fun onGetMapSearchSuccess(response: MapSearchInfo) {
+//        Log.d("확인", response.item[0].title)
+//        val mapx = response.item[0].mapx
+//        val mapy = response.item[0].mapy
+//        Log.d(TAG, mapx.toString() + " / " + mapy.toString())
+//
+//        Log.d(TAG, "address: " + response.item[0].address)
+//        Log.d(TAG, "road: " + response.item[0].roadAddress)
+//        var mLat  = 0.0
+//        var mlng  = 0.0
+////        val address = response.item[0].address
+////        val geoCoder = Geocoder(this)
+////        try{
+////            val resultLocation = geoCoder.getFromLocationName(address, 1)
+////            mLat = resultLocation.get(0).latitude
+////            mlng = resultLocation.get(0).longitude
+////        }catch (e: IOException){
+////            e.printStackTrace()
+////            Log.d(TAG, "주소변환 실패")
+////        }
+////
+////        Log.d(TAG, "mLat: $mLat mlng: $mlng")
+//        val tm128 = Tm128(mapx.toDouble(), mapy.toDouble())
+//        val latLng = tm128.toLatLng()
+//
+//        val marker = Marker()
+//        marker.position = latLng
+//        marker.map = naverMap
+//
+//        val cameraUpdate = CameraUpdate.scrollAndZoomTo(latLng, 17.0)
+//            .reason(3)
+//            .animate(CameraAnimation.Easing, 2000)
+//            .finishCallback {
+//                showCustomToast("완료")
+//            }
+//            .cancelCallback {
+//                showCustomToast("취소")
+//            }
+//        naverMap.moveCamera(cameraUpdate)
+//    }
 
     override fun onGetMapSearchFailure(message: String) {
         showCustomToast("오류 : $message")

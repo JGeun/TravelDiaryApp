@@ -1,14 +1,18 @@
-package com.hansung.traveldiary.src.bulletin
+package com.hansung.traveldiary.src.plan.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemDiarySectionBinding
+import com.hansung.traveldiary.src.bulletin.DiarySectionData
+import com.hansung.traveldiary.src.plan.PlanAddDayActivity
+import com.hansung.traveldiary.src.plan.TravelPlanActivity
 
-class DiarySectionAdapter(private val dataList:ArrayList<DiarySectionData>): RecyclerView.Adapter<DiarySectionAdapter.ViewHolder>() {
+class DayAddAdapter(private val dataList:ArrayList<DiarySectionData>): RecyclerView.Adapter<DayAddAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: ItemDiarySectionBinding):RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding: ItemDiarySectionBinding): RecyclerView.ViewHolder(binding.root){
         val dayText = binding.dsItemTvDayCount
         val tag = binding.dsItemTvTag
         val diaryImage = binding.dsItemIvDiary
@@ -24,8 +28,10 @@ class DiarySectionAdapter(private val dataList:ArrayList<DiarySectionData>): Rec
         holder.dayText.text = (position+1).toString()
         holder.tag.text = data.tag
         Glide.with(holder.itemView.context).load(data.diaryImage).into(holder.diaryImage)
-
-
+        val context= holder.itemView.context
+        holder.itemView.setOnClickListener{
+            (context as PlanAddDayActivity).startActivity(Intent(context, TravelPlanActivity::class.java))
+        }
     }
 
     override fun getItemCount() = dataList.size

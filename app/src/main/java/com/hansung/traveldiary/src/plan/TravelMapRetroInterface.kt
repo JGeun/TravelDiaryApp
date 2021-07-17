@@ -12,5 +12,5 @@ interface TravelMapRetroInterface {
         "X-Naver-Client-Secret: EsuavJrDvq"
     )
     @GET("search/local.json")
-    fun getSearchInfo(@Query("query") query: String, @Query("display") display: Int, @Query("start") start: Int, @Query("sort") sort: String) : Call<MapSearchInfo>
+    fun getSearchInfo(@Query("query") query: String, @Query("target") target: String, @Query("display") display: Int, @Query("start") start: Int, @Query("sort") sort: String) : Call<MapSearchInfo>
 }

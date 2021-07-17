@@ -11,7 +11,7 @@ class FragmentAdapter (fragmentManager: FragmentManager) : FragmentPagerAdapter(
         val fragment =  when(position)
         {
             0-> TriptogoFragment().newInstant()
-            1-> LasttripFragment().newInstant()
+            1-> TravelDiarySectionFragment().newInstant()
             else -> TriptogoFragment().newInstant()
         }
         return fragment

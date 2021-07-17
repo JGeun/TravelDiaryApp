@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.hansung.traveldiary.databinding.FragmentTravelBinding
 
-class TravelFragment : Fragment(){
+class TravelBaseFragment : Fragment(){
     private lateinit var binding : FragmentTravelBinding
     override fun onCreateView(
         inflater: LayoutInflater,

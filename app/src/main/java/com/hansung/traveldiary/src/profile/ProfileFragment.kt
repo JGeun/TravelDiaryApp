@@ -65,7 +65,7 @@ class ProfileFragment : Fragment(){
                             putString("profileImagePath", downloadUri.toString())
                             commit()
                         }
-                        Glide.with(requireContext()).load(downloadUri).into(binding.userProfileImage)
+                        Glide.with(binding.root.context).load(downloadUri).into(binding.userProfileImage)
                     }
         }else{
             Glide.with(requireContext()).load(profileImagePath).into(binding.userProfileImage)

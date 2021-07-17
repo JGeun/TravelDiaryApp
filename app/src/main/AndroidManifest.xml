@@ -15,9 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.profile.gallery.SelectPictureActivity"></activity>
+        <activity android:name=".src.plan.SearchWordResultActivity"></activity>
+        <activity android:name=".src.plan.PlanAddDayActivity" />
+        <activity android:name=".src.profile.gallery.SelectPictureActivity" />
         <activity android:name=".src.profile.edit_info.EditInfoActivity" />
-        <activity android:name=".src.splash.SplashActivity" >
+        <activity android:name=".src.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,10 +30,8 @@
         <activity android:name=".src.travel.DiaryActivity" />
         <activity android:name=".src.login.LoginActivity" />
         <activity android:name=".src.bulletin.DiarySectionActivity" />
-        <activity android:name=".src.plan.TravelDiaryActivity" />
-        <activity android:name=".src.MainActivity">
-
-        </activity>
+        <activity android:name=".src.plan.TravelPlanActivity" />
+        <activity android:name=".src.MainActivity" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

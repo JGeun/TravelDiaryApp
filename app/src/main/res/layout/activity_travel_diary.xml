@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
     android:orientation="vertical"
-    tools:context=".src.plan.TravelDiaryActivity">
+    tools:context=".src.plan.TravelPlanActivity">
 
     <FrameLayout
         android:id="@+id/map"
