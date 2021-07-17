@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.MAIN_STATUS_BAR)
         val runnable : Runnable = Runnable {
-            val pref = getSharedPreferences("login", 0)
+            val pref = getSharedPreferences("user", 0)
 
             if(!pref.getString("login", "").equals("success")){
                 startActivity(Intent(this, LoginActivity::class.java))

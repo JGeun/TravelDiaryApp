@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
                     binding.inputPw.text.toString()
                 )?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            val pref = applicationContext.getSharedPreferences("login", 0)
+                            val pref = applicationContext.getSharedPreferences("user", 0)
                             val editor = pref.edit().apply() {
                                 putString("login", "success")
                             }.commit()

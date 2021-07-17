@@ -15,7 +15,9 @@
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:clickable="true"
+        android:focusable="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:text="닉네임"
+        android:textColor="@color/maincolor"
         app:layout_constraintBottom_toTopOf="@id/edit_et_nickname"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -60,7 +63,9 @@
         android:id="@+id/edit_et_nickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="50dp"
+        android:layout_marginHorizontal="45dp"
+        android:textColor="@color/loginTextColor"
+        tools:text="asd"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
