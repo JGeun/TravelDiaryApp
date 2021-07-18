@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
@@ -107,7 +108,6 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 Log.d(TAG, "입력: ${binding.planEtSearch.text}")
                 searchWord = binding.planEtSearch.text.toString()
-
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -127,30 +127,30 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
             }
         })
 
-        binding.planBtmDialogBtn.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                val layoutParam = binding.planBtmDialogsheet.layoutParams
-                layoutParam.width = ViewGroup.LayoutParams.MATCH_PARENT
-                Log.d("y값", event!!.y.toString())
-                if (event!!.action == MotionEvent.ACTION_UP) {
-                    layoutParam.height -= event.y.toInt()
-                    if (layoutParam.height < 80)
-                        layoutParam.height = 80
-                    else if (layoutParam.height >= 800)
-                        layoutParam.height = 800;
-                    binding.planBtmDialogsheet.requestLayout()
-                }
-                return false
-            }
-        })
-
-        initPlanList()
-
-        binding.planRvLocation.apply {
-            setHasFixedSize(true)
-            adapter = planAdapter
-            layoutManager = LinearLayoutManager(this@TravelPlanActivity)
-        }
+//        binding.planBtmDialogBtn.setOnTouchListener(object : View.OnTouchListener {
+//            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                val layoutParam = binding.planBtmDialogsheet.layoutParams
+//                layoutParam.width = ViewGroup.LayoutParams.MATCH_PARENT
+//                Log.d("y값", event!!.y.toString())
+//                if (event!!.action == MotionEvent.ACTION_UP) {
+//                    layoutParam.height -= event.y.toInt()
+//                    if (layoutParam.height < 80)
+//                        layoutParam.height = 80
+//                    else if (layoutParam.height >= 800)
+//                        layoutParam.height = 800;
+//                    binding.planBtmDialogsheet.requestLayout()
+//                }
+//                return false
+//            }
+//        })
+//
+//        initPlanList()
+//
+//        binding.planRvLocation.apply {
+//            setHasFixedSize(true)
+//            adapter = planAdapter
+//            layoutManager = LinearLayoutManager(this@TravelPlanActivity)
+//        }
     }
 
     fun initPlanList() {
@@ -211,7 +211,7 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
         for (result in searchWordResultList) {
             resultList.add(
                 SearchWordResultInfo(
-                    result.title.replace("<b>", " ").replace("</b>", ""), result.address
+                    result.title.replace(" ", "").replace("<b>", " ").replace("</b>", ""), result.address
                 )
             )
         }
