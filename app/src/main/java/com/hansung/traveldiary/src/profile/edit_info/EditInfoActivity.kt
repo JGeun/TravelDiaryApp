@@ -62,6 +62,7 @@ class EditInfoActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
 
         })
+
         Glide.with(this).load(
             ResourcesCompat.getDrawable(
                 resources,

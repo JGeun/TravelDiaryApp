@@ -1,6 +1,7 @@
 package com.hansung.traveldiary.src.plan.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class SearchInfo(
     @SerializedName("title") val title: String,

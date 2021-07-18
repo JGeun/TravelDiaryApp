@@ -39,8 +39,10 @@
         android:layout_marginTop="15dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sr_rv_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/sr_line1"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:overScrollMode="never"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

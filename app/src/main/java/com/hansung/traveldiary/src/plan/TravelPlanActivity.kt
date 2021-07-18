@@ -20,6 +20,8 @@ import com.hansung.traveldiary.databinding.ActivityTravelDiaryBinding
 import com.hansung.traveldiary.src.plan.adapter.PlaceData
 import com.hansung.traveldiary.src.plan.adapter.PlanAdapter
 import com.hansung.traveldiary.src.plan.model.MapSearchInfo
+import com.hansung.traveldiary.src.plan.model.SearchInfo
+import com.hansung.traveldiary.src.plan.model.SearchWordResultInfo
 import com.hansung.traveldiary.util.StatusBarUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.geometry.Tm128
@@ -31,32 +33,33 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.*
 
-class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView {
+class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapView {
     private lateinit var TF: travelMap
     private lateinit var DF: diary
     private val planList = ArrayList<PlaceData>()
     private val planAdapter = PlanAdapter(planList)
     private lateinit var binding: ActivityTravelDiaryBinding
-    private lateinit var locationSource:FusedLocationSource
+    private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
-    private lateinit var infoWindow:InfoWindow
+    private lateinit var infoWindow: InfoWindow
     private val TAG = "TravelDiaryActivity"
     private var searchWord = ""
-    private lateinit var searchWordResultTask : ActivityResultLauncher<Intent>
-    private var searchWordResult = ""
+    private var searchWordResultList = ArrayList<SearchInfo>()
+    private lateinit var searchWordResultTask: ActivityResultLauncher<Intent>
+    private var searchWordIndex = 0
 
-    companion object{
-        private const val LOCATION_PERMISSION_REQUEST_CODE=1000
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
-        val retrofit : Retrofit = Retrofit.Builder()
+        val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://openapi.naver.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding= ActivityTravelDiaryBinding.inflate(layoutInflater)
-        locationSource= FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+        binding = ActivityTravelDiaryBinding.inflate(layoutInflater)
+        locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -64,28 +67,47 @@ class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView
 
         searchWordResultTask = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
-        ){ result ->
-            if(result.resultCode == RESULT_OK){
-                searchWordResult = result.data?.getStringExtra("imagePath")!!
-                //
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                searchWordIndex = result.data?.getIntExtra("index", 0)!!
+                val mapx = searchWordResultList[searchWordIndex].mapx
+                val mapy = searchWordResultList[searchWordIndex].mapy
+                val tm128 = Tm128(mapx.toDouble(), mapy.toDouble())
+                val latLng = tm128.toLatLng()
+
+                val marker = Marker()
+                marker.position = latLng
+                marker.map = naverMap
+
+                val cameraUpdate = CameraUpdate.scrollAndZoomTo(latLng, 17.0)
+                    .reason(3)
+                    .animate(CameraAnimation.Easing, 2000)
+                    .finishCallback {
+                        showCustomToast("완료")
+                    }
+                    .cancelCallback {
+                        showCustomToast("취소")
+                    }
+                naverMap.moveCamera(cameraUpdate)
             }
         }
 
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
-            ?: MapFragment.newInstance().also{
+            ?: MapFragment.newInstance().also {
                 fm.beginTransaction().add(R.id.map, it).commit()
             }
         mapFragment.getMapAsync(this)
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
 
-        binding.planEtSearch.addTextChangedListener(object : TextWatcher{
+        binding.planEtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 Log.d(TAG, "입력: ${binding.planEtSearch.text}")
                 searchWord = binding.planEtSearch.text.toString()
+
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -94,15 +116,11 @@ class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView
         binding.planEtSearch.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
                 if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    TravelMapService(this@TravelPlanActivity).tryGetSearchInfo(
-                        searchWord,
-                        "random"
-                    )
-                    planList.add(PlaceData(searchWord))
-                    planAdapter.notifyDataSetChanged()
-//                    binding.planRvLocation.adapter = planAdapter
-                    binding.planEtSearch.setText("")
-                    searchWord=""
+
+//                    planList.add(PlaceData(searchWord))
+//                    planAdapter.notifyDataSetChanged()
+                    TravelMapService(this@TravelPlanActivity).tryGetSearchInfo(searchWord, "random")
+
                     return true
                 }
                 return false
@@ -128,26 +146,27 @@ class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView
 
         initPlanList()
 
-        binding.planRvLocation.apply{
+        binding.planRvLocation.apply {
             setHasFixedSize(true)
             adapter = planAdapter
             layoutManager = LinearLayoutManager(this@TravelPlanActivity)
         }
     }
 
-    fun initPlanList(){
+    fun initPlanList() {
 
     }
+
     //지도객체 생성
-    fun onMapReady(nMap: MapView){
+    fun onMapReady(nMap: MapView) {
         //복수개의 마커
-        val markers:ArrayList<Marker> =ArrayList<Marker>()
-        val latLngs:ArrayList<LatLng> =ArrayList<LatLng>()
-        val lat_arr:ArrayList<DoubleArray> =ArrayList<DoubleArray>()
-        var count:Int =0
+        val markers: ArrayList<Marker> = ArrayList<Marker>()
+        val latLngs: ArrayList<LatLng> = ArrayList<LatLng>()
+        val lat_arr: ArrayList<DoubleArray> = ArrayList<DoubleArray>()
+        var count: Int = 0
         infoWindow = InfoWindow()
         val marker = Marker()
-        val marker1=Marker()
+        val marker1 = Marker()
 
 //        val lovationOverlay = naverMap.locationOverlay
 //        infoWindow.open(marker)
@@ -183,13 +202,25 @@ class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView
 //            }
 //        })
     }
-    override fun onGetMapSearchSuccess(response: MapSearchInfo){
+
+    override fun onGetMapSearchSuccess(response: MapSearchInfo) {
         val intent = Intent(this@TravelPlanActivity, SearchWordResultActivity::class.java)
         intent.putExtra("word", searchWord)
-        searchWordResultTask.launch(intent)
-    }
+        searchWordResultList = response.item
+        val resultList = ArrayList<SearchWordResultInfo>()
+        for (result in searchWordResultList) {
+            resultList.add(
+                SearchWordResultInfo(
+                    result.title.replace("<b>", " ").replace("</b>", ""), result.address
+                )
+            )
+        }
 
-//    override fun onGetMapSearchSuccess(response: MapSearchInfo) {
+        intent.putExtra("result", resultList)
+        binding.planEtSearch.setText("")
+        searchWord = ""
+        searchWordResultTask.launch(intent)
+
 //        Log.d("확인", response.item[0].title)
 //        val mapx = response.item[0].mapx
 //        val mapy = response.item[0].mapy
@@ -199,18 +230,21 @@ class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView
 //        Log.d(TAG, "road: " + response.item[0].roadAddress)
 //        var mLat  = 0.0
 //        var mlng  = 0.0
-////        val address = response.item[0].address
-////        val geoCoder = Geocoder(this)
-////        try{
-////            val resultLocation = geoCoder.getFromLocationName(address, 1)
-////            mLat = resultLocation.get(0).latitude
-////            mlng = resultLocation.get(0).longitude
-////        }catch (e: IOException){
-////            e.printStackTrace()
-////            Log.d(TAG, "주소변환 실패")
-////        }
-////
-////        Log.d(TAG, "mLat: $mLat mlng: $mlng")
+
+//        -----------------------------------------
+//        val address = response.item[0].address
+//        val geoCoder = Geocoder(this)
+//        try{
+//            val resultLocation = geoCoder.getFromLocationName(address, 1)
+//            mLat = resultLocation.get(0).latitude
+//            mlng = resultLocation.get(0).longitude
+//        }catch (e: IOException){
+//            e.printStackTrace()
+//            Log.d(TAG, "주소변환 실패")
+//        }
+//
+//        Log.d(TAG, "mLat: $mLat mlng: $mlng")
+//        -------------------------------------------
 //        val tm128 = Tm128(mapx.toDouble(), mapy.toDouble())
 //        val latLng = tm128.toLatLng()
 //
@@ -228,12 +262,15 @@ class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView
 //                showCustomToast("취소")
 //            }
 //        naverMap.moveCamera(cameraUpdate)
-//    }
+
+
+    }
 
     override fun onGetMapSearchFailure(message: String) {
         showCustomToast("오류 : $message")
     }
-    private fun showCustomToast(message: String){
+
+    private fun showCustomToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
@@ -252,7 +289,8 @@ class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView
         if (locationSource.onRequestPermissionsResult(
                 requestCode, permissions,
                 grantResults
-            )) {
+            )
+        ) {
             if (!locationSource.isActivated) { // 권한 거부됨
                 Log.d(TAG, "MainActivity - onRequestPermissionsResult 권한 거부됨")
                 naverMap.locationTrackingMode = LocationTrackingMode.None
@@ -265,7 +303,6 @@ class TravelPlanActivity : AppCompatActivity(),OnMapReadyCallback, TravelMapView
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }
-
 
 
 

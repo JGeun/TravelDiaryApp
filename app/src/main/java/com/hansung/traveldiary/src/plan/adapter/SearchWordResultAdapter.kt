@@ -1,19 +1,21 @@
 package com.hansung.traveldiary.src.plan.adapter
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.hansung.traveldiary.databinding.ItemDiarySectionBinding
 import com.hansung.traveldiary.databinding.ItemWordSearchResultBinding
-import com.hansung.traveldiary.src.bulletin.DiarySectionData
-import com.hansung.traveldiary.src.plan.PlanAddDayActivity
-import com.hansung.traveldiary.src.plan.TravelPlanActivity
+import com.hansung.traveldiary.src.plan.SearchWordResultActivity
+import com.hansung.traveldiary.src.plan.model.SearchWordResultInfo
+import com.hansung.traveldiary.src.profile.edit_info.EditInfoActivity
+import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
 
-class SearchWordResultAdapter(private val dataList:ArrayList<DiarySectionData>): RecyclerView.Adapter<SearchWordResultAdapter.ViewHolder>() {
+class SearchWordResultAdapter(private val dataList:ArrayList<SearchWordResultInfo>): RecyclerView.Adapter<SearchWordResultAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemWordSearchResultBinding): RecyclerView.ViewHolder(binding.root){
+        var title = binding.itemWsrTitle
+        var address = binding.itemWsrAddress
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
@@ -22,7 +24,18 @@ class SearchWordResultAdapter(private val dataList:ArrayList<DiarySectionData>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val data = dataList[position]
+        holder.title.text = data.title
+        holder.address.text = data.address
 
+        val context = holder.itemView.context
+        holder.itemView.setOnClickListener{
+            val intent = Intent()
+            intent.putExtra("index", position)
+
+            (context as SearchWordResultActivity).setResult(Activity.RESULT_OK, intent)
+            context.finish()
+        }
     }
 
     override fun getItemCount() = dataList.size
