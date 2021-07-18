@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.plan.SearchWordResultActivity"></activity>
+        <activity android:name=".Test">
+
+        </activity>
+        <activity android:name=".src.plan.SearchWordResultActivity" />
         <activity android:name=".src.plan.PlanAddDayActivity" />
         <activity android:name=".src.profile.gallery.SelectPictureActivity" />
         <activity android:name=".src.profile.edit_info.EditInfoActivity" />

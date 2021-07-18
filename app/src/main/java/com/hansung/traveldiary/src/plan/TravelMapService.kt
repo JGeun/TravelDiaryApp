@@ -8,7 +8,7 @@ import retrofit2.Response
 
 class TravelMapService(val view: TravelMapView){
     fun tryGetSearchInfo(query:String, sort: String){
-        val searchRetroInterface : TravelMapRetroInterface = TravelPlanActivity.retrofit.create(TravelMapRetroInterface::class.java)
+        val searchRetroInterface : TravelMapRetroInterface = TravelPlanActivity.naverRetrofit.create(TravelMapRetroInterface::class.java)
         searchRetroInterface.getSearchInfo(query, "local", 5, 1, sort).enqueue(object: Callback<MapSearchInfo>{
             override fun onResponse(call: Call<MapSearchInfo>, response: Response<MapSearchInfo>) {
                 view.onGetMapSearchSuccess(response.body() as MapSearchInfo)

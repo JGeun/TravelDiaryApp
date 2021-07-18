@@ -20,9 +20,7 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelDiaryBinding
 import com.hansung.traveldiary.src.plan.adapter.PlaceData
 import com.hansung.traveldiary.src.plan.adapter.PlanAdapter
-import com.hansung.traveldiary.src.plan.model.MapSearchInfo
-import com.hansung.traveldiary.src.plan.model.SearchInfo
-import com.hansung.traveldiary.src.plan.model.SearchWordResultInfo
+import com.hansung.traveldiary.src.plan.model.*
 import com.hansung.traveldiary.util.StatusBarUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.geometry.Tm128
@@ -34,7 +32,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.*
 
-class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapView {
+class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapView, KakaoSearchView {
     private lateinit var TF: travelMap
     private lateinit var DF: diary
     private val planList = ArrayList<PlaceData>()
@@ -45,15 +43,20 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
     private lateinit var infoWindow: InfoWindow
     private val TAG = "TravelDiaryActivity"
     private var searchWord = ""
-    private var searchWordResultList = ArrayList<SearchInfo>()
+    private var searchWordResultList = ArrayList<KakaoSearchKeywordInfo>()
     private lateinit var searchWordResultTask: ActivityResultLauncher<Intent>
     private var searchWordIndex = 0
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
-        val retrofit: Retrofit = Retrofit.Builder()
+        val naverRetrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://openapi.naver.com/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val kakaoRetrofit: Retrofit = Retrofit.Builder()
+            .baseUrl("https://dapi.kakao.com/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -71,10 +74,11 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 searchWordIndex = result.data?.getIntExtra("index", 0)!!
-                val mapx = searchWordResultList[searchWordIndex].mapx
-                val mapy = searchWordResultList[searchWordIndex].mapy
-                val tm128 = Tm128(mapx.toDouble(), mapy.toDouble())
-                val latLng = tm128.toLatLng()
+                val mapx = searchWordResultList[searchWordIndex].x.toDouble()
+                val mapy = searchWordResultList[searchWordIndex].y.toDouble()
+                Log.d("위치체크", mapx.toString() + " / " + mapy.toString())
+//                val tm128 = Tm128(mapx.toDouble(), mapy.toDouble())
+                val latLng = LatLng(mapy, mapx)
 
                 val marker = Marker()
                 marker.position = latLng
@@ -119,8 +123,8 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
 
 //                    planList.add(PlaceData(searchWord))
 //                    planAdapter.notifyDataSetChanged()
-                    TravelMapService(this@TravelPlanActivity).tryGetSearchInfo(searchWord, "random")
-
+//                    TravelMapService(this@TravelPlanActivity).tryGetSearchInfo(searchWord, "random")
+                        KakaoSearchKeywordService(this@TravelPlanActivity).tryGetKeyWordSearchInfo(searchWord)
                     return true
                 }
                 return false
@@ -204,22 +208,22 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
     }
 
     override fun onGetMapSearchSuccess(response: MapSearchInfo) {
-        val intent = Intent(this@TravelPlanActivity, SearchWordResultActivity::class.java)
-        intent.putExtra("word", searchWord)
-        searchWordResultList = response.item
-        val resultList = ArrayList<SearchWordResultInfo>()
-        for (result in searchWordResultList) {
-            resultList.add(
-                SearchWordResultInfo(
-                    result.title.replace(" ", "").replace("<b>", " ").replace("</b>", ""), result.address
-                )
-            )
-        }
-
-        intent.putExtra("result", resultList)
-        binding.planEtSearch.setText("")
-        searchWord = ""
-        searchWordResultTask.launch(intent)
+//        val intent = Intent(this@TravelPlanActivity, SearchWordResultActivity::class.java)
+//        intent.putExtra("word", searchWord)
+//        searchWordResultList = response.item
+//        val resultList = ArrayList<SearchWordResultInfo>()
+//        for (result in searchWordResultList) {
+//            resultList.add(
+//                SearchWordResultInfo(
+//                    result.title.replace(" ", "").replace("<b>", " ").replace("</b>", ""), result.address
+//                )
+//            )
+//        }
+//
+//        intent.putExtra("result", resultList)
+//        binding.planEtSearch.setText("")
+//        searchWord = ""
+//        searchWordResultTask.launch(intent)
 
 //        Log.d("확인", response.item[0].title)
 //        val mapx = response.item[0].mapx
@@ -301,6 +305,30 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
             return
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse) {
+        Log.d("확인", response.documents.size.toString())
+
+        val intent = Intent(this@TravelPlanActivity, SearchWordResultActivity::class.java)
+        intent.putExtra("word", searchWord)
+        searchWordResultList = response.documents
+        val resultList = ArrayList<SearchWordResultInfo>()
+        for (result in searchWordResultList) {
+            resultList.add(SearchWordResultInfo(
+                    result.place_name, result.address_name
+                )
+            )
+        }
+
+        intent.putExtra("result", resultList)
+        binding.planEtSearch.setText("")
+        searchWord = ""
+        searchWordResultTask.launch(intent)
+    }
+
+    override fun onGetKeywordSearchFailure(message: String) {
+        showCustomToast("오류 : $message")
     }
 }
 
