@@ -1,7 +1,16 @@
 package com.hansung.traveldiary.src.plan
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.media.audiofx.BassBoost
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -12,15 +21,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.gms.location.LocationServices
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelDiaryBinding
 import com.hansung.traveldiary.src.plan.adapter.PlaceData
 import com.hansung.traveldiary.src.plan.adapter.PlanAdapter
 import com.hansung.traveldiary.src.plan.model.*
+import com.hansung.traveldiary.src.travel.AddPlanDialog
 import com.hansung.traveldiary.util.StatusBarUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.geometry.Tm128
@@ -47,9 +61,12 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
     private lateinit var searchWordResultTask: ActivityResultLauncher<Intent>
     private var searchWordIndex = 0
 
+    private var lastPosX = 127.00601781685579
+    private var lastPosY = 37.58842461354086
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
-
+        private const val LOCATION_PERMISSION_FUN_REQUEST_CODE = 1001
         val naverRetrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://openapi.naver.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -68,6 +85,8 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
         setContentView(binding.root)
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
+
+        getLocationPermission()
 
         searchWordResultTask = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -105,7 +124,6 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
         mapFragment.getMapAsync(this)
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
-
         binding.planEtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -124,7 +142,9 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
 //                    planList.add(PlaceData(searchWord))
 //                    planAdapter.notifyDataSetChanged()
 //                    TravelMapService(this@TravelPlanActivity).tryGetSearchInfo(searchWord, "random")
-                        KakaoSearchKeywordService(this@TravelPlanActivity).tryGetKeyWordSearchInfo(searchWord)
+                    KakaoSearchKeywordService(this@TravelPlanActivity).tryGetKeyWordSearchInfo(
+                        searchWord
+                    )
                     return true
                 }
                 return false
@@ -157,54 +177,32 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
 //        }
     }
 
-    fun initPlanList() {
-
+    fun getLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.d("MainActivity", "permission체크")
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                LOCATION_PERMISSION_FUN_REQUEST_CODE
+            )
+        } else {
+            getLastLocation()
+        }
     }
 
-    //지도객체 생성
-    fun onMapReady(nMap: MapView) {
-        //복수개의 마커
-        val markers: ArrayList<Marker> = ArrayList<Marker>()
-        val latLngs: ArrayList<LatLng> = ArrayList<LatLng>()
-        val lat_arr: ArrayList<DoubleArray> = ArrayList<DoubleArray>()
-        var count: Int = 0
-        infoWindow = InfoWindow()
-        val marker = Marker()
-        val marker1 = Marker()
+    fun initPlanList() {
 
-//        val lovationOverlay = naverMap.locationOverlay
-//        infoWindow.open(marker)
-//        //마커 이미지 변경
-//        val image = OverlayImage.fromResource(R.drawable.mapmaker)
-//        //롱클릭리스너로 마커위치 변경경
-//       naverMap.setOnMapLongClickListener(NaverMap.OnMapLongClickListener(){ pointF: PointF, latLng: LatLng ->
-//
-//                markers.add(Marker())
-//
-//                markers.get(count).position=latLng
-//                latLngs.add(latLng)
-//                println("위도는 ${latLngs.get(0).latitude} 경도는 ${latLngs.get(0).longitude}")
-//                markers.get(count++).map=naverMap
-//
-//        })
-//       //마커 삭제
-//        naverMap.setOnMapClickListener(NaverMap.OnMapClickListener(){ pointF: PointF, latLng: LatLng ->
-//            val size=markers.size-1
-//
-//            if(markers.size>=1){
-//                for(i in 0..size){
-//                    if(round(latLngs.get(i).latitude*100000)/100000==round(latLng.latitude*100000)/100000&&
-//                        round(latLngs.get(i).longitude*10000)/10000==round(latLng.longitude*10000)/10000){
-//                        println("Dfaccccccfd")
-//                        markers.get(i).map=null
-//                        markers.remove(markers.get(i))
-//                        latLngs.remove(latLngs.get(i))
-//                        count--
-//                        break
-//                    }
-//                }
-//            }
-//        })
     }
 
     override fun onGetMapSearchSuccess(response: MapSearchInfo) {
@@ -266,8 +264,6 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
 //                showCustomToast("취소")
 //            }
 //        naverMap.moveCamera(cameraUpdate)
-
-
     }
 
     override fun onGetMapSearchFailure(message: String) {
@@ -282,6 +278,21 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
         naverMap.uiSettings.isLocationButtonEnabled = true
+
+        setCameraInMap(lastPosY, lastPosX, 13.0)
+    }
+
+    fun setCameraInMap(posY: Double, posX: Double, zoom: Double = 13.0){
+        val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(posY, posX), zoom)
+            .reason(3)
+            .animate(CameraAnimation.Easing, 2000)
+            .finishCallback {
+                showCustomToast("완료")
+            }
+            .cancelCallback {
+                showCustomToast("취소")
+            }
+        naverMap.moveCamera(cameraUpdate)
     }
 
     override fun onRequestPermissionsResult(
@@ -290,11 +301,7 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
         grantResults: IntArray
     ) {
         Log.d(TAG, "MainActivity - onRequestPermissionsResult")
-        if (locationSource.onRequestPermissionsResult(
-                requestCode, permissions,
-                grantResults
-            )
-        ) {
+        if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
             if (!locationSource.isActivated) { // 권한 거부됨
                 Log.d(TAG, "MainActivity - onRequestPermissionsResult 권한 거부됨")
                 naverMap.locationTrackingMode = LocationTrackingMode.None
@@ -303,8 +310,35 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
                 naverMap.locationTrackingMode = LocationTrackingMode.Follow // 현위치 버튼 컨트롤 활성
             }
             return
+        } else if (requestCode == LOCATION_PERMISSION_FUN_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLastLocation()
+            } else {
+                showCustomToast("위치를 허용해주시지 않으면 지도를 사용할 수 없습니다.")
+                requestPermissionReload()
+            }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    fun requestPermissionReload() {
+        val dlg = RequestLocationPermissionReloadDialog(this)
+        dlg.start()
+    }
+
+    @SuppressLint("MissingPermission")
+    fun getLastLocation() {
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            location?.let {
+                lastPosX = it.longitude
+                lastPosY = it.latitude
+                Log.d("체크", lastPosX.toString() + " / " + lastPosY.toString())
+//                setCameraInMap(lastPosY, lastPosX)
+            }
+        }.addOnFailureListener {
+            showCustomToast("위치를 가져오는 데 실패했습니다.")
+        }
     }
 
     override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse) {
@@ -315,7 +349,8 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
         searchWordResultList = response.documents
         val resultList = ArrayList<SearchWordResultInfo>()
         for (result in searchWordResultList) {
-            resultList.add(SearchWordResultInfo(
+            resultList.add(
+                SearchWordResultInfo(
                     result.place_name, result.address_name
                 )
             )
