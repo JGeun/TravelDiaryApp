@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TravelDiary</string>
+    <string name="kakao_native_api_key">7d43e58074b06cbcef75749375c86e05</string>
+    <string name="kakao_rest_api_key">e7e5930e1663be60ef61212260e4a4d7</string>
 </resources>

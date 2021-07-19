@@ -3,14 +3,13 @@ package com.hansung.traveldiary.src
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hansung.traveldiary.src.home.HomeFragment
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMainBinding
 import com.hansung.traveldiary.src.bulletin.BulletinFragment
 import com.hansung.traveldiary.src.profile.ProfileFragment
-import com.hansung.traveldiary.src.travel.TravelFragment
+import com.hansung.traveldiary.src.travel.TravelBaseFragment
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     R.id.main_btm_travel -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_frm, TravelFragment())
+                            .replace(R.id.main_frm, TravelBaseFragment())
                             .commitAllowingStateLoss()
                         Log.d("확인", "travel")
                         return@OnNavigationItemSelectedListener true

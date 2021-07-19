@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="20dp"
+    android:background="@drawable/bg_dg_location_permission"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="권한 설정"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:text="권한 거절로 인해 지도 기능이 제한됩니다."
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/dg_lp_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취소하기"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/loginTextColor"/>
+
+        <TextView
+            android:id="@+id/dg_lp_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="권한 설정하러 가기"
+            android:textColor="@color/loginTextColor"/>
+    </LinearLayout>
+
+
+</LinearLayout>

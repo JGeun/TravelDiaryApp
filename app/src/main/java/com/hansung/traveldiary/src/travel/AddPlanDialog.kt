@@ -19,5 +19,4 @@ class AddPlanDialog(context: Context){
         )
         dlg.show()
     }
-
 }

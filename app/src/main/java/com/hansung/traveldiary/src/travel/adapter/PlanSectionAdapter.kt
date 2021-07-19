@@ -11,16 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.ItemTripplanBinding
+import com.hansung.traveldiary.databinding.ItemPlanSectionBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.plan.TravelDiaryActivity
-import com.hansung.traveldiary.src.travel.PlanTripinData
+import com.hansung.traveldiary.src.plan.PlanAddDayActivity
+import com.hansung.traveldiary.src.travel.PlanSectionData
 
-class PlanTripAdapter(private val planTripinData: ArrayList<PlanTripinData>) :
-    RecyclerView.Adapter<PlanTripAdapter.ViewHolder>() {
-    private lateinit var binding : ItemTripplanBinding
+class PlanSectionAdapter(private val planTripinData: ArrayList<PlanSectionData>) :
+    RecyclerView.Adapter<PlanSectionAdapter.ViewHolder>() {
+    private lateinit var binding : ItemPlanSectionBinding
     private lateinit var image : Drawable
-    class ViewHolder(val binding : ItemTripplanBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(val binding : ItemPlanSectionBinding) : RecyclerView.ViewHolder(binding.root){
         val tripinImage : ImageView
         val tripinTitle : TextView
 
@@ -31,7 +31,7 @@ class PlanTripAdapter(private val planTripinData: ArrayList<PlanTripinData>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemTripplanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemPlanSectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
     }
@@ -56,7 +56,7 @@ class PlanTripAdapter(private val planTripinData: ArrayList<PlanTripinData>) :
 
         val context = holder.itemView.context
         holder.itemView.setOnClickListener{
-            (context as MainActivity).startActivity(Intent(context, TravelDiaryActivity::class.java))
+            (context as MainActivity).startActivity(Intent(context, PlanAddDayActivity::class.java))
         }
     }
 

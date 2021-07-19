@@ -22,16 +22,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/img_bg_profile" />
 
-        <ImageView
-            android:id="@+id/user_profile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="80dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            android:id="@+id/profile_cv_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_user" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="80dp"
+            app:cardCornerRadius="100dp">
+
+            <ImageView
+                android:id="@+id/user_profileImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:srcCompat="@drawable/img_basic_profile"
+                android:scaleType="centerCrop"/>
+
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
 
         <TextView
             android:id="@+id/user_name"
@@ -44,7 +54,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_cv_image" />
 
         <LinearLayout
             android:id="@+id/profile_status"
@@ -153,8 +163,8 @@
 
                 <ImageView
                     android:id="@+id/edit_img"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
                     android:layout_marginEnd="5dp"
                     app:srcCompat="@drawable/ic_edit" />
 
@@ -208,7 +218,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -264,7 +274,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -292,7 +302,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -320,7 +330,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -348,7 +358,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
