@@ -64,6 +64,8 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
     private var lastPosX = 127.00601781685579
     private var lastPosY = 37.58842461354086
 
+    private var categoryGCeMap : HashMap<String, String> = HashMap()
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
         private const val LOCATION_PERMISSION_FUN_REQUEST_CODE = 1001
@@ -85,14 +87,27 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
         setContentView(binding.root)
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
+        initGCMap()
 
-        getLocationPermission()
+        //getLocationPermission()
 
         searchWordResultTask = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 searchWordIndex = result.data?.getIntExtra("index", 0)!!
+                binding.planBtmClShowPlaceInfo.isVisible = true
+                binding.planBtmPlaceTitle.text = searchWordResultList[searchWordIndex].place_name
+                val categoryArr = searchWordResultList[searchWordIndex].category_name.trim().split(">")
+                binding.planBtmPlaceCategory.text = categoryArr[categoryArr.size-1]
+                val roadAddressName = searchWordResultList[searchWordIndex].road_address_name
+                if(roadAddressName.isEmpty())
+                    binding.planBtmPlaceAddress.text = searchWordResultList[searchWordIndex].address_name
+                else
+                    binding.planBtmPlaceAddress.text = roadAddressName
+                binding.planBtmPlaceNumber.text = searchWordResultList[searchWordIndex].phone
+                binding.planBtmPlaceUrl.text = searchWordResultList[searchWordIndex].place_url
+
                 val mapx = searchWordResultList[searchWordIndex].x.toDouble()
                 val mapy = searchWordResultList[searchWordIndex].y.toDouble()
                 Log.d("위치체크", mapx.toString() + " / " + mapy.toString())
@@ -122,6 +137,7 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
                 fm.beginTransaction().add(R.id.map, it).commit()
             }
         mapFragment.getMapAsync(this)
+
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
         binding.planEtSearch.addTextChangedListener(object : TextWatcher {
@@ -150,31 +166,6 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
                 return false
             }
         })
-
-//        binding.planBtmDialogBtn.setOnTouchListener(object : View.OnTouchListener {
-//            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//                val layoutParam = binding.planBtmDialogsheet.layoutParams
-//                layoutParam.width = ViewGroup.LayoutParams.MATCH_PARENT
-//                Log.d("y값", event!!.y.toString())
-//                if (event!!.action == MotionEvent.ACTION_UP) {
-//                    layoutParam.height -= event.y.toInt()
-//                    if (layoutParam.height < 80)
-//                        layoutParam.height = 80
-//                    else if (layoutParam.height >= 800)
-//                        layoutParam.height = 800;
-//                    binding.planBtmDialogsheet.requestLayout()
-//                }
-//                return false
-//            }
-//        })
-//
-//        initPlanList()
-//
-//        binding.planRvLocation.apply {
-//            setHasFixedSize(true)
-//            adapter = planAdapter
-//            layoutManager = LinearLayoutManager(this@TravelPlanActivity)
-//        }
     }
 
     fun getLocationPermission() {
@@ -197,8 +188,28 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
                 LOCATION_PERMISSION_FUN_REQUEST_CODE
             )
         } else {
-            getLastLocation()
+//            getLastLocation()
         }
+    }
+
+    fun initGCMap(){
+        categoryGCeMap.put("MT1", "대형마트")
+        categoryGCeMap.put("CS2", "편의점")
+        categoryGCeMap.put("PS3", "어린이집")
+        categoryGCeMap.put("SC4", "학교")
+        categoryGCeMap.put("AC5", "학원")
+        categoryGCeMap.put("PK6", "주차장")
+        categoryGCeMap.put("OL7", "주유소")
+        categoryGCeMap.put("SW8", "지하철역")
+        categoryGCeMap.put("BK9", "은행")
+        categoryGCeMap.put("AG2", "문화시설")
+        categoryGCeMap.put("PO3", "공공기관")
+        categoryGCeMap.put("AT4", "관광명소")
+        categoryGCeMap.put("AD5", "숙박")
+        categoryGCeMap.put("FD6", "음식점")
+        categoryGCeMap.put("CE7", "카페")
+        categoryGCeMap.put("HP8", "병원")
+        categoryGCeMap.put("PM9", "약국")
     }
 
     fun initPlanList() {
@@ -280,6 +291,10 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
         naverMap.uiSettings.isLocationButtonEnabled = true
 
         setCameraInMap(lastPosY, lastPosX, 13.0)
+
+        naverMap.setOnMapClickListener{ _, _ ->
+            binding.planBtmClShowPlaceInfo.isVisible = false
+        }
     }
 
     fun setCameraInMap(posY: Double, posX: Double, zoom: Double = 13.0){
