@@ -151,7 +151,7 @@ class HomeFragment : Fragment(), HomeView{
                 weatherMain = "null"
             }
         }
-        binding.homeWeatherMain.text = weatherMain
+//        binding.homeWeatherMain.text = weatherMain
     }
 
     override fun onGetUserInfoFailure(message: String) {
