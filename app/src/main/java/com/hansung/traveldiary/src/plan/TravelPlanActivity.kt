@@ -31,7 +31,6 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.location.LocationServices
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelDiaryBinding
-import com.hansung.traveldiary.src.plan.adapter.PlaceData
 import com.hansung.traveldiary.src.plan.adapter.PlanAdapter
 import com.hansung.traveldiary.src.plan.model.*
 import com.hansung.traveldiary.src.travel.AddPlanDialog

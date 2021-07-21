@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_item_schedule"
+    android:paddingHorizontal="30dp"
+    android:paddingVertical="15dp"
+    android:layout_marginBottom="20dp">
+
+    <TextView
+        android:id="@+id/item_schedule_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="지역이름"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/loginTextColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/item_schedule_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_trash"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:clickable="true"
+        android:focusable="true"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

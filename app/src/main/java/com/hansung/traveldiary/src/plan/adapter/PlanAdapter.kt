@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ItemPlanBinding
+import com.hansung.traveldiary.src.plan.model.PlaceData
 
-data class PlaceData(var location : String)
 
 class PlanAdapter(private val planData : ArrayList<PlaceData>) : RecyclerView.Adapter<PlanAdapter.ViewHolder>(){
     class ViewHolder(val binding : ItemPlanBinding) : RecyclerView.ViewHolder(binding.root) {

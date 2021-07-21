@@ -13,6 +13,7 @@ class PlanAddDayActivity : AppCompatActivity() {
     private val binding by lazy{
         ActivityPlanAddDayBinding.inflate(layoutInflater)
     }
+    private var title : String? = null
     private val planDayList = ArrayList<PlanDayInfo>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +21,13 @@ class PlanAddDayActivity : AppCompatActivity() {
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
 
-        val title = intent.getStringExtra("title")
+        title = intent.getStringExtra("title")
         if(title == ""){
             binding.addDayTitle.text = "영진이의 부산여행"
         }else{
             binding.addDayTitle.text = title
         }
+
         if(planDayList.size == 0){
             binding.addDayNoMsg.isVisible = true
             binding.dsRecyclerview.isVisible = false
@@ -52,5 +54,9 @@ class PlanAddDayActivity : AppCompatActivity() {
             adapter= DayAddAdapter(planDayList)
             layoutManager= LinearLayoutManager(this@PlanAddDayActivity)
         }
+    }
+
+    fun getTitleContents() : String?{
+        return title
     }
 }

@@ -32,11 +32,16 @@ class DayAddAdapter(val planDayList : ArrayList<PlanDayInfo>): RecyclerView.Adap
         val dayCountText = "Day - " + (position+1).toString()
         holder.dayText.text = dayCountText
         holder.date.text = planDayList[position].date
+
+        val intent = Intent(context, TravelPlanBaseActivity::class.java)
+        intent.putExtra("title", (context as PlanAddDayActivity).getTitleContents())
         holder.map.setOnClickListener{
-            (context as PlanAddDayActivity).startActivity(Intent(context, TravelPlanBaseActivity::class.java))
+            intent.putExtra("menu", "map")
+            (context as PlanAddDayActivity).startActivity(intent)
         }
         holder.schedule.setOnClickListener{
-
+            intent.putExtra("menu", "schedule")
+            (context as PlanAddDayActivity).startActivity(intent)
         }
 
 //        holder.itemView.setOnClickListener{
