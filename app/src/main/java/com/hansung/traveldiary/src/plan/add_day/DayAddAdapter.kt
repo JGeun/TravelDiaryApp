@@ -9,6 +9,7 @@ import com.hansung.traveldiary.databinding.ItemAddDiaryPlanBinding
 import com.hansung.traveldiary.databinding.ItemDiarySectionBinding
 import com.hansung.traveldiary.src.bulletin.DiarySectionData
 import com.hansung.traveldiary.src.plan.TravelPlanActivity
+import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 
 data class PlanDayInfo(var date: String)
 
@@ -32,7 +33,7 @@ class DayAddAdapter(val planDayList : ArrayList<PlanDayInfo>): RecyclerView.Adap
         holder.dayText.text = dayCountText
         holder.date.text = planDayList[position].date
         holder.map.setOnClickListener{
-            (context as PlanAddDayActivity).startActivity(Intent(context, TravelPlanActivity::class.java))
+            (context as PlanAddDayActivity).startActivity(Intent(context, TravelPlanBaseActivity::class.java))
         }
         holder.schedule.setOnClickListener{
 

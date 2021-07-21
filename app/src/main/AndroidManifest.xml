@@ -15,9 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".Test">
-
-        </activity>
+        <activity android:name=".src.plan.TravelPlanBaseActivity"></activity>
+        <activity android:name=".Test"></activity>
         <activity android:name=".src.plan.SearchWordResultActivity" />
         <activity android:name=".src.plan.add_day.PlanAddDayActivity" />
         <activity android:name=".src.profile.gallery.SelectPictureActivity" />
@@ -39,14 +38,6 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="avjpx313dk" />
-
-        <!-- Recommended for Android 9 (API level 28) and lower. -->
-        <!-- Required for Android 10 (API level 29) and higher. -->
-<!--        <service-->
-<!--            android:name="MyNavigationService"-->
-<!--            android:foregroundServiceType="location">-->
-<!--            &lt;!&ndash; Any inner elements would go here. &ndash;&gt;-->
-<!--        </service>-->
     </application>
 
 </manifest>
