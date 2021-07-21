@@ -14,6 +14,8 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentHomeBinding
 import com.hansung.traveldiary.src.home.adapter.*
 import com.hansung.traveldiary.src.home.model.WeatherInfo
+import java.lang.Math.*
+import kotlin.math.ceil
 
 data class RecommandLocationData(val image : Drawable, val name : String)
 data class HomeBulletinData(val image : Drawable, val title : String, val contents: String)
@@ -124,10 +126,11 @@ class HomeFragment : Fragment(), HomeView{
     }
 
     override fun onGetWeatherInfoSuccess(response: WeatherInfo) {
-        val temp = response.current.temp
+        val temp = ceil(response.current.temp)
         val weatherId = response.current.weather[0].id.toString()
         var weatherMain = ""
-        binding.homeWeatherTemp.text = temp.toString()
+        val tempText = temp.toInt().toString() + "°C"
+        binding.homeWeatherTemp.text = tempText
         if(weatherId.substring(0,1).equals("2")){
             weatherMain = "뇌우"
         }else if(weatherId.substring(0,1).equals("3")){
