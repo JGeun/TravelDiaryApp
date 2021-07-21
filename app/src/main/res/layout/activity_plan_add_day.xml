@@ -7,13 +7,27 @@
     android:paddingHorizontal="20dp"
     android:paddingVertical="10dp">
 
+    <TextView
+        android:id="@+id/addDay_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="영진이의 부산여행"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"/>
+
     <ImageView
         android:id="@+id/ds_iv_back"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/back"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/addDay_title"
+        app:layout_constraintBottom_toBottomOf="@id/addDay_title"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <TextView
         android:id="@+id/addDay_no_msg"
@@ -38,9 +52,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ds_iv_back"
+        app:layout_constraintTop_toBottomOf="@id/addDay_title"
         android:layout_marginTop="20dp"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never"
+        android:paddingBottom="30dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addDay_fab"

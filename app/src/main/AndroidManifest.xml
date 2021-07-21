@@ -19,7 +19,7 @@
 
         </activity>
         <activity android:name=".src.plan.SearchWordResultActivity" />
-        <activity android:name=".src.plan.PlanAddDayActivity" />
+        <activity android:name=".src.plan.add_day.PlanAddDayActivity" />
         <activity android:name=".src.profile.gallery.SelectPictureActivity" />
         <activity android:name=".src.profile.edit_info.EditInfoActivity" />
         <activity android:name=".src.splash.SplashActivity">

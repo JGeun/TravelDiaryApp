@@ -1,29 +1,32 @@
-package com.hansung.traveldiary.src.plan
+package com.hansung.traveldiary.src.plan.add_day
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityPlanAddDayBinding
-import com.hansung.traveldiary.src.bulletin.DiarySectionAdapter
 import com.hansung.traveldiary.src.bulletin.DiarySectionData
-import com.hansung.traveldiary.src.plan.adapter.DayAddAdapter
 import com.hansung.traveldiary.util.StatusBarUtil
 
 class PlanAddDayActivity : AppCompatActivity() {
     private val binding by lazy{
         ActivityPlanAddDayBinding.inflate(layoutInflater)
     }
-    private val postryList = ArrayList<DiarySectionData>()
+    private val planDayList = ArrayList<PlanDayInfo>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
 
-        if(postryList.size == 0){
+        val title = intent.getStringExtra("title")
+        if(title == ""){
+            binding.addDayTitle.text = "영진이의 부산여행"
+        }else{
+            binding.addDayTitle.text = title
+        }
+        if(planDayList.size == 0){
             binding.addDayNoMsg.isVisible = true
             binding.dsRecyclerview.isVisible = false
         }else{
@@ -32,18 +35,13 @@ class PlanAddDayActivity : AppCompatActivity() {
         }
 
         binding.addDayFab.setOnClickListener{
-            if(postryList.size == 0){
+            if(planDayList.size == 0){
                 binding.addDayNoMsg.isVisible = false
                 binding.dsRecyclerview.isVisible = true
             }
-            postryList.add(DiarySectionData(R.drawable.gwangwhamun, "#부산 #해운대"))
+            planDayList.add(PlanDayInfo("2021-07-19"))
             binding.dsRecyclerview.adapter!!.notifyDataSetChanged()
         }
-//        =arrayListOf(
-//            DiarySectionData(R.drawable.gwangwhamun, "#부산 #해운대"),
-//            DiarySectionData(R.drawable.gwangwhamun,"#부산 #해운대"),
-//            DiarySectionData(R.drawable.gwangwhamun,"#부산 #해운대")
-//        )
 
         binding.dsIvBack.setOnClickListener{
             finish()
@@ -51,7 +49,7 @@ class PlanAddDayActivity : AppCompatActivity() {
 
         binding.dsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter= DayAddAdapter(postryList)
+            adapter= DayAddAdapter(planDayList)
             layoutManager= LinearLayoutManager(this@PlanAddDayActivity)
         }
     }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_marginBottom="15dp"
+    android:paddingHorizontal="30dp"
+    android:background="@drawable/shadow"
+    android:gravity="center_vertical"
+    android:paddingVertical="20dp">
+
+    <TextView
+        android:id="@+id/item_adp_dayCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day - 1"
+        android:fontFamily="@font/main_font"
+        android:textColor="@color/loginTextColor"
+        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/item_adp_schedule"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_schedule_white"
+        android:background="#98909F"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <ImageView
+        android:id="@+id/item_adp_map"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_map_white"
+        android:background="#98909F"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/item_adp_schedule"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/item_adp_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="2021-07-19"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/main_font"
+        android:textColor="@color/loginTextColor"
+        app:layout_constraintStart_toEndOf="@id/item_adp_dayCount"
+        app:layout_constraintTop_toTopOf="@id/item_adp_dayCount"
+        app:layout_constraintBottom_toBottomOf="@id/item_adp_dayCount"
+        app:layout_constraintEnd_toStartOf="@id/item_adp_map"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
