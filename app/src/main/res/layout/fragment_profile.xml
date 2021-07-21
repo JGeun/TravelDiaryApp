@@ -218,7 +218,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -274,7 +274,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -302,7 +302,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -330,7 +330,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -358,7 +358,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
