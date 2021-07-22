@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -22,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Jul"
-        app:layout_constraintEnd_toEndOf="@+id/start_date"
-        app:layout_constraintStart_toStartOf="@+id/start_date"
+        app:layout_constraintEnd_toEndOf="@+id/item_start_date"
+        app:layout_constraintStart_toStartOf="@+id/item_start_date"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -32,18 +34,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Jul"
-        app:layout_constraintEnd_toEndOf="@+id/end_date"
-        app:layout_constraintStart_toStartOf="@+id/end_date"
+        app:layout_constraintEnd_toEndOf="@+id/item_end_date"
+        app:layout_constraintStart_toStartOf="@+id/item_end_date"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/start_date"
+        android:id="@+id/item_start_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:text="12"
         android:textSize="28dp"
-        app:layout_constraintStart_toEndOf="@+id/item_plan_image"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/start_month" />
 
     <TextView
@@ -52,34 +53,44 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:text="~"
-        app:layout_constraintBottom_toBottomOf="@+id/start_date"
-        app:layout_constraintStart_toEndOf="@+id/start_date"
+        app:layout_constraintBottom_toBottomOf="@+id/item_start_date"
+        app:layout_constraintEnd_toStartOf="@+id/item_end_date"
         app:layout_constraintTop_toBottomOf="@+id/start_month" />
 
     <TextView
-        android:id="@+id/end_date"
+        android:id="@+id/item_end_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginEnd="20dp"
         android:text="18"
         android:textSize="28dp"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/end_month" />
 
     <TextView
         android:id="@+id/item_plan_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:text="부산 힐링 여행"
         android:textSize="16dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/end_date"
+        app:layout_constraintEnd_toStartOf="@+id/item_start_date"
+        app:layout_constraintStart_toEndOf="@+id/item_plan_image"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_setting_check" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="1dp"
         android:background="#676767"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

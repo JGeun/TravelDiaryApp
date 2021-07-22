@@ -23,7 +23,7 @@ import com.naver.maps.map.util.FusedLocationSource
 import java.util.*
 import kotlin.collections.ArrayList
 
-data class PlanSectionData(val image: Drawable, val title: String, val color: String)
+data class PlanSectionData(val image: Drawable, val title: String, val color: String, val start_date : String, val end_date : String)
 
 
 class TriptogoFragment : Fragment() {
@@ -40,7 +40,7 @@ class TriptogoFragment : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
             val dlg =AddPlanDialog(requireContext())
-            dlg.start()
+            dlg.start(tripPlanList)
         }
 
         initTripPlanList()
@@ -49,7 +49,6 @@ class TriptogoFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter =PlanSectionAdapter(tripPlanList)
-
         }
 
         return binding.root
@@ -60,63 +59,63 @@ class TriptogoFragment : Fragment() {
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_graybook,
+                    R.drawable.ic_diary_purple,
                     null
-                )!!, "부산여행와랄라", "gray")
+                )!!, "부산여행와랄라", "purple", "12", "13")
 
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_bluebook,
+                    R.drawable.ic_diary_olive,
                     null
-                )!!, "부산에가요오", "blue"
+                )!!, "부산에가요오", "olive", "24", "30"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_redbook,
+                    R.drawable.ic_diary_green,
                     null
-                )!!, "여수", "red"
+                )!!, "여수", "green", "01", "03"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_darkgraybook,
+                    R.drawable.ic_diary_pink,
                     null
-                )!!, "제주도", "gray"
+                )!!, "제주도", "pink", "10", "12"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_yellowbook,
+                    R.drawable.ic_diary_blue,
                     null
-                )!!, "순천", "yellow"
+                )!!, "순천", "blue", "13", "16"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_bluebook,
+                    R.drawable.ic_diary_purple,
                     null
-                )!!, "렛츠고강릉요요", "blue"
+                )!!, "렛츠고강릉요요", "purple", "09", "12"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_greenbook,
+                    R.drawable.ic_diary_pink,
                     null
-                )!!, "속초", "green"
+                )!!, "속초", "pink", "19","21"
             )
         )
 
@@ -125,65 +124,66 @@ class TriptogoFragment : Fragment() {
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_graybook,
+                    R.drawable.ic_diary_purple,
                     null
-                )!!, "부산여행와랄라", "gray")
+                )!!, "부산여행와랄라", "purple", "12", "13")
 
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_bluebook,
+                    R.drawable.ic_diary_olive,
                     null
-                )!!, "부산에가요오", "blue"
+                )!!, "부산에가요오", "olive", "24", "30"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_redbook,
+                    R.drawable.ic_diary_green,
                     null
-                )!!, "여수", "red"
+                )!!, "여수", "green", "01", "03"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_darkgraybook,
+                    R.drawable.ic_diary_pink,
                     null
-                )!!, "제주도", "gray"
+                )!!, "제주도", "pink", "10", "12"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_yellowbook,
+                    R.drawable.ic_diary_blue,
                     null
-                )!!, "순천", "yellow"
+                )!!, "순천", "blue", "13", "16"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_bluebook,
+                    R.drawable.ic_diary_purple,
                     null
-                )!!, "렛츠고강릉요요", "blue"
+                )!!, "렛츠고강릉요요", "purple", "09", "12"
             )
         )
         tripPlanList.add(
             PlanSectionData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.ic_greenbook,
+                    R.drawable.ic_diary_pink,
                     null
-                )!!, "속초", "green"
+                )!!, "속초", "pink", "19","21"
             )
         )
+
     }
 
     fun newInstant(): TriptogoFragment {
@@ -193,6 +193,7 @@ class TriptogoFragment : Fragment() {
         return frag
     }
 
+    /*
     fun showDialog() {
         var view = layoutInflater.inflate(R.layout.dialog_add_plan, null)
 
@@ -232,15 +233,16 @@ class TriptogoFragment : Fragment() {
                 datePickerDialog.show()
             }
         }
+
         var color = "null"
         val bookColor = view.findViewById<RadioGroup>(R.id.addPlan_rg_bookcolor)
         bookColor.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.addPlen_rb_red -> color = "red"
+                R.id.addPlen_rb_pink -> color = "pink"
                 R.id.addPlen_rb_blue -> color = "blue"
                 R.id.addPlen_rb_green -> color = "green"
-                R.id.addPlen_rb_yellow -> color = "yellow"
-                R.id.addPlen_rb_gray -> color = "gray"
+                R.id.addPlen_rb_olive -> color = "olive"
+                R.id.addPlen_rb_purple -> color = "purple"
             }
             Log.d("확인", bookColor.checkedRadioButtonId.toString())
         }
@@ -256,7 +258,8 @@ class TriptogoFragment : Fragment() {
                 )
             )
 
-            binding.plantripRv.adapter?.notifyDataSetChanged()
+            binding.plantripRv.adapter?.notifyDat
+            aSetChanged()
         }
         builder.setNegativeButton("취소", null)
 
@@ -264,5 +267,7 @@ class TriptogoFragment : Fragment() {
 
         builder.show()
     }
+
+     */
 }
 

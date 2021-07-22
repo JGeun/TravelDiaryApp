@@ -23,10 +23,14 @@ class PlanSectionAdapter(private val planTripinData: ArrayList<PlanSectionData>)
     class ViewHolder(val binding : ItemPlanSectionBinding) : RecyclerView.ViewHolder(binding.root){
         val tripinImage : ImageView
         val tripinTitle : TextView
+        var tripinStartdate : TextView
+        var tripinEnddate : TextView
 
         init {
             tripinImage = binding.itemPlanImage
             tripinTitle = binding.itemPlanTitle
+            tripinStartdate = binding.itemStartDate
+            tripinEnddate = binding.itemEndDate
         }
     }
 
@@ -38,21 +42,23 @@ class PlanSectionAdapter(private val planTripinData: ArrayList<PlanSectionData>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = planTripinData[position]
-        if(data.color == "red"){
-            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_redbook, null)!!
-        }else if(data.color == "blue"){
-            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_bluebook, null)!!
+        if(data.color == "blue"){
+            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
         }else if(data.color == "green"){
-            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_greenbook, null)!!
-        }else if(data.color == "yellow"){
-            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_yellowbook, null)!!
-        }else if(data.color == "gray"){
-            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_graybook, null)!!
+            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_green, null)!!
+        }else if(data.color == "olive"){
+            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_olive, null)!!
+        }else if(data.color == "pink"){
+            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_pink, null)!!
+        }else if(data.color == "purple"){
+            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_purple, null)!!
         }else{
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_redbook, null)!!
         }
         Glide.with(holder.itemView.context).load(image).apply(RequestOptions()).into(holder.tripinImage)
         holder.tripinTitle.text = data.title
+        holder.tripinStartdate.text = data.start_date
+        holder.tripinEnddate.text = data.end_date
 
         val context = holder.itemView.context
         holder.itemView.setOnClickListener{
