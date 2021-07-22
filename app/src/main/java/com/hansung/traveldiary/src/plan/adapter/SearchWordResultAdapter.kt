@@ -16,6 +16,7 @@ class SearchWordResultAdapter(private val dataList:ArrayList<SearchWordResultInf
     inner class ViewHolder(private val binding: ItemWordSearchResultBinding): RecyclerView.ViewHolder(binding.root){
         var title = binding.itemWsrTitle
         var address = binding.itemWsrAddress
+        var distance = binding.worldSearchPlaceKinds
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
@@ -27,7 +28,7 @@ class SearchWordResultAdapter(private val dataList:ArrayList<SearchWordResultInf
         val data = dataList[position]
         holder.title.text = data.title
         holder.address.text = data.address
-
+        holder.distance.text = data.distance.toString()
         val context = holder.itemView.context
         holder.itemView.setOnClickListener{
             val intent = Intent()

@@ -102,13 +102,13 @@ class HomeFragment : Fragment(), HomeView{
     }
 
     private fun initSaleList(){
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_bg_profile, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
+        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
 
 
     }
