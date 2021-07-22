@@ -244,7 +244,7 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
         for (result in searchWordResultList) {
             resultList.add(
                 SearchWordResultInfo(
-                    result.place_name, result.address_name
+                    result.place_name, result.address_name, result.category_group_name
                 )
             )
         }

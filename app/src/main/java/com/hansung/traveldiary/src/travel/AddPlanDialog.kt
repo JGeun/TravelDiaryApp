@@ -22,7 +22,7 @@ class AddPlanDialog(context: Context){
     private val dlg = Dialog(context)
 
 
-    fun start(tripPlanList : ArrayList<PlanSectionData>){
+    fun start(fragment: TriptogoFragment, tripPlanList: ArrayList<PlanSectionData>){
         val binding = FragmentTriptogoBinding.inflate(LayoutInflater.from(dlg.context))
 
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -84,15 +84,16 @@ class AddPlanDialog(context: Context){
             var title = dlg.findViewById<EditText>(R.id.edit_title).text.toString()
             var startDate = dlg.findViewById<EditText>(R.id.edit_start_date).text.toString().substring(12)
             var endDate = dlg.findViewById<EditText>(R.id.edit_end_date).text.toString().substring(12)
-            tripPlanList.add(
-                PlanSectionData(
+            val data = PlanSectionData(
                     ResourcesCompat.getDrawable(
                         dlg.context.resources,
                         R.drawable.ic_diary_blue,
                         null
                     )!!, title, color, startDate, endDate
                 )
-            )
+            fragment.addPlanAndNotify(data)
+
+            println("size : " + tripPlanList.size)
 //            binding.plantripRv.adapter?.notifyDataSetChanged()
             Log.d("추가", "rv")
 

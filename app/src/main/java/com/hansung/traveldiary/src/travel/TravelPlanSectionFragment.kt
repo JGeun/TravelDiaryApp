@@ -1,26 +1,18 @@
 package com.hansung.traveldiary.src.travel
 
-import android.app.AlertDialog
-import android.app.DatePickerDialog
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.RadioGroup
 import androidx.core.content.res.ResourcesCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentTriptogoBinding
 import com.hansung.traveldiary.src.travel.adapter.PlanSectionAdapter
 
 import com.naver.maps.map.util.FusedLocationSource
-import java.util.*
 import kotlin.collections.ArrayList
 
 data class PlanSectionData(val image: Drawable, val title: String, val color: String, val start_date : String, val end_date : String)
@@ -40,10 +32,10 @@ class TriptogoFragment : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
             val dlg =AddPlanDialog(requireContext())
-            dlg.start(tripPlanList)
+            dlg.start(this, tripPlanList)
         }
 
-        initTripPlanList()
+//        initTripPlanList()
 
         binding.plantripRv.apply{
             setHasFixedSize(true)
@@ -184,6 +176,11 @@ class TriptogoFragment : Fragment() {
             )
         )
 
+    }
+
+    public fun addPlanAndNotify(data : PlanSectionData){
+        tripPlanList.add(data)
+        binding.plantripRv.adapter!!.notifyDataSetChanged()
     }
 
     fun newInstant(): TriptogoFragment {
