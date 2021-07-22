@@ -1,24 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/world_search_relative"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginHorizontal="20dp"
+    android:layout_marginBottom="0.1dp"
     android:orientation="vertical"
+    android:background="@color/white"
     android:paddingBottom="10dp">
 
-    <TextView
-        android:id="@+id/item_wsr_title"
+    <LinearLayout
+        android:id="@+id/world_search_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="검색된 아이템 이름"
-        android:textSize="23sp"/>
+        android:layout_marginStart="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/item_wsr_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="검색된 아이템 이름"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/item_wsr_address"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:text="검색된 아이템 주소" />
+
+    </LinearLayout>
+
 
     <TextView
-        android:id="@+id/item_wsr_address"
+        android:id="@+id/world_search_place_kinds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="검색된 아이템 주소"
-        android:layout_marginTop="10dp"/>
-</LinearLayout>
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/marker"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39" />
+</androidx.constraintlayout.widget.ConstraintLayout>

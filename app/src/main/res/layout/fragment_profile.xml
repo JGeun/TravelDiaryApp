@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/img_bg_profile" />
+            app:srcCompat="@drawable/img_sumset" />
 
         <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/profile_cv_image"
