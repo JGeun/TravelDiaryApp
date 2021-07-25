@@ -35,7 +35,7 @@ class TriptogoFragment : Fragment() {
             dlg.start(this, tripPlanList)
         }
 
-//        initTripPlanList()
+        initTripPlanList()
 
         binding.plantripRv.apply{
             setHasFixedSize(true)
