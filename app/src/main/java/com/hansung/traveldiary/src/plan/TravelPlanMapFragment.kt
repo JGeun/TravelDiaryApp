@@ -40,6 +40,7 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
     private var path : PathOverlay? = null
     private var lastLatitude = 37.58842461354086
     private var lastLongitude = 127.00601781685579
+    private lateinit var searchLatlng : LatLng
 
     private var categoryGCeMap : HashMap<String, String> = HashMap()
     private val TAG = "TravelPlanBaseActivity"
@@ -94,6 +95,16 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
 
         binding.planBtmBtnStore.setOnClickListener{
             userPlaceDataModel.putPlace(PlaceData(searchWordResultList[searchWordIndex].place_name, searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble()))
+
+            latLngList.add(searchLatlng)
+            if(userPlaceDataModel.items.size >= 2){
+                if(path == null){
+                    path = PathOverlay()
+                    path!!.coords = latLngList
+                    path!!.map = naverMap
+                }else
+                    path!!.coords = latLngList
+            }
         }
         return binding.root
     }
@@ -140,13 +151,13 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
                 val latitude = searchWordResultList[searchWordIndex].y.toDouble()
                 Log.d("위치체크", longitude.toString() + " / " + latitude.toString())
 //                val tm128 = Tm128(mapx.toDouble(), mapy.toDouble())
-                val latLng = LatLng(latitude, longitude)
+                searchLatlng = LatLng(latitude, longitude)
 
                 val marker = Marker()
-                marker.position = latLng
+                marker.position = searchLatlng
                 marker.map = naverMap
 
-                val cameraUpdate = CameraUpdate.scrollAndZoomTo(latLng, 17.0)
+                val cameraUpdate = CameraUpdate.scrollAndZoomTo(searchLatlng, 17.0)
                     .reason(3)
                     .animate(CameraAnimation.Easing, 2000)
                     .finishCallback {
@@ -157,15 +168,7 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
                     }
                 naverMap.moveCamera(cameraUpdate)
 
-                latLngList.add(latLng)
-                if(userPlaceDataModel.items.size >= 2){
-                    if(path == null){
-                        path = PathOverlay()
-                        path!!.coords = latLngList
-                        path!!.map = naverMap
-                    }else
-                        path!!.coords = latLngList
-                }
+
             }
         }
     }
@@ -244,7 +247,7 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
         for (result in searchWordResultList) {
             resultList.add(
                 SearchWordResultInfo(
-                    result.place_name, result.address_name
+                    result.place_name, result.address_name, result.category_group_name
                 )
             )
         }

@@ -19,7 +19,6 @@ class TravelDiarySectionFragment : Fragment() {
         return binding.root
     }
 
-
     fun newInstant() : TravelDiarySectionFragment
     {
         val args = Bundle()

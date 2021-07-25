@@ -13,8 +13,8 @@
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
+        android:paddingHorizontal="25dp"
+        android:paddingVertical="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,6 +76,7 @@
             android:backgroundTint="@color/maincolor"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
