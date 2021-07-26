@@ -15,12 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.travel.AddPlanActivity"
+        <activity android:name=".src.travel.AddTravelPlanActivity"
             android:theme="@style/Transparent"/>
         <activity android:name=".src.plan.TravelPlanBaseActivity" />
         <activity android:name=".Test" />
         <activity android:name=".src.plan.SearchWordResultActivity" />
-        <activity android:name=".src.plan.add_day.PlanAddDayActivity" />
+        <activity android:name=".src.plan.plan_day_section.PlanDaySectionActivity" />
         <activity android:name=".src.profile.gallery.SelectPictureActivity" />
         <activity android:name=".src.profile.edit_info.EditInfoActivity" />
         <activity android:name=".src.splash.SplashActivity">

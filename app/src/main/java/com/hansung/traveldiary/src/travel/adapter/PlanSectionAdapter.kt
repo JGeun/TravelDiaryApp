@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemPlanSectionBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.plan.add_day.PlanAddDayActivity
+import com.hansung.traveldiary.src.plan.plan_day_section.PlanDaySectionActivity
 import com.hansung.traveldiary.src.travel.PlanBookData
 
 class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
@@ -72,7 +72,7 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
 
         val context = holder.itemView.context
         holder.itemView.setOnClickListener{
-            val intent = Intent(context, PlanAddDayActivity::class.java)
+            val intent = Intent(context, PlanDaySectionActivity::class.java)
             intent.putExtra("title", data.title)
             (context as MainActivity).startActivity(intent)
         }

@@ -16,6 +16,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlanMapBinding
 import com.hansung.traveldiary.src.plan.model.*
@@ -27,7 +34,7 @@ import com.naver.maps.map.overlay.PathOverlay
 import com.naver.maps.map.util.FusedLocationSource
 import okhttp3.internal.notify
 
-class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
+class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView {
     private lateinit var binding : FragmentPlanMapBinding
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -43,20 +50,33 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
     private lateinit var searchLatlng : LatLng
 
     private var categoryGCeMap : HashMap<String, String> = HashMap()
-    private val TAG = "TravelPlanBaseActivity"
+
+    private var user: FirebaseUser? = null
+    private var db: FirebaseFirestore? = null
+    private val TAG = "TravelPlanMapFragment"
 
     private val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
+    private var title : String? = null
+
+    constructor(title: String?) : this() {
+        this.title = title
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("map created")
+        println("체크 TravelPlanMapFragment ${title}")
         binding = FragmentPlanMapBinding.inflate(inflater, container, false)
 
+        user = Firebase.auth.currentUser
+        db = Firebase.firestore
         initGCMap()
-
         searchWordResultTaskInit()
+
+        Log.d(TAG, userPlaceDataModel.items.size.toString())
 
         val fm = childFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
@@ -94,9 +114,18 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
         })
 
         binding.planBtmBtnStore.setOnClickListener{
-            userPlaceDataModel.putPlace(PlaceData(searchWordResultList[searchWordIndex].place_name, searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble()))
-
+            Log.d(TAG, "입력 전: " + userPlaceDataModel.items.size.toString())
+            val placeInfo = PlaceInfo(searchWordResultList[searchWordIndex].place_name, searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble())
+//            userPlaceDataModel.putPlace(placeInfo)
+//            Log.d(TAG, "putPlace 후: " + userPlaceDataModel.items.size.toString())
+            TravelPlanBaseActivity.planTotalData.dayList[TravelPlanBaseActivity.index].placeInfoArray.add(placeInfo)
+            println("user: " + user!!.email.toString())
+            println("title: " + title)
+            db!!.collection(user!!.email.toString()).document(title!!).set(TravelPlanBaseActivity.planTotalData)
+//            Log.d(TAG, "db업데이트 후: " + userPlaceDataModel.items.size.toString())
             latLngList.add(searchLatlng)
+//            Log.d(TAG, "입력 후: " + userPlaceDataModel.items.size.toString())
+
             if(userPlaceDataModel.items.size >= 2){
                 if(path == null){
                     path = PathOverlay()
@@ -173,7 +202,10 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
         }
     }
 
-
+    override fun onStart() {
+        super.onStart()
+        println("map fragment start")
+    }
 
     override fun onMapReady(naverMap: NaverMap) {
         println("onMapReady")
@@ -183,8 +215,8 @@ class TravelPlanMapFragment : Fragment(), OnMapReadyCallback, KakaoSearchView {
 
         latLngList.clear()
         if(userPlaceDataModel.items.size != 0){
-            lastLatitude = userPlaceDataModel.items[0].latitude
-            lastLongitude  = userPlaceDataModel.items[0].longitude
+            lastLatitude = userPlaceDataModel.items[userPlaceDataModel.items.size-1].latitude
+            lastLongitude  = userPlaceDataModel.items[userPlaceDataModel.items.size-1].longitude
             for(placeData in userPlaceDataModel.items){
                 val marker = Marker()
                 latLngList.add(LatLng(placeData.latitude, placeData.longitude))

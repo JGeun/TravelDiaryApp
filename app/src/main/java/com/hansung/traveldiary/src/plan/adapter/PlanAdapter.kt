@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ItemPlanBinding
-import com.hansung.traveldiary.src.plan.model.PlaceData
+import com.hansung.traveldiary.src.plan.model.PlaceInfo
 
 
-class PlanAdapter(private val planData : ArrayList<PlaceData>) : RecyclerView.Adapter<PlanAdapter.ViewHolder>(){
+class PlanAdapter(private val planData : ArrayList<PlaceInfo>) : RecyclerView.Adapter<PlanAdapter.ViewHolder>(){
     class ViewHolder(val binding : ItemPlanBinding) : RecyclerView.ViewHolder(binding.root) {
         val text : TextView = binding.text
     }
@@ -19,7 +19,7 @@ class PlanAdapter(private val planData : ArrayList<PlaceData>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.text.text = planData[position].location
+        holder.text.text = planData[position].placeName
     }
 
     override fun getItemCount(): Int = planData.size

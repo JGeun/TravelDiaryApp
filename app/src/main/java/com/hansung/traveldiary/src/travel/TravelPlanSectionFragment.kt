@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -17,7 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentTravelPlanSectionBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.model.DayInfo
@@ -25,9 +22,6 @@ import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import com.hansung.traveldiary.src.travel.adapter.PlanSectionAdapter
 
 import com.naver.maps.map.util.FusedLocationSource
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
 import kotlin.collections.ArrayList
 
 data class PlanSectionData(
@@ -69,7 +63,7 @@ class TravelPlanSectionFragment : Fragment() {
 //            val dlg = AddPlanDialog(requireContext())
 //            dlg.start(this, tripPlanList)
 
-            (context as MainActivity).startActivity(Intent(context, AddPlanActivity::class.java))
+            (context as MainActivity).startActivity(Intent(context, AddTravelPlanActivity::class.java))
         }
 
         binding.plantripRv.apply {
@@ -85,7 +79,6 @@ class TravelPlanSectionFragment : Fragment() {
         super.onStart()
         planBookList.clear()
 
-        println("fragment start")
         val dbCollection = db!!.collection(user!!.email.toString())
         dbCollection
             .get()

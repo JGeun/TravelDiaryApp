@@ -2,7 +2,7 @@ package com.hansung.traveldiary.src.plan.model
 
 import java.io.Serializable
 
-data class PlaceInfo(var placeName: String? = null, var latitude: Double? = null, var longitude: Double? = null)
+data class PlaceInfo(var placeName: String? = null, var latitude: Double = 37.58842461354086, var longitude: Double = 127.00601781685579)
 data class DayInfo(var date: String = "", var placeInfoArray : ArrayList<PlaceInfo> = ArrayList<PlaceInfo>())
 
 //class PlanTotalData(){

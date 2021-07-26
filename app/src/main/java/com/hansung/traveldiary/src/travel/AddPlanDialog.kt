@@ -5,16 +5,12 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.view.Window
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
-import androidx.core.content.res.ResourcesCompat
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentTravelPlanSectionBinding
 import java.util.*
@@ -30,7 +26,7 @@ class AddPlanDialog(context: Context) {
 //        dlg.window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dlg.setContentView(R.layout.dialog_add_plan)
+        dlg.setContentView(R.layout.dialog_add_travel_plan)
         dlg.setCancelable(true)
         dlg.window!!.setBackgroundDrawable(
             ColorDrawable(Color.TRANSPARENT)

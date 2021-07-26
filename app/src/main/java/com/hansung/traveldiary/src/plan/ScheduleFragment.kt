@@ -12,10 +12,14 @@ import com.hansung.traveldiary.databinding.FragmentScheduleBinding
 import com.hansung.traveldiary.src.plan.adapter.ScheduleAdapter
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
-class ScheduleFragment : Fragment(){
+class ScheduleFragment() : Fragment(){
     private lateinit var binding : FragmentScheduleBinding
     val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
-    private var size =  0
+    private var title : String? = null
+
+    constructor(title: String?) : this() {
+        this.title = title
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,21 +28,19 @@ class ScheduleFragment : Fragment(){
     ): View? {
         binding = FragmentScheduleBinding.inflate(inflater, container, false)
 
-        size = userPlaceDataModel.getCount()
-
         binding.scheduleRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = ScheduleAdapter(userPlaceDataModel)
-
         }
+
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        println("start")
-        if(size != 0){
+        println("schedule fragment start")
+        if(userPlaceDataModel.items.size != 0){
             binding.scheduleNoPlan.isVisible = false
             binding.scheduleRecyclerview.isVisible = true
         }else{

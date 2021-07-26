@@ -128,7 +128,6 @@
                 android:orientation="vertical">
 
                 <TableRow>
-
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -137,11 +136,10 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/addPlen_rb_blue"
+                            android:id="@+id/addPlan_rb_blue"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:checked="true" />
+                            android:layout_gravity="center"/>
 
                         <ImageView
                             android:layout_width="60dp"
@@ -157,7 +155,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/addPlen_rb_green"
+                            android:id="@+id/addPlan_rb_green"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center" />
@@ -176,7 +174,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/addPlen_rb_olive"
+                            android:id="@+id/addPlan_rb_olive"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center" />
@@ -198,7 +196,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/addPlen_rb_pink"
+                            android:id="@+id/addPlan_rb_pink"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center" />
@@ -217,7 +215,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/addPlen_rb_purple"
+                            android:id="@+id/addPlan_rb_purple"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center" />

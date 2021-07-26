@@ -12,18 +12,18 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.ActivityAddPlanBinding
+import com.hansung.traveldiary.databinding.ActivityAddTravelPlanBinding
 import com.hansung.traveldiary.src.plan.model.DayInfo
 import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddPlanActivity : AppCompatActivity() {
-    private val binding: ActivityAddPlanBinding by lazy {
-        ActivityAddPlanBinding.inflate(layoutInflater)
+class AddTravelPlanActivity : AppCompatActivity() {
+    private val binding: ActivityAddTravelPlanBinding by lazy {
+        ActivityAddTravelPlanBinding.inflate(layoutInflater)
     }
     private val TAG = "AddPlanActivity"
-
+    private var color = "pink"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -66,16 +66,9 @@ class AddPlanActivity : AppCompatActivity() {
             }
         }
 
-        var color = "pink"
-        binding.addPlanRgBookcolor.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.addPlen_rb_pink -> color = "pink"
-                R.id.addPlen_rb_blue -> color = "blue"
-                R.id.addPlen_rb_green -> color = "green"
-                R.id.addPlen_rb_olive -> color = "olive"
-                R.id.addPlen_rb_purple -> color = "purple"
-            }
-        }
+
+        setRadioButton()
+
 
         binding.addPlanBtn.setOnClickListener {
             var title = binding.editTitle.text.toString()
@@ -89,9 +82,10 @@ class AddPlanActivity : AppCompatActivity() {
             var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
             val startDateFormat = simpleDateFormat.parse("$startDate 00:00:00")!!
             val endDateFormat = simpleDateFormat.parse("$endDate 00:00:00")!!
-            val calcDate = ((endDateFormat.time- startDateFormat.time) / (60*60*24*1000)).toInt()
+            val calcDate =
+                ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
 
-            for(i in 0 .. calcDate){
+            for (i in 0..calcDate) {
                 dayList.add(DayInfo(afterDate(startDate, i), arrayListOf()))
             }
             var planTotalData = PlanTotalData(color, startDate, endDate, dayList)
@@ -127,5 +121,55 @@ class AddPlanActivity : AppCompatActivity() {
         calendar.add(Calendar.DAY_OF_YEAR, day)
 
         return format.format(calendar.time)
+    }
+
+    fun setRadioButton() {
+        binding.addPlanRbPink.setOnClickListener {
+            println("pink")
+            color = "pink"
+            binding.addPlanRbPink.isChecked = true
+            binding.addPlanRbBlue.isChecked = false
+            binding.addPlanRbOlive.isChecked = false
+            binding.addPlanRbGreen.isChecked = false
+            binding.addPlanRbPurple.isChecked = false
+        }
+        binding.addPlanRbBlue.setOnClickListener {
+            println("blue")
+            color = "blue"
+            binding.addPlanRbPink.isChecked = false
+            binding.addPlanRbBlue.isChecked = true
+            binding.addPlanRbOlive.isChecked = false
+            binding.addPlanRbGreen.isChecked = false
+            binding.addPlanRbPurple.isChecked = false
+        }
+        binding.addPlanRbOlive.setOnClickListener {
+            println("olive")
+            color = "olive"
+            binding.addPlanRbPink.isChecked = false
+            binding.addPlanRbBlue.isChecked = false
+            binding.addPlanRbOlive.isChecked = true
+            binding.addPlanRbGreen.isChecked = false
+            binding.addPlanRbPurple.isChecked = false
+        }
+        binding.addPlanRbGreen.setOnClickListener {
+            println("green")
+            color = "green"
+            binding.addPlanRbPink.isChecked = false
+            binding.addPlanRbBlue.isChecked = false
+            binding.addPlanRbOlive.isChecked = false
+            binding.addPlanRbGreen.isChecked = true
+            binding.addPlanRbPurple.isChecked = false
+        }
+
+        binding.addPlanRbPurple.setOnClickListener {
+            println("purple")
+            color = "purple"
+            binding.addPlanRbPink.isChecked = false
+            binding.addPlanRbBlue.isChecked = false
+            binding.addPlanRbOlive.isChecked = false
+            binding.addPlanRbGreen.isChecked = false
+            binding.addPlanRbPurple.isChecked = true
+        }
+
     }
 }

@@ -48,7 +48,7 @@ import kotlin.math.*
 class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapView, KakaoSearchView {
     private lateinit var TF: travelMap
     private lateinit var DF: diary
-    private val planList = ArrayList<PlaceData>()
+    private val planList = ArrayList<PlaceInfo>()
     private val planAdapter = PlanAdapter(planList)
     private lateinit var binding: ActivityTravelDiaryBinding
     private lateinit var locationSource: FusedLocationSource

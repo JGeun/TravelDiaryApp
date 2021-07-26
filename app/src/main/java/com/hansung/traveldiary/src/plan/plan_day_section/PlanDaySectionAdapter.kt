@@ -1,17 +1,19 @@
-package com.hansung.traveldiary.src.plan.add_day
+package com.hansung.traveldiary.src.plan.plan_day_section
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.hansung.traveldiary.databinding.ItemAddDiaryPlanBinding
+import com.hansung.traveldiary.databinding.ItemPlanDaySectionBinding
 import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 import com.hansung.traveldiary.src.plan.model.PlanTotalData
+import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
 
-class DayAddAdapter(val planTotalData : PlanTotalData): RecyclerView.Adapter<DayAddAdapter.ViewHolder>() {
+class PlanDaySectionAdapter(val planTotalData : PlanTotalData): RecyclerView.Adapter<PlanDaySectionAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: ItemAddDiaryPlanBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding: ItemPlanDaySectionBinding): RecyclerView.ViewHolder(binding.root){
         val dayText = binding.itemAdpDayCount
         val date = binding.itemAdpDate
         val map = binding.itemAdpMap
@@ -19,7 +21,7 @@ class DayAddAdapter(val planTotalData : PlanTotalData): RecyclerView.Adapter<Day
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding= ItemAddDiaryPlanBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding= ItemPlanDaySectionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
 
@@ -30,14 +32,16 @@ class DayAddAdapter(val planTotalData : PlanTotalData): RecyclerView.Adapter<Day
         holder.date.text = planTotalData.dayList[position].date
 
         val intent = Intent(context, TravelPlanBaseActivity::class.java)
-        intent.putExtra("title", (context as PlanAddDayActivity).getTitleContents())
+        intent.putExtra("title", (context as PlanDaySectionActivity).getTitleContents())
         holder.map.setOnClickListener{
             intent.putExtra("menu", "map")
-            (context as PlanAddDayActivity).startActivity(intent)
+            intent.putExtra("index", position)
+            (context as PlanDaySectionActivity).startActivity(intent)
         }
         holder.schedule.setOnClickListener{
             intent.putExtra("menu", "schedule")
-            (context as PlanAddDayActivity).startActivity(intent)
+            intent.putExtra("index", position)
+            (context as PlanDaySectionActivity).startActivity(intent)
         }
 
 //        holder.itemView.setOnClickListener{

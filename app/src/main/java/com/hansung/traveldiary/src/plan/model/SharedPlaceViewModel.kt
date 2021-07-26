@@ -2,30 +2,32 @@ package com.hansung.traveldiary.src.plan.model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.naver.maps.map.overlay.Marker
-
-data class PlaceData(var location : String, var latitude : Double, var longitude: Double)
 
 class SharedPlaceViewModel : ViewModel() {
-    val userPlaceData : MutableLiveData<ArrayList<PlaceData>> = MutableLiveData()
-    val items = ArrayList<PlaceData>()
+    val userPlanData : MutableLiveData<ArrayList<PlaceInfo>> = MutableLiveData()
+    var items = ArrayList<PlaceInfo>()
 
     init {
-        userPlaceData.value = items
+        userPlanData.value = items
     }
-    fun putPlace(data : PlaceData){
+
+    fun putPlaceAll(data : ArrayList<PlaceInfo>){
+        items = data
+        userPlanData.value = items
+    }
+    fun putPlace(data : PlaceInfo){
         items.add(data)
-        userPlaceData.value = items
+        userPlanData.value = items
     }
 
     fun removePlace(index: Int){
         items.removeAt(index)
-        userPlaceData.value = items
+        userPlanData.value = items
     }
 
     fun printPlace(){
-        for(data in userPlaceData.value!!)
-            println(data.location)
+        for(data in userPlanData.value!!)
+            println(data.placeName)
     }
 
     fun getCount() : Int{
