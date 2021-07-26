@@ -26,7 +26,7 @@ class PlanAddDayActivity : AppCompatActivity() {
     private var title : String? = null
     private var user : FirebaseUser? = null
     private var db : FirebaseFirestore? = null
-    private lateinit var planTotalData : PlanTotalData
+    private var planTotalData : PlanTotalData = PlanTotalData()
     private var dayList  = ArrayList<DayInfo>()
 
     private var count = 1
@@ -49,22 +49,24 @@ class PlanAddDayActivity : AppCompatActivity() {
         db = Firebase.firestore
         db!!.collection(user!!.email.toString()).document(title.toString())
             .get().addOnSuccessListener  { documentSnapshot ->
-                val data = documentSnapshot.toObject<PlanTotalData>()
-                if(data != null) {
-                    planTotalData = documentSnapshot.toObject<PlanTotalData>()!!
-                    dayList = planTotalData.dayList
+                val data = documentSnapshot.toObject<PlanTotalData>()!!
+                planTotalData = data
+
+
+                if(planTotalData.dayList.size == 0){
+                    binding.addDayNoMsg.isVisible = true
+                    binding.dsRecyclerview.isVisible = false
+                }else{
+                    binding.addDayNoMsg.isVisible = false
+                    binding.dsRecyclerview.isVisible = true
+                }
+
+                binding.dsRecyclerview.apply {
+                    setHasFixedSize(true)
+                    adapter= DayAddAdapter(planTotalData)
+                    layoutManager= LinearLayoutManager(this@PlanAddDayActivity)
                 }
             }
-        count = planTotalData.dayList.size
-        println("size = " + planTotalData.dayList.size)
-
-        if(planTotalData.dayList.size == 0){
-            binding.addDayNoMsg.isVisible = true
-            binding.dsRecyclerview.isVisible = false
-        }else{
-            binding.addDayNoMsg.isVisible = false
-            binding.dsRecyclerview.isVisible = true
-        }
 
 //        binding.addDayFab.setOnClickListener{
 //            if(planTotalData.dayList.size == 0){
@@ -89,11 +91,7 @@ class PlanAddDayActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.dsRecyclerview.apply {
-            setHasFixedSize(true)
-            adapter= DayAddAdapter(planTotalData)
-            layoutManager= LinearLayoutManager(this@PlanAddDayActivity)
-        }
+
     }
 
     fun getTitleContents() : String?{

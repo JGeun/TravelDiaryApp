@@ -83,6 +83,7 @@ class TravelPlanSectionFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        planBookList.clear()
 
         println("fragment start")
         val dbCollection = db!!.collection(user!!.email.toString())
