@@ -14,23 +14,28 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemPlanSectionBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.add_day.PlanAddDayActivity
-import com.hansung.traveldiary.src.travel.PlanSectionData
+import com.hansung.traveldiary.src.travel.PlanBookData
 
-class PlanSectionAdapter(private val planTripinData: ArrayList<PlanSectionData>) :
+class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
     RecyclerView.Adapter<PlanSectionAdapter.ViewHolder>() {
     private lateinit var binding : ItemPlanSectionBinding
     private lateinit var image : Drawable
+    private val monthUnit = arrayListOf("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
     class ViewHolder(val binding : ItemPlanSectionBinding) : RecyclerView.ViewHolder(binding.root){
-        val tripinImage : ImageView
-        val tripinTitle : TextView
-        var tripinStartdate : TextView
-        var tripinEnddate : TextView
+        val planSectionImage : ImageView
+        val planSectionTitle : TextView
+        var planSectionStartMonth : TextView
+        var planSectionEndMonth : TextView
+        var planSectionStartDate : TextView
+        var planSectionEndDate : TextView
 
         init {
-            tripinImage = binding.itemPlanImage
-            tripinTitle = binding.itemPlanTitle
-            tripinStartdate = binding.itemStartDate
-            tripinEnddate = binding.itemEndDate
+            planSectionImage = binding.itemPlanImage
+            planSectionTitle = binding.itemPlanTitle
+            planSectionStartMonth = binding.itemStartMonth
+            planSectionEndMonth = binding.itemEndMonth
+            planSectionStartDate = binding.itemStartDate
+            planSectionEndDate = binding.itemEndDate
         }
     }
 
@@ -41,24 +46,29 @@ class PlanSectionAdapter(private val planTripinData: ArrayList<PlanSectionData>)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = planTripinData[position]
-        if(data.color == "blue"){
+        val data = planBookList[position]
+        val color = data.planTotalData.color
+        if(color == "blue"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
-        }else if(data.color == "green"){
+        }else if(color == "green"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_green, null)!!
-        }else if(data.color == "olive"){
+        }else if(color == "olive"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_olive, null)!!
-        }else if(data.color == "pink"){
+        }else if(color == "pink"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_pink, null)!!
-        }else if(data.color == "purple"){
+        }else if(color == "purple"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_purple, null)!!
         }else{
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_redbook, null)!!
         }
-        Glide.with(holder.itemView.context).load(image).apply(RequestOptions()).into(holder.tripinImage)
-        holder.tripinTitle.text = data.title
-        holder.tripinStartdate.text = data.start_date
-        holder.tripinEnddate.text = data.end_date
+        Glide.with(holder.itemView.context).load(image).apply(RequestOptions()).into(holder.planSectionImage)
+        holder.planSectionTitle.text = data.title
+        val startMonth = data.planTotalData.startDate.substring(5, 7).toInt()
+        val endMonth = data.planTotalData.endDate.substring(5, 7).toInt()
+        holder.planSectionStartMonth.text = monthUnit[startMonth-1]
+        holder.planSectionEndMonth.text = monthUnit[endMonth-1]
+        holder.planSectionStartDate.text = data.planTotalData.startDate.substring(8, 10)
+        holder.planSectionEndDate.text = data.planTotalData.endDate.substring(8, 10)
 
         val context = holder.itemView.context
         holder.itemView.setOnClickListener{
@@ -68,5 +78,6 @@ class PlanSectionAdapter(private val planTripinData: ArrayList<PlanSectionData>)
         }
     }
 
-    override fun getItemCount() = planTripinData.size
+    override fun getItemCount() = planBookList.size
+
 }

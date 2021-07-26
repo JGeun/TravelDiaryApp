@@ -5,25 +5,29 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
 import androidx.core.content.res.ResourcesCompat
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.FragmentTriptogoBinding
+import com.hansung.traveldiary.databinding.FragmentTravelPlanSectionBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AddPlanDialog(context: Context){
+class AddPlanDialog(context: Context) {
     private val dlg = Dialog(context)
 
 
-    fun start(fragment: TriptogoFragment, tripPlanList: ArrayList<PlanSectionData>){
-        val binding = FragmentTriptogoBinding.inflate(LayoutInflater.from(dlg.context))
+    fun start(fragment: TravelPlanSectionFragment, tripPlanList: ArrayList<PlanSectionData>){
+        val binding = FragmentTravelPlanSectionBinding.inflate(LayoutInflater.from(dlg.context))
+
+//        dlg.window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dlg.setContentView(R.layout.dialog_add_plan)
@@ -82,16 +86,19 @@ class AddPlanDialog(context: Context){
 
         dlg.findViewById<Button>(R.id.addPlan_btn).setOnClickListener {
             var title = dlg.findViewById<EditText>(R.id.edit_title).text.toString()
-            var startDate = dlg.findViewById<EditText>(R.id.edit_start_date).text.toString().substring(12)
-            var endDate = dlg.findViewById<EditText>(R.id.edit_end_date).text.toString().substring(12)
-            val data = PlanSectionData(
+            var startDate = dlg.findViewById<EditText>(R.id.edit_start_date).text.toString()
+            var endDate = dlg.findViewById<EditText>(R.id.edit_end_date).text.toString()
+
+
+            println(startDate + " " + endDate)
+            /*val data = PlanSectionData(
                     ResourcesCompat.getDrawable(
                         dlg.context.resources,
                         R.drawable.ic_diary_blue,
                         null
                     )!!, title, color, startDate, endDate
                 )
-            fragment.addPlanAndNotify(data)
+            fragment.addPlanAndNotify(data)*/
 
             println("size : " + tripPlanList.size)
 //            binding.plantripRv.adapter?.notifyDataSetChanged()
