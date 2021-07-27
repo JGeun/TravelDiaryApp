@@ -1,8 +1,12 @@
 package com.hansung.traveldiary.src
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -16,6 +20,7 @@ import com.hansung.traveldiary.databinding.ActivityMainBinding
 import com.hansung.traveldiary.src.bulletin.BulletinFragment
 import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import com.hansung.traveldiary.src.profile.ProfileFragment
+import com.hansung.traveldiary.src.travel.AddTravelPlanActivity
 import com.hansung.traveldiary.src.travel.TravelBaseFragment
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,6 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
+
+    private lateinit var addNewPlanBookTask : ActivityResultLauncher<Intent>
+
     private val TAG = "MainActivity"
 
     companion object{
@@ -106,6 +114,16 @@ class MainActivity : AppCompatActivity() {
                 }
                 false
             })
+
+        addNewPlanBookTask = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ){ result ->
+            supportFragmentManager.beginTransaction().replace(R.id.main_frm, TravelBaseFragment()).commitAllowingStateLoss()
+        }
+    }
+
+    fun makePlanBook(){
+        addNewPlanBookTask.launch(Intent(this@MainActivity, AddTravelPlanActivity::class.java))
     }
 }
 

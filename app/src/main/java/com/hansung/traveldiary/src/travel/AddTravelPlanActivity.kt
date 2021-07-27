@@ -95,6 +95,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
                 .set(planTotalData)
                 .addOnSuccessListener {
                     Log.d(TAG, "DocumentSnapshot successfully written!")
+                    setResult(RESULT_OK)
                     finish()
                 }
                 .addOnFailureListener { e ->

@@ -66,12 +66,7 @@ class TravelPlanSectionFragment : Fragment() {
 //            val dlg = AddPlanDialog(requireContext())
 //            dlg.start(this, tripPlanList)
 
-            (context as MainActivity).startActivity(
-                Intent(
-                    context,
-                    AddTravelPlanActivity::class.java
-                )
-            )
+            (context as MainActivity).makePlanBook()
         }
 
         binding.plantripRv.apply {
