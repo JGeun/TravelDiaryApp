@@ -1,9 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/outblock"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:orientation="vertical"
     tools:context=".src.travel.SendTravelPlanActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/mainblock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_dialog_add_plan"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:paddingHorizontal="40dp"
+        android:paddingVertical="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="여행 완료?" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:paddingTop="20dp"
+            android:textColor="@color/black"
+            android:text="대표 이미지" />
+
+        <ImageView
+            android:id="@+id/edit_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            app:srcCompat="@drawable/img_bg_profile" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:text="여행 제목" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_travel_title"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/maincolor"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:text="해시태그" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_hashtag"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/maincolor"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sendPlan_btn"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/radius_btn"
+            android:fontFamily="@font/main_font"
+            android:text="추가"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</LinearLayout>

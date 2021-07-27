@@ -29,6 +29,15 @@
         app:layout_constraintBottom_toBottomOf="@id/addDay_title"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/ds_iv_send"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addDay_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/addDay_title"
+        app:srcCompat="@android:drawable/ic_menu_send" />
+
 
     <TextView
         android:id="@+id/addDay_no_msg"

@@ -123,6 +123,10 @@ class TravelPlanSectionFragment : Fragment() {
         binding.plantripRv.adapter!!.notifyDataSetChanged()
     }
 
+    fun deletePlan(){
+    }
+
+
     fun newInstant(): TravelPlanSectionFragment {
         val args = Bundle()
         val frag = TravelPlanSectionFragment()
