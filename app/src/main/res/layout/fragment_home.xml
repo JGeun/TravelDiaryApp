@@ -12,11 +12,10 @@
         android:layout_height="0dp"
         android:background="@color/home_bgcolor">
 
-
         <ImageView
             android:id="@+id/bg_home_toppanel"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
             android:src="@drawable/img_bg_profile"
             app:layout_constraintEnd_toEndOf="parent"

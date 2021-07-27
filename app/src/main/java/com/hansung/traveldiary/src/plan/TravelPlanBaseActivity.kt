@@ -63,8 +63,6 @@ class TravelPlanBaseActivity : AppCompatActivity() {
         setContentView(binding.root)
         println("TravelPlanBaseActivity create")
 
-
-
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         val menu = intent.getStringExtra("menu")
