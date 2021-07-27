@@ -19,7 +19,6 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelPlanBaseBinding
 import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
-import com.hansung.traveldiary.src.travel.PlanBookData
 import com.hansung.traveldiary.util.StatusBarUtil
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

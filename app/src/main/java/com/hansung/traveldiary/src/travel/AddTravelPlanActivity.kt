@@ -13,6 +13,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityAddTravelPlanBinding
+import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.PlanBookData
 import com.hansung.traveldiary.src.plan.model.DayInfo
 import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import java.text.SimpleDateFormat
@@ -69,7 +71,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
         setRadioButton()
 
-
         binding.addPlanBtn.setOnClickListener {
             var title = binding.editTitle.text.toString()
             var startDate = binding.editStartDate.text.toString()
@@ -89,8 +90,8 @@ class AddTravelPlanActivity : AppCompatActivity() {
                 dayList.add(DayInfo(afterDate(startDate, i), arrayListOf()))
             }
             var planTotalData = PlanTotalData(color, startDate, endDate, dayList)
-
-            db!!.collection(user!!.email.toString()).document(title.toString())
+            MainActivity.planBookList.add(PlanBookData(title, planTotalData))
+            db!!.collection(user!!.email.toString()).document(title)
                 .set(planTotalData)
                 .addOnSuccessListener {
                     Log.d(TAG, "DocumentSnapshot successfully written!")
@@ -100,6 +101,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
                     Log.w(TAG, "Error writing document", e)
                     Toast.makeText(this, "실패", Toast.LENGTH_SHORT).show()
                 }
+
         }
 
         binding.apaOutblock.setOnClickListener {

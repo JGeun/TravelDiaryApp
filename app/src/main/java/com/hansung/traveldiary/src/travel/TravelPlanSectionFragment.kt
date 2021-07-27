@@ -1,11 +1,11 @@
 package com.hansung.traveldiary.src.travel
 
-import android.R
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.*
@@ -36,13 +36,12 @@ data class PlanSectionData(
     val end_date: String
 )
 
-data class PlanBookData(var title: String, var planTotalData: PlanTotalData)
+
 
 class TravelPlanSectionFragment : Fragment() {
     private lateinit var binding: FragmentTravelPlanSectionBinding
     private lateinit var mLocationSource: FusedLocationSource
     private val tripPlanList = ArrayList<PlanSectionData>()
-    private val planBookList = ArrayList<PlanBookData>()
 
     private lateinit var planTotalData: PlanTotalData
     private var dayList = java.util.ArrayList<DayInfo>()
@@ -79,36 +78,22 @@ class TravelPlanSectionFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            adapter = PlanSectionAdapter(planBookList)
+            adapter = PlanSectionAdapter(MainActivity.planBookList)
         }
 
-        val fadeIn = AlphaAnimation(0f, 1f)
-        fadeIn.interpolator = DecelerateInterpolator() //add this
-        fadeIn.duration = 1000
 
-        val fadeOut = AlphaAnimation(1f, 0f)
-        fadeOut.interpolator = AccelerateInterpolator() //and this
-        fadeOut.startOffset = 1000
-        fadeOut.duration = 1000
-
-        val animation = AnimationSet(false) //change to false
-        //animation.addAnimation(fadeIn)
-        animation.addAnimation(fadeOut)
-
-        val onScrollListener = object:RecyclerView.OnScrollListener() {
+        val onScrollListener = object : RecyclerView.OnScrollListener() {
             var temp: Int = 0
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if(temp == 1) {
+                if (temp == 1) {
                     super.onScrolled(recyclerView, dx, dy)
-
-                    binding.floatingActionButton.animation = fadeIn
-                    binding.floatingActionButton.isVisible = false
+                    binding.floatingActionButton.hide()
                 }
             }
+
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                binding.floatingActionButton.animation = fadeOut
-                binding.floatingActionButton.isVisible = true
+                binding.floatingActionButton.show()
                 temp = 1
             }
         }
@@ -120,50 +105,7 @@ class TravelPlanSectionFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        planBookList.clear()
-
-        val dbCollection = db!!.collection(user!!.email.toString())
-        dbCollection
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val docRef = dbCollection.document(document.id)
-                        .get().addOnSuccessListener { documentSnapshot ->
-                            val data = documentSnapshot.toObject<PlanTotalData>()!!
-                            planBookList.add(PlanBookData(document.id, data))
-                            println(data.toString())
-                            println("안쪽" + planBookList.size.toString())
-                            binding.plantripRv.adapter!!.notifyDataSetChanged()
-                        }.addOnFailureListener { exception ->
-                            Log.d(TAG, "Error getting documents: ", exception)
-                        }
-                }
-                println("여기 성공 밖" + planBookList.size.toString())
-
-//
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
-
-
-//        db!!.collection(user!!.email.toString()).document(title.toString())
-//            .get().addOnSuccessListener  { documentSnapshot ->
-//                val data = documentSnapshot.toObject<PlanTotalData>()
-//                if(data != null) {
-//                    planTotalData = documentSnapshot.toObject<PlanTotalData>()!!
-//                    dayList = planTotalData.dayList
-//                }
-//            }
-//
-//        binding.plantripRv.adapter!!.notifyDataSetChanged()
-
-    }
-
-
-    public fun addPlanAndNotify(data: PlanSectionData) {
-        tripPlanList.add(data)
-        binding.plantripRv.adapter!!.notifyDataSetChanged()
+        println("TravelPlanSection start")
     }
 
     fun newInstant(): TravelPlanSectionFragment {

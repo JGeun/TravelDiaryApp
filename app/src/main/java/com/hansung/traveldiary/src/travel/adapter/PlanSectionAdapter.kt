@@ -13,8 +13,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemPlanSectionBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.PlanBookData
 import com.hansung.traveldiary.src.plan.plan_day_section.PlanDaySectionActivity
-import com.hansung.traveldiary.src.travel.PlanBookData
 
 class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
     RecyclerView.Adapter<PlanSectionAdapter.ViewHolder>() {
