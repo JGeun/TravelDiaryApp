@@ -28,7 +28,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
             val data = LastTripData(image, title, hashTag)
             lastTripList.add(data)
             val position = intent.getIntExtra("position", -1)
-            Log.d("POSITION", "$position" )
+
 
             Log.d("sendtrip", "추가")
             finish()

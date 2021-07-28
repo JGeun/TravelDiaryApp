@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.travel.SendTravelPlanActivity"></activity>
+        <activity android:name=".src.travel.SendTravelPlanActivity"
+            android:theme="@style/Transparent"></activity>
         <activity
             android:name=".src.travel.AddTravelPlanActivity"
             android:theme="@style/Transparent" />

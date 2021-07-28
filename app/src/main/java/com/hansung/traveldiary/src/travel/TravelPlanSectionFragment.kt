@@ -123,7 +123,9 @@ class TravelPlanSectionFragment : Fragment() {
         binding.plantripRv.adapter!!.notifyDataSetChanged()
     }
 
-    fun deletePlan(){
+    fun deletePlan(position: Int){
+        tripPlanList.removeAt(position)
+        binding.plantripRv.adapter!!.notifyDataSetChanged()
     }
 
 

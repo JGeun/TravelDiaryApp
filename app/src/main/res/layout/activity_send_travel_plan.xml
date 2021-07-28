@@ -13,9 +13,9 @@
         android:id="@+id/mainblock"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_dialog_add_plan"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="20dp"
+        android:background="@drawable/bg_dialog_add_plan"
         android:paddingHorizontal="40dp"
         android:paddingVertical="50dp"
         android:orientation="vertical">

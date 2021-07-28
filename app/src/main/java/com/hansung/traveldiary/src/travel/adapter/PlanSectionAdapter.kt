@@ -21,18 +21,11 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
     private lateinit var binding : ItemPlanSectionBinding
     private lateinit var image : Drawable
     private val monthUnit = arrayListOf("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
-    var index = 0
 
-    fun getIdx() = index
-
-    fun setIdx(position: Int){
-        index = position
-    }
-
-    fun deleteItem(position: Int){
-        planBookList.removeAt(position)
-        notifyDataSetChanged()
-    }
+//    fun deleteItem(position: Int){
+//        planBookList.removeAt(position)
+//        notifyDataSetChanged()
+//    }
 
     class ViewHolder(val binding : ItemPlanSectionBinding) : RecyclerView.ViewHolder(binding.root){
         val planSectionImage : ImageView
@@ -85,9 +78,9 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
 
         val context = holder.itemView.context
         holder.itemView.setOnClickListener{
-            setIdx(position)
             val intent = Intent(context, PlanDaySectionActivity::class.java)
             intent.putExtra("title", data.title)
+            intent.putExtra("pos", position)
             (context as MainActivity).startActivity(intent)
         }
     }
