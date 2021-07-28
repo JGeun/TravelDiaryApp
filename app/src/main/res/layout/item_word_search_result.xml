@@ -36,6 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="검색된 아이템 이름"
+            android:maxLength="11"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="#000000"
             android:textSize="20sp" />
 
@@ -44,7 +47,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="3dp"
-            android:text="검색된 아이템 주소" />
+            android:text="검색된 아이템 주소"
+            android:maxLength="20"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
     </LinearLayout>
 

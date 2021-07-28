@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:overScrollMode="never">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -163,10 +164,12 @@
 
                 <ImageView
                     android:id="@+id/edit_img"
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
-                    android:layout_marginEnd="5dp"
-                    app:srcCompat="@drawable/ic_edit" />
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginTop="0.5dp"
+                    app:srcCompat="@drawable/ic_edit"
+                    android:layout_gravity="center_vertical"/>
 
                 <TextView
                     android:id="@+id/profile_tv_editProfile"
@@ -246,7 +249,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_profile_setting" />
+                    android:src="@drawable/ic_setting_check" />
             </LinearLayout>
 
             <LinearLayout

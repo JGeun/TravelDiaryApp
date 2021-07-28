@@ -105,7 +105,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
                 if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
 
                     KakaoSearchKeywordService(this@TravelPlanMapFragment).tryGetKeyWordSearchInfo(
-                        searchWord
+                        searchWord, 1
                     )
                     return true
                 }
@@ -274,6 +274,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
 
         val intent = Intent(context, SearchWordResultActivity::class.java)
         intent.putExtra("word", searchWord)
+
         searchWordResultList = response.documents
         val resultList = ArrayList<SearchWordResultInfo>()
         for (result in searchWordResultList) {
@@ -284,6 +285,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
             )
         }
 
+        intent.putExtra("is_end", response.meta.is_end)
         intent.putExtra("result", resultList)
         binding.planEtSearch.setText("")
         searchWord = ""

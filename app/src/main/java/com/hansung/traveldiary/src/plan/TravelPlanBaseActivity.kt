@@ -1,9 +1,11 @@
 package com.hansung.traveldiary.src.plan
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentManager
@@ -19,7 +21,6 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelPlanBaseBinding
 import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
-import com.hansung.traveldiary.src.travel.PlanBookData
 import com.hansung.traveldiary.util.StatusBarUtil
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -62,8 +63,6 @@ class TravelPlanBaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         println("TravelPlanBaseActivity create")
-
-
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 

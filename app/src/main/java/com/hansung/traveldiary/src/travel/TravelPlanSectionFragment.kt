@@ -4,11 +4,16 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.*
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,9 +25,8 @@ import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.model.DayInfo
 import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import com.hansung.traveldiary.src.travel.adapter.PlanSectionAdapter
-
 import com.naver.maps.map.util.FusedLocationSource
-import kotlin.collections.ArrayList
+
 
 data class PlanSectionData(
     val image: Drawable,
@@ -32,13 +36,12 @@ data class PlanSectionData(
     val end_date: String
 )
 
-data class PlanBookData(var title: String, var planTotalData: PlanTotalData)
+
 
 class TravelPlanSectionFragment : Fragment() {
     private lateinit var binding: FragmentTravelPlanSectionBinding
     private lateinit var mLocationSource: FusedLocationSource
     private val tripPlanList = ArrayList<PlanSectionData>()
-    private val planBookList = ArrayList<PlanBookData>()
 
     private lateinit var planTotalData: PlanTotalData
     private var dayList = java.util.ArrayList<DayInfo>()
@@ -63,64 +66,41 @@ class TravelPlanSectionFragment : Fragment() {
 //            val dlg = AddPlanDialog(requireContext())
 //            dlg.start(this, tripPlanList)
 
-            (context as MainActivity).startActivity(Intent(context, AddTravelPlanActivity::class.java))
+            (context as MainActivity).makePlanBook()
         }
 
         binding.plantripRv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = PlanSectionAdapter(planBookList)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = PlanSectionAdapter(MainActivity.planBookList)
         }
+
+
+        val onScrollListener = object : RecyclerView.OnScrollListener() {
+            var temp: Int = 0
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (temp == 1) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    binding.floatingActionButton.hide()
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                binding.floatingActionButton.show()
+                temp = 1
+            }
+        }
+
+        binding.plantripRv.addOnScrollListener(onScrollListener)
 
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        planBookList.clear()
-
-        val dbCollection = db!!.collection(user!!.email.toString())
-        dbCollection
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val docRef = dbCollection.document(document.id)
-                        .get().addOnSuccessListener { documentSnapshot ->
-                            val data = documentSnapshot.toObject<PlanTotalData>()!!
-                            planBookList.add(PlanBookData(document.id, data))
-                            println(data.toString())
-                            println("안쪽" + planBookList.size.toString())
-                            binding.plantripRv.adapter!!.notifyDataSetChanged()
-                        }.addOnFailureListener { exception ->
-                            Log.d(TAG, "Error getting documents: ", exception)
-                        }
-                }
-                println("여기 성공 밖" + planBookList.size.toString())
-
-//
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
-
-
-//        db!!.collection(user!!.email.toString()).document(title.toString())
-//            .get().addOnSuccessListener  { documentSnapshot ->
-//                val data = documentSnapshot.toObject<PlanTotalData>()
-//                if(data != null) {
-//                    planTotalData = documentSnapshot.toObject<PlanTotalData>()!!
-//                    dayList = planTotalData.dayList
-//                }
-//            }
-//
-//        binding.plantripRv.adapter!!.notifyDataSetChanged()
-
-    }
-
-
-    public fun addPlanAndNotify(data: PlanSectionData) {
-        tripPlanList.add(data)
-        binding.plantripRv.adapter!!.notifyDataSetChanged()
+        println("TravelPlanSection start")
     }
 
     fun deletePlan(position: Int){

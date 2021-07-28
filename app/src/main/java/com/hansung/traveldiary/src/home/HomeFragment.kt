@@ -88,11 +88,11 @@ class HomeFragment : Fragment(), HomeView{
     }
 
     private fun initRecommandLocationList(){
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_seoul, null)!!, "서울"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_busan, null)!!, "부산"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_gangneung, null)!!, "강릉"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_seoul_nearby, null)!!, "서울근교"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_daejeon, null)!!, "대전"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_seoul, null)!!, "서울"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_seoul_cup, null)!!, "부산"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_beach, null)!!, "강릉"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_jeju_island, null)!!, "제주"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_seoul_cup, null)!!, "서울 근교"))
     }
 
     private fun initBulletinList(){
@@ -133,28 +133,39 @@ class HomeFragment : Fragment(), HomeView{
         binding.homeWeatherTemp.text = tempText
         if(weatherId.substring(0,1).equals("2")){
             weatherMain = "뇌우"
+            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_thunderstorm, null))
         }else if(weatherId.substring(0,1).equals("3")){
             weatherMain = "이슬비"
+            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_drizzling_white, null))
         }else if(weatherId.substring(0,1).equals("5")){
             weatherMain = "비"
+            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_rain_white, null))
         }else if(weatherId.substring(0,1).equals("6")){
             weatherMain = "눈"
+            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_snow_white, null))
         }else if(weatherId.equals("800")){
             weatherMain = "맑음"
+            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null))
         }else if(weatherId.substring(0,1).equals("8")){
             weatherMain = "구름"
+            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_cloudy_white, null))
         }else{
             if(weatherId.equals("771") || weatherId.equals("781")){
                 weatherMain = "돌풍"
+                binding.homeWeatherText.text= weatherMain
+                binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_windy_white, null))
             }else if(weatherId.equals("731") || weatherId.equals("751") || weatherId.equals("761") || weatherId.equals("762")){
                 weatherMain = "먼지"
+                binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_dust_white, null))
             }else if(weatherId.substring(0,1).equals("7")){
                 weatherMain = "안개"
+                binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_fog_white, null))
             }else{
                 weatherMain = "null"
             }
         }
-//        binding.homeWeatherMain.text = weatherMain
+
+        binding.homeWeatherText.text= weatherMain
     }
 
     override fun onGetUserInfoFailure(message: String) {

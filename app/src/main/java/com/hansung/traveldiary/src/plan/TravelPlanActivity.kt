@@ -158,7 +158,7 @@ class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapVie
 //                    planAdapter.notifyDataSetChanged()
 //                    TravelMapService(this@TravelPlanActivity).tryGetSearchInfo(searchWord, "random")
                     KakaoSearchKeywordService(this@TravelPlanActivity).tryGetKeyWordSearchInfo(
-                        searchWord
+                        searchWord, 1
                     )
                     return true
                 }

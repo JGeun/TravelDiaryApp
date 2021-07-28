@@ -67,19 +67,4 @@
         android:overScrollMode="never"
         android:paddingBottom="40dp"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addDay_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:src="@drawable/ic_floatbtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="#E2C5FD"
-        android:tintMode="@color/white"/>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
