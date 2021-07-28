@@ -16,7 +16,12 @@ data class KakaoSearchKeywordInfo(
     @SerializedName("y") val y: String
 )
 
+data class KakaoSearchMetaInfo(
+    @SerializedName("is_end") val is_end : Boolean,
+    @SerializedName("pageable_count") val pageable_count: Int
+)
 
 data class KakaoSearchKeywordResponse(
-    @SerializedName("documents") val documents: ArrayList<KakaoSearchKeywordInfo>
+    @SerializedName("documents") val documents: ArrayList<KakaoSearchKeywordInfo>,
+    @SerializedName("meta") val meta: KakaoSearchMetaInfo
 )
