@@ -63,6 +63,8 @@ class EditInfoActivity : AppCompatActivity() {
 
         })
 
+
+
         Glide.with(this).load(
             ResourcesCompat.getDrawable(
                 resources,
@@ -111,6 +113,10 @@ class EditInfoActivity : AppCompatActivity() {
                 bitmap = BitmapFactory.decodeFile(imagePath, op)
                 uploadFirebase2Image(bitmap)
             }
+        }
+
+        binding.editIvClear.setOnClickListener{
+            finish()
         }
     }
 
