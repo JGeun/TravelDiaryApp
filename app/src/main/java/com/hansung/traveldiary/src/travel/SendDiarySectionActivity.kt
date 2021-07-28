@@ -22,9 +22,8 @@ class SendDiarySectionActivity : AppCompatActivity() {
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
 
         val PostryList=arrayListOf(
-            DiarySectionData(R.drawable.gwangwhamun, "#부산 #해운대"),
+            DiarySectionData(R.drawable.gwangwhamun, "#여수 #밤바다"),
             DiarySectionData(R.drawable.gwangwhamun,"#부산 #해운대"),
-            DiarySectionData(R.drawable.gwangwhamun,"#부산 #해운대")
         )
 
         binding.dsIvBack.setOnClickListener{

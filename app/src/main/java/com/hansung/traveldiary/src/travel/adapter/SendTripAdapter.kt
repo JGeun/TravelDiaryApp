@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemLasttripBinding
 import com.hansung.traveldiary.src.bulletin.DiarySectionActivity
 import com.hansung.traveldiary.src.travel.LastTripData
+import com.hansung.traveldiary.src.travel.SendDiarySectionActivity
 
 class SendTripAdapter(val lasttripList: ArrayList<LastTripData>):RecyclerView.Adapter<SendTripAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemLasttripBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -30,7 +31,7 @@ class SendTripAdapter(val lasttripList: ArrayList<LastTripData>):RecyclerView.Ad
         holder.itemView.setTag(position)
 
         holder.itemView.setOnClickListener{
-            val intent = Intent(holder.itemView?.context, DiarySectionActivity::class.java)
+            val intent = Intent(holder.itemView?.context, SendDiarySectionActivity::class.java)
             ContextCompat.startActivity(holder.itemView.context, intent,null)
         }
     }
