@@ -1,7 +1,9 @@
 package com.hansung.traveldiary.src.plan.plan_day_section
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,9 +15,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ActivityPlanDaySectionBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.model.DayInfo
 import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
+import com.hansung.traveldiary.src.travel.SendTravelPlanActivity
 import com.hansung.traveldiary.util.StatusBarUtil
 import java.util.*
 
@@ -74,6 +78,13 @@ class PlanDaySectionActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.dsIvSend.setOnClickListener {
+            val intent = Intent(this, SendTravelPlanActivity::class.java)
+            val pos = this.intent.getIntExtra("pos", -1)
+            Log.d("인덱스", "$pos")
+            intent.putExtra("position", pos)
+            startActivity(intent)
+        }
 
     }
 

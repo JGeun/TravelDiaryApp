@@ -103,6 +103,12 @@ class TravelPlanSectionFragment : Fragment() {
         println("TravelPlanSection start")
     }
 
+    fun deletePlan(position: Int){
+        tripPlanList.removeAt(position)
+        binding.plantripRv.adapter!!.notifyDataSetChanged()
+    }
+
+
     fun newInstant(): TravelPlanSectionFragment {
         val args = Bundle()
         val frag = TravelPlanSectionFragment()
