@@ -6,9 +6,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class KakaoSearchKeywordService(val view: KakaoSearchView){
-    fun tryGetKeyWordSearchInfo(query:String){
+    fun tryGetKeyWordSearchInfo(query:String, page: Int){
         val kakaoKeywordSearchRetrofitInterface : KakaoSearchKeywordRetorfitInterface = TravelPlanActivity.kakaoRetrofit.create(KakaoSearchKeywordRetorfitInterface::class.java)
-        kakaoKeywordSearchRetrofitInterface.getKeywordSearchInfo(query).enqueue(object : Callback<KakaoSearchKeywordResponse>{
+        kakaoKeywordSearchRetrofitInterface.getKeywordSearchInfo(query, page).enqueue(object : Callback<KakaoSearchKeywordResponse>{
             override fun onResponse(call: Call<KakaoSearchKeywordResponse>, response: Response<KakaoSearchKeywordResponse>) {
                 view.onGetKeywordSearchSuccess(response.body() as KakaoSearchKeywordResponse)
             }

@@ -88,11 +88,11 @@ class HomeFragment : Fragment(), HomeView{
     }
 
     private fun initRecommandLocationList(){
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_seoul, null)!!, "서울"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_busan, null)!!, "부산"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_gangneung, null)!!, "강릉"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_seoul_nearby, null)!!, "서울근교"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_daejeon, null)!!, "대전"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_seoul, null)!!, "서울"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_seoul_cup, null)!!, "부산"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_beach, null)!!, "강릉"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_jeju_island, null)!!, "제주"))
+        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_seoul_cup, null)!!, "서울 근교"))
     }
 
     private fun initBulletinList(){
