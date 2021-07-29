@@ -1,6 +1,8 @@
 package com.hansung.traveldiary.src.travel
 
 import android.app.DatePickerDialog
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +10,7 @@ import android.view.Window
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Toast
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -26,10 +29,41 @@ class AddTravelPlanActivity : AppCompatActivity() {
     }
     private val TAG = "AddPlanActivity"
     private var color = "pink"
+    var date = ""
+    var startdate = ""
+    var enddate = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+
+        binding.icDatepicker.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val year = cal.get(Calendar.YEAR)
+            val month = cal.get(Calendar.MONTH)
+            val day = cal.get(Calendar.DAY_OF_MONTH)
+
+            var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
+                startdate=String.format("$y-%02d-%02d", m + 1, d)
+                date+=String.format("$y-%02d-%02d", m + 1, d)
+                Log.d("시작날짜", date)
+                binding.editDate.setText(date)
+                Log.d("달력", "OK")
+                showDatepicker()
+            }
+
+            val datePickerDialog =
+                DatePickerDialog(this, listener, year, month, day)
+            datePickerDialog.show()
+        }
+
+        binding.editPlace.setOnClickListener{
+            val bottomDialog = PlanlistBottomDialog()
+            bottomDialog.show(supportFragmentManager, "bottomPlanlistSheet")
+        }
+
+/*
         binding.editStartDate.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 val cal = Calendar.getInstance()
@@ -67,14 +101,16 @@ class AddTravelPlanActivity : AppCompatActivity() {
                 binding.editStartDate.clearFocus()
             }
         }
-
+*/
 
         setRadioButton()
 
         binding.addPlanBtn.setOnClickListener {
             var title = binding.editTitle.text.toString()
-            var startDate = binding.editStartDate.text.toString()
-            var endDate = binding.editEndDate.text.toString()
+//            var startDate = binding.editStartDate.text.toString()
+//            var endDate = binding.editEndDate.text.toString()
+            var startDate = startdate
+            var endDate = enddate
 
             val user = Firebase.auth.currentUser
             val db = Firebase.firestore
@@ -132,36 +168,40 @@ class AddTravelPlanActivity : AppCompatActivity() {
             color = "pink"
             binding.addPlanRbPink.isChecked = true
             binding.addPlanRbBlue.isChecked = false
-            binding.addPlanRbOlive.isChecked = false
-            binding.addPlanRbGreen.isChecked = false
+            binding.addPlanRbYellow.isChecked = false
+            binding.addPlanRbSky.isChecked = false
             binding.addPlanRbPurple.isChecked = false
+            binding.addPlanRbOrange.isChecked = false
         }
         binding.addPlanRbBlue.setOnClickListener {
             println("blue")
             color = "blue"
             binding.addPlanRbPink.isChecked = false
             binding.addPlanRbBlue.isChecked = true
-            binding.addPlanRbOlive.isChecked = false
-            binding.addPlanRbGreen.isChecked = false
+            binding.addPlanRbYellow.isChecked = false
+            binding.addPlanRbSky.isChecked = false
             binding.addPlanRbPurple.isChecked = false
+            binding.addPlanRbOrange.isChecked = false
         }
-        binding.addPlanRbOlive.setOnClickListener {
-            println("olive")
-            color = "olive"
+        binding.addPlanRbYellow.setOnClickListener {
+            println("yellow")
+            color = "yellow"
             binding.addPlanRbPink.isChecked = false
             binding.addPlanRbBlue.isChecked = false
-            binding.addPlanRbOlive.isChecked = true
-            binding.addPlanRbGreen.isChecked = false
+            binding.addPlanRbYellow.isChecked = true
+            binding.addPlanRbSky.isChecked = false
             binding.addPlanRbPurple.isChecked = false
+            binding.addPlanRbOrange.isChecked = false
         }
-        binding.addPlanRbGreen.setOnClickListener {
-            println("green")
-            color = "green"
+        binding.addPlanRbSky.setOnClickListener {
+            println("sky")
+            color = "sky"
             binding.addPlanRbPink.isChecked = false
             binding.addPlanRbBlue.isChecked = false
-            binding.addPlanRbOlive.isChecked = false
-            binding.addPlanRbGreen.isChecked = true
+            binding.addPlanRbYellow.isChecked = false
+            binding.addPlanRbSky.isChecked = true
             binding.addPlanRbPurple.isChecked = false
+            binding.addPlanRbOrange.isChecked = false
         }
 
         binding.addPlanRbPurple.setOnClickListener {
@@ -169,10 +209,41 @@ class AddTravelPlanActivity : AppCompatActivity() {
             color = "purple"
             binding.addPlanRbPink.isChecked = false
             binding.addPlanRbBlue.isChecked = false
-            binding.addPlanRbOlive.isChecked = false
-            binding.addPlanRbGreen.isChecked = false
+            binding.addPlanRbYellow.isChecked = false
+            binding.addPlanRbSky.isChecked = false
             binding.addPlanRbPurple.isChecked = true
+            binding.addPlanRbOrange.isChecked = false
+        }
+
+        binding.addPlanRbOrange.setOnClickListener {
+            println("orange")
+            color = "orange"
+            binding.addPlanRbPink.isChecked = false
+            binding.addPlanRbBlue.isChecked = false
+            binding.addPlanRbYellow.isChecked = false
+            binding.addPlanRbSky.isChecked = false
+            binding.addPlanRbPurple.isChecked = false
+            binding.addPlanRbOrange.isChecked = true
         }
 
     }
+
+    fun showDatepicker(){
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
+            enddate=String.format("$y-%02d-%02d", m + 1, d)
+            date+=" ~ "+String.format("$y-%02d-%02d", m + 1, d)
+            Log.d("끝날짜", date)
+            binding.editDate.setText(date)
+        }
+
+        val datePickerDialog =
+            DatePickerDialog(this, listener, year, month, day)
+        datePickerDialog.show()
+    }
+
 }

@@ -33,7 +33,7 @@ class AddPlanDialog(context: Context) {
         )
         dlg.show()
 
-        dlg.findViewById<EditText>(R.id.edit_start_date).setOnFocusChangeListener { v, hasFocus ->
+        dlg.findViewById<EditText>(R.id.edit_date).setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 val cal = Calendar.getInstance()
                 val year = cal.get(Calendar.YEAR)
@@ -41,7 +41,7 @@ class AddPlanDialog(context: Context) {
                 val day = cal.get(Calendar.DAY_OF_MONTH)
 
                 var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-                    dlg.findViewById<EditText>(R.id.edit_start_date).setText(String.format("$y - %02d - %02d", m+1, d))
+                    dlg.findViewById<EditText>(R.id.edit_date).setText(String.format("$y - %02d - %02d", m+1, d))
                 }
 
                 val datePickerDialog =
@@ -69,20 +69,20 @@ class AddPlanDialog(context: Context) {
 
         var color = "null"
         val bookColor = dlg.findViewById<RadioGroup>(R.id.addPlan_rg_bookcolor)
-        bookColor.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.addPlen_rb_pink -> color = "pink"
-                R.id.addPlen_rb_blue -> color = "blue"
-                R.id.addPlen_rb_green -> color = "green"
-                R.id.addPlen_rb_olive -> color = "olive"
-                R.id.addPlen_rb_purple -> color = "purple"
-            }
-            Log.d("확인", bookColor.checkedRadioButtonId.toString())
-        }
+//        bookColor.setOnCheckedChangeListener { group, checkedId ->
+//            when (checkedId) {
+//                R.id.addPlen_rb_pink -> color = "pink"
+//                R.id.addPlen_rb_blue -> color = "blue"
+//                R.id.addPlen_rb_green -> color = "green"
+//                R.id.addPlen_rb_olive -> color = "olive"
+//                R.id.addPlen_rb_purple -> color = "purple"
+//            }
+//            Log.d("확인", bookColor.checkedRadioButtonId.toString())
+//        }
 
         dlg.findViewById<Button>(R.id.addPlan_btn).setOnClickListener {
             var title = dlg.findViewById<EditText>(R.id.edit_title).text.toString()
-            var startDate = dlg.findViewById<EditText>(R.id.edit_start_date).text.toString()
+            var startDate = dlg.findViewById<EditText>(R.id.edit_date).text.toString()
             var endDate = dlg.findViewById<EditText>(R.id.edit_end_date).text.toString()
 
 

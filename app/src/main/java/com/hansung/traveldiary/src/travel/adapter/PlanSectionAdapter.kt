@@ -56,16 +56,18 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
         val color = data.planTotalData.color
         if(color == "blue"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
-        }else if(color == "green"){
-            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_green, null)!!
-        }else if(color == "olive"){
-            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_olive, null)!!
+        }else if(color == "yellow"){
+            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_yellow, null)!!
+        }else if(color == "orange"){
+            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_orange, null)!!
         }else if(color == "pink"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_pink, null)!!
         }else if(color == "purple"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_purple, null)!!
+        }else if(color == "sky"){
+            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_sky, null)!!
         }else{
-            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_redbook, null)!!
+            image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
         }
         Glide.with(holder.itemView.context).load(image).apply(RequestOptions()).into(holder.planSectionImage)
         holder.planSectionTitle.text = data.title
