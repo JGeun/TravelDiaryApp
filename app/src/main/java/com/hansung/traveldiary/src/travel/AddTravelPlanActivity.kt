@@ -23,6 +23,8 @@ import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import java.text.SimpleDateFormat
 import java.util.*
 
+data class tempData(var title: String)
+
 class AddTravelPlanActivity : AppCompatActivity() {
     private val binding: ActivityAddTravelPlanBinding by lazy {
         ActivityAddTravelPlanBinding.inflate(layoutInflater)
@@ -74,17 +76,18 @@ class AddTravelPlanActivity : AppCompatActivity() {
             val db = Firebase.firestore
             var dayList = ArrayList<DayInfo>()
 
-            var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-            val startDateFormat = simpleDateFormat.parse("$startDate 00:00:00")!!
-            val endDateFormat = simpleDateFormat.parse("$endDate 00:00:00")!!
-            val calcDate =
-                ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
+//            var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+//            val startDateFormat = simpleDateFormat.parse("$startDate 00:00:00")!!
+//            val endDateFormat = simpleDateFormat.parse("$endDate 00:00:00")!!
+//            val calcDate =
+//                ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
 
             var planTotalData = PlanTotalData(color, startDate, endDate, dayList)
             MainActivity.planBookList.add(PlanBookData(title, planTotalData))
 
             val docPlanRef = db.collection(user!!.email.toString()).document("plan")
-            docPlanRef.set("title")
+            docPlanRef.set(tempData("title"))
+
 //            for (i in 0..calcDate) {
 //                dayList.add(DayInfo(afterDate(startDate, i), arrayListOf()))
 //            }

@@ -20,7 +20,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="20dp"
         android:paddingHorizontal="40dp"
-        android:paddingVertical="50dp"
+        android:paddingVertical="20dp"
         android:clickable="true"
         android:focusable="true">
 
