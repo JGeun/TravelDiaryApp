@@ -80,9 +80,7 @@ class PlanDaySectionActivity : AppCompatActivity() {
 
         binding.dsIvSend.setOnClickListener {
             val intent = Intent(this, SendTravelPlanActivity::class.java)
-            val pos = this.intent.getIntExtra("pos", -1)
-            Log.d("인덱스", "$pos")
-            intent.putExtra("position", pos)
+            intent.putExtra("title", title)
             startActivity(intent)
         }
 

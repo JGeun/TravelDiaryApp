@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".src.home.WebViewActivity"></activity>
         <activity android:name=".src.plan.TestDBActivity" />
-        <activity android:name=".src.travel.SendDiarySectionActivity" />
+        <activity android:name=".src.travel.MyDiaryDaySectionActivity" />
         <activity
             android:name=".src.travel.SendTravelPlanActivity"
             android:theme="@style/Transparent" />
@@ -43,7 +43,7 @@
         <activity android:name=".src.login.RegisterActivity" />
         <activity android:name=".src.travel.DiaryActivity" />
         <activity android:name=".src.login.LoginActivity" />
-        <activity android:name=".src.bulletin.DiarySectionActivity" />
+        <activity android:name=".src.bulletin.BulletinDaySectionActivity" />
         <activity android:name=".src.plan.TravelPlanActivity" />
         <activity
             android:name=".src.MainActivity"

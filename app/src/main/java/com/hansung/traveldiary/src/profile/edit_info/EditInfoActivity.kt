@@ -38,6 +38,7 @@ class EditInfoActivity : AppCompatActivity() {
     private lateinit var getResultImage : ActivityResultLauncher<Intent>
     private lateinit var imagePath : String
     private var user : FirebaseUser? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

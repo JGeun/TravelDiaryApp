@@ -1,15 +1,17 @@
-package com.hansung.traveldiary.src.bulletin
+package com.hansung.traveldiary.src.travel
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.ActivityDiarySectionBinding
+import com.hansung.traveldiary.databinding.ActivityMyDiaryDaySectionBinding
+import com.hansung.traveldiary.src.bulletin.DiarySectionData
+import com.hansung.traveldiary.src.travel.adapter.MyDiaryDaySectionAdapter
 import com.hansung.traveldiary.util.StatusBarUtil
 
-class DiarySectionActivity : AppCompatActivity() {
+class MyDiaryDaySectionActivity : AppCompatActivity() {
     private val binding by lazy{
-        ActivityDiarySectionBinding.inflate(layoutInflater)
+        ActivityMyDiaryDaySectionBinding.inflate(layoutInflater)
     }
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -18,18 +20,18 @@ class DiarySectionActivity : AppCompatActivity() {
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
 
         val PostryList=arrayListOf(
-            DiarySectionData(R.drawable.gwangwhamun, "#부산 #해운대"),
+            DiarySectionData(R.drawable.gwangwhamun, "#여수 #밤바다"),
             DiarySectionData(R.drawable.gwangwhamun,"#부산 #해운대"),
-            DiarySectionData(R.drawable.gwangwhamun,"#부산 #해운대")
         )
 
         binding.dsIvBack.setOnClickListener{
             finish()
         }
+
         binding.dsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter= DiarySectionAdapter(PostryList)
-            layoutManager=LinearLayoutManager(this@DiarySectionActivity)
+            adapter= MyDiaryDaySectionAdapter(PostryList)
+            layoutManager= LinearLayoutManager(this@MyDiaryDaySectionActivity)
         }
     }
 }

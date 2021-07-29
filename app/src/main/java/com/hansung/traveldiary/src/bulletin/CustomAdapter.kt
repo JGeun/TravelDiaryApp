@@ -27,7 +27,7 @@ class CustomAdapter(private val bulletinList: ArrayList<BulletinData>):RecyclerV
         holder.itemView.setTag(position)
 
         holder.itemView.setOnClickListener{
-            val intent = Intent(holder.itemView?.context,DiarySectionActivity::class.java)
+            val intent = Intent(holder.itemView?.context,BulletinDaySectionActivity::class.java)
             ContextCompat.startActivity(holder.itemView.context, intent,null)
         }
     }

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.travel.SendDiarySectionActivity">
+    tools:context=".src.travel.MyDiaryDaySectionActivity"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="10dp">
 
     <ImageView
         android:id="@+id/ds_iv_back"
@@ -24,16 +26,16 @@
         android:layout_marginTop="20dp"
         android:overScrollMode="never"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/FAbtn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="#E2C5FD" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/FAbtn2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:clickable="true"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:backgroundTint="#E2C5FD" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

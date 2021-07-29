@@ -39,7 +39,6 @@ class SelectPictureActivity : AppCompatActivity() {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 3)
             adapter = GalleryAdapter(this@SelectPictureActivity, images)
-
         }
     }
 }
