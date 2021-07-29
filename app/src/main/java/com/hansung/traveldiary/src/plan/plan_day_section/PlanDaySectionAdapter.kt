@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ItemPlanDaySectionBinding
+import com.hansung.traveldiary.src.plan.TestDBActivity
 import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel

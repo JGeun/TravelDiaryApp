@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.home.adapter
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemSaleBinding
+import com.hansung.traveldiary.src.home.WebViewActivity
 
 data class SaleData(val image: Drawable, val location: String, val price: String)
 
@@ -40,6 +42,10 @@ class HomeSaleAdapter(private val SaleData: ArrayList<SaleData>) : RecyclerView.
         Glide.with(holder.itemView.context).load(data.image).into(holder.image)
         holder.price.text = data.price
         holder.location.text = data.location
+        val context= holder.itemView.context
+        holder.itemView.setOnClickListener{
+            context.startActivity(Intent(context, WebViewActivity::class.java))
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

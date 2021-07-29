@@ -22,7 +22,7 @@ class SelectPictureActivity : AppCompatActivity() {
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         binding.spIvBack.setOnClickListener{
-            //TODO 클릭
+            finish()
         }
         //check from permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
