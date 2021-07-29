@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".src.uploadDiary.upDiary">
+
+  <RelativeLayout
+      android:id="@+id/upload_diary_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/custom_layoutbox"
+      android:orientation="horizontal"
+      android:layout_marginTop="5dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:id="@+id/upload_diary_iv_cancle"
+        android:layout_width="21dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/icon_x" />
+
+    <EditText
+        android:id="@+id/upload_diary_title"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_toRightOf="@id/upload_diary_iv_cancle"
+        android:background="@null"
+        android:hint="갑시다 갑시다 디지몬 세계로" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/upload_diary_commitbtn"
+        android:layout_width="76dp"
+        android:layout_height="28dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@id/upload_diary_title"
+        android:background="@drawable/radius_btn"
+        android:text="등록"
+        android:textSize="11sp"
+        tools:ignore="RtlHardcoded" />
+
+
+  </RelativeLayout>
+
+  <Spinner
+      android:id="@+id/upload_diary_spinner"
+      android:layout_width="170dp"
+      android:layout_height="0dp"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="9dp"
+      android:layout_marginEnd="217dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/upload_diary_layout" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/button"
+      android:layout_width="130dp"
+      android:layout_height="25dp"
+      android:layout_gravity="right"
+      android:layout_marginStart="32dp"
+      android:background="@drawable/radius_btn"
+      android:text="대표사진 설정"
+      android:textSize="13sp"
+      app:layout_constraintBottom_toTopOf="@+id/framelayout"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.709"
+      app:layout_constraintStart_toEndOf="@+id/upload_diary_spinner"
+      app:layout_constraintTop_toBottomOf="@+id/upload_diary_layout"
+      app:layout_constraintVertical_bias="0.562" />
+
+  <FrameLayout
+      android:id="@+id/framelayout"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/upload_diary_spinner"
+      app:layout_constraintVertical_bias="1.0">
+
+  </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
