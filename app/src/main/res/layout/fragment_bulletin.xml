@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/custom_btn"
-        android:gravity="center_vertical"
-        android:paddingVertical="10dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+    <TextView
+        android:id="@+id/bulletinTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게시글"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"/>
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="30dp"
-            android:layout_height="27dp"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/search" />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_home_find"
+        app:layout_constraintTop_toTopOf="@id/bulletinTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="30dp"/>
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="asdasda"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
+    <View
+        android:id="@+id/bulletin_titleLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#a2a2a2"
+        app:layout_constraintTop_toBottomOf="@id/bulletinTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bulletin_recyclerView"
@@ -52,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/bulletin_titleLine">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -70,4 +68,37 @@
         android:src="@drawable/ic_floatbtn"
         android:focusable="true" />
 
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/linearLayout2"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginHorizontal="20dp"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:layout_marginBottom="16dp"-->
+    <!--        android:background="@drawable/custom_btn"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:paddingVertical="10dp"-->
+    <!--        android:paddingStart="20dp"-->
+    <!--        android:paddingEnd="30dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/bulletinTitle">-->
+
+    <!--        <ImageView-->
+    <!--            android:id="@+id/imageView7"-->
+    <!--            android:layout_width="30dp"-->
+    <!--            android:layout_height="27dp"-->
+    <!--            android:layout_marginRight="8dp"-->
+    <!--            android:src="@drawable/search" />-->
+
+    <!--        <EditText-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:background="@null"-->
+    <!--            android:hint="asdasda"-->
+    <!--            android:textColor="@color/black" />-->
+
+    <!--    </LinearLayout>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

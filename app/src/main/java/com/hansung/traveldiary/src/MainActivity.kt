@@ -59,17 +59,16 @@ class MainActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val docRef = dbCollection.document(document.id)
+                    val docRef = dbCollection.document("plan").collection("data").document(document.id)
                         .get().addOnSuccessListener { documentSnapshot ->
                             val data = documentSnapshot.toObject<PlanTotalData>()!!
+//                            println("data: $data")
                             planBookList.add(PlanBookData(document.id, data))
-                            println(data.toString())
-                            println("안쪽" + planBookList.size.toString())
+
                         }.addOnFailureListener { exception ->
                             Log.d(TAG, "Error getting documents: ", exception)
                         }
                 }
-                println("여기 성공 밖" + planBookList.size.toString())
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
@@ -121,6 +120,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.main_frm, TravelBaseFragment()).commitAllowingStateLoss()
         }
     }
+
 
     fun makePlanBook(){
         addNewPlanBookTask.launch(Intent(this@MainActivity, AddTravelPlanActivity::class.java))

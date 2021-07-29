@@ -69,6 +69,11 @@ class TravelPlanSectionFragment : Fragment() {
             (context as MainActivity).makePlanBook()
         }
 
+        MainActivity.planBookList.sortBy { it.planTotalData.startDate }
+        for(list in MainActivity.planBookList){
+            println(list.title)
+        }
+
         binding.plantripRv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)

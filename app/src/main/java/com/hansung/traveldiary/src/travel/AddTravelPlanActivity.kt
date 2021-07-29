@@ -45,8 +45,8 @@ class AddTravelPlanActivity : AppCompatActivity() {
             val day = cal.get(Calendar.DAY_OF_MONTH)
 
             var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-                startdate=String.format("$y-%02d-%02d", m + 1, d)
-                date+=String.format("$y-%02d-%02d", m + 1, d)
+                startdate = String.format("$y-%02d-%02d", m + 1, d)
+                date += String.format("$y-%02d-%02d", m + 1, d)
                 Log.d("시작날짜", date)
                 binding.editDate.setText(date)
                 Log.d("달력", "OK")
@@ -58,57 +58,15 @@ class AddTravelPlanActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
-        binding.editPlace.setOnClickListener{
+        binding.editPlace.setOnClickListener {
             val bottomDialog = PlanlistBottomDialog()
             bottomDialog.show(supportFragmentManager, "bottomPlanlistSheet")
         }
-
-/*
-        binding.editStartDate.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                val cal = Calendar.getInstance()
-                val year = cal.get(Calendar.YEAR)
-                val month = cal.get(Calendar.MONTH)
-                val day = cal.get(Calendar.DAY_OF_MONTH)
-
-                var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-                    binding.editStartDate.setText(String.format("$y-%02d-%02d", m + 1, d))
-                }
-
-                val datePickerDialog =
-                    DatePickerDialog(this, listener, year, month, day)
-                datePickerDialog.show()
-            } else {
-                binding.editStartDate.clearFocus()
-            }
-        }
-
-        binding.editEndDate.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                val cal = Calendar.getInstance()
-                val year = cal.get(Calendar.YEAR)
-                val month = cal.get(Calendar.MONTH)
-                val day = cal.get(Calendar.DAY_OF_MONTH)
-
-                var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-                    binding.editEndDate.setText(String.format("$y-%02d-%02d", m + 1, d))
-                }
-
-                val datePickerDialog =
-                    DatePickerDialog(this, listener, year, month, day)
-                datePickerDialog.show()
-            } else {
-                binding.editStartDate.clearFocus()
-            }
-        }
-*/
 
         setRadioButton()
 
         binding.addPlanBtn.setOnClickListener {
             var title = binding.editTitle.text.toString()
-//            var startDate = binding.editStartDate.text.toString()
-//            var endDate = binding.editEndDate.text.toString()
             var startDate = startdate
             var endDate = enddate
 
@@ -122,11 +80,15 @@ class AddTravelPlanActivity : AppCompatActivity() {
             val calcDate =
                 ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
 
+            var planTotalData = PlanTotalData(color, startDate, endDate, dayList)
+            MainActivity.planBookList.add(PlanBookData(title, planTotalData))
+
+            val docPlanRef = db.collection(user!!.email.toString()).document("plan")
+            docPlanRef.set("title")
 //            for (i in 0..calcDate) {
 //                dayList.add(DayInfo(afterDate(startDate, i), arrayListOf()))
 //            }
-//            var planTotalData = PlanTotalData(color, startDate, endDate, dayList)
-//            MainActivity.planBookList.add(PlanBookData(title, planTotalData))
+
 //            db!!.collection(user!!.email.toString()).document(title)
 //                .set(planTotalData)
 //                .addOnSuccessListener {
@@ -228,15 +190,15 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
     }
 
-    fun showDatepicker(){
+    fun showDatepicker() {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
 
         var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-            enddate=String.format("$y-%02d-%02d", m + 1, d)
-            date+=" ~ "+String.format("$y-%02d-%02d", m + 1, d)
+            enddate = String.format("$y-%02d-%02d", m + 1, d)
+            date += " ~ " + String.format("$y-%02d-%02d", m + 1, d)
             Log.d("끝날짜", date)
             binding.editDate.setText(date)
         }
