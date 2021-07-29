@@ -15,6 +15,9 @@
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
+        <activity android:name=".src.uploadDiary.upDiary">
+
+        </activity>
         <activity android:name=".src.home.WebViewActivity"></activity>
         <activity android:name=".src.plan.TestDBActivity" />
         <activity android:name=".src.travel.SendDiarySectionActivity" />

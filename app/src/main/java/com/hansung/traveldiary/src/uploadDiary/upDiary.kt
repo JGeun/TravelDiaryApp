@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.fragment.app.FragmentTransaction
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager.widget.PagerAdapter
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.UploadDiaryBinding
 
@@ -78,10 +75,7 @@ class upDiary : AppCompatActivity() {
                             transaction=supportFragmentManager.beginTransaction().replace(R.id.framelayout,fr_day7)
                             transaction.commit()
                         }
-
-
                     }
-
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
