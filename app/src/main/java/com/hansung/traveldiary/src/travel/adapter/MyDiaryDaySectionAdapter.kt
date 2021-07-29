@@ -31,8 +31,6 @@ class MyDiaryDaySectionAdapter(private val dataList:ArrayList<DiarySectionData>)
         holder.itemView.setOnClickListener{
             context.startActivity(Intent(context, upDiary::class.java))
         }
-
-
     }
 
     override fun getItemCount() = dataList.size
