@@ -49,23 +49,44 @@
             android:backgroundTint="@color/maincolor"
             android:textColor="@color/black"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="여행 장소"
+            android:textColor="@color/black"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_place"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:inputType="textPersonName"
+            android:backgroundTint="@color/maincolor"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="@color/black"/>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            >
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="여행 시작일"
+                android:text="여행 날짜"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:focusable="false"
                 android:textColor="@color/black"/>
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edit_start_date"
-                android:layout_width="140dp"
+                android:id="@+id/edit_date"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="date"
@@ -74,39 +95,32 @@
                 android:backgroundTint="@color/maincolor"
                 android:textColor="@color/black"/>
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="~"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/edit_start_date"
-                app:layout_constraintStart_toEndOf="@+id/edit_start_date"
-                app:layout_constraintTop_toTopOf="@+id/edit_start_date" />
+            <ImageView
+                android:id="@+id/ic_datepicker"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_fog"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_date"
+                app:layout_constraintEnd_toEndOf="@+id/edit_date"
+                app:layout_constraintTop_toTopOf="@+id/edit_date" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="여행 종료일"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/black"/>
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edit_end_date"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:ems="10"
-                android:inputType="date"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                android:backgroundTint="@color/maincolor"
-                android:textColor="@color/black"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="여행 인원"
+            android:textColor="@color/black"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_people"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:backgroundTint="@color/maincolor"
+            android:textColor="@color/black"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -114,7 +128,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="책 색상" />
+            android:text="책 색상"
+            android:textColor="@color/black"/>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -155,7 +170,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/addPlan_rb_green"
+                            android:id="@+id/addPlan_rb_yellow"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center" />
@@ -163,7 +178,7 @@
                         <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@drawable/ic_diary_green" />
+                            android:src="@drawable/ic_diary_yellow" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -174,7 +189,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/addPlan_rb_olive"
+                            android:id="@+id/addPlan_rb_orange"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center" />
@@ -182,7 +197,7 @@
                         <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@drawable/ic_diary_olive" />
+                            android:src="@drawable/ic_diary_orange" />
                     </LinearLayout>
                 </TableRow>
 
@@ -224,6 +239,25 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:src="@drawable/ic_diary_purple" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/addPlan_rb_sky"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/ic_diary_sky" />
                     </LinearLayout>
                 </TableRow>
 
