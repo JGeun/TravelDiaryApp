@@ -11,6 +11,10 @@
     android:clickable="true"
     android:focusable="true">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <LinearLayout
         android:id="@+id/apa_mainblock"
         android:layout_width="match_parent"
@@ -42,11 +46,11 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_title"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_width="290dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/add_plan_btn"
             android:inputType="textPersonName"
-            android:backgroundTint="@color/maincolor"
             android:textColor="@color/black"/>
 
         <TextView
@@ -56,16 +60,29 @@
             android:text="여행 장소"
             android:textColor="@color/black"/>
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edit_place"
-            android:layout_width="300dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:inputType="textPersonName"
-            android:backgroundTint="@color/maincolor"
-            android:focusable="false"
-            android:clickable="true"
-            android:textColor="@color/black"/>
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:id="@+id/edit_place"
+                android:layout_width="290dp"
+                android:layout_height="45dp"
+                android:background="@drawable/add_plan_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_down_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -84,23 +101,23 @@
                 android:focusable="false"
                 android:textColor="@color/black"/>
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <EditText
                 android:id="@+id/edit_date"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="date"
+                android:layout_width="290dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:background="@drawable/add_plan_btn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                android:backgroundTint="@color/maincolor"
-                android:textColor="@color/black"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <ImageView
                 android:id="@+id/ic_datepicker"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
                 android:src="@drawable/ic_fog"
-                android:layout_marginEnd="40dp"
                 app:layout_constraintBottom_toBottomOf="@+id/edit_date"
                 app:layout_constraintEnd_toEndOf="@+id/edit_date"
                 app:layout_constraintTop_toTopOf="@+id/edit_date" />
@@ -111,15 +128,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
             android:text="여행 인원"
             android:textColor="@color/black"/>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_people"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:backgroundTint="@color/maincolor"
+            android:layout_width="290dp"
+            android:layout_height="45dp"
+            android:background="@drawable/add_plan_btn"
+            android:inputType="number"
             android:textColor="@color/black"/>
 
         <TextView
@@ -280,4 +298,5 @@
 
     </LinearLayout>
 
+    </ScrollView>
 </LinearLayout>
