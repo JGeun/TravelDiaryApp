@@ -53,7 +53,8 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = planBookList[position]
-        val color = data.planTotalData.color
+        val baseData = data.planData.baseData
+        val color = baseData.color
         if(color == "blue"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
         }else if(color == "yellow"){
@@ -71,12 +72,12 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
         }
         Glide.with(holder.itemView.context).load(image).apply(RequestOptions()).into(holder.planSectionImage)
         holder.planSectionTitle.text = data.title
-        val startMonth = data.planTotalData.startDate.substring(5, 7).toInt()
-        val endMonth = data.planTotalData.endDate.substring(5, 7).toInt()
+        val startMonth = baseData.startDate.substring(5, 7).toInt()
+        val endMonth = baseData.endDate.substring(5, 7).toInt()
         holder.planSectionStartMonth.text = monthUnit[startMonth-1]
         holder.planSectionEndMonth.text = monthUnit[endMonth-1]
-        holder.planSectionStartDate.text = data.planTotalData.startDate.substring(8, 10)
-        holder.planSectionEndDate.text = data.planTotalData.endDate.substring(8, 10)
+        holder.planSectionStartDate.text = baseData.startDate.substring(8, 10)
+        holder.planSectionEndDate.text = baseData.endDate.substring(8, 10)
 
         val context = holder.itemView.context
         holder.itemView.setOnClickListener{

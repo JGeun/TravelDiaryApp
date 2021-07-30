@@ -25,6 +25,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlanMapBinding
+import com.hansung.traveldiary.src.PlaceDayInfo
+import com.hansung.traveldiary.src.PlaceInfo
 import com.hansung.traveldiary.src.plan.model.*
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
@@ -57,7 +59,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
 
     private val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
     private var title : String? = null
-
+    private var placeInfoArray = ArrayList<PlaceInfo>()
     constructor(title: String?) : this() {
         this.title = title
     }
@@ -71,12 +73,14 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
         println("체크 TravelPlanMapFragment ${title}")
         binding = FragmentPlanMapBinding.inflate(inflater, container, false)
 
+        placeInfoArray = userPlaceDataModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray
+
         user = Firebase.auth.currentUser
         db = Firebase.firestore
         initGCMap()
         searchWordResultTaskInit()
 
-        Log.d(TAG, userPlaceDataModel.items.size.toString())
+        Log.d(TAG, placeInfoArray.size.toString())
 
         val fm = childFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
@@ -114,19 +118,19 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
         })
 
         binding.planBtmBtnStore.setOnClickListener{
-            Log.d(TAG, "입력 전: " + userPlaceDataModel.items.size.toString())
+            Log.d(TAG, "입력 전: " + placeInfoArray.toString())
             val placeInfo = PlaceInfo(searchWordResultList[searchWordIndex].place_name, searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble())
-//            userPlaceDataModel.putPlace(placeInfo)
-//            Log.d(TAG, "putPlace 후: " + userPlaceDataModel.items.size.toString())
-            TravelPlanBaseActivity.planTotalData.dayList[TravelPlanBaseActivity.index].placeInfoArray.add(placeInfo)
-            println("user: " + user!!.email.toString())
-            println("title: " + title)
-            db!!.collection(user!!.email.toString()).document(title!!).set(TravelPlanBaseActivity.planTotalData)
+            userPlaceDataModel.putPlace(placeInfo, TravelPlanBaseActivity.index)
+////            TravelPlanBaseActivity.planTotalData.dayList[TravelPlanBaseActivity.index].placeInfoArray.add(placeInfo)
+//            println("user: " + user!!.email.toString())
+//            println("title: " + title)
+            db!!.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
+                .set(TravelPlanBaseActivity.placeInfoFolder)
 //            Log.d(TAG, "db업데이트 후: " + userPlaceDataModel.items.size.toString())
             latLngList.add(searchLatlng)
 //            Log.d(TAG, "입력 후: " + userPlaceDataModel.items.size.toString())
 
-            if(userPlaceDataModel.items.size >= 2){
+            if(placeInfoArray.size >= 2){
                 if(path == null){
                     path = PathOverlay()
                     path!!.coords = latLngList
@@ -214,19 +218,20 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
         naverMap.uiSettings.isLocationButtonEnabled = true
 
         latLngList.clear()
-        if(userPlaceDataModel.items.size != 0){
-            lastLatitude = userPlaceDataModel.items[userPlaceDataModel.items.size-1].latitude
-            lastLongitude  = userPlaceDataModel.items[userPlaceDataModel.items.size-1].longitude
-            for(placeData in userPlaceDataModel.items){
+
+        if(placeInfoArray.size != 0){
+            lastLatitude = placeInfoArray[placeInfoArray.size-1].latitude
+            lastLongitude  = placeInfoArray[placeInfoArray.size-1].longitude
+            for(placeData in placeInfoArray){
                 val marker = Marker()
                 latLngList.add(LatLng(placeData.latitude, placeData.longitude))
                 marker.position = LatLng(placeData.latitude, placeData.longitude)
                 marker.map = naverMap
             }
-            if(path != null && userPlaceDataModel.items.size < 2){
+            if(path != null && placeInfoArray.size < 2){
                 path!!.map = null
                 path = null
-            }else if(userPlaceDataModel.items.size >= 2){
+            }else if(placeInfoArray.size >= 2){
                 if(path == null){
                     path = PathOverlay()
                 }

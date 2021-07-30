@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.travel.MyDiaryDaySectionActivity"
+    tools:context=".src.diary.MyDiaryDaySectionActivity"
     android:paddingHorizontal="20dp"
     android:paddingVertical="10dp">
 

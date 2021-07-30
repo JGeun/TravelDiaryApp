@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemLasttripBinding
 import com.hansung.traveldiary.src.travel.LastTripData
-import com.hansung.traveldiary.src.travel.MyDiaryDaySectionActivity
+import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity
 
 class TravelDiarySectionAdapter(val lasttripList: ArrayList<LastTripData>):RecyclerView.Adapter<TravelDiarySectionAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemLasttripBinding) : RecyclerView.ViewHolder(binding.root) {

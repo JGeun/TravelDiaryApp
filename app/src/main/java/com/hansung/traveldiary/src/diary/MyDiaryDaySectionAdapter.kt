@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.travel.adapter
+package com.hansung.traveldiary.src.diary
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemBulletinDaySectionBinding
 import com.hansung.traveldiary.src.bulletin.DiarySectionData
-import com.hansung.traveldiary.src.uploadDiary.upDiary
+import com.hansung.traveldiary.src.uploadDiary.MakeDiaryActivity
 
 class MyDiaryDaySectionAdapter(private val dataList:ArrayList<DiarySectionData>): RecyclerView.Adapter<MyDiaryDaySectionAdapter.ViewHolder>() {
 
@@ -17,7 +17,7 @@ class MyDiaryDaySectionAdapter(private val dataList:ArrayList<DiarySectionData>)
         val diaryImage = binding.dsItemIvDiary
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding= ItemBulletinDaySectionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
@@ -29,7 +29,7 @@ class MyDiaryDaySectionAdapter(private val dataList:ArrayList<DiarySectionData>)
         val context = holder.itemView.context
         Glide.with(holder.itemView.context).load(data.diaryImage).into(holder.diaryImage)
         holder.itemView.setOnClickListener{
-            context.startActivity(Intent(context, upDiary::class.java))
+            context.startActivity(Intent(context, MakeDiaryActivity::class.java))
         }
     }
 

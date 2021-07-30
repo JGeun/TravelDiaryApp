@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.travel
+package com.hansung.traveldiary.src.diary
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMyDiaryDaySectionBinding
 import com.hansung.traveldiary.src.bulletin.DiarySectionData
-import com.hansung.traveldiary.src.travel.adapter.MyDiaryDaySectionAdapter
 import com.hansung.traveldiary.util.StatusBarUtil
 
 class MyDiaryDaySectionActivity : AppCompatActivity() {

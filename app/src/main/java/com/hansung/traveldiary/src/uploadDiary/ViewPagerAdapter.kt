@@ -4,35 +4,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat.*
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.R
+import com.hansung.traveldiary.databinding.ItemDiaryPictureBinding
 
-class ViewPagerAdapter(private val list: ArrayList<Int>) :
+class ViewPagerAdapter() : RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>() {
+
+    class PagerViewHolder(val binding : ItemDiaryPictureBinding) : RecyclerView.ViewHolder(binding.root) {
+    }
 
 
-
-    RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>() {
-    var item = list
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder =
-        PagerViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.diary, parent, false) as ViewGroup
-        )
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder{
+        val binding = ItemDiaryPictureBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PagerViewHolder(binding)
+    }
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.bind(list[position], position)
+
 
     }
 
-    override fun getItemCount(): Int = item.size
+    override fun getItemCount(): Int = 1
 
-    inner class PagerViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
-        (LayoutInflater.from(parent.context).inflate(R.layout.diary, parent, false)) {
-        private val textView: TextView = itemView.findViewById(R.id.upDiary_text)
 
-        fun bind(bgColor: Int, position: Int) {
-            itemView.setBackgroundColor(getColor(itemView.context, bgColor))
-        }
-    }
 }
 

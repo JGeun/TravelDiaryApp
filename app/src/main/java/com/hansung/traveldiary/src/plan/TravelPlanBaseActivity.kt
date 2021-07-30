@@ -19,7 +19,8 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelPlanBaseBinding
-import com.hansung.traveldiary.src.plan.model.PlanTotalData
+import com.hansung.traveldiary.src.PlaceInfoFolder
+import com.hansung.traveldiary.src.PlanData
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 import com.hansung.traveldiary.util.StatusBarUtil
 import retrofit2.Retrofit
@@ -56,7 +57,7 @@ class TravelPlanBaseActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         var index = 0
-        var planTotalData = PlanTotalData()
+        var placeInfoFolder = PlaceInfoFolder()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,21 +78,8 @@ class TravelPlanBaseActivity : AppCompatActivity() {
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
-        db!!.collection(user!!.email.toString()).document(title.toString())
-            .get().addOnSuccessListener  { documentSnapshot ->
-                val data = documentSnapshot.toObject<PlanTotalData>()!!
-                userPlanDataModel.putPlaceAll(data.dayList[index].placeInfoArray)
-                planTotalData = data
 
-                if(menu == "schedule"){
-                    binding.planTopMenu.setImageDrawable(mapDrawable)
-                    transaction.replace(R.id.tp_fragment, scheduleFragment).commitAllowingStateLoss()
-                }else{
-                    binding.planTopMenu.setImageDrawable(scheduleDrawable)
-                    transaction.replace(R.id.tp_fragment, travelPlanMapFragment).commitAllowingStateLoss()
-                }
-            }
-
+        initViewModel(menu!!, title!!)
 
         fragmentManager = supportFragmentManager
         transaction = fragmentManager.beginTransaction()
@@ -122,9 +110,24 @@ class TravelPlanBaseActivity : AppCompatActivity() {
             finish()
         }
 
-
     }
 
+    fun initViewModel(menu : String, title: String){
+        db!!.collection(user!!.email.toString()).document("Plan").collection(title).document("PlaceInfo")
+            .get().addOnSuccessListener  { documentSnapshot ->
+                placeInfoFolder = documentSnapshot.toObject<PlaceInfoFolder>()!!
+                userPlanDataModel.putAllData(placeInfoFolder)
+
+                if(menu == "schedule"){
+                    binding.planTopMenu.setImageDrawable(mapDrawable)
+                    transaction.replace(R.id.tp_fragment, scheduleFragment).commitAllowingStateLoss()
+                }else{
+                    binding.planTopMenu.setImageDrawable(scheduleDrawable)
+                    transaction.replace(R.id.tp_fragment, travelPlanMapFragment).commitAllowingStateLoss()
+                }
+            }
+
+    }
     override fun onStart() {
         super.onStart()
         println("TravelPlanBaseActivity start")

@@ -15,14 +15,13 @@
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.uploadDiary.upDiary">
+        <activity android:name=".src.uploadDiary.MakeDiaryActivity">
 
         </activity>
         <activity android:name=".src.home.WebViewActivity"></activity>
-        <activity android:name=".src.plan.TestDBActivity" />
-        <activity android:name=".src.travel.MyDiaryDaySectionActivity" />
+        <activity android:name=".src.diary.MyDiaryDaySectionActivity" />
         <activity
-            android:name=".src.travel.SendTravelPlanActivity"
+            android:name=".src.diary.SendTravelPlanActivity"
             android:theme="@style/Transparent" />
         <activity
             android:name=".src.travel.AddTravelPlanActivity"

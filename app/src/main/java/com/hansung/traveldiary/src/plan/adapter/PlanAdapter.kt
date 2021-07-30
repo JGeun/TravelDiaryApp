@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ItemPlanBinding
-import com.hansung.traveldiary.src.plan.model.PlaceInfo
+import com.hansung.traveldiary.src.PlaceInfo
 
 
 class PlanAdapter(private val planData : ArrayList<PlaceInfo>) : RecyclerView.Adapter<PlanAdapter.ViewHolder>(){
