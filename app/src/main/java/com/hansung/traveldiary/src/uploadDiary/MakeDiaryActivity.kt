@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMakeDiaryBinding
+import com.hansung.traveldiary.util.StatusBarUtil
 
 class MakeDiaryActivity : AppCompatActivity() {
     var viewList = ArrayList<View>()
@@ -25,6 +26,8 @@ class MakeDiaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         //날짜 수에 따른 스피너 동적 생성
         var spinnerArray = arrayListOf<String>()

@@ -223,5 +223,4 @@ class AddTravelPlanActivity : AppCompatActivity() {
             DatePickerDialog(this, listener, year, month, day)
         datePickerDialog.show()
     }
-
 }

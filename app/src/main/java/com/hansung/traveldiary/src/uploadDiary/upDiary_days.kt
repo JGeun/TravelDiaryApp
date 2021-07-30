@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.FrgmentDaysBinding
+import com.hansung.traveldiary.databinding.FragmentMakeDiaryDaySectionBinding
 
 class Day1: Fragment(){
     override fun onCreateView(inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.frgment_days,container,false)
-        val binding= FrgmentDaysBinding.bind(view)
+        val view=inflater.inflate(R.layout.fragment_make_diary_day_section,container,false)
+        val binding= FragmentMakeDiaryDaySectionBinding.bind(view)
         binding.uploadViewPager.adapter=ViewPagerAdapter()
         binding.uploadViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         //인디케이터
@@ -29,8 +29,8 @@ class Day2: Fragment(){
                               container: ViewGroup?,
                               savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.frgment_days,container,false)
-        val binding= FrgmentDaysBinding.bind(view)
+        val view=inflater.inflate(R.layout.fragment_make_diary_day_section,container,false)
+        val binding= FragmentMakeDiaryDaySectionBinding.bind(view)
         binding.uploadViewPager.adapter=ViewPagerAdapter()
         binding.uploadViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.indicator.setViewPager(binding.uploadViewPager)
@@ -42,8 +42,8 @@ class Day3: Fragment(){
                               container: ViewGroup?,
                               savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.frgment_days,container,false)
-        val binding= FrgmentDaysBinding.bind(view)
+        val view=inflater.inflate(R.layout.fragment_make_diary_day_section,container,false)
+        val binding= FragmentMakeDiaryDaySectionBinding.bind(view)
         binding.uploadViewPager.adapter=ViewPagerAdapter()
         binding.uploadViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.indicator.setViewPager(binding.uploadViewPager)
@@ -56,8 +56,8 @@ class Day4: Fragment(){
                               container: ViewGroup?,
                               savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.frgment_days,container,false)
-        val binding= FrgmentDaysBinding.bind(view)
+        val view=inflater.inflate(R.layout.fragment_make_diary_day_section,container,false)
+        val binding= FragmentMakeDiaryDaySectionBinding.bind(view)
         binding.uploadViewPager.adapter=ViewPagerAdapter()
         binding.uploadViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.indicator.setViewPager(binding.uploadViewPager)
@@ -69,8 +69,8 @@ class Day5: Fragment(){
                               container: ViewGroup?,
                               savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.frgment_days,container,false)
-        val binding= FrgmentDaysBinding.bind(view)
+        val view=inflater.inflate(R.layout.fragment_make_diary_day_section,container,false)
+        val binding= FragmentMakeDiaryDaySectionBinding.bind(view)
         binding.uploadViewPager.adapter=ViewPagerAdapter()
         binding.uploadViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.indicator.setViewPager(binding.uploadViewPager)
@@ -78,18 +78,12 @@ class Day5: Fragment(){
     }
 }
 class Day6: Fragment(){
-    private val bgColors: MutableList<Int> = mutableListOf(
-        android.R.color.white,
-        android.R.color.holo_blue_light,
-        android.R.color.holo_orange_light,
-        android.R.color.holo_red_light
-    )
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.frgment_days,container,false)
-        val binding= FrgmentDaysBinding.bind(view)
+        val view=inflater.inflate(R.layout.fragment_make_diary_day_section,container,false)
+        val binding= FragmentMakeDiaryDaySectionBinding.bind(view)
         binding.uploadViewPager.adapter=ViewPagerAdapter()
         binding.uploadViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.indicator.setViewPager(binding.uploadViewPager)
@@ -97,18 +91,12 @@ class Day6: Fragment(){
     }
 }
 class Day7: Fragment(){
-    private val bgColors: MutableList<Int> = mutableListOf(
-        android.R.color.white,
-        android.R.color.holo_blue_light,
-        android.R.color.holo_orange_light,
-        android.R.color.holo_red_light
-    )
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.frgment_days,container,false)
-        val binding= FrgmentDaysBinding.bind(view)
+        val view=inflater.inflate(R.layout.fragment_make_diary_day_section,container,false)
+        val binding= FragmentMakeDiaryDaySectionBinding.bind(view)
         binding.uploadViewPager.adapter=ViewPagerAdapter()
         binding.uploadViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.indicator.setViewPager(binding.uploadViewPager)
