@@ -40,7 +40,7 @@ class ScheduleFragment() : Fragment(){
     override fun onStart() {
         super.onStart()
         println("schedule fragment start")
-        if(userPlaceDataModel.items.size != 0){
+        if(userPlaceDataModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray.size != 0){
             binding.scheduleNoPlan.isVisible = false
             binding.scheduleRecyclerview.isVisible = true
         }else{

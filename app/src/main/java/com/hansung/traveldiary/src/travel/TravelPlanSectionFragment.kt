@@ -1,15 +1,9 @@
 package com.hansung.traveldiary.src.travel
 
-import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.*
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,33 +12,16 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentTravelPlanSectionBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.plan.model.DayInfo
-import com.hansung.traveldiary.src.plan.model.PlanTotalData
 import com.hansung.traveldiary.src.travel.adapter.PlanSectionAdapter
 import com.naver.maps.map.util.FusedLocationSource
-
-
-data class PlanSectionData(
-    val image: Drawable,
-    val title: String,
-    val color: String,
-    val start_date: String,
-    val end_date: String
-)
-
 
 
 class TravelPlanSectionFragment : Fragment() {
     private lateinit var binding: FragmentTravelPlanSectionBinding
     private lateinit var mLocationSource: FusedLocationSource
-    private val tripPlanList = ArrayList<PlanSectionData>()
-
-    private lateinit var planTotalData: PlanTotalData
-    private var dayList = java.util.ArrayList<DayInfo>()
 
     private var title: String? = null
     private var user: FirebaseUser? = null
@@ -63,13 +40,11 @@ class TravelPlanSectionFragment : Fragment() {
         db = Firebase.firestore
 
         binding.floatingActionButton.setOnClickListener {
-//            val dlg = AddPlanDialog(requireContext())
-//            dlg.start(this, tripPlanList)
-
             (context as MainActivity).makePlanBook()
         }
 
-        MainActivity.planBookList.sortBy { it.planTotalData.startDate }
+        println("TravelPlanSection 들어옴")
+//        MainActivity.planBookList.sortBy { it.planTotalData.startDate }
         for(list in MainActivity.planBookList){
             println(list.title)
         }
@@ -107,12 +82,6 @@ class TravelPlanSectionFragment : Fragment() {
         super.onStart()
         println("TravelPlanSection start")
     }
-
-    fun deletePlan(position: Int){
-        tripPlanList.removeAt(position)
-        binding.plantripRv.adapter!!.notifyDataSetChanged()
-    }
-
 
     fun newInstant(): TravelPlanSectionFragment {
         val args = Bundle()

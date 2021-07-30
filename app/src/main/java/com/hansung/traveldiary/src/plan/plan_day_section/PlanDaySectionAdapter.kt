@@ -3,16 +3,14 @@ package com.hansung.traveldiary.src.plan.plan_day_section
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ItemPlanDaySectionBinding
-import com.hansung.traveldiary.src.plan.TestDBActivity
+import com.hansung.traveldiary.src.PlaceInfoFolder
+import com.hansung.traveldiary.src.PlanData
 import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
-import com.hansung.traveldiary.src.plan.model.PlanTotalData
-import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
 
-class PlanDaySectionAdapter(val planTotalData : PlanTotalData): RecyclerView.Adapter<PlanDaySectionAdapter.ViewHolder>() {
+class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.Adapter<PlanDaySectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemPlanDaySectionBinding): RecyclerView.ViewHolder(binding.root){
         val dayText = binding.itemAdpDayCount
@@ -30,7 +28,7 @@ class PlanDaySectionAdapter(val planTotalData : PlanTotalData): RecyclerView.Ada
         val context= holder.itemView.context
         val dayCountText = "Day - " + (position+1).toString()
         holder.dayText.text = dayCountText
-        holder.date.text = planTotalData.dayList[position].date
+//        holder.date.text = planTotalData.dayList[position].date
 
         val intent = Intent(context, TravelPlanBaseActivity::class.java)
         intent.putExtra("title", (context as PlanDaySectionActivity).getTitleContents())
@@ -50,5 +48,5 @@ class PlanDaySectionAdapter(val planTotalData : PlanTotalData): RecyclerView.Ada
 //        }
     }
 
-    override fun getItemCount() = planTotalData.dayList.size
+    override fun getItemCount() = placeInfoFolder.dayPlaceList.size
 }

@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.travel
+package com.hansung.traveldiary.src.diary
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -16,6 +16,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.hansung.traveldiary.databinding.ActivitySendTravelPlanBinding
 import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
+import com.hansung.traveldiary.src.travel.LastTripData
+import com.hansung.traveldiary.src.travel.lastTripList
 import java.io.ByteArrayOutputStream
 
 class SendTravelPlanActivity : AppCompatActivity() {

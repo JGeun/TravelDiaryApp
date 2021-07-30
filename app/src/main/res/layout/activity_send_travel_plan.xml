@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:orientation="vertical"
-    tools:context=".src.travel.SendTravelPlanActivity">
+    tools:context=".src.diary.SendTravelPlanActivity">
 
     <LinearLayout
         android:id="@+id/mainblock"

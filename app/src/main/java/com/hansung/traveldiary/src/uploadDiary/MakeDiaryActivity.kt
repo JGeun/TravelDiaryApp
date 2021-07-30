@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.UploadDiaryBinding
+import com.hansung.traveldiary.databinding.ActivityMakeDiaryBinding
 
-class upDiary : AppCompatActivity() {
+class MakeDiaryActivity : AppCompatActivity() {
     var viewList = ArrayList<View>()
     private val fr_days = Day1()
     private val fr_day2=Day2()
@@ -19,22 +19,26 @@ class upDiary : AppCompatActivity() {
     private val fr_day6=Day6()
     private val fr_day7=Day7()
 
+    private val binding by lazy{
+        ActivityMakeDiaryBinding.inflate(layoutInflater)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
-        var binding = UploadDiaryBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         //날짜 수에 따른 스피너 동적 생성
         var spinnerArray = arrayListOf<String>()
         var day = 7
         var count_days = 0
+
         for (i in 1..day) {
             spinnerArray.add("Day-${i}")
         }
+
         binding.uploadDiarySpinner.adapter =
             ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, spinnerArray)
         //스피너 선택에 따른 화면전환
-        var transaction = supportFragmentManager.beginTransaction()
-            .replace(R.id.framelayout, fr_days)
+        var transaction = supportFragmentManager.beginTransaction().replace(R.id.framelayout, fr_days)
         transaction.commit()
         binding.uploadDiarySpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {

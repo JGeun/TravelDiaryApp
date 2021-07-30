@@ -3,10 +3,7 @@ package com.hansung.traveldiary.src.plan.plan_day_section
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -15,11 +12,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ActivityPlanDaySectionBinding
-import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.plan.model.DayInfo
-import com.hansung.traveldiary.src.plan.model.PlanTotalData
-import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
-import com.hansung.traveldiary.src.travel.SendTravelPlanActivity
+import com.hansung.traveldiary.src.PlaceInfoFolder
+import com.hansung.traveldiary.src.diary.SendTravelPlanActivity
 import com.hansung.traveldiary.util.StatusBarUtil
 import java.util.*
 
@@ -30,9 +24,7 @@ class PlanDaySectionActivity : AppCompatActivity() {
     private var title : String? = null
     private var user : FirebaseUser? = null
     private var db : FirebaseFirestore? = null
-    private var planTotalData : PlanTotalData = PlanTotalData()
-    private var dayList  = ArrayList<DayInfo>()
-    private val userPlanDataModel : SharedPlaceViewModel by viewModels()
+    private var placeInfoFolder : PlaceInfoFolder = PlaceInfoFolder()
 
     private var count = 1
 
@@ -52,12 +44,12 @@ class PlanDaySectionActivity : AppCompatActivity() {
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
-        db!!.collection(user!!.email.toString()).document(title.toString())
-            .get().addOnSuccessListener  { documentSnapshot ->
-                val data = documentSnapshot.toObject<PlanTotalData>()!!
-                planTotalData = data
 
-                if(planTotalData.dayList.size == 0){
+        db!!.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
+            .get().addOnSuccessListener  { documentSnapshot ->
+                placeInfoFolder = documentSnapshot.toObject<PlaceInfoFolder>()!!
+
+                if(placeInfoFolder.dayPlaceList.size == 0){
                     binding.addDayNoMsg.isVisible = true
                     binding.dsRecyclerview.isVisible = false
                 }else{
@@ -67,12 +59,10 @@ class PlanDaySectionActivity : AppCompatActivity() {
 
                 binding.dsRecyclerview.apply {
                     setHasFixedSize(true)
-                    adapter= PlanDaySectionAdapter(planTotalData)
+                    adapter= PlanDaySectionAdapter(placeInfoFolder)
                     layoutManager= LinearLayoutManager(this@PlanDaySectionActivity)
                 }
             }
-
-
 
         binding.dsIvBack.setOnClickListener{
             finish()

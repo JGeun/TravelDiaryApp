@@ -19,6 +19,8 @@ class TravelBaseFragment : Fragment(){
     ): View? {
         binding = FragmentTravelBinding.inflate(inflater, container, false)
 
+        println("TravelBaseFragment 들어옴")
+
         return binding.root
     }
 

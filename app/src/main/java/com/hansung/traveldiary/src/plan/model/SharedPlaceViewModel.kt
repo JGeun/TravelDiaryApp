@@ -2,35 +2,29 @@ package com.hansung.traveldiary.src.plan.model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.hansung.traveldiary.src.PlaceDayInfo
+import com.hansung.traveldiary.src.PlaceInfo
+import com.hansung.traveldiary.src.PlaceInfoFolder
 
 class SharedPlaceViewModel : ViewModel() {
-    val userPlanData : MutableLiveData<ArrayList<PlaceInfo>> = MutableLiveData()
-    var items = ArrayList<PlaceInfo>()
+    val userPlanData : MutableLiveData<PlaceInfoFolder> = MutableLiveData()
+    var items = PlaceInfoFolder()
 
     init {
         userPlanData.value = items
     }
 
-    fun putPlaceAll(data : ArrayList<PlaceInfo>){
+    fun putAllData(data : PlaceInfoFolder){
         items = data
         userPlanData.value = items
     }
-    fun putPlace(data : PlaceInfo){
-        items.add(data)
+    fun putPlace(place : PlaceInfo, index: Int){
+        items.dayPlaceList[index].placeInfoArray.add(place)
         userPlanData.value = items
     }
 
-    fun removePlace(index: Int){
-        items.removeAt(index)
+    fun putPlaceDayInfo(placeDayInfo : PlaceDayInfo){
+        items.dayPlaceList.add(placeDayInfo)
         userPlanData.value = items
-    }
-
-    fun printPlace(){
-        for(data in userPlanData.value!!)
-            println(data.placeName)
-    }
-
-    fun getCount() : Int{
-        return items.size
     }
 }

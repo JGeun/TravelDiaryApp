@@ -1,34 +1,32 @@
 package com.hansung.traveldiary.src.travel
 
 import android.app.DatePickerDialog
-import android.content.DialogInterface
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
-import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.Toast
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
-import com.hansung.traveldiary.R
+import com.google.firebase.storage.FirebaseStorage
 import com.hansung.traveldiary.databinding.ActivityAddTravelPlanBinding
-import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.PlanBookData
-import com.hansung.traveldiary.src.plan.model.DayInfo
-import com.hansung.traveldiary.src.plan.model.PlanTotalData
+import com.hansung.traveldiary.src.*
 import java.text.SimpleDateFormat
 import java.util.*
-
-data class tempData(var title: String)
+import kotlin.collections.ArrayList
+import kotlin.reflect.typeOf
 
 class AddTravelPlanActivity : AppCompatActivity() {
     private val binding: ActivityAddTravelPlanBinding by lazy {
         ActivityAddTravelPlanBinding.inflate(layoutInflater)
     }
+
+    private var user : FirebaseUser? = null
+    private var db : FirebaseFirestore? = null
+    private var titleList = TitleList()
     private val TAG = "AddPlanActivity"
     private var color = "pink"
     var date = ""
@@ -39,6 +37,10 @@ class AddTravelPlanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        user = Firebase.auth.currentUser
+        db = Firebase.firestore
+
+        getTitleList()
 
         binding.icDatepicker.setOnClickListener {
             val cal = Calendar.getInstance()
@@ -72,38 +74,32 @@ class AddTravelPlanActivity : AppCompatActivity() {
             var startDate = startdate
             var endDate = enddate
 
-            val user = Firebase.auth.currentUser
-            val db = Firebase.firestore
-            var dayList = ArrayList<DayInfo>()
+            titleList.titleFolder.add(title)
 
-//            var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-//            val startDateFormat = simpleDateFormat.parse("$startDate 00:00:00")!!
-//            val endDateFormat = simpleDateFormat.parse("$endDate 00:00:00")!!
-//            val calcDate =
-//                ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
+            var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+            val startDateFormat = simpleDateFormat.parse("$startDate 00:00:00")!!
+            val endDateFormat = simpleDateFormat.parse("$endDate 00:00:00")!!
+            val calcDate =
+                ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
 
-            var planTotalData = PlanTotalData(color, startDate, endDate, dayList)
-            MainActivity.planBookList.add(PlanBookData(title, planTotalData))
+//            var planTotalData = PlanTotalData(color, startDate, endDate, dayList)
+//            MainActivity.planBookList.add(PlanBookData(title, planTotalData))
 
-            val docPlanRef = db.collection(user!!.email.toString()).document("plan")
-            docPlanRef.set(tempData("title"))
+            val docPlanRef = db!!.collection(user!!.email.toString()).document("Plan")
+            docPlanRef.set(titleList)
 
-//            for (i in 0..calcDate) {
-//                dayList.add(DayInfo(afterDate(startDate, i), arrayListOf()))
-//            }
 
-//            db!!.collection(user!!.email.toString()).document(title)
-//                .set(planTotalData)
-//                .addOnSuccessListener {
-//                    Log.d(TAG, "DocumentSnapshot successfully written!")
-//                    setResult(RESULT_OK)
-//                    finish()
-//                }
-//                .addOnFailureListener { e ->
-//                    Log.w(TAG, "Error writing document", e)
-//                    Toast.makeText(this, "실패", Toast.LENGTH_SHORT).show()
-//                }
+            docPlanRef.collection(title).document("BaseData").set(BaseData(color, startDate, endDate))
+            val dayList = ArrayList<PlaceDayInfo>()
+            for (i in 0..calcDate) {
+                dayList.add(PlaceDayInfo(afterDate(startDate, i), arrayListOf()))
+            }
+            docPlanRef.collection(title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
 
+
+            val intent = intent.putExtra("title", title)
+            setResult(RESULT_OK, intent)
+            finish()
         }
 
         binding.apaOutblock.setOnClickListener {
@@ -191,6 +187,23 @@ class AddTravelPlanActivity : AppCompatActivity() {
             binding.addPlanRbOrange.isChecked = true
         }
 
+    }
+
+    fun getTitleList(){
+        db!!.collection(user!!.email.toString()).document("Plan")
+            .get()
+            .addOnSuccessListener { result ->
+                val data = result.data?.get("titleFolder")
+                if(data != null){
+                    titleList.titleFolder = data as ArrayList<String>
+                    println("size: ${titleList.titleFolder.size}")
+                    println("content: ${titleList.titleFolder[0]}")
+                }
+
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
     }
 
     fun showDatepicker() {
