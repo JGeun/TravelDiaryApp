@@ -12,60 +12,123 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivitySendTravelPlanBinding
+import com.hansung.traveldiary.src.*
 import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
 import com.hansung.traveldiary.src.travel.LastTripData
+import com.hansung.traveldiary.src.travel.TravelBaseFragment
 import com.hansung.traveldiary.src.travel.lastTripList
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SendTravelPlanActivity : AppCompatActivity() {
-    private var user : FirebaseUser? = null
+    private var user: FirebaseUser? = null
+    private var db: FirebaseFirestore? = null
+    private var titleList = TitleList()
     private val binding by lazy {
         ActivitySendTravelPlanBinding.inflate(layoutInflater)
     }
 
     private lateinit var getResultImage: ActivityResultLauncher<Intent>
     private lateinit var imagePath: String
-    private var title = ""
+    private var planTitle = ""
+
+    private var planBaseData: PlanBaseData = PlanBaseData()
+    private var placeInfoFolder: PlaceInfoFolder = PlaceInfoFolder()
+
+    private val TAG = "SendTravelPlanActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         user = FirebaseAuth.getInstance().currentUser
-        title = intent.getStringExtra("title").toString()
+        db = Firebase.firestore
+
+        planTitle = intent.getStringExtra("title").toString()
+
+        getTitleList()
+        getDataAboutPlanTitle()
 
         getResultImage = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
-        ){ result ->
-            if(result.resultCode == RESULT_OK){
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
                 imagePath = result.data?.getStringExtra("imagePath")!!
                 Glide.with(this).load(imagePath).circleCrop().into(binding.stpMainImage)
 
                 val op = BitmapFactory.Options()
-                var bitmap : Bitmap? = null
+                var bitmap: Bitmap? = null
                 bitmap = BitmapFactory.decodeFile(imagePath, op)
                 uploadFirebase2Image(bitmap)
             }
         }
 
-        binding.stpImageView.setOnClickListener{
-            getResultImage.launch(Intent(this@SendTravelPlanActivity, SelectPictureActivity::class.java))
+        binding.stpImageView.setOnClickListener {
+            getResultImage.launch(
+                Intent(
+                    this@SendTravelPlanActivity,
+                    SelectPictureActivity::class.java
+                )
+            )
         }
 
         binding.sendPlanBtn.setOnClickListener {
-            var title = binding.editTravelTitle.text.toString()
+            var diaryTitle = binding.editTravelTitle.text.toString()
             var hashTag = binding.editHashtag.text.toString()
-            var image = binding.stpMainImage.drawable
+//            var image = binding.stpMainImage.drawable
+            var imagePath = ""
 
-            val data = LastTripData(image, title, hashTag)
-            lastTripList.add(data)
-            val position = intent.getIntExtra("position", -1)
+            val docDiaryRef = db!!.collection(user!!.email.toString()).document("Diary")
+            titleList.titleFolder.add(planTitle)
+            docDiaryRef.set(titleList)
 
+            docDiaryRef.collection(planTitle).document("PlanBaseData").set(planBaseData)
+            docDiaryRef.collection(planTitle).document("PlanPlaceInfo").set(placeInfoFolder)
 
-            Log.d("sendtrip", "추가")
-            finish()
+            val diaryDayList = ArrayList<DiaryDayInfo>()
+            for (i in 0 until placeInfoFolder.dayPlaceList.size)
+                diaryDayList.add(DiaryDayInfo(placeInfoFolder.dayPlaceList[i].date, DiaryInfo()))
+            docDiaryRef.collection(planTitle).document("DiaryData").set(
+                DiaryInfoFolder(diaryDayList)
+            )
+
+            val now = System.currentTimeMillis();
+            val mDate = Date(now)
+            val simpleDate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            val getTime = simpleDate.format(mDate)
+
+            Firebase.storage.reference.child("profileImage/" + user!!.email + "/profileImage.png")
+                .downloadUrl.addOnCompleteListener { task ->
+                    val downloadUri = task.result
+                    imagePath = downloadUri.toString()
+
+                    docDiaryRef.collection(planTitle).document("DiaryBaseData").set(
+                        DiaryBaseData(
+                            diaryTitle,
+                            imagePath,
+                            user!!.displayName.toString(),
+                            getTime,
+                            "",
+                            0,
+                            0
+                        )
+                    ).addOnSuccessListener {
+                        println("이미지 넣기 끝!")
+                        showCustomToast("끝")
+                        finish()
+                    }
+                }.addOnFailureListener {
+                    showCustomToast("실패")
+                }
         }
 
         binding.outblock.setOnClickListener {
@@ -80,7 +143,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
     fun uploadFirebase2Image(bitmap: Bitmap) {
         val storage = Firebase.storage
         val storageRef = storage.reference
-        val imageStorageRef = storageRef.child("/diary/"+user!!.email + "/${title}" + "/mainImage.png")
+        val imageStorageRef = storageRef.child("/diary/${user!!.email}/${planTitle}/mainImage.png")
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val data = baos.toByteArray()
@@ -104,7 +167,49 @@ class SendTravelPlanActivity : AppCompatActivity() {
         }
     }
 
-    fun showCustomToast(message: String){
+    fun getTitleList() {
+        db!!.collection(user!!.email.toString()).document("Diary")
+            .get()
+            .addOnSuccessListener { result ->
+                val data = result.data?.get("titleFolder")
+                if (data != null) {
+                    titleList.titleFolder = data as ArrayList<String>
+                    println("size: ${titleList.titleFolder.size}")
+                    println("content: ${titleList.titleFolder[0]}")
+                }
+
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+                finish()
+            }
+    }
+
+    fun getDataAboutPlanTitle() {
+        val planDocRef =
+            db!!.collection(user!!.email.toString()).document("Plan").collection(planTitle)
+        planDocRef.document("BaseData")
+            .get()
+            .addOnSuccessListener { result ->
+                planBaseData = result.toObject<PlanBaseData>()!!
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+                finish()
+            }
+
+        planDocRef.document("PlaceInfo")
+            .get()
+            .addOnSuccessListener { result ->
+                placeInfoFolder = result.toObject<PlaceInfoFolder>()!!
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+                finish()
+            }
+    }
+
+    fun showCustomToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

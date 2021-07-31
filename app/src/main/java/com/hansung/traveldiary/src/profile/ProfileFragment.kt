@@ -22,10 +22,10 @@ import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.login.LoginActivity
 import com.hansung.traveldiary.src.profile.edit_info.EditInfoActivity
 
-class ProfileFragment : Fragment(){
-    private lateinit var pref : SharedPreferences
-    private var user : FirebaseUser? = null
-    private lateinit var binding : FragmentProfileBinding
+class ProfileFragment : Fragment() {
+    private lateinit var pref: SharedPreferences
+    private var user: FirebaseUser? = null
+    private lateinit var binding: FragmentProfileBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,10 +36,10 @@ class ProfileFragment : Fragment(){
         pref = context?.getSharedPreferences("user", 0)!!
 
         binding.userName.text = FirebaseAuth.getInstance().currentUser?.displayName ?: "null"
-        binding.profileLlEdit.setOnClickListener{
+        binding.profileLlEdit.setOnClickListener {
             startActivity(Intent(context, EditInfoActivity::class.java))
         }
-        binding.changePWSetting.setOnClickListener{
+        binding.changePWSetting.setOnClickListener {
         }
         logout()
         deleteUser()
@@ -49,34 +49,32 @@ class ProfileFragment : Fragment(){
     override fun onStart() {
         super.onStart()
         val userName = pref.getString("userName", "")
-        if(userName.equals("")){
+        if (userName.equals("")) {
             binding.userName.text = user?.displayName ?: "null"
-        }else{
+        } else {
             binding.userName.text = userName
         }
 
         val profileImagePath = pref.getString("profileImagePath", "")
-        if(profileImagePath.equals("")){
-            val profileImageTask =
-                Firebase.storage.reference.child("profileImage/"+user!!.email+"/profileImage.png")
-                    .downloadUrl.addOnCompleteListener{ task ->
-                        val downloadUri = task.result
-                        with (pref.edit()) {
-                            putString("profileImagePath", downloadUri.toString())
-                            commit()
-                        }
-                        Glide.with(binding.root.context).load(downloadUri).into(binding.userProfileImage)
+        if (profileImagePath.equals("")) {
+            Firebase.storage.reference.child("profileImage/" + user!!.email + "/profileImage.png")
+                .downloadUrl.addOnCompleteListener { task ->
+                    val downloadUri = task.result
+                    with(pref.edit()) {
+                        putString("profileImagePath", downloadUri.toString())
+                        commit()
                     }
-        }else{
+                    Glide.with(binding.root.context).load(downloadUri)
+                        .into(binding.userProfileImage)
+                }
+        } else {
             Glide.with(requireContext()).load(profileImagePath).into(binding.userProfileImage)
         }
-
-
     }
 
-    private fun logout(){
-        binding.logoutSetting.setOnClickListener{
-            with(pref!!.edit()){
+    private fun logout() {
+        binding.logoutSetting.setOnClickListener {
+            with(pref!!.edit()) {
                 putString("login", "fail")
                 commit()
             }
@@ -88,9 +86,9 @@ class ProfileFragment : Fragment(){
         }
     }
 
-    private fun deleteUser(){
-        binding.deleteUserSetting.setOnClickListener{
-            if(pref.getString("login", "").equals("success")){
+    private fun deleteUser() {
+        binding.deleteUserSetting.setOnClickListener {
+            if (pref.getString("login", "").equals("success")) {
 
                 val user = Firebase.auth.currentUser
 
@@ -98,22 +96,23 @@ class ProfileFragment : Fragment(){
                     if (task.isSuccessful) {
                         showCustomToast("회원탈퇴 되었습니다")
 
-                        with (pref.edit()) {
+                        with(pref.edit()) {
                             putString("login", "fail")
                             commit()
                         }
                         startActivity(Intent(context, LoginActivity::class.java))
                         (context as MainActivity).finish()
-                    }else{
+                    } else {
                         showCustomToast("실패")
                     }
-                }?.addOnFailureListener{
+                }?.addOnFailureListener {
                     showCustomToast("실패")
                 }
             }
         }
     }
-    private fun showCustomToast(message:String){
+
+    private fun showCustomToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

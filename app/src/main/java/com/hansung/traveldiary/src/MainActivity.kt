@@ -138,14 +138,14 @@ class MainActivity : AppCompatActivity() {
 
     fun updatePlanBookList(title: String, check: String = "default"){
         val planDocRef = db!!.collection(user!!.email.toString()).document("Plan")
-        var baseData : BaseData? = null
+        var planBaseData : PlanBaseData? = null
         var placeInfoFolder : PlaceInfoFolder? = null
         planDocRef.collection(title).document("BaseData")
             .get()
             .addOnSuccessListener { result ->
-                baseData = result.toObject<BaseData>()
-                if(baseData != null && placeInfoFolder != null){
-                    planBookList.add(PlanBookData(title, PlanData(baseData!!, placeInfoFolder!!)))
+                planBaseData = result.toObject<PlanBaseData>()
+                if(planBaseData != null && placeInfoFolder != null){
+                    planBookList.add(PlanBookData(title, PlanData(planBaseData!!, placeInfoFolder!!)))
                     if(check == "add"){
                         supportFragmentManager.beginTransaction().replace(R.id.main_frm, TravelBaseFragment())
                             .commitAllowingStateLoss()
@@ -160,8 +160,8 @@ class MainActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 placeInfoFolder = result.toObject<PlaceInfoFolder>()
-                if(baseData != null && placeInfoFolder != null){
-                    planBookList.add(PlanBookData(title, PlanData(baseData!!, placeInfoFolder!!)))
+                if(planBaseData != null && placeInfoFolder != null){
+                    planBookList.add(PlanBookData(title, PlanData(planBaseData!!, placeInfoFolder!!)))
                     if(check == "add"){
                         supportFragmentManager.beginTransaction().replace(R.id.main_frm, TravelBaseFragment())
                             .commitAllowingStateLoss()

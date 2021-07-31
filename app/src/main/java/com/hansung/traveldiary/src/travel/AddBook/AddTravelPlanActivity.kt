@@ -3,7 +3,6 @@ package com.hansung.traveldiary.src.travel.AddBook
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
@@ -124,7 +123,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
 
             docPlanRef.collection(title).document("BaseData").set(
-                BaseData(
+                PlanBaseData(
                     color,
                     startDate,
                     endDate,

@@ -53,7 +53,7 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = planBookList[position]
-        val baseData = data.planData.baseData
+        val baseData = data.planData.planBaseData
         val color = baseData.color
         if(color == "blue"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
