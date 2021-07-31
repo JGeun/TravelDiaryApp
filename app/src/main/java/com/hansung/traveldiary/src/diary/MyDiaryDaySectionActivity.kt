@@ -3,9 +3,8 @@ package com.hansung.traveldiary.src.diary
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMyDiaryDaySectionBinding
-import com.hansung.traveldiary.src.bulletin.DiarySectionData
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.util.StatusBarUtil
 
 class MyDiaryDaySectionActivity : AppCompatActivity() {
@@ -18,18 +17,14 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
 
-        val PostryList=arrayListOf(
-            DiarySectionData(R.drawable.gwangwhamun, "#여수 #밤바다"),
-            DiarySectionData(R.drawable.gwangwhamun,"#부산 #해운대"),
-        )
-
         binding.dsIvBack.setOnClickListener{
             finish()
         }
 
+        val index = intent.getIntExtra("index", 0)
         binding.dsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter= MyDiaryDaySectionAdapter(PostryList)
+            adapter= MyDiaryDaySectionAdapter(MainActivity.myDiaryList, index)
             layoutManager= LinearLayoutManager(this@MyDiaryDaySectionActivity)
         }
     }

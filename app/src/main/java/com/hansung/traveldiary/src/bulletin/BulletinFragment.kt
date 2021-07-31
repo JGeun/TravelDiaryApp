@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentBulletinBinding
+import com.hansung.traveldiary.src.MainActivity
 
 class BulletinFragment : Fragment(){
 
@@ -22,15 +23,10 @@ class BulletinFragment : Fragment(){
 
         }
 
-        val bulletinList=arrayListOf(
-            BulletinData(R.drawable.gwangwhamun, "이번 여름을 맞아 부산에 ........."),
-            BulletinData(R.drawable.gwangwhamun, "이번 여름을 맞아 부산에 ........."),
-            BulletinData(R.drawable.gwangwhamun, "이번 여름을 맞아 부산에 .........")
-        )
 
         binding.bulletinRecyclerView.apply{
             setHasFixedSize(true)
-            adapter = CustomAdapter(bulletinList)
+            adapter = BulletinAdapter(MainActivity.allDiaryList)
             layoutManager = LinearLayoutManager(context)
         }
 

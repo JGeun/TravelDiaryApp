@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.uploadDiary
+package com.hansung.traveldiary.src.diary.write_diary
 
 import android.content.Context
 

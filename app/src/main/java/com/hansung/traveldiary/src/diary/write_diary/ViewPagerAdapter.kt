@@ -1,11 +1,8 @@
-package com.hansung.traveldiary.src.uploadDiary
+package com.hansung.traveldiary.src.diary.write_diary
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.content.ContextCompat.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,7 +17,7 @@ class ViewPagerAdapter() : RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
         val binding = ItemDiaryPictureBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PagerViewHolder(binding)
     }

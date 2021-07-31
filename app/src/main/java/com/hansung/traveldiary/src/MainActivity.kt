@@ -17,13 +17,12 @@ import com.hansung.traveldiary.src.home.HomeFragment
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMainBinding
 import com.hansung.traveldiary.src.bulletin.BulletinFragment
+import com.hansung.traveldiary.src.plan.diary
 import com.hansung.traveldiary.src.profile.ProfileFragment
 import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
 import com.hansung.traveldiary.src.travel.TravelBaseFragment
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -35,10 +34,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var addNewPlanBookTask: ActivityResultLauncher<Intent>
     private val TAG = "MainActivity"
+    private val userList = UserEmailList()
 
     companion object {
-        var titleList = TitleList()
+        var diaryTitleList = TitleList()
+        var planTitleList = TitleList()
         val planBookList = ArrayList<PlanBookData>()
+        val myDiaryList = ArrayList<DiaryBulletinData>()
+        val allDiaryList = ArrayList<DiaryBulletinData>()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -98,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         addNewPlanBookTask = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
-            if(result.resultCode == RESULT_OK){
+            if (result.resultCode == RESULT_OK) {
                 println("resultcode 들어옴")
                 updatePlanBookList(result.data?.getStringExtra("title").toString(), "add")
 
@@ -106,48 +109,60 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     fun makePlanBook() {
         addNewPlanBookTask.launch(Intent(this@MainActivity, AddTravelPlanActivity::class.java))
     }
 
-    fun getDBData(){
+    fun getDBData() {
+        getPlanData()
+        getAllDiaryData()
+    }
+
+    fun getPlanData() {
+        val userDocRef = db!!.collection("User").document("UserData")
         //getTitle
-        db!!.collection(user!!.email.toString()).document("Plan")
+        userDocRef.collection(user!!.email.toString()).document("Plan")
             .get()
             .addOnSuccessListener { result ->
                 val data = result.data?.get("titleFolder")
-                if(data != null){
-                    titleList.titleFolder = data as ArrayList<String>
-                    println("size: ${titleList.titleFolder.size}")
-                    println("content: ${titleList.titleFolder[0]}")
+                if (data != null) {
+                    planTitleList.titleFolder = data as ArrayList<String>
+                    println("size: ${planTitleList.titleFolder.size}")
+                    println("content: ${planTitleList.titleFolder[0]}")
                 }
                 //get Data about Title
-                getAllData()
+                getPlanAllData()
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
             }
     }
 
-    fun getAllData(){
-        for(title in titleList.titleFolder){
+    fun getPlanAllData() {
+        for (title in planTitleList.titleFolder) {
             updatePlanBookList(title)
         }
     }
 
-    fun updatePlanBookList(title: String, check: String = "default"){
-        val planDocRef = db!!.collection(user!!.email.toString()).document("Plan")
-        var planBaseData : PlanBaseData? = null
-        var placeInfoFolder : PlaceInfoFolder? = null
+    fun updatePlanBookList(title: String, check: String = "default") {
+        val userDocRef = db!!.collection("User").document("UserData")
+        val planDocRef = userDocRef.collection(user!!.email.toString()).document("Plan")
+        var planBaseData: PlanBaseData? = null
+        var placeInfoFolder: PlaceInfoFolder? = null
         planDocRef.collection(title).document("BaseData")
             .get()
             .addOnSuccessListener { result ->
                 planBaseData = result.toObject<PlanBaseData>()
-                if(planBaseData != null && placeInfoFolder != null){
-                    planBookList.add(PlanBookData(title, PlanData(planBaseData!!, placeInfoFolder!!)))
-                    if(check == "add"){
-                        supportFragmentManager.beginTransaction().replace(R.id.main_frm, TravelBaseFragment())
+                if (planBaseData != null && placeInfoFolder != null) {
+                    planBookList.add(
+                        PlanBookData(
+                            title,
+                            PlanData(planBaseData!!, placeInfoFolder!!)
+                        )
+                    )
+                    if (check == "add") {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_frm, TravelBaseFragment())
                             .commitAllowingStateLoss()
                     }
                 }
@@ -160,11 +175,162 @@ class MainActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 placeInfoFolder = result.toObject<PlaceInfoFolder>()
-                if(planBaseData != null && placeInfoFolder != null){
-                    planBookList.add(PlanBookData(title, PlanData(planBaseData!!, placeInfoFolder!!)))
-                    if(check == "add"){
-                        supportFragmentManager.beginTransaction().replace(R.id.main_frm, TravelBaseFragment())
+                if (planBaseData != null && placeInfoFolder != null) {
+                    planBookList.add(
+                        PlanBookData(
+                            title,
+                            PlanData(planBaseData!!, placeInfoFolder!!)
+                        )
+                    )
+                    if (check == "add") {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_frm, TravelBaseFragment())
                             .commitAllowingStateLoss()
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+    }
+
+
+    fun getAllDiaryData() {
+        //getTitle
+        println("getAllDiaryData")
+        val myEmail = user!!.email.toString()
+        val userDocRef = db!!.collection("User").document("UserData")
+        userDocRef.get()
+            .addOnSuccessListener { result ->
+                println("emailFolder")
+                val data = result.data?.get("emailFolder")
+                if (data != null) {
+                    userList.emailFolder = data as ArrayList<String>
+
+                    for (email in userList.emailFolder) {
+                        userDocRef.collection(email).document("Diary")
+                            .get()
+                            .addOnSuccessListener { result ->
+                                println("titleFolder")
+                                val data = result.data?.get("titleFolder")
+                                if (data != null) {
+                                    diaryTitleList.titleFolder = data as ArrayList<String>
+                                    for (title in diaryTitleList.titleFolder) {
+                                        if (myEmail == email)
+                                            getUserDiaryData(email, title, true)
+                                        else
+                                            getUserDiaryData(email, title, false)
+                                    }
+                                }
+                            }
+                    }
+                }
+
+            }.addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+    }
+
+
+    fun getUserDiaryData(email: String, title: String, isMyEmail: Boolean) {
+        println("getUserDiaryData")
+        val userDocRef = db!!.collection("User").document("UserData")
+        val diaryDocRef = userDocRef.collection(email).document("Diary")
+
+        var planBaseData: PlanBaseData? = null
+        var placeInfoFolder: PlaceInfoFolder? = null
+        var diaryInfoFolder: DiaryInfoFolder? = null
+        var diaryBaseData: DiaryBaseData? = null
+
+        diaryDocRef.collection(title).document("PlanBaseData")
+            .get()
+            .addOnSuccessListener { result ->
+                planBaseData = result.toObject<PlanBaseData>()
+                if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
+                    val diaryBulletinData = DiaryBulletinData(
+                        title,
+                        DiaryData(
+                            planBaseData!!,
+                            diaryBaseData!!,
+                            placeInfoFolder!!,
+                            diaryInfoFolder!!
+                        )
+                    )
+                    allDiaryList.add(diaryBulletinData)
+                    if (isMyEmail) {
+                        myDiaryList.add(diaryBulletinData)
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+
+        diaryDocRef.collection(title).document("PlanPlaceInfo")
+            .get()
+            .addOnSuccessListener { result ->
+                placeInfoFolder = result.toObject<PlaceInfoFolder>()
+                if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
+                    val diaryBulletinData = DiaryBulletinData(
+                        title,
+                        DiaryData(
+                            planBaseData!!,
+                            diaryBaseData!!,
+                            placeInfoFolder!!,
+                            diaryInfoFolder!!
+                        )
+                    )
+                    allDiaryList.add(diaryBulletinData)
+                    if (isMyEmail) {
+                        myDiaryList.add(diaryBulletinData)
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+
+        diaryDocRef.collection(title).document("DiaryBaseData")
+            .get()
+            .addOnSuccessListener { result ->
+                diaryBaseData = result.toObject<DiaryBaseData>()
+                if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
+                    val diaryBulletinData = DiaryBulletinData(
+                        title,
+                        DiaryData(
+                            planBaseData!!,
+                            diaryBaseData!!,
+                            placeInfoFolder!!,
+                            diaryInfoFolder!!
+                        )
+                    )
+                    allDiaryList.add(diaryBulletinData)
+                    if (isMyEmail) {
+                        myDiaryList.add(diaryBulletinData)
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+
+        diaryDocRef.collection(title).document("DiaryData")
+            .get()
+            .addOnSuccessListener { result ->
+                diaryInfoFolder = result.toObject<DiaryInfoFolder>()
+                if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
+                    val diaryBulletinData = DiaryBulletinData(
+                        title,
+                        DiaryData(
+                            planBaseData!!,
+                            diaryBaseData!!,
+                            placeInfoFolder!!,
+                            diaryInfoFolder!!
+                        )
+                    )
+                    allDiaryList.add(diaryBulletinData)
+                    if (isMyEmail) {
+                        myDiaryList.add(diaryBulletinData)
                     }
                 }
             }

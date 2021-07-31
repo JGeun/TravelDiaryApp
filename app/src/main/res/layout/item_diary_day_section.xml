@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="140dp"
     android:layout_marginBottom="15dp"
     android:background="@drawable/shadow"
     android:elevation="10dp"
@@ -18,7 +18,7 @@
         android:paddingHorizontal="10dp">
 
         <TextView
-            android:id="@+id/item_bds_day"
+            android:id="@+id/dsItem_tv_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -28,7 +28,7 @@
             android:layout_marginTop="30dp"/>
 
         <TextView
-            android:id="@+id/item_bds_dayCount"
+            android:id="@+id/dsItem_tv_dayCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -38,21 +38,42 @@
             android:textSize="24sp"
             android:textStyle="normal" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/item_bds_tag"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="#부산  #해운대"-->
-<!--            android:textSize="10sp"-->
-<!--            android:layout_marginBottom="5dp"/>-->
+        <TextView
+            android:id="@+id/dsItem_tv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#부산  #해운대"
+            android:textSize="10sp"
+            android:layout_marginBottom="5dp"/>
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/item_bds_iv_diary"
+        android:id="@+id/dsItem_iv_diary"
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_weight="2"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/gwangwhamun" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/show"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_home_find"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/write"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_edit"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 </LinearLayout>

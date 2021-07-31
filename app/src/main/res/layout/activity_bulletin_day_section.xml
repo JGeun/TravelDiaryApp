@@ -8,7 +8,7 @@
     android:paddingVertical="10dp">
 
     <ImageView
-        android:id="@+id/ds_iv_back"
+        android:id="@+id/bds_iv_back"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/back"
@@ -16,12 +16,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ds_recyclerview"
+        android:id="@+id/bds_recyclerview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ds_iv_back"
+        app:layout_constraintTop_toBottomOf="@id/bds_iv_back"
         android:layout_marginTop="20dp"
         android:overScrollMode="never"/>
 

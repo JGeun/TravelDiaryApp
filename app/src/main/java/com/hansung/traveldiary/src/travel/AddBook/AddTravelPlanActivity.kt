@@ -28,6 +28,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
     private var user : FirebaseUser? = null
     private var db : FirebaseFirestore? = null
+    private var emailList = UserEmailList()
     private var titleList = TitleList()
     private val TAG = "AddPlanActivity"
     private var color = "pink"
@@ -45,6 +46,8 @@ class AddTravelPlanActivity : AppCompatActivity() {
         db = Firebase.firestore
 
         getTitleList()
+        getEmailList()
+
         val inputMethodManager: InputMethodManager =
             getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
@@ -107,6 +110,15 @@ class AddTravelPlanActivity : AppCompatActivity() {
             var startDate = startdate
             var endDate = enddate
 
+
+            val userDocRef = db!!.collection("User").document("UserData")
+
+            val email = user!!.email.toString()
+            if(!emailList.emailFolder.contains(email)){
+                emailList.emailFolder.add(email)
+                userDocRef.set(emailList)
+            }
+
             titleList.titleFolder.add(title)
 
             var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
@@ -118,7 +130,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 //            var planTotalData = PlanTotalData(color, startDate, endDate, dayList)
 //            MainActivity.planBookList.add(PlanBookData(title, planTotalData))
 
-            val docPlanRef = db!!.collection(user!!.email.toString()).document("Plan")
+            val docPlanRef = userDocRef.collection(user!!.email.toString()).document("Plan")
             docPlanRef.set(titleList)
 
 
@@ -236,8 +248,25 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
     }
 
+    fun getEmailList(){
+        db!!.collection("User").document("UserData")
+            .get()
+            .addOnSuccessListener { result ->
+                val data = result.data?.get("emailFolder")
+                if(data != null){
+                    emailList.emailFolder = data as ArrayList<String>
+                    println("size: ${emailList.emailFolder.size}")
+                    println("content: ${emailList.emailFolder[0]}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+    }
+
     fun getTitleList(){
-        db!!.collection(user!!.email.toString()).document("Plan")
+        val userDocRef = db!!.collection("User").document("UserData")
+        userDocRef.collection(user!!.email.toString()).document("Plan")
             .get()
             .addOnSuccessListener { result ->
                 val data = result.data?.get("titleFolder")
@@ -246,7 +275,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
                     println("size: ${titleList.titleFolder.size}")
                     println("content: ${titleList.titleFolder[0]}")
                 }
-
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)

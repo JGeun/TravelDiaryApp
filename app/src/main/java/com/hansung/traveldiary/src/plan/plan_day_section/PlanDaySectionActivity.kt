@@ -3,7 +3,6 @@ package com.hansung.traveldiary.src.plan.plan_day_section
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -45,7 +44,8 @@ class PlanDaySectionActivity : AppCompatActivity() {
         user = Firebase.auth.currentUser
         db = Firebase.firestore
 
-        db!!.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
+        val userDocRef = db!!.collection("User").document("UserData")
+        userDocRef.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
             .get().addOnSuccessListener  { documentSnapshot ->
                 placeInfoFolder = documentSnapshot.toObject<PlaceInfoFolder>()!!
 

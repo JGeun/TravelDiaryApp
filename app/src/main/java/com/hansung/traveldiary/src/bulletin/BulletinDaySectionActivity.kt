@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityBulletinDaySectionBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.util.StatusBarUtil
 
 class BulletinDaySectionActivity : AppCompatActivity() {
@@ -17,18 +18,15 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
 
-        val PostryList=arrayListOf(
-            DiarySectionData(R.drawable.gwangwhamun, "#부산 #해운대"),
-            DiarySectionData(R.drawable.gwangwhamun,"#부산 #해운대"),
-            DiarySectionData(R.drawable.gwangwhamun,"#부산 #해운대")
-        )
+        val index = intent.getIntExtra("index", 0)
 
-        binding.dsIvBack.setOnClickListener{
+        binding.bdsIvBack.setOnClickListener{
             finish()
         }
-        binding.dsRecyclerview.apply {
+
+        binding.bdsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter= BulletinDaySectionAdapter(PostryList)
+            adapter= BulletinDaySectionAdapter(MainActivity.allDiaryList, index)
             layoutManager=LinearLayoutManager(this@BulletinDaySectionActivity)
         }
     }

@@ -17,13 +17,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivitySendTravelPlanBinding
 import com.hansung.traveldiary.src.*
 import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
-import com.hansung.traveldiary.src.travel.LastTripData
-import com.hansung.traveldiary.src.travel.TravelBaseFragment
-import com.hansung.traveldiary.src.travel.lastTripList
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -87,7 +83,8 @@ class SendTravelPlanActivity : AppCompatActivity() {
 //            var image = binding.stpMainImage.drawable
             var imagePath = ""
 
-            val docDiaryRef = db!!.collection(user!!.email.toString()).document("Diary")
+            val userDocRef = db!!.collection("User").document("UserData")
+            val docDiaryRef = userDocRef.collection(user!!.email.toString()).document("Diary")
             titleList.titleFolder.add(planTitle)
             docDiaryRef.set(titleList)
 
@@ -168,7 +165,8 @@ class SendTravelPlanActivity : AppCompatActivity() {
     }
 
     fun getTitleList() {
-        db!!.collection(user!!.email.toString()).document("Diary")
+        val userDocRef = db!!.collection("User").document("UserData")
+        userDocRef.collection(user!!.email.toString()).document("Diary")
             .get()
             .addOnSuccessListener { result ->
                 val data = result.data?.get("titleFolder")
@@ -186,8 +184,9 @@ class SendTravelPlanActivity : AppCompatActivity() {
     }
 
     fun getDataAboutPlanTitle() {
+        val userDocRef = db!!.collection("User").document("UserData")
         val planDocRef =
-            db!!.collection(user!!.email.toString()).document("Plan").collection(planTitle)
+            userDocRef.collection(user!!.email.toString()).document("Plan").collection(planTitle)
         planDocRef.document("BaseData")
             .get()
             .addOnSuccessListener { result ->

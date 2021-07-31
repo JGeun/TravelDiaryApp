@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.uploadDiary
+package com.hansung.traveldiary.util
 
 import android.content.Context
 import android.util.AttributeSet

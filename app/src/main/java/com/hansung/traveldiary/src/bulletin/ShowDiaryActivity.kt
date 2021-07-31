@@ -1,6 +1,5 @@
-package com.hansung.traveldiary.src.diary
+package com.hansung.traveldiary.src.bulletin
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +7,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityShowDiaryBinding
-import com.hansung.traveldiary.src.uploadDiary.ViewPagerAdapter
-import com.hansung.traveldiary.util.StatusBarUtil
+import com.hansung.traveldiary.src.MainActivity
 
 class ShowDiaryActivity : AppCompatActivity(){
     private val binding by lazy{
@@ -25,7 +23,17 @@ class ShowDiaryActivity : AppCompatActivity(){
         }
 
 //        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.transparent_STATUS_BAR)
-        binding.sdViewPager.adapter= ViewPagerAdapter()
+
+        val index = intent.getIntExtra("index", 0)
+        val day = intent.getIntExtra("day", 0)
+
+        val diaryDayData = MainActivity.allDiaryList[index].diaryData.diaryInfoFolder.diaryDayList[day]
+
+        binding.sdDate.text = diaryDayData.date
+        binding.sdContents.text = diaryDayData.diaryInfo.diaryContents
+        binding.sdTitle.text = diaryDayData.diaryInfo.diaryTitle
+
+        binding.sdViewPager.adapter= ShowDiaryVPAdapter(diaryDayData.diaryInfo.imagePathArray)
         binding.sdViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.sdIndicator.setViewPager(binding.sdViewPager)
     }

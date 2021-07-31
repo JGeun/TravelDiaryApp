@@ -113,7 +113,8 @@ class TravelPlanBaseActivity : AppCompatActivity() {
     }
 
     fun initViewModel(menu : String, title: String){
-        db!!.collection(user!!.email.toString()).document("Plan").collection(title).document("PlaceInfo")
+        val userDocRef = db!!.collection("User").document("UserData")
+        userDocRef.collection(user!!.email.toString()).document("Plan").collection(title).document("PlaceInfo")
             .get().addOnSuccessListener  { documentSnapshot ->
                 placeInfoFolder = documentSnapshot.toObject<PlaceInfoFolder>()!!
                 userPlanDataModel.putAllData(placeInfoFolder)

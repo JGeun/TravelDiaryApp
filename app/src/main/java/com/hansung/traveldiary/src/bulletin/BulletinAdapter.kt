@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemBulletinBinding
+import com.hansung.traveldiary.src.DiaryBulletinData
 
-class CustomAdapter(private val bulletinList: ArrayList<BulletinData>):RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class BulletinAdapter(private val diaryAllData: ArrayList<DiaryBulletinData>):RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
     inner class ViewHolder(private val binding: ItemBulletinBinding):RecyclerView.ViewHolder(binding.root){
         val title = binding.btItemTvTitle
         val thumbnail = binding.btItemIvThumbnail
@@ -20,18 +21,21 @@ class CustomAdapter(private val bulletinList: ArrayList<BulletinData>):RecyclerV
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = bulletinList.get(position)
-        holder.title.text = data.tv_Contents
-        Glide.with(holder.itemView.context).load(data.iv_profile).into(holder.thumbnail)
+        val data = diaryAllData[position].diaryData
+        holder.title.text = data.diaryBaseData.title
+        Glide.with(holder.itemView.context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
 
         holder.itemView.setTag(position)
 
+        val context = holder.itemView.context
+
         holder.itemView.setOnClickListener{
-            val intent = Intent(holder.itemView?.context,BulletinDaySectionActivity::class.java)
-            ContextCompat.startActivity(holder.itemView.context, intent,null)
+            val intent = Intent(context,BulletinDaySectionActivity::class.java)
+            intent.putExtra("index", position)
+            context.startActivity(intent)
         }
     }
 
-    override fun getItemCount(): Int = bulletinList.size
+    override fun getItemCount(): Int = diaryAllData.size
 
 }

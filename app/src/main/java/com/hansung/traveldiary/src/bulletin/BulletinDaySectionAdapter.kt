@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemBulletinDaySectionBinding
-import com.hansung.traveldiary.src.diary.ShowDiaryActivity
+import com.hansung.traveldiary.src.DiaryBulletinData
 
-class BulletinDaySectionAdapter(private val dataList:ArrayList<DiarySectionData>): RecyclerView.Adapter<BulletinDaySectionAdapter.ViewHolder>() {
+class BulletinDaySectionAdapter(private val diaryAllList:ArrayList<DiaryBulletinData>, private val index: Int): RecyclerView.Adapter<BulletinDaySectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemBulletinDaySectionBinding):RecyclerView.ViewHolder(binding.root){
-        val dayText = binding.dsItemTvDayCount
-        val tag = binding.dsItemTvTag
-        val diaryImage = binding.dsItemIvDiary
+        val dayText = binding.itemBdsDayCount
+//        val tag = binding.dsItemTvTag
+        val diaryImage = binding.itemBdsIvDiary
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
@@ -22,15 +22,18 @@ class BulletinDaySectionAdapter(private val dataList:ArrayList<DiarySectionData>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = dataList[position]
+        val data = diaryAllList[index].diaryData
         holder.dayText.text = (position+1).toString()
-        holder.tag.text = data.tag
+//        holder.tag.text = data.tag
         val context = holder.itemView.context
-        Glide.with(context).load(data.diaryImage).into(holder.diaryImage)
+        Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.diaryImage)
+        val intent = Intent(context, ShowDiaryActivity::class.java)
+        intent.putExtra("index", index)
+        intent.putExtra("day", position)
         holder.itemView.setOnClickListener{
-            context.startActivity(Intent(context, ShowDiaryActivity::class.java))
+            context.startActivity(intent)
         }
     }
 
-    override fun getItemCount() = dataList.size
+    override fun getItemCount() = diaryAllList[index].diaryData.diaryInfoFolder.diaryDayList.size
 }

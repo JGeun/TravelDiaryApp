@@ -45,11 +45,11 @@ class TravelPlanSectionFragment : Fragment() {
         }
 
         if(MainActivity.planBookList.size == 0){
-            binding.plantripNoPlan.isVisible = true
-            binding.plantripRv.isVisible = false
+            binding.planSectionNoPlan.isVisible = true
+            binding.planSectionRecyclerView.isVisible = false
         }else{
-            binding.plantripNoPlan.isVisible = false
-            binding.plantripRv.isVisible = true
+            binding.planSectionNoPlan.isVisible = false
+            binding.planSectionRecyclerView.isVisible = true
         }
         println("TravelPlanSection 들어옴")
 //        MainActivity.planBookList.sortBy { it.planTotalData.startDate }
@@ -57,7 +57,7 @@ class TravelPlanSectionFragment : Fragment() {
 //            println(list.title)
 //        }
 
-        binding.plantripRv.apply {
+        binding.planSectionRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
@@ -80,8 +80,6 @@ class TravelPlanSectionFragment : Fragment() {
                 temp = 1
             }
         }
-
-        binding.plantripRv.addOnScrollListener(onScrollListener)
 
         return binding.root
     }

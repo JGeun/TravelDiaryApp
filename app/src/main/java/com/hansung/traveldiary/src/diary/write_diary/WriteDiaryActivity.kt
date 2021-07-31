@@ -1,27 +1,26 @@
-package com.hansung.traveldiary.src.uploadDiary
+package com.hansung.traveldiary.src.diary.write_diary
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.ActivityMakeDiaryBinding
+import com.hansung.traveldiary.databinding.ActivityWriteDiaryBinding
 import com.hansung.traveldiary.util.StatusBarUtil
 
-class MakeDiaryActivity : AppCompatActivity() {
+class WriteDiaryActivity : AppCompatActivity() {
     var viewList = ArrayList<View>()
     private val fr_days = Day1()
-    private val fr_day2=Day2()
-    private val fr_day3=Day3()
-    private val fr_day4=Day4()
-    private val fr_day5=Day5()
-    private val fr_day6=Day6()
-    private val fr_day7=Day7()
+    private val fr_day2= Day2()
+    private val fr_day3= Day3()
+    private val fr_day4= Day4()
+    private val fr_day5= Day5()
+    private val fr_day6= Day6()
+    private val fr_day7= Day7()
 
     private val binding by lazy{
-        ActivityMakeDiaryBinding.inflate(layoutInflater)
+        ActivityWriteDiaryBinding.inflate(layoutInflater)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +88,6 @@ class MakeDiaryActivity : AppCompatActivity() {
                     return
                 }
             }
-
     }
 }
 

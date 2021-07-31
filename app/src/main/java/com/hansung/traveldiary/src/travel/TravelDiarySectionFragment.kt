@@ -5,26 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hansung.traveldiary.databinding.FragmentLasttripBinding
+import com.hansung.traveldiary.databinding.FragmentTravelDiarySectionBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.travel.adapter.TravelDiarySectionAdapter
 
 class TravelDiarySectionFragment : Fragment() {
-    private lateinit var binding : FragmentLasttripBinding
-//    private val lastTripList = ArrayList<LastTripData>()
+    private lateinit var binding : FragmentTravelDiarySectionBinding
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentLasttripBinding.inflate(inflater, container, false)
-        binding.lasttripRv.adapter?.notifyDataSetChanged()
+        binding = FragmentTravelDiarySectionBinding.inflate(inflater, container, false)
 
-        binding.lasttripRv.apply {
+        if(MainActivity.myDiaryList.size == 0){
+            binding.diarySectionNoPlan.isVisible = true
+            binding.diarySectionRecyclerView.isVisible = false
+        }else{
+            binding.diarySectionNoPlan.isVisible = false
+            binding.diarySectionRecyclerView.isVisible = true
+        }
+
+        binding.diarySectionRecyclerView.adapter?.notifyDataSetChanged()
+
+        binding.diarySectionRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = TravelDiarySectionAdapter(lastTripList)
+            adapter = TravelDiarySectionAdapter(MainActivity.myDiaryList)
         }
 
         return binding.root
@@ -32,7 +42,7 @@ class TravelDiarySectionFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.lasttripRv.adapter!!.notifyDataSetChanged()
+        binding.diarySectionRecyclerView.adapter!!.notifyDataSetChanged()
     }
 
     fun newInstant() : TravelDiarySectionFragment
