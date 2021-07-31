@@ -26,8 +26,7 @@ class ShowDiaryVPAdapter(val imagePathArray: ArrayList<String>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
         val context = holder.itemView.context
-        Glide.with(context).load(imagePathArray).into(holder.image)
-
+        Glide.with(context).load(imagePathArray[position]).into(holder.image)
     }
 
     override fun getItemCount(): Int = imagePathArray.size
