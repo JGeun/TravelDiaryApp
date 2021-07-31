@@ -1,6 +1,8 @@
 package com.hansung.traveldiary.src.travel
 
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +13,7 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.DialogBtmPlanlistBinding
 import com.hansung.traveldiary.src.travel.adapter.TravelListAdapter
 
-class PlanlistBottomDialog : BottomSheetDialogFragment() {
+class PlanlistBottomDialog() : BottomSheetDialogFragment() {
     private lateinit var binding : DialogBtmPlanlistBinding
     var regionList = ArrayList<String>()
 
@@ -41,6 +43,7 @@ class PlanlistBottomDialog : BottomSheetDialogFragment() {
         val behavior = BottomSheetBehavior.from(sheet!!)
         behavior.state = BottomSheetBehavior.STATE_DRAGGING
     }
+
 
     fun initRegion(){
         regionList.add("서울")

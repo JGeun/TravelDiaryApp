@@ -46,4 +46,12 @@
         -->
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+    
+    <style name="BottomDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomDialogTheme</item>
+    </style>
+
+    <style name="BottomDialogStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_btm_dialog</item>
+    </style>
 </resources>
