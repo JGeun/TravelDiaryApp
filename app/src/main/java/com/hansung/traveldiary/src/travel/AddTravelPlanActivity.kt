@@ -3,7 +3,9 @@ package com.hansung.traveldiary.src.travel
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
+import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +14,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityAddTravelPlanBinding
 import com.hansung.traveldiary.src.*
 import java.text.SimpleDateFormat
@@ -50,6 +53,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
             var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
                 startdate = String.format("$y-%02d-%02d", m + 1, d)
+                date = ""
                 date += String.format("$y-%02d-%02d", m + 1, d)
                 Log.d("시작날짜", date)
                 binding.editDate.setText(date)
@@ -64,6 +68,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
         binding.editPlace.setOnClickListener {
             val bottomDialog = PlanlistBottomDialog()
+            bottomDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomDialogTheme)
             bottomDialog.show(supportFragmentManager, "bottomPlanlistSheet")
         }
 

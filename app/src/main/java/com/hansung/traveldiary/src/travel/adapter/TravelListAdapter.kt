@@ -1,11 +1,14 @@
 package com.hansung.traveldiary.src.travel.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ItemTravellistBinding
+import com.hansung.traveldiary.src.travel.AddTravelPlanActivity
 import com.hansung.traveldiary.src.travel.PlanlistBottomDialog
 
 class TravelListAdapter(private val regionData: ArrayList<String>) : RecyclerView.Adapter<TravelListAdapter.ViewHolder>() {
@@ -30,7 +33,6 @@ class TravelListAdapter(private val regionData: ArrayList<String>) : RecyclerVie
 
         holder.itemView.setOnClickListener {
             Log.d("지역", "$data")
-            setRegion(data)
         }
     }
 
