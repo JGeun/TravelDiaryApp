@@ -1,37 +1,34 @@
-package com.hansung.traveldiary.src.travel
+package com.hansung.traveldiary.src.travel.AddBook
 
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.DialogBtmPlanlistBinding
-import com.hansung.traveldiary.src.travel.adapter.TravelListAdapter
+import com.hansung.traveldiary.databinding.DialogBtmSelectAreaBinding
 
-class PlanlistBottomDialog() : BottomSheetDialogFragment() {
-    private lateinit var binding : DialogBtmPlanlistBinding
+class SelectAreaBtmDialog() : BottomSheetDialogFragment() {
+    private lateinit var binding : DialogBtmSelectAreaBinding
     var regionList = ArrayList<String>()
+    private val areaViewModel : AreaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogBtmPlanlistBinding.inflate(inflater, container, false)
+        binding = DialogBtmSelectAreaBinding.inflate(inflater, container, false)
 
         initRegion()
 
         binding.travellistRv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = TravelListAdapter(regionList)
+            adapter = SelectAreaAdapter(regionList, areaViewModel, this@SelectAreaBtmDialog)
         }
-
 
         return binding.root
     }

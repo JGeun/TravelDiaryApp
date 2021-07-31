@@ -1,26 +1,26 @@
-package com.hansung.traveldiary.src.travel
+package com.hansung.traveldiary.src.travel.AddBook
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityAddTravelPlanBinding
 import com.hansung.traveldiary.src.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.reflect.typeOf
+
 
 class AddTravelPlanActivity : AppCompatActivity() {
     private val binding: ActivityAddTravelPlanBinding by lazy {
@@ -32,9 +32,11 @@ class AddTravelPlanActivity : AppCompatActivity() {
     private var titleList = TitleList()
     private val TAG = "AddPlanActivity"
     private var color = "pink"
+    private var area = ""
     var date = ""
     var startdate = ""
     var enddate = ""
+    private val areaViewModel : AreaViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +46,40 @@ class AddTravelPlanActivity : AppCompatActivity() {
         db = Firebase.firestore
 
         getTitleList()
+        val inputMethodManager: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
-        binding.icDatepicker.setOnClickListener {
+        binding.atpTitle.onFocusChangeListener =
+            View.OnFocusChangeListener { v, hasFocus ->
+                if(!hasFocus){
+                    inputMethodManager.hideSoftInputFromWindow(binding.atpTitle.windowToken, 0)
+                }
+            }
+
+        binding.atpPeople.onFocusChangeListener =
+            View.OnFocusChangeListener { v, hasFocus ->
+                if(!hasFocus){
+                    inputMethodManager.hideSoftInputFromWindow(binding.atpTitle.windowToken, 0)
+                }
+            }
+
+        binding.atpTvPlace.setOnClickListener {
+            binding.atpTitle.clearFocus()
+            binding.atpPeople.clearFocus()
+            val bottomDialog = SelectAreaBtmDialog()
+            bottomDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomDialogTheme)
+            bottomDialog.show(supportFragmentManager, "bottomPlanlistSheet")
+        }
+
+        areaViewModel.areaData.observe(this, androidx.lifecycle.Observer<String> {
+            println("바뀜: + ${areaViewModel.areaData.value.toString()}")
+            binding.atpTvPlace.text = areaViewModel.areaData.value
+            println("text: ${binding.atpTvPlace.text}")
+        })
+
+        binding.atpDate.setOnClickListener {
+            binding.atpTitle.clearFocus()
+            binding.atpPeople.clearFocus()
             val cal = Calendar.getInstance()
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
@@ -56,7 +90,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
                 date = ""
                 date += String.format("$y-%02d-%02d", m + 1, d)
                 Log.d("시작날짜", date)
-                binding.editDate.setText(date)
+                binding.atpDate.setText(date)
                 Log.d("달력", "OK")
                 showDatepicker()
             }
@@ -66,16 +100,11 @@ class AddTravelPlanActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
-        binding.editPlace.setOnClickListener {
-            val bottomDialog = PlanlistBottomDialog()
-            bottomDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomDialogTheme)
-            bottomDialog.show(supportFragmentManager, "bottomPlanlistSheet")
-        }
-
         setRadioButton()
 
         binding.addPlanBtn.setOnClickListener {
-            var title = binding.editTitle.text.toString()
+            var area = areaViewModel.areaData.value
+            var title = binding.atpTitle.text.toString()
             var startDate = startdate
             var endDate = enddate
 
@@ -94,7 +123,15 @@ class AddTravelPlanActivity : AppCompatActivity() {
             docPlanRef.set(titleList)
 
 
-            docPlanRef.collection(title).document("BaseData").set(BaseData(color, startDate, endDate))
+            docPlanRef.collection(title).document("BaseData").set(
+                BaseData(
+                    color,
+                    startDate,
+                    endDate,
+                    area!!,
+                    1
+                )
+            )
             val dayList = ArrayList<PlaceDayInfo>()
             for (i in 0..calcDate) {
                 dayList.add(PlaceDayInfo(afterDate(startDate, i), arrayListOf()))
@@ -115,7 +152,13 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
         binding.apaMainblock.setOnClickListener {
             println("메인")
+            binding.atpTitle.clearFocus()
+            binding.atpPeople.clearFocus()
         }
+    }
+
+    fun setArea(area: String){
+        this.area = area
     }
 
     fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
@@ -221,7 +264,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
             enddate = String.format("$y-%02d-%02d", m + 1, d)
             date += " ~ " + String.format("$y-%02d-%02d", m + 1, d)
             Log.d("끝날짜", date)
-            binding.editDate.setText(date)
+            binding.atpDate.setText(date)
         }
 
         val datePickerDialog =

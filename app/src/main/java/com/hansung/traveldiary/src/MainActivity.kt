@@ -18,7 +18,7 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMainBinding
 import com.hansung.traveldiary.src.bulletin.BulletinFragment
 import com.hansung.traveldiary.src.profile.ProfileFragment
-import com.hansung.traveldiary.src.travel.AddTravelPlanActivity
+import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
 import com.hansung.traveldiary.src.travel.TravelBaseFragment
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

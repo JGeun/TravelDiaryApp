@@ -1,333 +1,342 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/apa_outblock"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/apa_outblock"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:orientation="vertical"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/apa_mainblock"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/apa_mainblock"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/bg_dialog_add_plan"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="40dp"
+        android:paddingVertical="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginVertical="20dp"
-                android:background="@drawable/bg_dialog_add_plan"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="vertical"
-                android:paddingHorizontal="40dp"
-                android:paddingVertical="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical">
 
-                <ScrollView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:text="다이어리 설정"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <LinearLayout
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:text="첵 제목"
+                    android:textColor="@color/black" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/atp_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/add_plan_btn"
+                    android:ellipsize="end"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="여행 장소"
+                    android:textColor="@color/black" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="270dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/add_plan_btn">
+
+                    <TextView
+                        android:id="@+id/atp_tv_place"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="ff" />
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/ic_down_btn"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/textView2"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="여행 날짜"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/atp_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/add_plan_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="15dp"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        tools:text="dd" />
+
+                    <ImageView
+                        android:id="@+id/atp_datepicker"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/img_calendar"
+                        app:layout_constraintBottom_toBottomOf="@+id/atp_date"
+                        app:layout_constraintEnd_toEndOf="@+id/atp_date"
+                        app:layout_constraintTop_toTopOf="@+id/atp_date" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="여행 인원"
+                    android:textColor="@color/black" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/atp_people"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/add_plan_btn"
+                    tools:text="dd"
+                    android:textSize="14sp"
+                    android:inputType="number"
+                    android:paddingHorizontal="15dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="책 색상"
+                    android:textColor="@color/black" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioGroup
+                        android:id="@+id/addPlan_rg_bookcolor"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="다이어리 설정"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                        <TableRow>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:paddingTop="20dp"
-                            android:text="첵 제목"
-                            android:textColor="@color/black" />
-
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/edit_title"
-                            android:layout_width="270dp"
-                            android:layout_height="45dp"
-                            android:layout_marginBottom="20dp"
-                            android:paddingStart="15dp"
-                            android:background="@drawable/add_plan_btn"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/black" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="여행 장소"
-                            android:textColor="@color/black" />
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp">
-
-                            <TextView
-                                android:id="@+id/edit_place"
-                                android:layout_width="270dp"
-                                android:layout_height="45dp"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:background="@drawable/add_plan_btn"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:src="@drawable/ic_down_btn"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp">
-
-                            <TextView
-                                android:id="@+id/textView2"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:text="여행 날짜"
-                                android:textColor="@color/black"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:orientation="horizontal">
 
-                            <EditText
-                                android:id="@+id/edit_date"
-                                android:layout_width="270dp"
-                                android:layout_height="45dp"
-                                android:layout_marginTop="10dp"
-                                android:paddingStart="15dp"
-                                android:background="@drawable/add_plan_btn"
-                                android:textColor="@color/black"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                                <RadioButton
+                                    android:id="@+id/addPlan_rb_blue"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/radio_btn"
+                                    android:button="@null" />
 
-                            <ImageView
-                                android:id="@+id/ic_datepicker"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:src="@drawable/ic_fog"
-                                app:layout_constraintBottom_toBottomOf="@+id/edit_date"
-                                app:layout_constraintEnd_toEndOf="@+id/edit_date"
-                                app:layout_constraintTop_toTopOf="@+id/edit_date" />
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:src="@drawable/ic_diary_blue" />
+                            </LinearLayout>
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="여행 인원"
-                            android:textColor="@color/black" />
+                                <RadioButton
+                                    android:id="@+id/addPlan_rb_yellow"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/radio_btn"
+                                    android:button="@null" />
 
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/edit_people"
-                            android:layout_width="270dp"
-                            android:layout_height="45dp"
-                            android:paddingStart="15dp"
-                            android:background="@drawable/add_plan_btn"
-                            android:inputType="number"
-                            android:textColor="@color/black" />
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:src="@drawable/ic_diary_yellow" />
+                            </LinearLayout>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="20dp"
-                            android:text="책 색상"
-                            android:textColor="@color/black" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:orientation="horizontal">
 
-                        <HorizontalScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                                <RadioButton
+                                    android:id="@+id/addPlan_rb_orange"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/radio_btn"
+                                    android:button="@null" />
 
-                            <RadioGroup
-                                android:id="@+id/addPlan_rg_bookcolor"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:orientation="vertical">
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:src="@drawable/ic_diary_orange" />
+                            </LinearLayout>
+                        </TableRow>
 
-                                <TableRow>
+                        <TableRow>
 
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:clickable="true"
-                                        android:focusable="true"
-                                        android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:orientation="horizontal">
 
-                                        <RadioButton
-                                            android:id="@+id/addPlan_rb_blue"
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
-                                            android:button="@null"
-                                            android:background="@drawable/radio_btn"
-                                            android:layout_gravity="center" />
+                                <RadioButton
+                                    android:id="@+id/addPlan_rb_pink"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/radio_btn"
+                                    android:button="@null" />
 
-                                        <ImageView
-                                            android:layout_width="60dp"
-                                            android:layout_height="60dp"
-                                            android:src="@drawable/ic_diary_blue" />
-                                    </LinearLayout>
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:src="@drawable/ic_diary_pink" />
+                            </LinearLayout>
 
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:clickable="true"
-                                        android:focusable="true"
-                                        android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:orientation="horizontal">
 
-                                        <RadioButton
-                                            android:id="@+id/addPlan_rb_yellow"
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
-                                            android:button="@null"
-                                            android:background="@drawable/radio_btn"
-                                            android:layout_gravity="center" />
+                                <RadioButton
+                                    android:id="@+id/addPlan_rb_purple"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/radio_btn"
+                                    android:button="@null" />
 
-                                        <ImageView
-                                            android:layout_width="60dp"
-                                            android:layout_height="60dp"
-                                            android:src="@drawable/ic_diary_yellow" />
-                                    </LinearLayout>
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:src="@drawable/ic_diary_purple" />
+                            </LinearLayout>
 
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:clickable="true"
-                                        android:focusable="true"
-                                        android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:orientation="horizontal">
 
-                                        <RadioButton
-                                            android:id="@+id/addPlan_rb_orange"
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
-                                            android:button="@null"
-                                            android:background="@drawable/radio_btn"
-                                            android:layout_gravity="center" />
+                                <RadioButton
+                                    android:id="@+id/addPlan_rb_sky"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/radio_btn"
+                                    android:button="@null" />
 
-                                        <ImageView
-                                            android:layout_width="60dp"
-                                            android:layout_height="60dp"
-                                            android:src="@drawable/ic_diary_orange" />
-                                    </LinearLayout>
-                                </TableRow>
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:src="@drawable/ic_diary_sky" />
+                            </LinearLayout>
+                        </TableRow>
 
-                                <TableRow>
+                    </RadioGroup>
 
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:clickable="true"
-                                        android:focusable="true"
-                                        android:orientation="horizontal">
+                </HorizontalScrollView>
 
-                                        <RadioButton
-                                            android:id="@+id/addPlan_rb_pink"
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
-                                            android:button="@null"
-                                            android:background="@drawable/radio_btn"
-                                            android:layout_gravity="center" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/addPlan_btn"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/radius_btn"
+                    android:fontFamily="@font/main_font"
+                    android:text="추가"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
 
-                                        <ImageView
-                                            android:layout_width="60dp"
-                                            android:layout_height="60dp"
-                                            android:src="@drawable/ic_diary_pink" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:clickable="true"
-                                        android:focusable="true"
-                                        android:orientation="horizontal">
-
-                                        <RadioButton
-                                            android:id="@+id/addPlan_rb_purple"
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
-                                            android:button="@null"
-                                            android:background="@drawable/radio_btn"
-                                            android:layout_gravity="center" />
-
-                                        <ImageView
-                                            android:layout_width="60dp"
-                                            android:layout_height="60dp"
-                                            android:src="@drawable/ic_diary_purple" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:clickable="true"
-                                        android:focusable="true"
-                                        android:orientation="horizontal">
-
-                                        <RadioButton
-                                            android:id="@+id/addPlan_rb_sky"
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
-                                            android:button="@null"
-                                            android:background="@drawable/radio_btn"
-                                            android:layout_gravity="center" />
-
-                                        <ImageView
-                                            android:layout_width="60dp"
-                                            android:layout_height="60dp"
-                                            android:src="@drawable/ic_diary_sky" />
-                                    </LinearLayout>
-                                </TableRow>
-
-                            </RadioGroup>
-
-                        </HorizontalScrollView>
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/addPlan_btn"
-                            android:layout_width="70dp"
-                            android:layout_height="35dp"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:background="@drawable/radius_btn"
-                            android:fontFamily="@font/main_font"
-                            android:text="추가"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </ScrollView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

@@ -25,8 +25,9 @@
             android:name=".src.diary.SendTravelPlanActivity"
             android:theme="@style/Transparent" />
         <activity
-            android:name=".src.travel.AddTravelPlanActivity"
-            android:theme="@style/Transparent" />
+            android:name=".src.travel.AddBook.AddTravelPlanActivity"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".src.plan.TravelPlanBaseActivity" />
         <activity android:name=".Test" />
         <activity android:name=".src.plan.SearchWordResultActivity" />

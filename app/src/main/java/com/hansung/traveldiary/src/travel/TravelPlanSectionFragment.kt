@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,11 +44,18 @@ class TravelPlanSectionFragment : Fragment() {
             (context as MainActivity).makePlanBook()
         }
 
+        if(MainActivity.planBookList.size == 0){
+            binding.plantripNoPlan.isVisible = true
+            binding.plantripRv.isVisible = false
+        }else{
+            binding.plantripNoPlan.isVisible = false
+            binding.plantripRv.isVisible = true
+        }
         println("TravelPlanSection 들어옴")
 //        MainActivity.planBookList.sortBy { it.planTotalData.startDate }
-        for(list in MainActivity.planBookList){
-            println(list.title)
-        }
+//        for(list in MainActivity.planBookList){
+//            println(list.title)
+//        }
 
         binding.plantripRv.apply {
             setHasFixedSize(true)
