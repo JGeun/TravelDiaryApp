@@ -35,11 +35,7 @@
         <activity android:name=".src.profile.gallery.SelectPictureActivity" />
         <activity android:name=".src.profile.edit_info.EditInfoActivity" />
         <activity android:name=".src.splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".src.login.RegisterActivity" />
         <activity android:name=".src.travel.DiaryActivity" />
@@ -48,7 +44,13 @@
         <activity android:name=".src.plan.TravelPlanActivity" />
         <activity
             android:name=".src.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

@@ -140,7 +140,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginEnd="20dp"
-                        android:src="@drawable/img_calendar"
+                        android:src="@drawable/ic_calendar_black"
                         app:layout_constraintBottom_toBottomOf="@+id/atp_date"
                         app:layout_constraintEnd_toEndOf="@+id/atp_date"
                         app:layout_constraintTop_toTopOf="@+id/atp_date" />
