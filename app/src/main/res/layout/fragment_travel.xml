@@ -16,7 +16,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="45dp"/>
+        android:layout_marginTop="45dp"
+        android:fontFamily="@font/main_font2"/>
 
     <ImageView
         android:id="@+id/imageView2"

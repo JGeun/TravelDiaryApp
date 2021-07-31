@@ -24,6 +24,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="3dp"
             android:text="day"
+            android:fontFamily="@font/main_font2"
             android:textSize="20sp"
             android:layout_marginTop="30dp"/>
 

@@ -44,6 +44,7 @@
         android:layout_marginTop="10dp"
         android:text="MON JULY 15 / 2021"
         android:textColor="@color/black"
+        android:fontFamily="@font/main_font2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sd_viewPager" />
@@ -56,6 +57,7 @@
         android:text="Today is trip three days!"
         android:textColor="@color/black"
         android:textSize="25sp"
+        android:fontFamily="@font/main_font2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sd_date" />
@@ -64,6 +66,7 @@
         android:id="@+id/sd_contents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/main_font2"
         android:text="The weatehr was really good and I felt so good.\n\n
 I eat my favorite pasta and pizza.\n I chat with my frineds\n"
         app:layout_constraintTop_toBottomOf="@id/sd_title"

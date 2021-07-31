@@ -64,7 +64,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btItem_cardview"
         app:layout_constraintTop_toTopOf="@id/btItem_cardview"
-        tools:text="assssssssssssssssssssssssasdas" />
+        tools:text="assssssssssssssssssssssssasdas"
+        android:fontFamily="@font/main_font2"/>
 
     <TextView
         android:id="@+id/btItem_tv_tag"

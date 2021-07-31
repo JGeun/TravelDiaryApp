@@ -133,7 +133,7 @@ class HomeFragment : Fragment(), HomeView{
         binding.homeWeatherTemp.text = tempText
         if(weatherId.substring(0,1).equals("2")){
             weatherMain = "뇌우"
-            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_thunderstorm, null))
+            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_thunderstorm_white, null))
         }else if(weatherId.substring(0,1).equals("3")){
             weatherMain = "이슬비"
             binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_drizzling_white, null))
