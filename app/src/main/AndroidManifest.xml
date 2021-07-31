@@ -18,6 +18,7 @@
         <activity android:name=".src.uploadDiary.MakeDiaryActivity">
 
         </activity>
+        <activity android:name=".src.diary.ShowDiaryActivity"/>
         <activity android:name=".src.home.WebViewActivity"></activity>
         <activity android:name=".src.diary.MyDiaryDaySectionActivity" />
         <activity

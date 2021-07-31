@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.uploadDiary
+package com.hansung.traveldiary.src.diary
 
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -12,11 +12,10 @@ import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemDiaryPictureBinding
 
-class ViewPagerAdapter() : RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>() {
+class ShowDiaryImageAdapter() : RecyclerView.Adapter<ShowDiaryImageAdapter.PagerViewHolder>() {
 
     class PagerViewHolder(val binding : ItemDiaryPictureBinding) : RecyclerView.ViewHolder(binding.root) {
         var image : ImageView = binding.itemDpImage
-
     }
 
 

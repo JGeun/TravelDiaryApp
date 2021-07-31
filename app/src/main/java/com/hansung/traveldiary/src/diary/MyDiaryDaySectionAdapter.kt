@@ -29,7 +29,7 @@ class MyDiaryDaySectionAdapter(private val dataList:ArrayList<DiarySectionData>)
         val context = holder.itemView.context
         Glide.with(holder.itemView.context).load(data.diaryImage).into(holder.diaryImage)
         holder.itemView.setOnClickListener{
-            context.startActivity(Intent(context, MakeDiaryActivity::class.java))
+            context.startActivity(Intent(context, ShowDiaryActivity::class.java))
         }
     }
 

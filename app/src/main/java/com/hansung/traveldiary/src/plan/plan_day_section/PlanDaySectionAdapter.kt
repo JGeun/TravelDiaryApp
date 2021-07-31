@@ -8,6 +8,8 @@ import com.hansung.traveldiary.databinding.ItemPlanDaySectionBinding
 import com.hansung.traveldiary.src.PlaceInfoFolder
 import com.hansung.traveldiary.src.PlanData
 import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.Adapter<PlanDaySectionAdapter.ViewHolder>() {
@@ -28,7 +30,11 @@ class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.
         val context= holder.itemView.context
         val dayCountText = "Day - " + (position+1).toString()
         holder.dayText.text = dayCountText
-//        holder.date.text = planTotalData.dayList[position].date
+        val date = placeInfoFolder.dayPlaceList[position].date
+        holder.date.text = date
+        val day = getDateDay(date)
+        println("date: " + date)
+        println("day: " + day)
 
         val intent = Intent(context, TravelPlanBaseActivity::class.java)
         intent.putExtra("title", (context as PlanDaySectionActivity).getTitleContents())
@@ -49,4 +55,27 @@ class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.
     }
 
     override fun getItemCount() = placeInfoFolder.dayPlaceList.size
+
+    fun getDateDay(date : String) : String {
+
+        var day = "";
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd");
+        val nDate: Date = dateFormat.parse(date);
+
+        val cal: Calendar = Calendar.getInstance();
+        cal.time = nDate;
+        println("cal: " + cal.get(Calendar.DAY_OF_WEEK))
+        when (cal.get(Calendar.DAY_OF_WEEK)) {
+            1 -> day = "일";
+            2 -> day = "월";
+            3 -> day = "화";
+            4 -> day = "수";
+            5 -> day = "목";
+            6 -> day = "금";
+            7 -> day = "토";
+        }
+
+        return day;
+    }
+
 }

@@ -79,4 +79,5 @@ class PlanDaySectionActivity : AppCompatActivity() {
     fun getTitleContents() : String?{
         return title
     }
+
 }

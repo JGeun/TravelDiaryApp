@@ -1,10 +1,12 @@
 package com.hansung.traveldiary.src.bulletin
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemBulletinDaySectionBinding
+import com.hansung.traveldiary.src.diary.ShowDiaryActivity
 
 class BulletinDaySectionAdapter(private val dataList:ArrayList<DiarySectionData>): RecyclerView.Adapter<BulletinDaySectionAdapter.ViewHolder>() {
 
@@ -23,9 +25,11 @@ class BulletinDaySectionAdapter(private val dataList:ArrayList<DiarySectionData>
         val data = dataList[position]
         holder.dayText.text = (position+1).toString()
         holder.tag.text = data.tag
-        Glide.with(holder.itemView.context).load(data.diaryImage).into(holder.diaryImage)
-
-
+        val context = holder.itemView.context
+        Glide.with(context).load(data.diaryImage).into(holder.diaryImage)
+        holder.itemView.setOnClickListener{
+            context.startActivity(Intent(context, ShowDiaryActivity::class.java))
+        }
     }
 
     override fun getItemCount() = dataList.size

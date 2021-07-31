@@ -15,4 +15,5 @@
     <color name="nickname_color">#A2A2A2</color>
 
     <color name="transparent">#1A000000</color>
+    <color name="transparent2">#0F000000</color>
 </resources>

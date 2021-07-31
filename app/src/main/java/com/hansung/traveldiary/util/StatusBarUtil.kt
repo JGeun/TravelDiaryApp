@@ -12,7 +12,8 @@ class StatusBarUtil {
         WHITE_STATUS_BAR(R.color.white),
         DEFAULT_STATUS_BAR(R.color.white),
         DIARY_SECTION_STATUS_BAR(R.color.diary_section_bgcolor),
-        MAIN_STATUS_BAR(R.color.maincolor)
+        MAIN_STATUS_BAR(R.color.maincolor),
+        transparent_STATUS_BAR(R.color.transparent)
     }
 
     companion object{
