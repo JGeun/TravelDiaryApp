@@ -33,10 +33,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_hb_cardView"
         tools:text="서울 2박3일 여행~"
+        android:fontFamily="@font/main_font2"
         android:maxLines="1"
         android:ellipsize="end"/>
 
@@ -48,7 +50,9 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:text="친구들과 여행을 다녀왔는데 너무 좋았어요."
-        android:textSize="12sp"
+        android:fontFamily="@font/main_font2"
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_hb_title" />
 
