@@ -14,9 +14,9 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentHomeBinding
 import com.hansung.traveldiary.src.home.adapter.*
 import com.hansung.traveldiary.src.home.model.WeatherInfo
-import java.lang.Math.*
 import kotlin.math.ceil
 
+data class  TipData(var image : Drawable, var content: String)
 data class RecommandLocationData(val image : Drawable, val name : String)
 data class HomeBulletinData(val image : Drawable, val title : String, val contents: String)
 
@@ -25,9 +25,10 @@ class HomeFragment : Fragment(), HomeView{
     private val recommandLocationList = ArrayList<RecommandLocationData>()
     private val homeBulletinList = ArrayList<HomeBulletinData>()
     private val homeSaleList = ArrayList<SaleData>()
-    private val homeCautionList = ArrayList<CautionData>()
+    private val homeTipList = ArrayList<TipData>()
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +57,7 @@ class HomeFragment : Fragment(), HomeView{
         initRecommandLocationList()
         initBulletinList()
         initSaleList()
-        initCautionList()
+        initTipList()
         binding.homeRvRecommand.apply{
             adapter = RecommandAdapter(recommandLocationList)
             setHasFixedSize(false)
@@ -78,8 +79,8 @@ class HomeFragment : Fragment(), HomeView{
             layoutManager = horizontalManager
         }
 
-        binding.homeRvCaution.apply{
-            adapter = HomeCautionAdapter(homeCautionList)
+        binding.homeRvTip.apply{
+            adapter = HomeTipAdapter(homeTipList)
             setHasFixedSize(false)
             val horizontalManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             layoutManager = horizontalManager
@@ -111,18 +112,15 @@ class HomeFragment : Fragment(), HomeView{
         homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
         homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
         homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
-
-
     }
 
-    private fun initCautionList(){
-        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_book, null)!!, "짐가방 체크리스트"))
-        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_redbook, null)!!, "짐가방 체크리스트"))
-        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_yellowbook, null)!!, "짐가방 체크리스트"))
-        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_graybook, null)!!, "짐가방 체크리스트"))
-        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_bluebook, null)!!, "짐가방 체크리스트"))
-        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_darkgraybook, null)!!, "짐가방 체크리스트"))
-        homeCautionList.add(CautionData(ResourcesCompat.getDrawable(resources, R.drawable.ic_greenbook, null)!!, "짐가방 체크리스트"))
+    private fun initTipList(){
+        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip1, null)!!, "공항 이용 팁"))
+        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip2, null)!!, "내일로 기차 여행"))
+        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip3, null)!!, "짐가방 체크리스트"))
+        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip4, null)!!, "지역 관광 사이트"))
+        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip5, null)!!, "캠핑 준비하는 방법"))
+        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip6, null)!!, "별자리 구분법"))
     }
 
     override fun onGetWeatherInfoSuccess(response: WeatherInfo) {
