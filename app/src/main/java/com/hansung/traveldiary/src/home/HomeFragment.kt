@@ -34,6 +34,7 @@ class HomeFragment : Fragment(), HomeView{
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("Home Create")
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         activity?.window?.apply {
@@ -47,6 +48,10 @@ class HomeFragment : Fragment(), HomeView{
         if(MainActivity.firstStart){
             WeatherService(this).tryGetWeatherInfo()
             MainActivity.firstStart = false
+        }else{
+            binding.homeWeatherTemp.text = MainActivity.tempText
+            binding.homeWeatherIcon.setImageDrawable(MainActivity.weatherIcon)
+            binding.homeWeatherText.text= MainActivity.weatherMain
         }
 
 //        // create our manager instance after the content view is set
@@ -96,6 +101,7 @@ class HomeFragment : Fragment(), HomeView{
 
     override fun onStart() {
         super.onStart()
+        println("Home Start")
     }
 
     private fun initRecommandLocationList(){
@@ -135,45 +141,45 @@ class HomeFragment : Fragment(), HomeView{
 
     override fun onGetWeatherInfoSuccess(response: WeatherInfo) {
         val temp = ceil(response.current.temp)
-        val weatherId = response.current.weather[0].id.toString()
-        var weatherMain = ""
-        val tempText = temp.toInt().toString() + "°C"
-        binding.homeWeatherTemp.text = tempText
-        if(weatherId.substring(0,1).equals("2")){
-            weatherMain = "뇌우"
-            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_thunderstorm_white, null))
-        }else if(weatherId.substring(0,1).equals("3")){
-            weatherMain = "이슬비"
-            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_drizzling_white, null))
-        }else if(weatherId.substring(0,1).equals("5")){
-            weatherMain = "비"
-            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_rain_white, null))
-        }else if(weatherId.substring(0,1).equals("6")){
-            weatherMain = "눈"
-            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_snow_white, null))
-        }else if(weatherId.equals("800")){
-            weatherMain = "맑음"
-            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null))
-        }else if(weatherId.substring(0,1).equals("8")){
-            weatherMain = "구름"
-            binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_cloudy_white, null))
+        MainActivity.weatherId = response.current.weather[0].id.toString()
+        MainActivity.tempText = temp.toInt().toString() + "°C"
+        binding.homeWeatherTemp.text = MainActivity.tempText
+        if(MainActivity.weatherId.substring(0,1).equals("2")){
+            MainActivity.weatherMain = "뇌우"
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_thunderstorm_white, null)!!
+        }else if(MainActivity.weatherId.substring(0,1).equals("3")){
+            MainActivity.weatherMain = "이슬비"
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_drizzling_white, null)!!
+        }else if(MainActivity.weatherId.substring(0,1).equals("5")){
+            MainActivity.weatherMain = "비"
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_rain_white, null)!!
+        }else if(MainActivity.weatherId.substring(0,1).equals("6")){
+            MainActivity.weatherMain = "눈"
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_snow_white, null)!!
+        }else if(MainActivity.weatherId.equals("800")){
+            MainActivity.weatherMain = "맑음"
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
+        }else if(MainActivity.weatherId.substring(0,1).equals("8")){
+            MainActivity.weatherMain = "구름"
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_cloudy_white, null)!!
         }else{
-            if(weatherId.equals("771") || weatherId.equals("781")){
-                weatherMain = "돌풍"
-                binding.homeWeatherText.text= weatherMain
-                binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_windy_white, null))
-            }else if(weatherId.equals("731") || weatherId.equals("751") || weatherId.equals("761") || weatherId.equals("762")){
-                weatherMain = "먼지"
-                binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_dust_white, null))
-            }else if(weatherId.substring(0,1).equals("7")){
-                weatherMain = "안개"
-                binding.homeWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_fog_white, null))
+            if(MainActivity.weatherId.equals("771") || MainActivity.weatherId.equals("781")){
+                MainActivity.weatherMain = "돌풍"
+                MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_windy_white, null)!!
+            }else if(MainActivity.weatherId.equals("731") || MainActivity.weatherId.equals("751") || MainActivity.weatherId.equals("761") || MainActivity.weatherId.equals("762")){
+                MainActivity.weatherMain = "먼지"
+                MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_dust_white, null)!!
+            }else if(MainActivity.weatherId.substring(0,1).equals("7")){
+                MainActivity.weatherMain = "안개"
+                MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_fog_white, null)!!
             }else{
-                weatherMain = "null"
+                MainActivity.weatherMain = "맑음"
+                MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
             }
         }
 
-        binding.homeWeatherText.text= weatherMain
+        binding.homeWeatherIcon.setImageDrawable(MainActivity.weatherIcon)
+        binding.homeWeatherText.text= MainActivity.weatherMain
     }
 
     override fun onGetUserInfoFailure(message: String) {

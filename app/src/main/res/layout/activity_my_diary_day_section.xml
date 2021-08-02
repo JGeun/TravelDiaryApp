@@ -13,8 +13,30 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/back"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ds_title"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/ds_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다이어리 제목"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/main_font2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ds_changeImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_find_black"
+        app:layout_constraintTop_toTopOf="@id/ds_title"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ds_recyclerview"

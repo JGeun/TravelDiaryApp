@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemLasttripBinding
 import com.hansung.traveldiary.src.DiaryBulletinData
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity
 
 class TravelDiarySectionAdapter(val myDiaryList : ArrayList<DiaryBulletinData>):RecyclerView.Adapter<TravelDiarySectionAdapter.ViewHolder>() {
@@ -33,6 +34,7 @@ class TravelDiarySectionAdapter(val myDiaryList : ArrayList<DiaryBulletinData>):
             val intent = Intent(context, MyDiaryDaySectionActivity::class.java)
             intent.putExtra("index", position)
             context.startActivity(intent)
+            (context as MainActivity).overridePendingTransition(0, 0)
         }
     }
 

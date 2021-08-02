@@ -1,11 +1,13 @@
 package com.hansung.traveldiary.src
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -38,6 +40,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var firstStart = true
+        var weatherId : String = "800"
+        var weatherMain : String = "맑음"
+        lateinit var weatherIcon : Drawable
+        var tempText = "30°C"
+
         var diaryTitleList = TitleList()
         var planTitleList = TitleList()
         val planBookList = ArrayList<PlanBookData>()
@@ -53,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
         user = Firebase.auth.currentUser
         db = Firebase.firestore
 
@@ -108,6 +116,12 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        firstStart = true
+        println("MainStart")
     }
 
     fun makePlanBook() {

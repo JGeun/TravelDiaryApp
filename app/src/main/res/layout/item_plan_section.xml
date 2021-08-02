@@ -82,19 +82,4 @@
         app:layout_constraintTop_toTopOf="@id/item_start_date"
         app:layout_constraintStart_toEndOf="@id/item_end_date"/>
 
-    <ImageView
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:src="@drawable/ic_clear"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"/>
-
-
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
