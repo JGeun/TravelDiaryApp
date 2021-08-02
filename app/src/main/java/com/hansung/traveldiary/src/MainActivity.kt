@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private val userList = UserEmailList()
 
     companion object {
+        var firstStart = true
         var diaryTitleList = TitleList()
         var planTitleList = TitleList()
         val planBookList = ArrayList<PlanBookData>()

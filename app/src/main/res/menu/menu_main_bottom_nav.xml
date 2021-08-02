@@ -7,28 +7,24 @@
         app:showAsAction="always"
         android:enabled="true"
         android:checkable="true"
-        android:icon="@drawable/bottom_nav_home_checkable"
-        android:title="1" />
+        android:icon="@drawable/bottom_nav_home_checkable" />
 
     <item
         android:id="@+id/main_btm_bulletin"
         app:showAsAction="always"
         android:enabled="true"
-        android:icon="@drawable/bottom_nav_bullentin_checkable"
-        android:title="2" />
+        android:icon="@drawable/bottom_nav_bullentin_checkable" />
 
     <item
         android:id="@+id/main_btm_travel"
         app:showAsAction="always"
         android:enabled="true"
-        android:icon="@drawable/bottom_nav_travel_checkable"
-        android:title="3" />
+        android:icon="@drawable/bottom_nav_travel_checkable" />
 
     <item
         android:id="@+id/main_btm_profile"
         app:showAsAction="always"
         android:enabled="true"
-        android:icon="@drawable/bottom_nav_user_checkable"
-        android:title="4" />
+        android:icon="@drawable/bottom_nav_user_checkable" />
 
 </menu>

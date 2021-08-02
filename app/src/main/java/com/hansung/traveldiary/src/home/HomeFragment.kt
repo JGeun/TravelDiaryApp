@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentHomeBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.home.adapter.*
 import com.hansung.traveldiary.src.home.model.WeatherInfo
 import kotlin.math.ceil
@@ -43,7 +44,11 @@ class HomeFragment : Fragment(), HomeView{
             this.statusBarColor = Color.TRANSPARENT
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN }
 
-        WeatherService(this).tryGetWeatherInfo()
+        if(MainActivity.firstStart){
+            WeatherService(this).tryGetWeatherInfo()
+            MainActivity.firstStart = false
+        }
+
 //        // create our manager instance after the content view is set
 //        val tintManager = SystemBarTintManager(activity)
 //        // enable status bar tint\
@@ -53,6 +58,7 @@ class HomeFragment : Fragment(), HomeView{
 //
 //        // StatusBar를 20% 투명도를 가지게 합니다.
 //        tintManager.setTintColor(Color.parseColor("#00000000"));
+
 
         initRecommandLocationList()
         initBulletinList()
@@ -86,6 +92,10 @@ class HomeFragment : Fragment(), HomeView{
             layoutManager = horizontalManager
         }
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     private fun initRecommandLocationList(){
