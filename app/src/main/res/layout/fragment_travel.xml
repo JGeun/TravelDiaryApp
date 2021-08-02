@@ -37,7 +37,9 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/travelTitle" />
+        app:layout_constraintTop_toBottomOf="@id/travelTitle"
+        app:tabTextColor="@color/black"
+        app:tabIndicatorFullWidth="false"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

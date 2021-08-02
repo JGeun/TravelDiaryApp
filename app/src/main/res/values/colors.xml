@@ -16,4 +16,8 @@
 
     <color name="transparent">#1A000000</color>
     <color name="transparent2">#0F000000</color>
+
+    <color name="weather_day_color">#3AA9F4</color>
+    <color name="gray">#66D3D3D3</color>
+    <color name="light_gray">#4DD3D3D3</color>
 </resources>

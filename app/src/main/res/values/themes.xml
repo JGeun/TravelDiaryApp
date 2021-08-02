@@ -54,4 +54,9 @@
     <style name="BottomDialogStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_btm_dialog</item>
     </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:fontFamily">@font/main_font2</item>
+        <item name="background">@color/black</item>
+    </style>
 </resources>

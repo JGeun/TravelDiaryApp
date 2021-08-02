@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="140dp"
     android:layout_height="wrap_content"
     android:paddingVertical="20dp"
     android:paddingHorizontal="20dp"
     android:orientation="vertical"
     android:layout_marginEnd="20dp"
-    android:background="@drawable/bg_item_caution">
+    android:background="@drawable/bg_item_tip">
 
     <ImageView
         android:id="@+id/cautionImage"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/ic_book"
+        android:scaleType="fitXY"
         android:layout_gravity="center"/>
 
     <TextView
@@ -23,6 +24,6 @@
         android:text="짐가방 체크리스트"
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:layout_gravity="center"/>
 </LinearLayout>

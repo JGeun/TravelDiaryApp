@@ -15,11 +15,10 @@
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.diary.write_diary.WriteDiaryActivity">
-
-        </activity>
-        <activity android:name=".src.bulletin.ShowDiaryActivity"/>
-        <activity android:name=".src.home.WebViewActivity"></activity>
+        <activity android:name=".src.home.weather.WeatherActivity"></activity>
+        <activity android:name=".src.diary.write_diary.WriteDiaryActivity"></activity>
+        <activity android:name=".src.bulletin.ShowDiaryActivity" />
+        <activity android:name=".src.home.WebViewActivity" />
         <activity android:name=".src.diary.MyDiaryDaySectionActivity" />
         <activity
             android:name=".src.diary.SendTravelPlanActivity"
@@ -27,20 +26,14 @@
         <activity
             android:name=".src.travel.AddBook.AddTravelPlanActivity"
             android:theme="@style/Transparent"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".src.plan.TravelPlanBaseActivity" />
         <activity android:name=".Test" />
         <activity android:name=".src.plan.SearchWordResultActivity" />
         <activity android:name=".src.plan.plan_day_section.PlanDaySectionActivity" />
         <activity android:name=".src.profile.gallery.SelectPictureActivity" />
         <activity android:name=".src.profile.edit_info.EditInfoActivity" />
-        <activity android:name=".src.splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".src.splash.SplashActivity"></activity>
         <activity android:name=".src.login.RegisterActivity" />
         <activity android:name=".src.travel.DiaryActivity" />
         <activity android:name=".src.login.LoginActivity" />
@@ -48,8 +41,12 @@
         <activity android:name=".src.plan.TravelPlanActivity" />
         <activity
             android:name=".src.MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data

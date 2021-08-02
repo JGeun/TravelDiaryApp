@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.home
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.hansung.traveldiary.databinding.FragmentHomeBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.home.adapter.*
 import com.hansung.traveldiary.src.home.model.WeatherInfo
+import com.hansung.traveldiary.src.home.weather.WeatherActivity
 import kotlin.math.ceil
 
 data class  TipData(var image : Drawable, var content: String)
@@ -54,6 +56,9 @@ class HomeFragment : Fragment(), HomeView{
             binding.homeWeatherText.text= MainActivity.weatherMain
         }
 
+        binding.homeClWeather.setOnClickListener{
+            startActivity(Intent(context, WeatherActivity::class.java))
+        }
 //        // create our manager instance after the content view is set
 //        val tintManager = SystemBarTintManager(activity)
 //        // enable status bar tint\

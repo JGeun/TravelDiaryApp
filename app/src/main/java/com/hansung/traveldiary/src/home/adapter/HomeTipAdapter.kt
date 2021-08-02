@@ -7,14 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.hansung.traveldiary.databinding.ItemCautionBinding
+import com.hansung.traveldiary.databinding.ItemTipBinding
 import com.hansung.traveldiary.src.home.TipData
 
 
 class HomeTipAdapter(private val cautionData: ArrayList<TipData>) : RecyclerView.Adapter<HomeTipAdapter.ViewHolder>() {
-    private lateinit var binding : ItemCautionBinding
+    private lateinit var binding : ItemTipBinding
 
-    class ViewHolder(val binding: ItemCautionBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemTipBinding) : RecyclerView.ViewHolder(binding.root) {
         val cautionImage : ImageView
         val cautionContent : TextView
 
@@ -27,7 +27,7 @@ class HomeTipAdapter(private val cautionData: ArrayList<TipData>) : RecyclerView
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
-        val binding = ItemCautionBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        val binding = ItemTipBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
 
         return ViewHolder(binding)
     }
