@@ -26,7 +26,7 @@ import com.hansung.traveldiary.src.travel.TravelBaseFragment
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-data class WeeklyWeatherData(var date: String, var icon : Drawable, var min: Int, var max: Int)
+data class WeeklyWeatherData(var date: String, var icon : Drawable, var min: String, var max: String)
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         var feelLikeTempText = "30°C"
         var humidityText = "66%"
         var windSpeedText = "2.57m/s"
+        var cloudsText: String = "30%"
         var weeklyList = ArrayList<WeeklyWeatherData>()
 
 

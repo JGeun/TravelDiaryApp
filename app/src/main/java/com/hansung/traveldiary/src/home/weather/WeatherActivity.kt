@@ -38,11 +38,12 @@ class WeatherActivity : AppCompatActivity() {
         val day = getDateDay(now)
         binding.weatherDay.text = day
         binding.weatherCurrentTime.text = time
-        if(hour in 6..18){
-            binding.weatherTotalLayout.background = ResourcesCompat.getDrawable(resources, R.drawable.gradation_day, null)
-        }else{
-            binding.weatherTotalLayout.background = ResourcesCompat.getDrawable(resources, R.drawable.gradation_night, null)
-        }
+//        if(hour in 6..18){
+//            binding.weatherTotalLayout.background = ResourcesCompat.getDrawable(resources, R.drawable.gradation_day, null)
+//        }else{
+//            binding.weatherTotalLayout.background = ResourcesCompat.getDrawable(resources, R.drawable.gradation_night, null)
+//        }
+        binding.tvClouds.text = MainActivity.cloudsText
         Glide.with(this).load(MainActivity.weatherIcon).into(binding.ivWeatherCondition)
         binding.tvWeatherCondition.text = MainActivity.weatherMain
         binding.feelsLikeTemperature.text = MainActivity.feelLikeTempText

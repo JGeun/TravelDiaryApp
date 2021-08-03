@@ -23,11 +23,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.ceil
 import kotlin.math.floor
-import kotlin.math.round
 
-data class  TipData(var image : Drawable, var content: String)
-data class RecommandLocationData(val image : Drawable, val name : String)
-data class HomeBulletinData(val image : Drawable, val title : String, val contents: String)
+data class  TipData(var image: Drawable, var content: String)
+data class RecommandLocationData(val image: Drawable, val name: String)
+data class HomeBulletinData(val image: Drawable, val title: String, val contents: String)
 
 class HomeFragment : Fragment(), HomeView{
     private lateinit var binding : FragmentHomeBinding
@@ -83,28 +82,44 @@ class HomeFragment : Fragment(), HomeView{
         binding.homeRvRecommand.apply{
             adapter = RecommandAdapter(recommandLocationList)
             setHasFixedSize(false)
-            val horizontalManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val horizontalManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             layoutManager = horizontalManager
         }
 
         binding.homeRvBulletin.apply{
             adapter = HomeBulletinAdapter(homeBulletinList)
             setHasFixedSize(false)
-            val horizontalManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val horizontalManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             layoutManager = horizontalManager
         }
 
         binding.homeRvSale.apply{
             adapter = HomeSaleAdapter(homeSaleList)
             setHasFixedSize(false)
-            val horizontalManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val horizontalManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             layoutManager = horizontalManager
         }
 
         binding.homeRvTip.apply{
             adapter = HomeTipAdapter(homeTipList)
             setHasFixedSize(false)
-            val horizontalManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val horizontalManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             layoutManager = horizontalManager
         }
         return binding.root
@@ -116,38 +131,204 @@ class HomeFragment : Fragment(), HomeView{
     }
 
     private fun initRecommandLocationList(){
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_seoul, null)!!, "서울"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_seoul_cup, null)!!, "부산"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_beach, null)!!, "강릉"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_jeju_island, null)!!, "제주"))
-        recommandLocationList.add(RecommandLocationData(ResourcesCompat.getDrawable(resources, R.drawable.img_seoul_cup, null)!!, "서울 근교"))
+        recommandLocationList.add(
+            RecommandLocationData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_seoul,
+                    null
+                )!!, "서울"
+            )
+        )
+        recommandLocationList.add(
+            RecommandLocationData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_seoul_cup,
+                    null
+                )!!, "부산"
+            )
+        )
+        recommandLocationList.add(
+            RecommandLocationData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_beach,
+                    null
+                )!!, "강릉"
+            )
+        )
+        recommandLocationList.add(
+            RecommandLocationData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_jeju_island,
+                    null
+                )!!, "제주"
+            )
+        )
+        recommandLocationList.add(
+            RecommandLocationData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_seoul_cup,
+                    null
+                )!!, "서울 근교"
+            )
+        )
     }
 
     private fun initBulletinList(){
-        homeBulletinList.add(HomeBulletinData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_seoul, null)!!, "서울 2박3일 여행~", "친구들과 여행을 다녀왔는데 너무 좋았어요."))
-        homeBulletinList.add(HomeBulletinData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_busan, null)!!, "부산 캡슐열차타러 !!", "캡슐열차 강추 무조건!!"))
-        homeBulletinList.add(HomeBulletinData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_gangneung, null)!!, "제주도 미쳤다", "힐링하려는 분들 제 글보고 가보세요"))
-        homeBulletinList.add(HomeBulletinData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_seoul_nearby, null)!!, "서울근교 데이트코스가 필요하다면?", "남친이랑 다녀왔는데.."))
-        homeBulletinList.add(HomeBulletinData(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_daejeon, null)!!, "1박2일 가볍게 다녀왔습니다", "강릉바다 보고싶어서 다녀왔는데 아쉬웠어요"))
+        homeBulletinList.add(
+            HomeBulletinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ig_home_seoul,
+                    null
+                )!!, "서울 2박3일 여행~", "친구들과 여행을 다녀왔는데 너무 좋았어요."
+            )
+        )
+        homeBulletinList.add(
+            HomeBulletinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ig_home_busan,
+                    null
+                )!!, "부산 캡슐열차타러 !!", "캡슐열차 강추 무조건!!"
+            )
+        )
+        homeBulletinList.add(
+            HomeBulletinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ig_home_gangneung,
+                    null
+                )!!, "제주도 미쳤다", "힐링하려는 분들 제 글보고 가보세요"
+            )
+        )
+        homeBulletinList.add(
+            HomeBulletinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ig_home_seoul_nearby,
+                    null
+                )!!, "서울근교 데이트코스가 필요하다면?", "남친이랑 다녀왔는데.."
+            )
+        )
+        homeBulletinList.add(
+            HomeBulletinData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ig_home_daejeon,
+                    null
+                )!!, "1박2일 가볍게 다녀왔습니다", "강릉바다 보고싶어서 다녀왔는데 아쉬웠어요"
+            )
+        )
     }
 
     private fun initSaleList(){
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
-        homeSaleList.add(SaleData(ResourcesCompat.getDrawable(resources, R.drawable.img_sumset, null)!!, "제주", "16,200원"))
+        homeSaleList.add(
+            SaleData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_sumset,
+                    null
+                )!!, "제주", "16,200원"
+            )
+        )
+        homeSaleList.add(
+            SaleData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_sumset,
+                    null
+                )!!, "제주", "16,200원"
+            )
+        )
+        homeSaleList.add(
+            SaleData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_sumset,
+                    null
+                )!!, "제주", "16,200원"
+            )
+        )
+        homeSaleList.add(
+            SaleData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_sumset,
+                    null
+                )!!, "제주", "16,200원"
+            )
+        )
+        homeSaleList.add(
+            SaleData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_sumset,
+                    null
+                )!!, "제주", "16,200원"
+            )
+        )
+        homeSaleList.add(
+            SaleData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_sumset,
+                    null
+                )!!, "제주", "16,200원"
+            )
+        )
+        homeSaleList.add(
+            SaleData(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.img_sumset,
+                    null
+                )!!, "제주", "16,200원"
+            )
+        )
     }
 
     private fun initTipList(){
-        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip1, null)!!, "공항 이용 팁"))
-        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip2, null)!!, "내일로 기차 여행"))
-        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip3, null)!!, "짐가방 체크리스트"))
-        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip4, null)!!, "지역 관광 사이트"))
-        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip5, null)!!, "캠핑 준비하는 방법"))
-        homeTipList.add(TipData(ResourcesCompat.getDrawable(resources, R.drawable.img_tip6, null)!!, "별자리 구분법"))
+        homeTipList.add(
+            TipData(
+                ResourcesCompat.getDrawable(resources, R.drawable.img_tip1, null)!!,
+                "공항 이용 팁"
+            )
+        )
+        homeTipList.add(
+            TipData(
+                ResourcesCompat.getDrawable(resources, R.drawable.img_tip2, null)!!,
+                "내일로 기차 여행"
+            )
+        )
+        homeTipList.add(
+            TipData(
+                ResourcesCompat.getDrawable(resources, R.drawable.img_tip3, null)!!,
+                "짐가방 체크리스트"
+            )
+        )
+        homeTipList.add(
+            TipData(
+                ResourcesCompat.getDrawable(resources, R.drawable.img_tip4, null)!!,
+                "지역 관광 사이트"
+            )
+        )
+        homeTipList.add(
+            TipData(
+                ResourcesCompat.getDrawable(resources, R.drawable.img_tip5, null)!!,
+                "캠핑 준비하는 방법"
+            )
+        )
+        homeTipList.add(
+            TipData(
+                ResourcesCompat.getDrawable(resources, R.drawable.img_tip6, null)!!,
+                "별자리 구분법"
+            )
+        )
     }
 
     override fun onGetWeatherInfoSuccess(response: WeatherInfo) {
@@ -157,6 +338,9 @@ class HomeFragment : Fragment(), HomeView{
         val humidity = floor(response.current.humidity)
         val feels_like = ceil(response.current.feels_like)
         val windSpeed = ceil(response.current.wind_speed)
+        val cloudy = response.current.clouds.toInt()
+
+        MainActivity.cloudsText = "$cloudy%"
         MainActivity.maxTempText = "$maxTemp°C"
         MainActivity.minTempText = "$minTemp°C"
         MainActivity.tempText = "$temp°C"
@@ -165,38 +349,81 @@ class HomeFragment : Fragment(), HomeView{
         MainActivity.windSpeedText = "$windSpeed" + "m/s"
         MainActivity.weatherId = response.current.weather[0].id.toString()
 
+        println("흐림: ${cloudy}")
         binding.homeWeatherTemp.text = MainActivity.tempText
-        if(MainActivity.weatherId.substring(0,1).equals("2")){
+        if(MainActivity.weatherId.substring(0, 1).equals("2")){
             MainActivity.weatherMain = "뇌우"
-            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_thunderstorm_white, null)!!
-        }else if(MainActivity.weatherId.substring(0,1).equals("3")){
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.ic_thunderstorm_white,
+                null
+            )!!
+        }else if(MainActivity.weatherId.substring(0, 1).equals("3")){
             MainActivity.weatherMain = "이슬비"
-            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_drizzling_white, null)!!
-        }else if(MainActivity.weatherId.substring(0,1).equals("5")){
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.ic_drizzling_white,
+                null
+            )!!
+        }else if(MainActivity.weatherId.substring(0, 1).equals("5")){
             MainActivity.weatherMain = "비"
-            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_rain_white, null)!!
-        }else if(MainActivity.weatherId.substring(0,1).equals("6")){
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.ic_rain_white,
+                null
+            )!!
+        }else if(MainActivity.weatherId.substring(0, 1).equals("6")){
             MainActivity.weatherMain = "눈"
-            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_snow_white, null)!!
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.ic_snow_white,
+                null
+            )!!
         }else if(MainActivity.weatherId.equals("800")){
             MainActivity.weatherMain = "맑음"
-            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
-        }else if(MainActivity.weatherId.substring(0,1).equals("8")){
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.ic_sunny_white,
+                null
+            )!!
+        }else if(MainActivity.weatherId.substring(0, 1).equals("8")){
             MainActivity.weatherMain = "구름"
-            MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_cloudy_white, null)!!
+            MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.ic_cloudy_white,
+                null
+            )!!
         }else{
             if(MainActivity.weatherId.equals("771") || MainActivity.weatherId.equals("781")){
                 MainActivity.weatherMain = "돌풍"
-                MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_windy_white, null)!!
-            }else if(MainActivity.weatherId.equals("731") || MainActivity.weatherId.equals("751") || MainActivity.weatherId.equals("761") || MainActivity.weatherId.equals("762")){
+                MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_windy_white,
+                    null
+                )!!
+            }else if(MainActivity.weatherId.equals("731") || MainActivity.weatherId.equals("751") || MainActivity.weatherId.equals(
+                    "761"
+                ) || MainActivity.weatherId.equals("762")){
                 MainActivity.weatherMain = "먼지"
-                MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_dust_white, null)!!
-            }else if(MainActivity.weatherId.substring(0,1).equals("7")){
+                MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_dust_white,
+                    null
+                )!!
+            }else if(MainActivity.weatherId.substring(0, 1).equals("7")){
                 MainActivity.weatherMain = "안개"
-                MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_fog_white, null)!!
+                MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_fog_white,
+                    null
+                )!!
             }else{
                 MainActivity.weatherMain = "맑음"
-                MainActivity.weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
+                MainActivity.weatherIcon = ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_sunny_white,
+                    null
+                )!!
             }
         }
 
@@ -204,11 +431,12 @@ class HomeFragment : Fragment(), HomeView{
             val dt = response.daily[i].dt
             val simpleDateFragment = SimpleDateFormat("MM/dd")
             val date = Date(dt * 1000)
+
             val dateStr = simpleDateFragment.format(date)
             val weekId = response.daily[i].weather[0].id.toString()
             val icon = checkIcon(weekId)
-            val maxTemp = ceil(response.daily[i].temp.max).toInt()
-            val minTemp = floor(response.daily[i].temp.min).toInt()
+            val maxTemp = ceil(response.daily[i].temp.max).toInt().toString() + "°"
+            val minTemp = floor(response.daily[i].temp.min).toInt().toString() + "°"
             MainActivity.weeklyList.add(WeeklyWeatherData(dateStr, icon, minTemp, maxTemp))
         }
         binding.homeWeatherIcon.setImageDrawable(MainActivity.weatherIcon)
@@ -224,27 +452,29 @@ class HomeFragment : Fragment(), HomeView{
     }
 
     private fun checkIcon(weatherId: String) : Drawable{
-        if(weatherId.substring(0,1).equals("2")){
-            return ResourcesCompat.getDrawable(resources, R.drawable.ic_thunderstorm, null)!!
-        }else if(MainActivity.weatherId.substring(0,1).equals("3")){
-            return ResourcesCompat.getDrawable(resources, R.drawable.ic_drizzling, null)!!
-        }else if(MainActivity.weatherId.substring(0,1).equals("5")){
-            return ResourcesCompat.getDrawable(resources, R.drawable.ic_rain, null)!!
-        }else if(MainActivity.weatherId.substring(0,1).equals("6")){
-            return ResourcesCompat.getDrawable(resources, R.drawable.ic_snow, null)!!
-        }else if(MainActivity.weatherId.equals("800")){
-            return ResourcesCompat.getDrawable(resources, R.drawable.ic_sunshine, null)!!
-        }else if(MainActivity.weatherId.substring(0,1).equals("8")){
-            return ResourcesCompat.getDrawable(resources, R.drawable.ic_cloudy, null)!!
+        if(weatherId.substring(0, 1).equals("2")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_thunderstorm_white, null)!!
+        }else if(weatherId.substring(0, 1).equals("3")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_drizzling_white, null)!!
+        }else if(weatherId.substring(0, 1).equals("5")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_rain_white, null)!!
+        }else if(weatherId.substring(0, 1).equals("6")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_snow_white, null)!!
+        }else if(weatherId.equals("800")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
+        }else if(weatherId.substring(0, 1).equals("8")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_cloudy_white, null)!!
         }else{
-            if(MainActivity.weatherId.equals("771") || MainActivity.weatherId.equals("781")){
-                return ResourcesCompat.getDrawable(resources, R.drawable.ic_windy, null)!!
-            }else if(MainActivity.weatherId.equals("731") || MainActivity.weatherId.equals("751") || MainActivity.weatherId.equals("761") || MainActivity.weatherId.equals("762")){
-                return ResourcesCompat.getDrawable(resources, R.drawable.ic_dust, null)!!
-            }else if(MainActivity.weatherId.substring(0,1).equals("7")){
-                return ResourcesCompat.getDrawable(resources, R.drawable.ic_fog, null)!!
+            if(weatherId.equals("771") || MainActivity.weatherId.equals("781")){
+                return ResourcesCompat.getDrawable(resources, R.drawable.ic_windy_white, null)!!
+            }else if(weatherId.equals("731") || MainActivity.weatherId.equals("751") || MainActivity.weatherId.equals(
+                    "761"
+                ) || MainActivity.weatherId.equals("762")){
+                return ResourcesCompat.getDrawable(resources, R.drawable.ic_dust_white, null)!!
+            }else if(weatherId.substring(0, 1).equals("7")){
+                return ResourcesCompat.getDrawable(resources, R.drawable.ic_fog_white, null)!!
             }else{
-                return ResourcesCompat.getDrawable(resources, R.drawable.ic_sunshine, null)!!
+                return ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
             }
         }
     }

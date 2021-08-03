@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/weather_totalLayout"
@@ -123,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
-        android:background="@color/gray"
+        android:background="@drawable/bg_weather_weekly"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/wind_speed_layout"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +142,8 @@
             android:id="@+id/feels_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Feels like"
+            android:text="체감온도"
+            android:layout_gravity="center_horizontal"
             android:textColor="@color/white" />
 
         <TextView
@@ -157,7 +159,7 @@
         android:id="@+id/wind_speed_layout"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:background="@color/gray"
+        android:background="@drawable/bg_weather_weekly"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/feels_like_layout"
         app:layout_constraintEnd_toStartOf="@+id/humidity_layout"
@@ -177,8 +179,8 @@
             android:id="@+id/wind_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Wind"
+            android:text="풍속"
+            android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textColor="@color/white" />
 
@@ -187,7 +189,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="5Km/h"
+            android:text="5m/s"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -195,7 +197,7 @@
         android:id="@+id/humidity_layout"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:background="@color/gray"
+        android:background="@drawable/bg_weather_weekly"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/wind_speed_layout"
         app:layout_constraintEnd_toStartOf="@+id/fine_dust_layout"
@@ -215,8 +217,8 @@
             android:id="@+id/humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:text="Humidity"
+            android:text="습도"
+            android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textColor="@color/white" />
 
@@ -233,7 +235,7 @@
         android:id="@+id/fine_dust_layout"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:background="@color/gray"
+        android:background="@drawable/bg_weather_weekly"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/humidity_layout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -242,24 +244,24 @@
         app:layout_constraintTop_toTopOf="@+id/humidity_layout">
 
         <ImageView
-            android:id="@+id/iv_fine_dust"
+            android:id="@+id/iv_clouds"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_dust" />
+            android:src="@drawable/ic_cloudy_white" />
 
         <TextView
-            android:id="@+id/fine_dust"
+            android:id="@+id/clouds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:text="Fine dust"
+            android:text="흐림정도"
+            android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/tv_fine_dust"
+            android:id="@+id/tv_clouds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

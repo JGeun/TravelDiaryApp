@@ -31,8 +31,8 @@ class WeatherAdapter(private val weeklyList : ArrayList<WeeklyWeatherData>) : Re
         val weekDate = "${month}/${day}"
         holder.weekDate.text = weekDate
         Glide.with(holder.itemView.context).load(data.icon).into(holder.weekImage)
-        holder.weekMin.text = data.min.toString()
-        holder.weekMax.text = data.max.toString()
+        holder.weekMin.text = data.min
+        holder.weekMax.text = data.max
     }
 
     override fun getItemCount(): Int = weeklyList.size
