@@ -11,7 +11,7 @@ data class PlaceInfoFolder(var dayPlaceList: ArrayList<PlaceDayInfo> = ArrayList
 //DiaryDataSet
 data class DiaryBulletinData(var planTitle: String, var diaryData: DiaryData)
 
-data class DiaryBaseData(var title: String="", var mainImage: String="", var nickName: String="", var uploadDate: String="",
+data class DiaryBaseData(var title: String="", var mainImage: String="", var userName: String="", var userImage: String="",var uploadDate: String="",
                          var locationTag: String="", var like: Int=0, var comments: Int=0)
 
 data class DiaryData(

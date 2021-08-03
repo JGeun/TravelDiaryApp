@@ -26,7 +26,7 @@ class BulletinFragment : Fragment(){
 
         binding.bulletinRecyclerView.apply{
             setHasFixedSize(true)
-            adapter = BulletinAdapter(MainActivity.allDiaryList)
+            adapter = BulletinAdapter2(MainActivity.allDiaryList)
             layoutManager = LinearLayoutManager(context)
         }
 

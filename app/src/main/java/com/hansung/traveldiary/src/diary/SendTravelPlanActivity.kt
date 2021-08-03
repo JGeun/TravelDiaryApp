@@ -112,6 +112,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
                         DiaryBaseData(
                             diaryTitle,
                             imagePath,
+                            user!!.email.toString(),
                             user!!.displayName.toString(),
                             getTime,
                             "",

@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="10dp">
+
+    <ImageView
+        android:id="@+id/btItem_userImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="@+id/btItem_cardview"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_marginStart="5dp"/>
+
+    <TextView
+        android:id="@+id/btItem_userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/btItem_userImage"
+        app:layout_constraintStart_toEndOf="@+id/btItem_userImage"
+        app:layout_constraintTop_toTopOf="@id/btItem_userImage" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btItem_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btItem_userImage">
+
+        <ImageView
+            android:id="@+id/btItem_iv_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_profile" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/btItem_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:ellipsize="end"
+        android:ems="10"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/btItem_cardview"
+        app:layout_constraintTop_toBottomOf="@+id/btItem_cardview"
+        tools:text="assssssssssssssssssssssssasdas" />
+
+    <TextView
+        android:id="@+id/btItme_tv_contents"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="asdasdasdasdasdasdasdasdasdasdasdasd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btItem_tv_title"
+        android:layout_marginTop="5dp"/>
+    <View
+        android:id="@+id/btItem_line"
+        android:layout_width="0dp"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#4682B4"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btItme_tv_contents" />
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btItem_line">
+
+        <ImageView
+            android:id="@+id/btItem_iv_like"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:srcCompat="@drawable/emptyheart" />
+
+        <TextView
+            android:id="@+id/btItem_tv_likecnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toEndOf="@id/btItem_iv_like"
+            android:text="23"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/btItem_iv_comment"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:srcCompat="@drawable/comment" />
+
+        <TextView
+            android:id="@+id/btItem_tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toEndOf="@+id/btItem_iv_comment"
+            android:text="11"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            tools:layout_editor_absoluteX="253dp" />
+
+        <ImageView
+            android:id="@+id/btItem_iv_share"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@+id/btItem_tv_sharepeople"
+            app:layout_constraintLeft_toLeftOf="@+id/btItem_tv_sharepeople"
+            app:srcCompat="@drawable/ic_edit" />
+
+        <TextView
+            android:id="@+id/btItem_tv_sharepeople"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="11"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            tools:layout_editor_absoluteX="253dp" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
