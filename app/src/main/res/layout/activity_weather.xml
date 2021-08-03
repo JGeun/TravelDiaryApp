@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/weather_totalLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradation_night">
+    android:background="@drawable/gradation_day">
 
     <TextView
         android:id="@+id/weather_place"
@@ -25,13 +27,13 @@
         android:id="@+id/weather_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="Mon,"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/weather_current_time"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weather_place"
-        android:layout_marginTop="5dp"/>
+        app:layout_constraintTop_toBottomOf="@id/weather_place" />
 
     <TextView
         android:id="@+id/weather_current_time"
@@ -50,7 +52,7 @@
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:layout_marginStart="53dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="45dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/weather_day"
         app:srcCompat="@drawable/ic_cloudy_white" />
@@ -60,25 +62,25 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:text="맑음"
         android:fontFamily="@font/main_font2"
+        android:text="맑음"
         android:textColor="@color/white"
         android:textSize="35sp"
-        app:layout_constraintStart_toEndOf="@id/iv_weather_condition"
-        app:layout_constraintBottom_toBottomOf="@id/iv_weather_condition" />
+        app:layout_constraintBottom_toBottomOf="@id/iv_weather_condition"
+        app:layout_constraintStart_toEndOf="@id/iv_weather_condition" />
 
     <TextView
         android:id="@+id/tv_current_temperature"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:text="23°"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/number_font"
+        android:text="23°"
         android:textAlignment="viewStart"
         android:textColor="@color/white"
         android:textSize="140sp"
-        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="40dp"
         app:layout_constraintTop_toBottomOf="@id/iv_weather_condition" />
 
 
@@ -87,20 +89,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:text="23°C"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/number_font"
+        android:text="23°C"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_minimum_temperature"
-        app:layout_constraintStart_toEndOf="@id/tv_current_temperature"
-        android:layout_marginBottom="20dp"/>
+        app:layout_constraintStart_toEndOf="@id/tv_current_temperature" />
 
     <TextView
         android:id="@+id/tv_minimum_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="23°C"
         android:fontFamily="@font/number_font"
+        android:text="23°C"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_current_temperature"
@@ -113,18 +115,17 @@
         android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@id/tv_minimum_temperature"
         app:layout_constraintEnd_toEndOf="@id/tv_maximum_temperature"
-        app:layout_constraintTop_toBottomOf="@id/tv_maximum_temperature"
-        app:layout_constraintStart_toStartOf="@id/tv_maximum_temperature"/>
+        app:layout_constraintStart_toStartOf="@id/tv_maximum_temperature"
+        app:layout_constraintTop_toBottomOf="@id/tv_maximum_temperature" />
 
     <LinearLayout
         android:id="@+id/feels_like_layout"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
+        android:layout_marginTop="20dp"
         android:background="@color/gray"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/weekly_weather_title"
         app:layout_constraintEnd_toStartOf="@+id/wind_speed_layout"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_current_temperature">
 
@@ -147,7 +148,7 @@
             android:id="@+id/feels_like_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
+            android:layout_gravity="center_horizontal"
             android:text="23°C"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -182,10 +183,10 @@
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/tv_like_temperature"
+            android:id="@+id/tv_windSpeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
+            android:layout_gravity="center_horizontal"
             android:text="5Km/h"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -223,7 +224,7 @@
             android:id="@+id/tv_humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
+            android:layout_gravity="center_horizontal"
             android:text="10%"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -261,7 +262,7 @@
             android:id="@+id/tv_fine_dust"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
+            android:layout_gravity="center_horizontal"
             android:text="10%"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -270,45 +271,29 @@
         android:id="@+id/weekly_weather_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weekly Weather"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/main_font2"
+        android:text="주간 날씨"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/weekly_weather_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/feels_like_layout" />
 
-    <LinearLayout
-        android:id="@+id/weekly_weather_layout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weather_rv_weekly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:overScrollMode="never"
+        android:paddingBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weekly_weather_title" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/weather_ex" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/weather_ex" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/weather_ex" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/weather_ex" />
-
-
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weather_rv_weekly" />
 </androidx.constraintlayout.widget.ConstraintLayout>

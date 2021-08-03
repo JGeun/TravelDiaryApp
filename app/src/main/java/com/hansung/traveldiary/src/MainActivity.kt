@@ -26,6 +26,8 @@ import com.hansung.traveldiary.src.travel.TravelBaseFragment
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+data class WeeklyWeatherData(var date: String, var icon : Drawable, var min: Int, var max: Int)
+
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -44,6 +46,13 @@ class MainActivity : AppCompatActivity() {
         var weatherMain : String = "맑음"
         lateinit var weatherIcon : Drawable
         var tempText = "30°C"
+        var maxTempText = "30°C"
+        var minTempText = "30°C"
+        var feelLikeTempText = "30°C"
+        var humidityText = "66%"
+        var windSpeedText = "2.57m/s"
+        var weeklyList = ArrayList<WeeklyWeatherData>()
+
 
         var diaryTitleList = TitleList()
         var planTitleList = TitleList()

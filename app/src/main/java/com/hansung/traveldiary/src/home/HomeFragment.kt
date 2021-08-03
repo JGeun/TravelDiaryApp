@@ -14,10 +14,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentHomeBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.WeeklyWeatherData
 import com.hansung.traveldiary.src.home.adapter.*
 import com.hansung.traveldiary.src.home.model.WeatherInfo
 import com.hansung.traveldiary.src.home.weather.WeatherActivity
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.round
 
 data class  TipData(var image : Drawable, var content: String)
 data class RecommandLocationData(val image : Drawable, val name : String)
@@ -145,9 +151,20 @@ class HomeFragment : Fragment(), HomeView{
     }
 
     override fun onGetWeatherInfoSuccess(response: WeatherInfo) {
-        val temp = ceil(response.current.temp)
+        val temp = floor(response.current.temp).toInt()
+        val maxTemp = ceil(response.daily[0].temp.max).toInt()
+        val minTemp = floor(response.daily[0].temp.min).toInt()
+        val humidity = floor(response.current.humidity)
+        val feels_like = ceil(response.current.feels_like)
+        val windSpeed = ceil(response.current.wind_speed)
+        MainActivity.maxTempText = "$maxTemp°C"
+        MainActivity.minTempText = "$minTemp°C"
+        MainActivity.tempText = "$temp°C"
+        MainActivity.feelLikeTempText = "$feels_like°C"
+        MainActivity.humidityText = "$humidity%"
+        MainActivity.windSpeedText = "$windSpeed" + "m/s"
         MainActivity.weatherId = response.current.weather[0].id.toString()
-        MainActivity.tempText = temp.toInt().toString() + "°C"
+
         binding.homeWeatherTemp.text = MainActivity.tempText
         if(MainActivity.weatherId.substring(0,1).equals("2")){
             MainActivity.weatherMain = "뇌우"
@@ -183,6 +200,17 @@ class HomeFragment : Fragment(), HomeView{
             }
         }
 
+        for(i in 1 until response.daily.size){
+            val dt = response.daily[i].dt
+            val simpleDateFragment = SimpleDateFormat("MM/dd")
+            val date = Date(dt * 1000)
+            val dateStr = simpleDateFragment.format(date)
+            val weekId = response.daily[i].weather[0].id.toString()
+            val icon = checkIcon(weekId)
+            val maxTemp = ceil(response.daily[i].temp.max).toInt()
+            val minTemp = floor(response.daily[i].temp.min).toInt()
+            MainActivity.weeklyList.add(WeeklyWeatherData(dateStr, icon, minTemp, maxTemp))
+        }
         binding.homeWeatherIcon.setImageDrawable(MainActivity.weatherIcon)
         binding.homeWeatherText.text= MainActivity.weatherMain
     }
@@ -195,4 +223,29 @@ class HomeFragment : Fragment(), HomeView{
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun checkIcon(weatherId: String) : Drawable{
+        if(weatherId.substring(0,1).equals("2")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_thunderstorm, null)!!
+        }else if(MainActivity.weatherId.substring(0,1).equals("3")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_drizzling, null)!!
+        }else if(MainActivity.weatherId.substring(0,1).equals("5")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_rain, null)!!
+        }else if(MainActivity.weatherId.substring(0,1).equals("6")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_snow, null)!!
+        }else if(MainActivity.weatherId.equals("800")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_sunshine, null)!!
+        }else if(MainActivity.weatherId.substring(0,1).equals("8")){
+            return ResourcesCompat.getDrawable(resources, R.drawable.ic_cloudy, null)!!
+        }else{
+            if(MainActivity.weatherId.equals("771") || MainActivity.weatherId.equals("781")){
+                return ResourcesCompat.getDrawable(resources, R.drawable.ic_windy, null)!!
+            }else if(MainActivity.weatherId.equals("731") || MainActivity.weatherId.equals("751") || MainActivity.weatherId.equals("761") || MainActivity.weatherId.equals("762")){
+                return ResourcesCompat.getDrawable(resources, R.drawable.ic_dust, null)!!
+            }else if(MainActivity.weatherId.substring(0,1).equals("7")){
+                return ResourcesCompat.getDrawable(resources, R.drawable.ic_fog, null)!!
+            }else{
+                return ResourcesCompat.getDrawable(resources, R.drawable.ic_sunshine, null)!!
+            }
+        }
+    }
 }
