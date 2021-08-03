@@ -84,6 +84,7 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
             val intent = Intent(context, PlanDaySectionActivity::class.java)
             intent.putExtra("title", data.title)
             intent.putExtra("pos", position)
+            intent.putExtra("color", color)
             (context as MainActivity).startActivity(intent)
         }
     }

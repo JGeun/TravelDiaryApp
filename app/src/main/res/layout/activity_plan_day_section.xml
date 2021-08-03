@@ -13,8 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="영진이의 부산여행"
+        android:fontFamily="@font/main_font2"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,14 +31,18 @@
         app:layout_constraintBottom_toBottomOf="@id/addDay_title"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
+    <TextView
         android:id="@+id/ds_iv_send"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:text="완료"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/main_font2"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/addDay_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/addDay_title"
-        app:srcCompat="@android:drawable/ic_menu_send" />
+        app:layout_constraintTop_toTopOf="@+id/addDay_title"/>
 
 
     <TextView

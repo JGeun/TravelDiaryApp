@@ -4,60 +4,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_marginBottom="15dp"
-    android:paddingHorizontal="30dp"
-    android:background="@drawable/shadow"
-    android:gravity="center_vertical"
-    android:paddingVertical="20dp">
+    android:layout_height="60dp"
+    android:layout_marginBottom="25dp"
+    android:gravity="center_vertical">
+
+    <View
+        android:id="@+id/item_bar"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:background="#FAD4AE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/item_adp_dayCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Day - 1"
-        android:fontFamily="@font/main_font"
-        android:textColor="@color/loginTextColor"
-        android:textSize="30sp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:text="Day 1"
+        android:fontFamily="@font/main_font2"
+        android:textColor="@color/black"
+        android:textSize="25sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <ImageView
-        android:id="@+id/item_adp_schedule"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_schedule_white"
-        android:background="#98909F"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:layout_constraintStart_toEndOf="@id/item_bar"/>
 
     <ImageView
         android:id="@+id/item_adp_map"
         android:layout_width="40dp"
         android:layout_height="0dp"
-        android:src="@drawable/ic_map_white"
-        android:background="#98909F"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/item_adp_schedule"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_map_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/item_adp_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="2021-07-19"
-        android:textSize="20sp"
+        android:fontFamily="@font/main_font2"
         android:gravity="center_horizontal"
-        android:fontFamily="@font/main_font"
-        android:textColor="@color/loginTextColor"
-        app:layout_constraintStart_toEndOf="@id/item_adp_dayCount"
-        app:layout_constraintTop_toTopOf="@id/item_adp_dayCount"
-        app:layout_constraintBottom_toBottomOf="@id/item_adp_dayCount"
-        app:layout_constraintEnd_toStartOf="@id/item_adp_map"/>
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:text="2021.07.19"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/item_adp_dayCount"
+        app:layout_constraintTop_toBottomOf="@+id/item_adp_dayCount" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
