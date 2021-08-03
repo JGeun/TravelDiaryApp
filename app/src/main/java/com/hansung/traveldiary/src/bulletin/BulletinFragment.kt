@@ -24,6 +24,7 @@ class BulletinFragment : Fragment(){
         }
 
 
+        println("개수: ${MainActivity.allDiaryList.size}")
         binding.bulletinRecyclerView.apply{
             setHasFixedSize(true)
             adapter = BulletinAdapter2(MainActivity.allDiaryList)
