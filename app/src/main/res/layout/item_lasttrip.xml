@@ -36,6 +36,7 @@
         android:maxLines="2"
         android:textColor="@color/black"
         android:textSize="16sp"
+        android:fontFamily="@font/main_font2"
         app:layout_constraintBottom_toTopOf="@id/btItem_tv_tag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btItem_cardview"
