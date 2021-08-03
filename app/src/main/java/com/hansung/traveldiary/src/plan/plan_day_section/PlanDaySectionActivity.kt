@@ -25,6 +25,7 @@ class PlanDaySectionActivity : AppCompatActivity() {
     private var user : FirebaseUser? = null
     private var db : FirebaseFirestore? = null
     private var placeInfoFolder : PlaceInfoFolder = PlaceInfoFolder()
+    private var color : String? = null
 
     private var count = 1
 
@@ -36,6 +37,7 @@ class PlanDaySectionActivity : AppCompatActivity() {
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
 
         title = intent.getStringExtra("title")
+        color = intent.getStringExtra("color")
         if(title == ""){
             binding.addDayTitle.text = "영진이의 부산여행"
         }else{
@@ -79,6 +81,10 @@ class PlanDaySectionActivity : AppCompatActivity() {
 
     fun getTitleContents() : String?{
         return title
+    }
+
+    fun getColor() : String?{
+        return color
     }
 
 }

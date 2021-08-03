@@ -1,9 +1,11 @@
 package com.hansung.traveldiary.src.plan.plan_day_section
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemPlanDaySectionBinding
 import com.hansung.traveldiary.src.PlaceInfoFolder
 import com.hansung.traveldiary.src.PlanData
@@ -18,7 +20,7 @@ class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.
         val dayText = binding.itemAdpDayCount
         val date = binding.itemAdpDate
         val map = binding.itemAdpMap
-        val schedule = binding.itemAdpSchedule
+        val bar = binding.itemBar
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,13 +30,25 @@ class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context= holder.itemView.context
-        val dayCountText = "Day - " + (position+1).toString()
+        val dayCountText = (position+1).toString()+"일차 여행 코스"
         holder.dayText.text = dayCountText
         val date = placeInfoFolder.dayPlaceList[position].date
         holder.date.text = date
         val day = getDateDay(date)
         println("date: " + date)
         println("day: " + day)
+        val color = (context as PlanDaySectionActivity).getColor()
+        val barColor : Int
+        barColor = when(color){
+            "pink" -> R.color.pink
+            "purple" -> R.color.purple
+            "yellow" -> R.color.yellow
+            "sky" -> R.color.sky
+            "blue" -> R.color.blue
+            "orange" -> R.color.orange
+            else -> R.color.orange
+        }
+        holder.bar.setBackgroundColor(context.resources.getColor(barColor))
 
         val intent = Intent(context, TravelPlanBaseActivity::class.java)
         intent.putExtra("title", (context as PlanDaySectionActivity).getTitleContents())
@@ -43,7 +57,7 @@ class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.
             intent.putExtra("index", position)
             (context as PlanDaySectionActivity).startActivity(intent)
         }
-        holder.schedule.setOnClickListener{
+        holder.itemView.setOnClickListener{
             intent.putExtra("menu", "schedule")
             intent.putExtra("index", position)
             (context as PlanDaySectionActivity).startActivity(intent)
