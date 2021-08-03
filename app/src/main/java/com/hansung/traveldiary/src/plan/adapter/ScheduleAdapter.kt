@@ -1,6 +1,8 @@
 package com.hansung.traveldiary.src.plan.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,6 +16,8 @@ class ScheduleAdapter(private val placeViewModel : SharedPlaceViewModel) : Recyc
     class ViewHolder(val binding : ItemScheduleBinding) : RecyclerView.ViewHolder(binding.root) {
         val location : TextView = binding.itemScheduleLocation
         val deleteIcon : ImageView = binding.itemScheduleDelete
+        val topBar : ImageView = binding.topBar
+        val bottomBar : ImageView = binding.bottomBar
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,6 +31,10 @@ class ScheduleAdapter(private val placeViewModel : SharedPlaceViewModel) : Recyc
 //            placeViewModel.removePlace(position)
 //            notifyDataSetChanged()
 //        }
+        if(position==0)
+            holder.topBar.visibility = View.INVISIBLE
+        if(position==placeViewModel.items.dayPlaceList[position].placeInfoArray.size-1)
+            holder.bottomBar.visibility = View.INVISIBLE
     }
 
     override fun getItemCount(): Int = placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray.size
