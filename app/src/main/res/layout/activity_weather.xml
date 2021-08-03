@@ -136,7 +136,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_temperature" />
+            android:src="@drawable/ic_feel_like_temperature_white" />
 
         <TextView
             android:id="@+id/feels_like"
@@ -211,7 +211,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_humidity" />
+            android:src="@drawable/ic_humidity_white" />
 
         <TextView
             android:id="@+id/humidity"
