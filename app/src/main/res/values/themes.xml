@@ -59,4 +59,9 @@
         <item name="android:fontFamily">@font/main_font2</item>
         <item name="background">@color/black</item>
     </style>
+    <style name="TabText" parent="android:TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/main_font2</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>
