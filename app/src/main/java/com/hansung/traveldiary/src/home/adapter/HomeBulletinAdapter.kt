@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMainBinding.inflate
@@ -22,12 +23,13 @@ class HomeBulletinAdapter(private val bulletinData: ArrayList<HomeBulletinData>)
         val bulletinImage : ImageView
         val bulletinTitle: TextView
         val bulletinContents: TextView
-
+        val userProfileImage:ImageView
         init {
             // Define click listener for the ViewHolder's View.
             bulletinImage = binding.itemHbImage
             bulletinTitle = binding.itemHbTitle
             bulletinContents = binding.itemHbContents
+            userProfileImage=binding.userImage
         }
     }
 
@@ -35,13 +37,13 @@ class HomeBulletinAdapter(private val bulletinData: ArrayList<HomeBulletinData>)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val binding = ItemHomebulletinBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
-
         return ViewHolder(binding)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.itemView.context).load(bulletinData[position].image).apply(RequestOptions()).into(holder.bulletinImage)
+        Glide.with(holder.itemView.context).load(R.drawable.bg_profile).circleCrop().into(holder.userProfileImage)
         holder.bulletinTitle.text = bulletinData[position].title
         holder.bulletinContents.text = bulletinData[position].contents
     }

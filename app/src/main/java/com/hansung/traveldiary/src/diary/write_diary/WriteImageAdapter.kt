@@ -3,11 +3,8 @@ package com.hansung.traveldiary.src.diary.write_diary
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.ItemDiaryPictureBinding
 import com.hansung.traveldiary.databinding.ItemWriteDiaryImageBinding
 
 class WriteImageAdapter(val imagePathArray: ArrayList<String>) : RecyclerView.Adapter<WriteImageAdapter.PagerViewHolder>() {
