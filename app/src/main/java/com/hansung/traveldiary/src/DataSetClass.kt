@@ -32,7 +32,7 @@ data class DiaryInfo(
 )
 
 //PlanDataSet
-data class PlanBaseData(var color: String = "", var startDate: String = "", var endDate: String = "", var area: String="서울", var peopleCount: Int= 1)
+data class PlanBaseData(var title: String="", var color: String = "", var startDate: String = "", var endDate: String = "", var area: String="서울", var peopleCount: Int= 1)
 
 data class PlanData(
     var planBaseData: PlanBaseData = PlanBaseData(),

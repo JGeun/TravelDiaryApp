@@ -52,10 +52,7 @@ class TravelPlanSectionFragment : Fragment() {
             binding.planSectionRecyclerView.isVisible = true
         }
         println("TravelPlanSection 들어옴")
-//        MainActivity.planBookList.sortBy { it.planTotalData.startDate }
-//        for(list in MainActivity.planBookList){
-//            println(list.title)
-//        }
+
 
         binding.planSectionRecyclerView.apply {
             setHasFixedSize(true)

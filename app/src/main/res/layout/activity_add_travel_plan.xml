@@ -66,6 +66,7 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/add_plan_btn"
                     android:ellipsize="end"
+                    android:fontFamily="@font/main_font2"
                     android:inputType="textPersonName"
                     android:maxLines="1"
                     android:paddingHorizontal="15dp"
@@ -94,10 +95,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:textColor="@color/black"
+                        android:fontFamily="@font/main_font2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="ff" />
+                        android:text=""/>
 
                     <ImageView
                         android:layout_width="10dp"
@@ -140,7 +142,8 @@
                         android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView2"
-                        tools:text="dd" />
+                        tools:text=""
+                        android:fontFamily="@font/main_font2"/>
 
                     <ImageView
                         android:id="@+id/atp_datepicker"
@@ -169,10 +172,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/add_plan_btn"
-                    tools:text="dd"
+                    tools:text=""
                     android:textSize="14sp"
                     android:inputType="number"
                     android:paddingHorizontal="15dp"
+                    android:fontFamily="@font/main_font2"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -342,7 +346,7 @@
                     android:background="@drawable/radius_btn"
                     android:fontFamily="@font/main_font2"
                     android:text="추가"
-                    android:textColor="@color/black"
+                    android:textColor="#333333"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>

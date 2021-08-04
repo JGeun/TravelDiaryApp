@@ -19,7 +19,6 @@ import com.hansung.traveldiary.src.home.HomeFragment
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMainBinding
 import com.hansung.traveldiary.src.bulletin.BulletinFragment
-import com.hansung.traveldiary.src.plan.diary
 import com.hansung.traveldiary.src.profile.ProfileFragment
 import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
 import com.hansung.traveldiary.src.travel.TravelBaseFragment
@@ -37,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private var db: FirebaseFirestore? = null
 
     private lateinit var addNewPlanBookTask: ActivityResultLauncher<Intent>
+    private lateinit var updatePlanBookTask: ActivityResultLauncher<Intent>
     private val TAG = "MainActivity"
     private val userList = UserEmailList()
 
@@ -122,8 +122,17 @@ class MainActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 println("resultcode 들어옴")
-                updatePlanBookList(result.data?.getStringExtra("title").toString(), "add")
+                addPlan2PlanBookList(result.data?.getStringExtra("title").toString(), "add")
+            }
+        }
 
+        updatePlanBookTask = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val index = result.data?.getIntExtra("index", 0)!!
+                planBookList.removeAt(index)
+                addPlan2PlanBookList(result.data?.getStringExtra("title").toString(), "add")
             }
         }
     }
@@ -136,6 +145,13 @@ class MainActivity : AppCompatActivity() {
 
     fun makePlanBook() {
         addNewPlanBookTask.launch(Intent(this@MainActivity, AddTravelPlanActivity::class.java))
+    }
+
+    fun updatePlanBook(index: Int, modify: Boolean){
+        val intent =Intent(this@MainActivity, AddTravelPlanActivity::class.java)
+        intent.putExtra("index", index)
+        intent.putExtra("modify", true)
+        updatePlanBookTask.launch(intent)
     }
 
     fun getDBData() {
@@ -165,11 +181,11 @@ class MainActivity : AppCompatActivity() {
 
     fun getPlanAllData() {
         for (title in planTitleList.titleFolder) {
-            updatePlanBookList(title)
+            addPlan2PlanBookList(title)
         }
     }
 
-    fun updatePlanBookList(title: String, check: String = "default") {
+    fun addPlan2PlanBookList(title: String, check: String = "default") {
         val userDocRef = db!!.collection("User").document("UserData")
         val planDocRef = userDocRef.collection(user!!.email.toString()).document("Plan")
         var planBaseData: PlanBaseData? = null

@@ -1,7 +1,10 @@
 package com.hansung.traveldiary.src.travel.AddBook
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -26,8 +29,8 @@ class AddTravelPlanActivity : AppCompatActivity() {
         ActivityAddTravelPlanBinding.inflate(layoutInflater)
     }
 
-    private var user : FirebaseUser? = null
-    private var db : FirebaseFirestore? = null
+    private var user: FirebaseUser? = null
+    private var db: FirebaseFirestore? = null
     private var emailList = UserEmailList()
     private var titleList = TitleList()
     private val TAG = "AddPlanActivity"
@@ -36,14 +39,28 @@ class AddTravelPlanActivity : AppCompatActivity() {
     var date = ""
     var startdate = ""
     var enddate = ""
-    private val areaViewModel : AreaViewModel by viewModels()
+    private val areaViewModel: AreaViewModel by viewModels()
 
+    private var isModify = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
+
+        isModify = intent.getBooleanExtra("modify", false)
+        if (isModify) {
+            val index = intent.getIntExtra("index", 0)
+            binding.atpTitle.setText(MainActivity.planBookList[index].planData.planBaseData.title)
+            val data = MainActivity.planBookList[index].planData.planBaseData
+            binding.atpPeople.setText(data.peopleCount.toString())
+            areaViewModel.setArea(data.area)
+            binding.atpDate.text = data.startDate + " ~ " + data.endDate
+            startdate = data.startDate
+            enddate = data.endDate
+            binding.addPlanBtn.text = "수정"
+        }
 
         getTitleList()
         getEmailList()
@@ -53,14 +70,14 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
         binding.atpTitle.onFocusChangeListener =
             View.OnFocusChangeListener { v, hasFocus ->
-                if(!hasFocus){
+                if (!hasFocus) {
                     inputMethodManager.hideSoftInputFromWindow(binding.atpTitle.windowToken, 0)
                 }
             }
 
         binding.atpPeople.onFocusChangeListener =
             View.OnFocusChangeListener { v, hasFocus ->
-                if(!hasFocus){
+                if (!hasFocus) {
                     inputMethodManager.hideSoftInputFromWindow(binding.atpTitle.windowToken, 0)
                 }
             }
@@ -89,8 +106,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
             var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
                 startdate = String.format("$y-%02d-%02d", m + 1, d)
-                date = ""
-                date += String.format("$y-%02d-%02d", m + 1, d)
+                date = String.format("$y-%02d-%02d", m + 1, d)
                 Log.d("시작날짜", date)
                 binding.atpDate.setText(date)
                 Log.d("달력", "OK")
@@ -110,16 +126,19 @@ class AddTravelPlanActivity : AppCompatActivity() {
             var startDate = startdate
             var endDate = enddate
 
-
             val userDocRef = db!!.collection("User").document("UserData")
 
             val email = user!!.email.toString()
-            if(!emailList.emailFolder.contains(email)){
+            if (!emailList.emailFolder.contains(email)) {
                 emailList.emailFolder.add(email)
                 userDocRef.set(emailList)
             }
 
-            titleList.titleFolder.add(title)
+            val docPlanRef = userDocRef.collection(user!!.email.toString()).document("Plan")
+            if(!isModify) {
+                titleList.titleFolder.add(title)
+                docPlanRef.set(titleList)
+            }
 
             var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
             val startDateFormat = simpleDateFormat.parse("$startDate 00:00:00")!!
@@ -127,31 +146,50 @@ class AddTravelPlanActivity : AppCompatActivity() {
             val calcDate =
                 ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
 
-//            var planTotalData = PlanTotalData(color, startDate, endDate, dayList)
-//            MainActivity.planBookList.add(PlanBookData(title, planTotalData))
-
-            val docPlanRef = userDocRef.collection(user!!.email.toString()).document("Plan")
-            docPlanRef.set(titleList)
-
-
-            docPlanRef.collection(title).document("BaseData").set(
-                PlanBaseData(
-                    color,
-                    startDate,
-                    endDate,
-                    area!!,
-                    1
+            if(isModify){
+                val index = intent.getIntExtra("index", 0)
+                docPlanRef.collection(MainActivity.planBookList[index].title).document("BaseData").set(
+                    PlanBaseData(
+                        title,
+                        color,
+                        startDate,
+                        endDate,
+                        area!!,
+                        1
+                    )
                 )
-            )
+            }else{
+                docPlanRef.collection(title).document("BaseData").set(
+                    PlanBaseData(
+                        title,
+                        color,
+                        startDate,
+                        endDate,
+                        area!!,
+                        1
+                    )
+                )
+            }
+
+
             val dayList = ArrayList<PlaceDayInfo>()
             for (i in 0..calcDate) {
                 dayList.add(PlaceDayInfo(afterDate(startDate, i), arrayListOf()))
             }
-            docPlanRef.collection(title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
+
+            val resultIntent = Intent()
+            if(isModify){
+                val index = intent.getIntExtra("index", 0)
+                docPlanRef.collection(MainActivity.planBookList[index].title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
+                resultIntent.putExtra("title", MainActivity.planBookList[index].title)
+                resultIntent.putExtra("index", index)
+            }else{
+                docPlanRef.collection(title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
+                resultIntent.putExtra("title", title)
+            }
 
 
-            val intent = intent.putExtra("title", title)
-            setResult(RESULT_OK, intent)
+            setResult(RESULT_OK, resultIntent)
             finish()
         }
 
@@ -168,8 +206,8 @@ class AddTravelPlanActivity : AppCompatActivity() {
         }
     }
 
-    fun setArea(area: String){
-        this.area = area
+    fun updateFirebaseStore(title: String, startDate: String, endDate: String) {
+
     }
 
     fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
@@ -248,12 +286,12 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
     }
 
-    fun getEmailList(){
+    fun getEmailList() {
         db!!.collection("User").document("UserData")
             .get()
             .addOnSuccessListener { result ->
                 val data = result.data?.get("emailFolder")
-                if(data != null){
+                if (data != null) {
                     emailList.emailFolder = data as ArrayList<String>
                     println("size: ${emailList.emailFolder.size}")
                     println("content: ${emailList.emailFolder[0]}")
@@ -264,13 +302,13 @@ class AddTravelPlanActivity : AppCompatActivity() {
             }
     }
 
-    fun getTitleList(){
+    fun getTitleList() {
         val userDocRef = db!!.collection("User").document("UserData")
         userDocRef.collection(user!!.email.toString()).document("Plan")
             .get()
             .addOnSuccessListener { result ->
                 val data = result.data?.get("titleFolder")
-                if(data != null){
+                if (data != null) {
                     titleList.titleFolder = data as ArrayList<String>
                     println("size: ${titleList.titleFolder.size}")
                     println("content: ${titleList.titleFolder[0]}")

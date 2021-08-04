@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
+import com.hansung.traveldiary.config.DeleteBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemPlanSectionBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.PlanBookData
 import com.hansung.traveldiary.src.plan.plan_day_section.PlanDaySectionActivity
+import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
 
 class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
     RecyclerView.Adapter<PlanSectionAdapter.ViewHolder>() {
@@ -34,6 +37,7 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
         var planSectionEndMonth : TextView
         var planSectionStartDate : TextView
         var planSectionEndDate : TextView
+        var planSectionItemCheck : ImageView
 
         init {
             planSectionImage = binding.itemPlanImage
@@ -42,6 +46,7 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
             planSectionEndMonth = binding.itemEndMonth
             planSectionStartDate = binding.itemStartDate
             planSectionEndDate = binding.itemEndDate
+            planSectionItemCheck = binding.itemCheck
         }
     }
 
@@ -71,7 +76,7 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
         }
         Glide.with(holder.itemView.context).load(image).apply(RequestOptions()).into(holder.planSectionImage)
-        holder.planSectionTitle.text = data.title
+        holder.planSectionTitle.text = data.planData.planBaseData.title
         val startMonth = baseData.startDate.substring(5, 7).toInt()
         val endMonth = baseData.endDate.substring(5, 7).toInt()
         holder.planSectionStartMonth.text = monthUnit[startMonth-1]
@@ -86,6 +91,21 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
             intent.putExtra("pos", position)
             intent.putExtra("color", color)
             (context as MainActivity).startActivity(intent)
+        }
+
+        holder.planSectionItemCheck.setOnClickListener{
+            val deleteBtmSheetDialogFragment = DeleteBottomDialogFragment{
+                when(it){
+                    0 -> {
+                        val intent =Intent(context, AddTravelPlanActivity::class.java)
+                        (context as MainActivity).updatePlanBook(position, true)
+                    }
+                    1 -> {
+
+                    }
+                }
+            }
+            deleteBtmSheetDialogFragment.show((context as MainActivity).supportFragmentManager, deleteBtmSheetDialogFragment.tag)
         }
     }
 
