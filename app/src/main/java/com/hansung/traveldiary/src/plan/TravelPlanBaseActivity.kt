@@ -1,16 +1,12 @@
 package com.hansung.traveldiary.src.plan
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,7 +16,6 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelPlanBaseBinding
 import com.hansung.traveldiary.src.PlaceInfoFolder
-import com.hansung.traveldiary.src.PlanData
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 import com.hansung.traveldiary.util.StatusBarUtil
 import retrofit2.Retrofit
@@ -41,6 +36,7 @@ class TravelPlanBaseActivity : AppCompatActivity() {
     private lateinit var mapDrawable : Drawable
     private lateinit var scheduleDrawable : Drawable
     private val userPlanDataModel : SharedPlaceViewModel by viewModels()
+    private var barColor : String? = null
 
     private val TAG = "TravelPlanBaseActivity"
 
@@ -64,6 +60,7 @@ class TravelPlanBaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         println("TravelPlanBaseActivity create")
+        barColor = intent.getStringExtra("barcolor")
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
@@ -133,4 +130,9 @@ class TravelPlanBaseActivity : AppCompatActivity() {
         super.onStart()
         println("TravelPlanBaseActivity start")
     }
+
+    fun getColor() : String?{
+        return barColor
+    }
+
 }
