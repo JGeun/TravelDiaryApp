@@ -15,8 +15,11 @@
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.home.weather.WeatherActivity"></activity>
-        <activity android:name=".src.diary.write_diary.WriteDiaryActivity"></activity>
+        <activity android:name=".src.diary.write_diary.DiaryImageEditActivity">
+
+        </activity>
+        <activity android:name=".src.home.weather.WeatherActivity" />
+        <activity android:name=".src.diary.write_diary.WriteDiaryActivity" />
         <activity android:name=".src.bulletin.ShowDiaryActivity" />
         <activity android:name=".src.home.WebViewActivity" />
         <activity android:name=".src.diary.MyDiaryDaySectionActivity" />
@@ -47,9 +50,7 @@
         <activity android:name=".src.plan.TravelPlanActivity" />
         <activity
             android:name=".src.MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
