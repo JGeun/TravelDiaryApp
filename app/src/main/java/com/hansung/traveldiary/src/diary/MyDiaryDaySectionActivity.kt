@@ -53,7 +53,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-    }e
+    }
     override fun onBackPressed() {
         super.onBackPressed()
         finish()

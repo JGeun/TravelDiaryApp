@@ -36,10 +36,6 @@ class SelectDayAdapter(private val daysData: ArrayList<String>, private var area
         holder.days.text = data
 
         val context = holder.itemView.context
-        holder.itemView.setOnClickListener {
-            areaViewModel.setArea(data)
-            btmDialog.dismiss()
-        }
 
         holder.itemView.setOnClickListener {
 

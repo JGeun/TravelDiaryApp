@@ -4,25 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import androidx.activity.viewModels
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentMakeDiaryDaySectionBinding
-import com.hansung.traveldiary.databinding.FragmentWriteDiaryBtmSheetBinding
 import com.hansung.traveldiary.src.DiaryInfoFolder
-import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.travel.AddBook.SelectAreaBtmDialog
 
 class WriteDayDiaryFragment(val diaryInfoFolder: DiaryInfoFolder, val day: Int, val index: Int) : Fragment() {
     private lateinit var btmSheetFragment:BottomSheetFragment
     private lateinit var viewModel:WriteViewModel
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
