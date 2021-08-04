@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hansung.traveldiary.databinding.BottomSheetDialogFragmentBinding
 import com.hansung.traveldiary.src.travel.AddBook.AreaViewModel
 
-class SelectDayBtmSheetFragment:BottomSheetDialogFragment() {
+class SelectDayBtmSheetFragment(val size: Int) : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetDialogFragmentBinding
     var dayList = ArrayList<String>()
     private val selecyDayViewModel : SelectDayViewModel by activityViewModels()
@@ -40,8 +40,8 @@ class SelectDayBtmSheetFragment:BottomSheetDialogFragment() {
         behavior.state = BottomSheetBehavior.STATE_DRAGGING
     }
 
-    fun initRegion(){
-        for(i in 1..7){
+    private fun initRegion(){
+        for(i in 1..size){
             dayList.add("${i}일차 일기")
         }
     }

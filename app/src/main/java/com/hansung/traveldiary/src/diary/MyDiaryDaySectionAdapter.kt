@@ -2,6 +2,7 @@ package com.hansung.traveldiary.src.diary
 
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
@@ -52,7 +53,9 @@ class MyDiaryDaySectionAdapter(
                 intent = Intent(context, WriteDiaryActivity::class.java)
             }
             intent.putExtra("index", index)
-            intent.putExtra("day", position)
+            intent.putExtra("day", position+1)
+            Log.d("과정", "클릭-넘어온Index: ${index}")
+            Log.d("과정", "클릭-Day: ${position+1}")
             context.startActivity(intent)
         }
 

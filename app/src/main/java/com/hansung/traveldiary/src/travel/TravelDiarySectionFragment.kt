@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.databinding.FragmentTravelDiarySectionBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.travel.adapter.TravelDiarySectionAdapter
+import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
 
 class TravelDiarySectionFragment : Fragment() {
     private lateinit var binding : FragmentTravelDiarySectionBinding
@@ -34,7 +34,7 @@ class TravelDiarySectionFragment : Fragment() {
         binding.diarySectionRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = TravelDiarySectionAdapter(MainActivity.myDiaryList)
+            adapter = DiarySectionAdapter(MainActivity.myDiaryList)
         }
 
         return binding.root

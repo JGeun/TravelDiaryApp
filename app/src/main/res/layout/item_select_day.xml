@@ -11,8 +11,9 @@
         android:layout_height="45dp"
         android:gravity="center"
         android:text="일차"
+        android:fontFamily="@font/main_font2"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

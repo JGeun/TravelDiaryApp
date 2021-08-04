@@ -16,6 +16,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentTravelPlanSectionBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.PlanBaseData
+import com.hansung.traveldiary.src.PlanBookData
 import com.hansung.traveldiary.src.travel.adapter.PlanSectionAdapter
 import com.naver.maps.map.util.FusedLocationSource
 
@@ -53,6 +55,10 @@ class TravelPlanSectionFragment : Fragment() {
         }
         println("TravelPlanSection 들어옴")
 
+        MainActivity.planBookList.sortedBy{it.planData.planBaseData.startDate}
+        for(i in 0 until MainActivity.planBookList.size){
+            println(MainActivity.planBookList[i].title)
+        }
 
         binding.planSectionRecyclerView.apply {
             setHasFixedSize(true)
