@@ -2,11 +2,7 @@ package com.hansung.traveldiary.src.diary.write_diary
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.activity.viewModels
-import androidx.fragment.app.commit
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityWriteDiaryBinding
 import com.hansung.traveldiary.src.MainActivity
@@ -17,7 +13,7 @@ class WriteDiaryActivity : AppCompatActivity() {
         ActivityWriteDiaryBinding.inflate(layoutInflater)
     }
 
-    private val viewModel : WriteViewModel by viewModels()
+    private val viewModel : SelectDayViewModel by viewModels()
 
     companion object{
         val fragmentArray = ArrayList<WriteDayDiaryFragment>()
@@ -37,24 +33,13 @@ class WriteDiaryActivity : AppCompatActivity() {
         }
 
         println("onCreate")
-        var transaction =
-            supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[viewModel.data.value!!])
+        val transaction = supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[viewModel.dayData.value!!])
         transaction.commit()
 
-        viewModel.data.observe(this){
-            val bundle=Bundle()
-            println(bundle.getInt("day"))
-            println("***********************************")
-            println(viewModel.data.value)
-            var transaction =
-                supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[viewModel.data.value!!])
-            transaction.commit()
-
+        viewModel.dayData.observe(this){
+            val transaction2 = supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[viewModel.dayData.value!!-1])
+            transaction2.commit()
         }
-
-
-        //binding.uploadDiarySpinner.adapter =
-//            ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, spinnerArray)
     }
 }
 

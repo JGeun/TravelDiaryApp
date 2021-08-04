@@ -1,19 +1,13 @@
 package com.hansung.traveldiary.src.diary.write_diary
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.hansung.traveldiary.databinding.ItemSelectAreaBinding
 import com.hansung.traveldiary.databinding.ItemSelectDayBinding
 import com.hansung.traveldiary.src.travel.AddBook.AreaViewModel
-import com.hansung.traveldiary.src.travel.AddBook.SelectAreaBtmDialog
 
-class SelectDayAdapter(private val daysData: ArrayList<String>, private var areaViewModel: AreaViewModel, private val btmDialog: BottomSheetFragment) : RecyclerView.Adapter<SelectDayAdapter.ViewHolder>() {
-    private lateinit var viewModel:WriteViewModel
+class SelectDayAdapter(private val daysData: ArrayList<String>, private var viewModel: SelectDayViewModel, private val btmDialog: SelectDayBtmSheetFragment) : RecyclerView.Adapter<SelectDayAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemSelectDayBinding) : RecyclerView.ViewHolder(binding.root) {
         val days : TextView
@@ -31,21 +25,9 @@ class SelectDayAdapter(private val daysData: ArrayList<String>, private var area
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        viewModel = WriteViewModel()
-        val data = daysData.get(position)
-        holder.days.text = data
-
-        val context = holder.itemView.context
-        holder.itemView.setOnClickListener {
-            areaViewModel.setArea(data)
-            btmDialog.dismiss()
-        }
-
-        holder.itemView.setOnClickListener {
-
-            println(viewModel.data.value)
-            viewModel.data.value=position
-
+        holder.days.text = daysData.get(position)
+        holder.days.setOnClickListener{
+            viewModel.setDay(position+1)
         }
     }
 
