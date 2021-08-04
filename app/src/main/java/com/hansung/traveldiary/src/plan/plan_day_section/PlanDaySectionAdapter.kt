@@ -60,6 +60,7 @@ class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.
         holder.itemView.setOnClickListener{
             intent.putExtra("menu", "schedule")
             intent.putExtra("index", position)
+            intent.putExtra("barcolor", color)
             (context as PlanDaySectionActivity).startActivity(intent)
         }
 

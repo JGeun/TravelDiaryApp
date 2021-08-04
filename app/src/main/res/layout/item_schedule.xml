@@ -7,46 +7,46 @@
     android:paddingHorizontal="30dp">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/dot_img"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:src="@drawable/ic_dot"
+        android:background="@drawable/purple_dot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <View
         android:id="@+id/top_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="3dp"
+        android:layout_height="25dp"
         android:layout_marginBottom="3dp"
-        android:src="@drawable/ic_bar"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3" />
+        android:background="@color/purple"
+        app:layout_constraintEnd_toEndOf="@+id/dot_img"
+        app:layout_constraintStart_toStartOf="@+id/dot_img"
+        app:layout_constraintBottom_toTopOf="@+id/dot_img" />
 
-    <ImageView
+    <View
         android:id="@+id/bottom_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="3dp"
+        android:layout_height="25dp"
+        android:background="@color/purple"
         android:layout_marginTop="3dp"
-        android:src="@drawable/ic_bar"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintEnd_toEndOf="@+id/dot_img"
+        app:layout_constraintStart_toStartOf="@+id/dot_img"
+        app:layout_constraintTop_toBottomOf="@+id/dot_img" />
 
     <TextView
         android:id="@+id/item_schedule_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:fontFamily="@font/main_font2"
         android:text="지역이름"
+        android:layout_marginStart="10dp"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/dot_img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
