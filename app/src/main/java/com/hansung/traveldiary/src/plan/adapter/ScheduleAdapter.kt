@@ -57,10 +57,10 @@ class ScheduleAdapter(private val placeViewModel : SharedPlaceViewModel) : Recyc
 
 
         holder.location.text = placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray[position].placeName
-//        holder.deleteIcon.setOnClickListener{
-//            placeViewModel.removePlace(position)
-//            notifyDataSetChanged()
-//        }
+        holder.deleteIcon.setOnClickListener{
+            placeViewModel.removePlace(TravelPlanBaseActivity.index, position)
+            notifyDataSetChanged()
+        }
         Log.d("리스트", placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray.size.toString())
         if(position==0)
             holder.topBar.visibility = View.INVISIBLE

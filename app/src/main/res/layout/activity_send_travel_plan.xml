@@ -23,9 +23,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="여행 완료?"
+            android:text="여행 완료"
+            android:fontFamily="@font/main_font2"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
@@ -33,6 +34,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
             android:text="대표 이미지"
+            android:textSize="16sp"
+            android:fontFamily="@font/main_font2"
             android:textColor="@color/black" />
 
         <com.google.android.material.card.MaterialCardView
@@ -60,6 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="여행 제목"
+            android:fontFamily="@font/main_font2"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginTop="30dp"/>
 
@@ -76,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="해시태그"
+            android:textSize="16sp"
+            android:fontFamily="@font/main_font2"
             android:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -94,7 +101,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="20dp"
             android:background="@drawable/radius_btn"
-            android:fontFamily="@font/main_font"
+            android:fontFamily="@font/main_font2"
             android:text="추가"
             android:textColor="@color/black"
             android:textSize="16sp"

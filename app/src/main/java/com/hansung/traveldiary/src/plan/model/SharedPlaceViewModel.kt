@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.plan.model
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hansung.traveldiary.src.PlaceDayInfo
@@ -25,6 +26,12 @@ class SharedPlaceViewModel : ViewModel() {
 
     fun putPlaceDayInfo(placeDayInfo : PlaceDayInfo){
         items.dayPlaceList.add(placeDayInfo)
+        userPlanData.value = items
+    }
+
+    fun removePlace(index: Int, position : Int){
+        Log.d("장소 index", position.toString())
+        items.dayPlaceList[index].placeInfoArray.removeAt(position)
         userPlanData.value = items
     }
 }

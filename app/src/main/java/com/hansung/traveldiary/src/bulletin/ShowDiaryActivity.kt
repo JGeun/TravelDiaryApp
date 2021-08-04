@@ -36,5 +36,8 @@ class ShowDiaryActivity : AppCompatActivity(){
         binding.sdViewPager.adapter= ShowDiaryVPAdapter(diaryDayData.diaryInfo.imagePathArray)
         binding.sdViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.sdIndicator.setViewPager(binding.sdViewPager)
+        binding.sdIvBack.setOnClickListener {
+            finish()
+        }
     }
 }
