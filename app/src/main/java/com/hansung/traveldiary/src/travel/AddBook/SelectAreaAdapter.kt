@@ -1,13 +1,12 @@
 package com.hansung.traveldiary.src.travel.AddBook
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ItemSelectAreaBinding
 
-class SelectAreaAdapter(private val regionData: ArrayList<String>, private var areaViewModel: AreaViewModel, private val btmDialog : SelectAreaBtmDialog) : RecyclerView.Adapter<SelectAreaAdapter.ViewHolder>() {
+class SelectAreaAdapter(private val regionData: ArrayList<String>, private var areaViewModel: AreaViewModel, private val btmDialog: SelectAreaBtmDialog) : RecyclerView.Adapter<SelectAreaAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemSelectAreaBinding) : RecyclerView.ViewHolder(binding.root) {
         val region : TextView
 

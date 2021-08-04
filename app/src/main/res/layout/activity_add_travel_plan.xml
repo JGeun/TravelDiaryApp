@@ -84,6 +84,7 @@
                     android:textColor="@color/black" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/day_select_layou"
                     android:layout_width="270dp"
                     android:layout_height="40dp"
                     android:layout_marginBottom="20dp"

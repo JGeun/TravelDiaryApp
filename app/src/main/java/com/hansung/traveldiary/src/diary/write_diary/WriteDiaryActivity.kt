@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.fragment.app.commit
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityWriteDiaryBinding
 import com.hansung.traveldiary.src.MainActivity
@@ -37,44 +38,23 @@ class WriteDiaryActivity : AppCompatActivity() {
 
         println("onCreate")
         var transaction =
-            supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[0])
+            supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[viewModel.data.value!!])
         transaction.commit()
 
         viewModel.data.observe(this){
-            println("observe")
-            println("value: ${viewModel.data.value}")
+            val bundle=Bundle()
+            println(bundle.getInt("day"))
+            println("***********************************")
+            println(viewModel.data.value)
             var transaction =
                 supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[viewModel.data.value!!])
             transaction.commit()
+
         }
-//        binding.uploadDiarySpinner.adapter =
+
+
+        //binding.uploadDiarySpinner.adapter =
 //            ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, spinnerArray)
-//        //스피너 선택에 따른 화면전환
-
-//        transaction.commit()
-//        binding.uploadDiarySpinner.onItemSelectedListener =
-//            object : AdapterView.OnItemSelectedListener {
-//                override fun onItemSelected(
-//                    parent: AdapterView<*>?,
-//                    view: View?,
-//                    position: Int,
-//                    id: Long
-//                ) {
-//                    //스피너를 클릭하면서 발생하는 화면 전환
-//                    transaction = supportFragmentManager.beginTransaction()
-//                        .replace(R.id.framelayout, fragmentArray[position])
-//                    transaction.commit()
-//                    println(position)
-//                }
-//
-//                override fun onNothingSelected(parent: AdapterView<*>?) {
-//                    transaction = supportFragmentManager.beginTransaction()
-//                        .replace(R.id.framelayout, fragmentArray[0])
-//                    transaction.commit()
-//                    println("nothing 0")
-//                }
-//            }
-
     }
 }
 

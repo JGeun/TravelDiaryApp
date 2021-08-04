@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.diary
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -50,6 +51,9 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }e
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
