@@ -13,28 +13,24 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlanMapBinding
-import com.hansung.traveldiary.src.PlaceDayInfo
 import com.hansung.traveldiary.src.PlaceInfo
 import com.hansung.traveldiary.src.plan.model.*
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
-import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.overlay.PathOverlay
 import com.naver.maps.map.util.FusedLocationSource
-import okhttp3.internal.notify
 
 class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView {
     private lateinit var binding : FragmentPlanMapBinding
@@ -134,6 +130,8 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
             if(placeInfoArray.size >= 2){
                 if(path == null){
                     path = PathOverlay()
+                    path!!.outlineWidth = 0
+                    path!!.color = ResourcesCompat.getColor(resources, getColor(), null)
                     path!!.coords = latLngList
                     path!!.map = naverMap
                 }else
@@ -235,6 +233,8 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
             }else if(placeInfoArray.size >= 2){
                 if(path == null){
                     path = PathOverlay()
+                    path!!.outlineWidth = 0
+                    path!!.color = ResourcesCompat.getColor(resources, getColor(), null)
                 }
                 path!!.coords = latLngList
                 path!!.map = naverMap
@@ -300,5 +300,19 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
 
     override fun onGetKeywordSearchFailure(message: String) {
         showCustomToast("오류 : $message")
+    }
+
+    fun getColor() : Int{
+        val color = (context as TravelPlanBaseActivity).getColor()
+        Log.d("체크", "Map color: $color")
+        return when(color){
+            "pink" -> R.color.pink
+            "purple" -> R.color.purple
+            "yellow" -> R.color.yellow
+            "sky" -> R.color.sky
+            "blue" -> R.color.blue
+            "orange" -> R.color.orange
+            else -> R.color.orange
+        }
     }
 }

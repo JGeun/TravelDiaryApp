@@ -29,9 +29,7 @@ class ScheduleAdapter(private val placeViewModel : SharedPlaceViewModel) : Recyc
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context= holder.itemView.context
-        val barcolor = (context as TravelPlanBaseActivity).getColor()
-        val barColor : Int
-        barColor = when(barcolor){
+        val barColor = when((context as TravelPlanBaseActivity).getColor()){
             "pink" -> R.color.pink
             "purple" -> R.color.purple
             "yellow" -> R.color.yellow
@@ -43,8 +41,7 @@ class ScheduleAdapter(private val placeViewModel : SharedPlaceViewModel) : Recyc
         holder.topBar.setBackgroundColor(context.resources.getColor(barColor))
         holder.bottomBar.setBackgroundColor(context.resources.getColor(barColor))
 
-        val dotColor : Int
-        dotColor = when(barcolor){
+        val  dotColor = when((context).getColor()){
             "pink" -> R.drawable.pink_dot
             "purple" -> R.drawable.purple_dot
             "yellow" -> R.drawable.yellow_dot

@@ -3,6 +3,7 @@ package com.hansung.traveldiary.src.plan
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentManager
@@ -59,8 +60,10 @@ class TravelPlanBaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        println("TravelPlanBaseActivity create")
-        barColor = intent.getStringExtra("barcolor")
+        Log.d("체크" , "TravelPlanBaseActivity create")
+
+        barColor = intent.getStringExtra("color")
+
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 

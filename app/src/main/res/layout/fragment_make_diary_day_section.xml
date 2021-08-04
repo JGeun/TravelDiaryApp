@@ -19,9 +19,7 @@
             android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </androidx.viewpager2.widget.ViewPager2>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/indicator"
@@ -113,7 +111,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/day_select_layout"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"/>
 
         </LinearLayout>
 

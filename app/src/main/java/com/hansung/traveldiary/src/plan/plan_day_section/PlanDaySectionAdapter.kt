@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemPlanDaySectionBinding
@@ -14,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.Adapter<PlanDaySectionAdapter.ViewHolder>() {
+class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder, val color: String?): RecyclerView.Adapter<PlanDaySectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemPlanDaySectionBinding): RecyclerView.ViewHolder(binding.root){
         val dayText = binding.itemAdpDayCount
@@ -35,11 +36,8 @@ class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.
         val date = placeInfoFolder.dayPlaceList[position].date
         holder.date.text = date
         val day = getDateDay(date)
-        println("date: " + date)
-        println("day: " + day)
-        val color = (context as PlanDaySectionActivity).getColor()
-        val barColor : Int
-        barColor = when(color){
+
+        val barColor = when(color){
             "pink" -> R.color.pink
             "purple" -> R.color.purple
             "yellow" -> R.color.yellow
@@ -48,20 +46,21 @@ class PlanDaySectionAdapter(val placeInfoFolder: PlaceInfoFolder): RecyclerView.
             "orange" -> R.color.orange
             else -> R.color.orange
         }
-        holder.bar.setBackgroundColor(context.resources.getColor(barColor))
+        holder.bar.setBackgroundColor(ResourcesCompat.getColor(context.resources, barColor, null))
 
         val intent = Intent(context, TravelPlanBaseActivity::class.java)
         intent.putExtra("title", (context as PlanDaySectionActivity).getTitleContents())
         holder.map.setOnClickListener{
             intent.putExtra("menu", "map")
             intent.putExtra("index", position)
-            (context as PlanDaySectionActivity).startActivity(intent)
+            intent.putExtra("color", color)
+            context.startActivity(intent)
         }
         holder.itemView.setOnClickListener{
             intent.putExtra("menu", "schedule")
             intent.putExtra("index", position)
-            intent.putExtra("barcolor", color)
-            (context as PlanDaySectionActivity).startActivity(intent)
+            intent.putExtra("color", color)
+            context.startActivity(intent)
         }
 
 //        holder.itemView.setOnClickListener{

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
@@ -25,11 +26,20 @@ class WriteDayDiaryFragment(val diaryInfo: DiaryInfo, val index: Int, val size: 
 
         Log.d("과정", "WriteAdapter-ViewModel Data: ${viewModel.dayData.value!!}")
         println("fragment 시작")
-        binding.uploadViewPager.adapter =
-            WriteImageAdapter(diaryInfo.imagePathArray)
-        binding.uploadViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        //인디케이터
-        binding.indicator.setViewPager(binding.uploadViewPager)
+
+        if(diaryInfo.imagePathArray.size == 0){
+            binding.uploadViewPager.isVisible = false
+            binding.indicator.isVisible = false
+        }else{
+            binding.uploadViewPager.isVisible = true
+            binding.indicator.isVisible = true
+            binding.uploadViewPager.adapter =
+                WriteImageAdapter(diaryInfo.imagePathArray)
+            binding.uploadViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            //인디케이터
+            binding.indicator.setViewPager(binding.uploadViewPager)
+        }
+
 
         binding.uploadContents.setText(diaryInfo.diaryContents)
 
