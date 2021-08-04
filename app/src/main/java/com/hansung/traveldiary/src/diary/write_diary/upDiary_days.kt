@@ -7,17 +7,21 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentMakeDiaryDaySectionBinding
+import com.hansung.traveldiary.databinding.FragmentWriteDiaryBtmSheetBinding
 import com.hansung.traveldiary.src.DiaryInfoFolder
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.travel.AddBook.SelectAreaBtmDialog
 
 class WriteDayDiaryFragment(val diaryInfoFolder: DiaryInfoFolder, val day: Int, val index: Int) : Fragment() {
-    private val viewModel : WriteViewModel by activityViewModels()
-    private var spinnerArray = arrayListOf<String>()
+    private lateinit var btmSheetFragment:BottomSheetFragment
+    private lateinit var viewModel:WriteViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,20 +30,31 @@ class WriteDayDiaryFragment(val diaryInfoFolder: DiaryInfoFolder, val day: Int, 
     ): View? {
         val binding = FragmentMakeDiaryDaySectionBinding.inflate(layoutInflater)
         println("fragment 시작")
+        viewModel =WriteViewModel()
         binding.uploadViewPager.adapter =
             WriteImageAdapter(diaryInfoFolder.diaryDayList[day].diaryInfo.imagePathArray)
         binding.uploadViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //인디케이터
         binding.indicator.setViewPager(binding.uploadViewPager)
-//        binding..setText(diaryInfoFolder.diaryDayList[day].diaryInfo.diaryTitle)
+ //       binding..setText(diaryInfoFolder.diaryDayList[day].diaryInfo.diaryTitle)
 //        binding.upDiaryText.setText(diaryInfoFolder.diaryDayList[day].diaryInfo.diaryContents)
 
-        for (i in 1..MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList.size) {
-            spinnerArray.add("Day-${i}")
+        btmSheetFragment=BottomSheetFragment()
+        binding.atpTvDays.text="1일차 일기"
+
+        binding.daySelectLayout.setOnClickListener{
+            btmSheetFragment.show(childFragmentManager,"btmDialog")
         }
-
-
-        binding.writeDiarySpinner.adapter =
+        viewModel.data.observe(viewLifecycleOwner){
+            val bundle=Bundle()
+            val data= viewModel.data.value?.plus(1)
+            if (data != null) {
+                bundle.putInt("day",data)
+            }
+            println("뷰모델 값 변경")
+            binding.atpTvDays.setText("${data}일차 일기")
+        }
+        /*binding.writeDiarySpinner.adapter =
             ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, spinnerArray)
         binding.writeDiarySpinner.setSelection(viewModel.data.value!!)
 
@@ -57,7 +72,7 @@ class WriteDayDiaryFragment(val diaryInfoFolder: DiaryInfoFolder, val day: Int, 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 //                    viewModel.setData(0)
                 }
-            }
+            }*/
         return binding.root
     }
 

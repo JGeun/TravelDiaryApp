@@ -1,40 +1,37 @@
-package com.hansung.traveldiary.src.travel.AddBook
+package com.hansung.traveldiary.src.diary.write_diary
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hansung.traveldiary.databinding.DialogBtmSelectAreaBinding
+import com.hansung.traveldiary.databinding.BottomSheetDialogFragmentBinding
+import com.hansung.traveldiary.src.travel.AddBook.AreaViewModel
+import com.hansung.traveldiary.src.travel.AddBook.SelectAreaAdapter
 
-class SelectAreaBtmDialog() : BottomSheetDialogFragment() {
-    private lateinit var binding : DialogBtmSelectAreaBinding
-    var regionList = ArrayList<String>()
-
+class BottomSheetFragment:BottomSheetDialogFragment() {
+    private lateinit var binding : BottomSheetDialogFragmentBinding
+    var dayList = ArrayList<String>()
     private val areaViewModel : AreaViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogBtmSelectAreaBinding.inflate(inflater, container, false)
-
+        binding = BottomSheetDialogFragmentBinding.inflate(inflater, container, false)
+        dayList=ArrayList<String>()
         initRegion()
-
-        binding.travellistRv.apply {
+        binding.daylistRv.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = SelectAreaAdapter(regionList, areaViewModel, this@SelectAreaBtmDialog)
+            adapter = SelectDayAdapter(dayList, areaViewModel, this@BottomSheetFragment)
         }
-
+        //날짜 길이 받기
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,24 +39,11 @@ class SelectAreaBtmDialog() : BottomSheetDialogFragment() {
         val behavior = BottomSheetBehavior.from(sheet!!)
         behavior.state = BottomSheetBehavior.STATE_DRAGGING
     }
-
-
     fun initRegion(){
-        regionList.add("서울")
-        regionList.add("경기")
-        regionList.add("대구")
-        regionList.add("인천")
-        regionList.add("부산")
-        regionList.add("경남")
-        regionList.add("경북")
-        regionList.add("충남")
-        regionList.add("강원")
-        regionList.add("대전")
-        regionList.add("충북")
-        regionList.add("광주")
-        regionList.add("울산")
-        regionList.add("전북")
-        regionList.add("전남")
-        regionList.add("제주")
+        for(i in 1..2){
+            dayList.add("${i}일차 일기")
+        }
     }
 }
+
+

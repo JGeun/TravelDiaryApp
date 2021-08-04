@@ -52,24 +52,65 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/upload_viewPager" />
 
-        <ImageView
-            android:id="@+id/iv_camera"
+        <LinearLayout
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="32dp"
-            android:src="@drawable/ic_camera"
-            app:layout_constraintBottom_toBottomOf="@+id/upload_diary_commitbtn"
+            android:background="@drawable/radius_whitebtn"
+            app:layout_constraintBottom_toBottomOf="@+id/upload_viewPager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/upload_diary_commitbtn" />
+            app:layout_constraintTop_toBottomOf="@+id/upload_viewPager">
 
+            <ImageView
+                android:id="@+id/iv_camera"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="32dp"
+                android:src="@drawable/ic_camera"
+                app:layout_constraintBottom_toBottomOf="@+id/upload_diary_commitbtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/upload_diary_commitbtn" />
+        </LinearLayout>
 
-        <Spinner
-            android:id="@+id/write_diary_spinner"
-            android:layout_width="170dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/day_select_layout"
+            android:layout_width="144dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/add_plan_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/indicator"/>
+            app:layout_constraintTop_toBottomOf="@+id/indicator">
+
+            <TextView
+                android:id="@+id/atp_tv_days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1일차 일기" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="16dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/ic_down_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/atp_tv_days"
+                app:layout_constraintTop_toTopOf="@+id/atp_tv_days" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:gravity="top"
+            android:hint="일기를 작성해주세요."
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day_select_layout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
