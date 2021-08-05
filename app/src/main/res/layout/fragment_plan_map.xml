@@ -67,14 +67,17 @@
             app:layout_constraintStart_toStartOf="@id/plan_btm_placeNumber"
             android:layout_marginTop="10dp"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/plan_btm_btn_store"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
             android:text="추가"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:backgroundTint="@color/maincolor"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="16sp"
+            android:fontFamily="@font/main_font2"
+            android:background="@drawable/radius_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

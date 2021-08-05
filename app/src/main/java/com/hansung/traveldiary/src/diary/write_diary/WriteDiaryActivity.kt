@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityWriteDiaryBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.plan.ScheduleFragment
 import com.hansung.traveldiary.util.StatusBarUtil
 
 class WriteDiaryActivity : AppCompatActivity() {
@@ -41,6 +43,9 @@ class WriteDiaryActivity : AppCompatActivity() {
             val transaction2 = supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[viewModel.dayData.value!!-1])
             transaction2.commit()
         }
+        binding.writeDiaryIvCancle.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onStart() {
@@ -56,6 +61,10 @@ class WriteDiaryActivity : AppCompatActivity() {
         println("viewModelDay: ${viewModel.dayData.value}")
         val transaction = supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[viewModel.dayData.value!!-1])
         transaction.commit()
+    }
+
+    fun showMap(fragment : Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.tp_fragment, fragment)
     }
 }
 

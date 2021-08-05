@@ -10,7 +10,7 @@
         android:id="@+id/edit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/main_font2"
         android:text="완료"
@@ -24,8 +24,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="45dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,13 +41,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/add_image_btn"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="15dp"
-                android:background="@drawable/radius_btn"
+                android:background="@drawable/radius_whitebtn"
                 android:fontFamily="@font/main_font2"
                 android:text="사진 추가"
                 android:textColor="@color/black"
