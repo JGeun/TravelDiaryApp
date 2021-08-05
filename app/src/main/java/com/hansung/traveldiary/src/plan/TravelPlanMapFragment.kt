@@ -136,9 +136,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
 
             if(placeInfoArray.size >= 2){
                 if(path == null){
-                    path = PathOverlay()
-                    path!!.outlineWidth = 0
-                    path!!.color = ResourcesCompat.getColor(resources, getColor(), null)
+                    setLine()
                     path!!.coords = latLngList
                     path!!.map = naverMap
                 }else
@@ -249,9 +247,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
                 path = null
             }else if(placeInfoArray.size >= 2){
                 if(path == null){
-                    path = PathOverlay()
-                    path!!.outlineWidth = 0
-                    path!!.color = ResourcesCompat.getColor(resources, getColor(), null)
+                    setLine()
                 }
                 path!!.coords = latLngList
                 path!!.map = naverMap
@@ -317,6 +313,13 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
 
     override fun onGetKeywordSearchFailure(message: String) {
         showCustomToast("오류 : $message")
+    }
+
+    fun setLine(){
+        path = PathOverlay()
+        path!!.outlineWidth = 0
+        path!!.width = 15
+        path!!.color = ResourcesCompat.getColor(resources, R.color.mapLineColor, null)
     }
 
     fun getColor() : Int{

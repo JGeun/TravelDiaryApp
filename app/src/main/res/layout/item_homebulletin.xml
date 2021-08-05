@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="180dp"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="10dp"
+    android:layout_width="160dp"
+    android:layout_height="230dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
     android:elevation="5dp"
     android:background="@drawable/radius_whitebtn">
 
@@ -32,7 +33,7 @@
         android:id="@+id/user_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="11dp"
+        android:layout_marginStart="15dp"
         android:src="@drawable/bg_profile"
         app:layout_constraintBottom_toBottomOf="@+id/item_hb_cardView"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +43,7 @@
         android:id="@+id/item_hb_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:fontFamily="@font/main_font2"
         android:maxLines="1"
@@ -57,11 +58,12 @@
         android:id="@+id/item_hb_contents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:ellipsize="end"
         android:ems="15"
         android:fontFamily="@font/main_font2"
         android:maxLines="2"
+        android:paddingEnd="15dp"
         android:text="친구들과 여행을 다녀왔는데 너무 좋았어요."
         android:textSize="9sp"
         android:textStyle="bold"
@@ -72,7 +74,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +122,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-
         android:id="@+id/user_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

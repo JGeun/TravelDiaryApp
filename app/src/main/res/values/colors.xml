@@ -28,5 +28,8 @@
     <color name="orange">#FAD4AE</color>
     <color name="pink">#FDAFAB</color>
     <color name="purple">#FADEE1</color>
->>>>>>> jyy
+
+    <color name="mapLineColor">#F3A41E</color>
+
+<!--    <color name="mapLineColor2">#F3A41E</color>-->
 </resources>
