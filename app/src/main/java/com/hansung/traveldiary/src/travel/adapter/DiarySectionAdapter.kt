@@ -4,8 +4,10 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemLasttripBinding
 import com.hansung.traveldiary.src.DiaryBulletinData
 import com.hansung.traveldiary.src.MainActivity
@@ -24,13 +26,19 @@ class DiarySectionAdapter(val myDiaryList : ArrayList<DiaryBulletinData>):Recycl
 
     override fun onBindViewHolder(holder: DiarySectionAdapter.ViewHolder, position: Int) {
         val data = myDiaryList[position]
+        val context = holder.itemView.context
         holder.title.text = data.diaryData.diaryBaseData.title
 //        holder.hashtag.text = data.tv_tag
-        Glide.with(holder.itemView.context).load(data.diaryData.diaryBaseData.mainImage).into(holder.thumbnail)
+        val imagePath = data.diaryData.diaryBaseData.mainImage
+        if(imagePath != "")
+            Glide.with(holder.itemView.context).load(imagePath).into(holder.thumbnail)
+        else{
+            Glide.with(holder.itemView.context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_no_main_image, null)).into(holder.thumbnail)
+        }
 
         holder.itemView.setTag(position)
 
-        val context = holder.itemView.context
+
         holder.itemView.setOnClickListener{
             val intent = Intent(context, MyDiaryDaySectionActivity::class.java)
             intent.putExtra("index", position)

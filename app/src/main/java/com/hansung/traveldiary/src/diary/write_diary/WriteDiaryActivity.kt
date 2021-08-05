@@ -43,6 +43,8 @@ class WriteDiaryActivity : AppCompatActivity() {
             val transaction2 = supportFragmentManager.beginTransaction().replace(R.id.framelayout, fragmentArray[viewModel.dayData.value!!-1])
             transaction2.commit()
         }
+
+        binding.writeDiaryTitle.setText(MainActivity.myDiaryList[index].diaryData.diaryBaseData.title)
         binding.writeDiaryIvCancle.setOnClickListener {
             finish()
         }

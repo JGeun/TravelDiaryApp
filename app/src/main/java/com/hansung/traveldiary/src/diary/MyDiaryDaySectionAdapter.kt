@@ -39,8 +39,13 @@ class MyDiaryDaySectionAdapter(
         holder.dayText.text = (position + 1).toString()
 //        holder.tag.text = data.tag
         val context = holder.itemView.context
-        Glide.with(holder.itemView.context).load(data.diaryBaseData.mainImage)
-            .into(holder.diaryImage)
+
+        if(data.diaryInfoFolder.diaryDayList[position].diaryInfo.imagePathArray.size != 0){
+            Glide.with(holder.itemView.context).load(data.diaryInfoFolder.diaryDayList[position].diaryInfo.imagePathArray[0]).into(holder.diaryImage)
+        }else{
+            Glide.with(holder.itemView.context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_no_main_image, null)).into(holder.diaryImage)
+        }
+
 
         holder.itemView.setOnClickListener{
             val intent: Intent

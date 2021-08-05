@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_bg_profile" />
+                android:src="@drawable/img_plan_finish_plus" />
 
         </com.google.android.material.card.MaterialCardView>
 
