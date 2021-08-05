@@ -41,7 +41,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
     private var searchWordResultList = ArrayList<KakaoSearchKeywordInfo>()
     private lateinit var searchWordResultTask: ActivityResultLauncher<Intent>
     private var searchWordIndex = 0
-
+    private var markerList=ArrayList<Marker>()
     private val latLngList = ArrayList<LatLng>()
     private var path : PathOverlay? = null
     private var lastLatitude = 37.58842461354086
@@ -124,6 +124,12 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
             val userDocRef = db!!.collection("User").document("UserData")
             userDocRef.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
                 .set(TravelPlanBaseActivity.placeInfoFolder)
+            val marker=Marker()
+            marker.icon= OverlayImage.fromResource(R.drawable.ic_travel_marker)
+            marker.width=100
+            marker.height=150
+            marker.position = searchLatlng
+            marker.map = naverMap
 //            Log.d(TAG, "db업데이트 후: " + userPlaceDataModel.items.size.toString())
             latLngList.add(searchLatlng)
 //            Log.d(TAG, "입력 후: " + userPlaceDataModel.items.size.toString())
@@ -190,9 +196,9 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
                 marker.icon= OverlayImage.fromResource(R.drawable.ic_search_marker)
                 marker.width=100
                 marker.height=150
-                binding.planBtmBtnStore.setOnClickListener {
+                /*binding.planBtmBtnStore.setOnClickListener {
                     marker.icon= OverlayImage.fromResource(R.drawable.ic_travel_marker)
-                }
+                }*/
                 marker.position = searchLatlng
                 marker.map = naverMap
 
