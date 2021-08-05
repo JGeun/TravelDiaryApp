@@ -14,18 +14,13 @@ import com.hansung.traveldiary.src.DiaryBulletinData
 import com.hansung.traveldiary.src.diary.write_diary.WriteImageAdapter
 
 class BulletinAdapter2(private val diaryAllData: ArrayList<DiaryBulletinData>):RecyclerView.Adapter<BulletinAdapter2.ViewHolder>() {
-    val bgColors:MutableList<Int> = mutableListOf(
-        android.R.color.black,
-        android.R.color.white,
-        android.R.color.darker_gray
-    )
-
     inner class ViewHolder(private val binding: ItemBulletin2Binding):RecyclerView.ViewHolder(binding.root){
         val userImage = binding.btItemUserImage
         val userName = binding.btItemUserName
         val title = binding.btItemTvTitle
         val likeCnt=binding.btItemTvLikecnt
         val comment=binding.btItemTvComment
+        val content=binding.btItmeTvContents
         //val thumbnail = binding.btItemIvThumbnail
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
@@ -49,7 +44,7 @@ class BulletinAdapter2(private val diaryAllData: ArrayList<DiaryBulletinData>):R
         //Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
         holder.likeCnt.text=data.diaryBaseData.like.toString()
         holder.comment.text=data.diaryBaseData.comments.toString()
-
+        holder.content.text=data.diaryInfoFolder.diaryDayList[0].toString()
         holder.itemView.setTag(position)
 
 
