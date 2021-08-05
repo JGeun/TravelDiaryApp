@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemBulletin2Binding
+import com.hansung.traveldiary.src.DiaryBaseData
 import com.hansung.traveldiary.src.DiaryBulletinData
 import com.hansung.traveldiary.src.diary.write_diary.WriteImageAdapter
 
@@ -23,19 +24,15 @@ class BulletinAdapter2(private val diaryAllData: ArrayList<DiaryBulletinData>):R
         val userImage = binding.btItemUserImage
         val userName = binding.btItemUserName
         val title = binding.btItemTvTitle
+        val likeCnt=binding.btItemTvLikecnt
+        val comment=binding.btItemTvComment
         //val thumbnail = binding.btItemIvThumbnail
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
 
         val binding= ItemBulletin2Binding.inflate(LayoutInflater.from(parent.context), parent,false)
-        val Bgcolors= intArrayOf(
-            android.R.color.black,
-            android.R.color.white,
-            android.R.color.darker_gray
-        ).random()
-        bgColors.add(Bgcolors)
         binding.viewPager.adapter =
-            BulletinViewPagerAdapter(bgColors)
+            BulletinViewPagerAdapter(diaryAllData)
         binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //binding.viewPager.adapter=BulletinViewPagerAdapter(imgArray)
         return ViewHolder(binding)
@@ -44,12 +41,14 @@ class BulletinAdapter2(private val diaryAllData: ArrayList<DiaryBulletinData>):R
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
         val data = diaryAllData[position].diaryData
-
+        var view = holder.itemView
 //        Glide.with(context).load(data.diaryBaseData.userImage).into(holder.userImage)
         Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
         holder.userName.text = data.diaryBaseData.userName
         holder.title.text = data.diaryBaseData.title
         //Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
+        holder.likeCnt.text=data.diaryBaseData.like.toString()
+        holder.comment.text=data.diaryBaseData.comments.toString()
 
         holder.itemView.setTag(position)
 

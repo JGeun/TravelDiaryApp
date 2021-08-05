@@ -29,6 +29,7 @@ import com.hansung.traveldiary.src.plan.model.*
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.overlay.PathOverlay
 import com.naver.maps.map.util.FusedLocationSource
 
@@ -186,6 +187,12 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
                 searchLatlng = LatLng(latitude, longitude)
 
                 val marker = Marker()
+                marker.icon= OverlayImage.fromResource(R.drawable.ic_search_marker)
+                marker.width=100
+                marker.height=150
+                binding.planBtmBtnStore.setOnClickListener {
+                    marker.icon= OverlayImage.fromResource(R.drawable.ic_travel_marker)
+                }
                 marker.position = searchLatlng
                 marker.map = naverMap
 
@@ -223,6 +230,10 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
             lastLongitude  = placeInfoArray[placeInfoArray.size-1].longitude
             for(placeData in placeInfoArray){
                 val marker = Marker()
+                //마커 이미지 변경 및 크기 조절
+                marker.icon= OverlayImage.fromResource(R.drawable.ic_travel_marker)
+                marker.width=100
+                marker.height=150
                 latLngList.add(LatLng(placeData.latitude, placeData.longitude))
                 marker.position = LatLng(placeData.latitude, placeData.longitude)
                 marker.map = naverMap
