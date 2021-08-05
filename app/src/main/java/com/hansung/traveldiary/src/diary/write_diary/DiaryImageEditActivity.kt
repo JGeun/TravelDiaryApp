@@ -26,6 +26,7 @@ class DiaryImageEditActivity : AppCompatActivity() {
             setHasFixedSize(true)
         }
 
+        binding.editImageRv.isNestedScrollingEnabled = false
     }
     private fun initdiaryImageList(){
         diaryImageList.add(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_seoul, null)!!)

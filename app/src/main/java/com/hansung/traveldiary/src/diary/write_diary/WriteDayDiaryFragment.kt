@@ -52,6 +52,7 @@ class WriteDayDiaryFragment(val diaryInfo: DiaryInfo, val index: Int, val size: 
         if(diaryInfo.imagePathArray.size == 0){
             binding.uploadViewPager.isVisible = false
             binding.indicator.isVisible = false
+            binding.uploadDiaryCommitbtn.setText("사진 추가")
         }else{
             binding.uploadViewPager.isVisible = true
             binding.indicator.isVisible = true
@@ -60,6 +61,7 @@ class WriteDayDiaryFragment(val diaryInfo: DiaryInfo, val index: Int, val size: 
             binding.uploadViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
             //인디케이터
             binding.indicator.setViewPager(binding.uploadViewPager)
+            binding.uploadDiaryCommitbtn.setText("사진 편집")
         }
 
         val title = MainActivity.myDiaryList[index].planTitle
