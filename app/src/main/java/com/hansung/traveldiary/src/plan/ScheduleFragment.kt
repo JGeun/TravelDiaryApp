@@ -45,7 +45,7 @@ class ScheduleFragment() : Fragment(){
         binding.scheduleRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            var scheduleadapter = ScheduleAdapter(userPlaceDataModel)
+            var scheduleadapter = ScheduleAdapter(userPlaceDataModel, binding.tvChecked)
             scheduleadapter.title = title
             adapter = scheduleadapter
         }
@@ -55,7 +55,7 @@ class ScheduleFragment() : Fragment(){
             val userDocRef = db!!.collection("User").document("UserData")
             userDocRef.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
                 .set(TravelPlanBaseActivity.placeInfoFolder)
-
+            binding.tvChecked.visibility = View.GONE
             binding.scheduleRecyclerview.adapter?.notifyDataSetChanged()
         }
 
