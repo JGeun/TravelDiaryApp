@@ -34,4 +34,19 @@ class SharedPlaceViewModel : ViewModel() {
         items.dayPlaceList[index].placeInfoArray.removeAt(position)
         userPlanData.value = items
     }
+
+    fun moveUp(index: Int, position: Int){
+        val tmp = items.dayPlaceList[index].placeInfoArray[position]
+        items.dayPlaceList[index].placeInfoArray[position] = items.dayPlaceList[index].placeInfoArray[position-1]
+        items.dayPlaceList[index].placeInfoArray[position-1] = tmp
+        userPlanData.value = items
+    }
+
+    fun moveDown(index: Int, position: Int){
+        val tmp = items.dayPlaceList[index].placeInfoArray[position]
+        items.dayPlaceList[index].placeInfoArray[position] = items.dayPlaceList[index].placeInfoArray[position+1]
+        items.dayPlaceList[index].placeInfoArray[position+1] = tmp
+        userPlanData.value = items
+    }
+
 }
