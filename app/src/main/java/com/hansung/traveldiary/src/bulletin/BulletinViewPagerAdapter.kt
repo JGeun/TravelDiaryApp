@@ -4,33 +4,44 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
+import com.hansung.traveldiary.databinding.ItemBulletin2Binding
 import com.hansung.traveldiary.databinding.ItemBulletinImageBinding
 import com.hansung.traveldiary.src.DiaryBulletinData
+import com.hansung.traveldiary.src.DiaryDayInfo
+import com.hansung.traveldiary.src.DiaryInfo
 
-class BulletinViewPagerAdapter(private val diaryAllData: ArrayList<DiaryBulletinData>): RecyclerView.Adapter<BulletinViewPagerAdapter.PagerViewHolder>() {
+class BulletinViewPagerAdapter(private val diaryinfoArray: ArrayList<DiaryDayInfo>): RecyclerView.Adapter<BulletinViewPagerAdapter.PagerViewHolder>() {
 
     class PagerViewHolder(val binding : ItemBulletinImageBinding) : RecyclerView.ViewHolder(binding.root) {
         var image : ImageView = binding.image
+
+        var title = binding.btItemTvTitle
+        var content=binding.btItmeTvContents
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
         val binding = ItemBulletinImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        //binding.image.setImageResource(R.drawable.bg_profile)
         return PagerViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        val data = diaryAllData[position].diaryData
         val context = holder.itemView.context
-        val url=data.diaryBaseData.mainImage
-        Glide.with(context).load(url).apply(RequestOptions().centerCrop()).into(holder.image)
-        //Glide.with(context).load(imagePathArray[position]).into(holder.image)
-
+        val data=diaryinfoArray[position].diaryInfo
+        println("길이")
+        if(data.imagePathArray.size!=0) {
+            val url = data.imagePathArray[0]
+            Glide.with(context).load(url).apply(RequestOptions().fitCenter()).into(holder.image)
+        }else{
+            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources,R.drawable.img_beach,null)).apply(RequestOptions().fitCenter()).into(holder.image)
+        }
+            holder.content.text=data.diaryContents
+            holder.title.text=data.diaryTitle
     }
 
-    override fun getItemCount(): Int = diaryAllData.size
+    override fun getItemCount(): Int = diaryinfoArray.size
 }
