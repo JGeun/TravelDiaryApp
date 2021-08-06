@@ -83,7 +83,6 @@ class TravelPlanSectionFragment : Fragment() {
                 temp = 1
             }
         }
-
         return binding.root
     }
 

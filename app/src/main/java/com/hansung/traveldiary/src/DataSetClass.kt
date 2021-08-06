@@ -1,7 +1,10 @@
 package com.hansung.traveldiary.src
 
+//Total Idx List
+data class IdxList(var idxFolder: ArrayList<Long> = ArrayList())
+
 //Common
-data class UserEmailList(var emailFolder: ArrayList<String> = ArrayList())
+data class UserList(var emailFolder: ArrayList<String> = ArrayList())
 data class TitleList(var titleFolder: ArrayList<String> = ArrayList())
 
 data class PlaceInfo(var placeName: String? = null, var latitude: Double = 37.58842461354086, var longitude: Double = 127.00601781685579)
@@ -43,3 +46,19 @@ data class PlanBookData(var title: String, var planData: PlanData)
 
 //UserInfoDataSet
 data class UserContents(var nickname: String="", var profileImage: String="")
+
+//------------------------앞으로 사용할 것 ------------------------------------------
+//data class TitleList(var titleFolder: ArrayList<String> = ArrayList())
+//
+////Total User Email List
+//data class UserList(var emailFolder: ArrayList<String> = ArrayList())
+//
+////Total Idx List
+//data class IdxList(var idxFolder: ArrayList<Long> = ArrayList())
+//
+////UserInfoDataSet
+//data class UserContents(var nickname: String="", var profileImage: String="")
+//
+//data class PlaceData(var latitude: Double = 37.58842461354086, var longitude: Double = 127.00601781685579, var placeName: String? = null)
+//data class PlaceInfo(var placeInfoFolder : ArrayList<PlaceData> = ArrayList())
+

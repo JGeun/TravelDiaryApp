@@ -40,8 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var addNewPlanBookTask: ActivityResultLauncher<Intent>
     private lateinit var updatePlanBookTask: ActivityResultLauncher<Intent>
     private val TAG = "MainActivity"
-    private val userList = UserEmailList()
-
+    private var userList = UserList()
 
     companion object {
         var firstStart = true
@@ -57,6 +56,8 @@ class MainActivity : AppCompatActivity() {
         var cloudsText: String = "30%"
         var weeklyList = ArrayList<WeeklyWeatherData>()
 
+        var idxList = IdxList()
+        var userList = UserList()
 
         var diaryTitleList = TitleList()
         var planTitleList = TitleList()
@@ -91,6 +92,10 @@ class MainActivity : AppCompatActivity() {
         db = Firebase.firestore
 
         getDBData()
+
+        getUserList()
+        getIdxList()
+
 
         val pref = applicationContext.getSharedPreferences("login", 0)
         Log.d("MainActivity", pref.getString("login", "")!!)
@@ -168,6 +173,22 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("index", index)
         intent.putExtra("modify", true)
         updatePlanBookTask.launch(intent)
+    }
+
+    fun getUserList(){
+        db!!.collection("UserData").document("UserEmail")
+            .get()
+            .addOnSuccessListener { result ->
+                userList = result.toObject<UserList>()!!
+            }
+    }
+
+    fun getIdxList(){
+        db!!.collection("UserData").document("UserEmail")
+            .get()
+            .addOnSuccessListener { result ->
+                idxList = result.toObject<IdxList>()!!
+            }
     }
 
     fun getDBData() {

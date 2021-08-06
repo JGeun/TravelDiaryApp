@@ -3,8 +3,6 @@ package com.hansung.traveldiary.src.travel.AddBook
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -31,7 +29,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
-    private var emailList = UserEmailList()
+    private var emailList = UserList()
     private var titleList = TitleList()
     private val TAG = "AddPlanActivity"
     private var color = "pink"
@@ -148,7 +146,8 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
             if(isModify){
                 val index = intent.getIntExtra("index", 0)
-                docPlanRef.collection(MainActivity.planBookList[index].title).document("BaseData").set(
+                docPlanRef.collection(MainActivity.planBookList[index].title).document("BaseData")
+                    .set(
                     PlanBaseData(
                         title,
                         color,
