@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.diary.write_diary
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,6 +47,11 @@ class WriteDiaryActivity : AppCompatActivity() {
         binding.writeDiaryIvCancle.setOnClickListener {
             finish()
         }
+        binding.showPlacelist.setOnClickListener {
+            var intent = Intent(it.context, ShowPlacelistActivity::class.java)
+            intent.putExtra("index", index)
+            startActivity(intent)
+        }
     }
 
     override fun onStart() {
@@ -63,9 +69,6 @@ class WriteDiaryActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    fun showMap(fragment : Fragment){
-        supportFragmentManager.beginTransaction().replace(R.id.tp_fragment, fragment)
-    }
 }
 
 
