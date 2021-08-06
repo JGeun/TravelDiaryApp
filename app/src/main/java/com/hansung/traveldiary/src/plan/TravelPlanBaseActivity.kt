@@ -64,7 +64,6 @@ class TravelPlanBaseActivity : AppCompatActivity() {
 
         barColor = intent.getStringExtra("color")
 
-
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         val menu = intent.getStringExtra("menu")
@@ -109,7 +108,6 @@ class TravelPlanBaseActivity : AppCompatActivity() {
         binding.planTopBack.setOnClickListener{
             finish()
         }
-
     }
 
     fun initViewModel(menu : String, title: String){

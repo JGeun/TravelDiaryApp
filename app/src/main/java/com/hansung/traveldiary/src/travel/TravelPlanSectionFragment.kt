@@ -45,10 +45,10 @@ class TravelPlanSectionFragment : Fragment() {
             (context as MainActivity).makePlanBook()
         }
 
-        if(MainActivity.userPlanArray.size == 0){
+        if (MainActivity.userPlanArray.size == 0) {
             binding.planSectionNoPlan.isVisible = true
             binding.planSectionRecyclerView.isVisible = false
-        }else{
+        } else {
             binding.planSectionNoPlan.isVisible = false
             binding.planSectionRecyclerView.isVisible = true
         }
@@ -56,8 +56,8 @@ class TravelPlanSectionFragment : Fragment() {
 
         MainActivity.userPlanArray.sortBy { it.planBaseData.startDate }
 
-        for(i in 0 until MainActivity.userPlanArray.size){
-            Log.d("정렬중" , MainActivity.userPlanArray[i].planBaseData.title + " / " + MainActivity.userPlanArray[i].planBaseData.startDate)
+        for (i in 0 until MainActivity.userPlanArray.size) {
+            Log.d("정렬중", MainActivity.userPlanArray[i].planBaseData.title + " / " + MainActivity.userPlanArray[i].planBaseData.startDate)
         }
 
         binding.planSectionRecyclerView.apply {
@@ -83,6 +83,8 @@ class TravelPlanSectionFragment : Fragment() {
                 temp = 1
             }
         }
+        binding.planSectionRecyclerView.addOnScrollListener(onScrollListener)
+
         return binding.root
     }
 

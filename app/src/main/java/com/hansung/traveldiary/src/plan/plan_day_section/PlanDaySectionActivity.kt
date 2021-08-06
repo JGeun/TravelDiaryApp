@@ -56,7 +56,6 @@ class PlanDaySectionActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@PlanDaySectionActivity)
         }
 
-
         binding.dsIvBack.setOnClickListener {
             finish()
         }

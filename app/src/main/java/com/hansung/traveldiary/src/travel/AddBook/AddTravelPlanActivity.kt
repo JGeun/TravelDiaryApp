@@ -199,6 +199,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
             var startDate = startdate
             var endDate = enddate
 
+            println("여기-${MainActivity.idxList.idxFolder.size}")
             val totalIdxRef = db!!.collection("IdxDatabase").document("IdxData")
             var idx : Long = 0
             while(true){
@@ -206,9 +207,13 @@ class AddTravelPlanActivity : AppCompatActivity() {
                 if(!MainActivity.idxList.idxFolder.contains(idx)) {
                     MainActivity.idxList.idxFolder.add(idx)
                     totalIdxRef.set(MainActivity.idxList)
+                        .addOnSuccessListener {
+                            println("여기 지나고 나서-success-${MainActivity.idxList.idxFolder.size}")
+                        }
                     break
                 }
             }
+            println("여기 지나고 나서-${MainActivity.idxList.idxFolder.size}")
 
             var userIdxList = IdxList()
 
@@ -286,6 +291,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 //            }
 //
 //
+            println("여기 finish-${MainActivity.idxList.idxFolder.size}")
             setResult(RESULT_OK, resultIntent)
             finish()
         }
