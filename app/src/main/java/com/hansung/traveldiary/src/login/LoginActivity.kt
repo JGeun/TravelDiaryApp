@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         auth = FirebaseAuth.getInstance()
-        user = Firebase.auth.currentUser
+
         db = Firebase.firestore
 
         binding.signinBtn.setOnClickListener {
@@ -57,7 +57,9 @@ class LoginActivity : AppCompatActivity() {
                     binding.inputPw.text.toString()
                 )?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        db!!.document(user!!.email.toString())
+                        user = Firebase.auth.currentUser
+                        println("email: ${user!!.email.toString()}")
+                        db!!.collection("UserInfo").document(user!!.email.toString())
                             .get()
                             .addOnSuccessListener { result ->
                                 val userContents = result.toObject<UserContents>()!!
