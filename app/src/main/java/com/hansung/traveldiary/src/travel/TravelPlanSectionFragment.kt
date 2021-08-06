@@ -1,6 +1,7 @@
 package com.hansung.traveldiary.src.travel
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentTravelPlanSectionBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.PlanBaseData
-import com.hansung.traveldiary.src.PlanBookData
 import com.hansung.traveldiary.src.travel.adapter.PlanSectionAdapter
 import com.naver.maps.map.util.FusedLocationSource
 
@@ -46,7 +45,7 @@ class TravelPlanSectionFragment : Fragment() {
             (context as MainActivity).makePlanBook()
         }
 
-        if(MainActivity.planBookList.size == 0){
+        if(MainActivity.userPlanArray.size == 0){
             binding.planSectionNoPlan.isVisible = true
             binding.planSectionRecyclerView.isVisible = false
         }else{
@@ -55,16 +54,17 @@ class TravelPlanSectionFragment : Fragment() {
         }
         println("TravelPlanSection 들어옴")
 
-        MainActivity.planBookList.sortedBy{it.planData.planBaseData.startDate}
-        for(i in 0 until MainActivity.planBookList.size){
-            println(MainActivity.planBookList[i].title)
+        MainActivity.userPlanArray.sortBy { it.planBaseData.startDate }
+
+        for(i in 0 until MainActivity.userPlanArray.size){
+            Log.d("정렬중" , MainActivity.userPlanArray[i].planBaseData.title + " / " + MainActivity.userPlanArray[i].planBaseData.startDate)
         }
 
         binding.planSectionRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            adapter = PlanSectionAdapter(MainActivity.planBookList)
+            adapter = PlanSectionAdapter(MainActivity.userPlanArray)
         }
 
 
@@ -84,11 +84,6 @@ class TravelPlanSectionFragment : Fragment() {
             }
         }
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        println("TravelPlanSection start")
     }
 
     fun newInstant(): TravelPlanSectionFragment {

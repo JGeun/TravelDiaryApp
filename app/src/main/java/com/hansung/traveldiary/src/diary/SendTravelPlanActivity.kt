@@ -37,8 +37,8 @@ class SendTravelPlanActivity : AppCompatActivity() {
     private lateinit var imagePath: String
     private var planTitle = ""
 
-    private var planBaseData: PlanBaseData = PlanBaseData()
-    private var placeInfoFolder: PlaceInfoFolder = PlaceInfoFolder()
+    private var planBaseData: PlanBaseData2 = PlanBaseData2()
+    private var placeInfoFolder: PlaceInfoFolder2 = PlaceInfoFolder2()
 
     private val TAG = "SendTravelPlanActivity"
 
@@ -191,7 +191,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
         planDocRef.document("BaseData")
             .get()
             .addOnSuccessListener { result ->
-                planBaseData = result.toObject<PlanBaseData>()!!
+                planBaseData = result.toObject<PlanBaseData2>()!!
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
@@ -201,7 +201,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
         planDocRef.document("PlaceInfo")
             .get()
             .addOnSuccessListener { result ->
-                placeInfoFolder = result.toObject<PlaceInfoFolder>()!!
+                placeInfoFolder = result.toObject<PlaceInfoFolder2>()!!
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -16,9 +15,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.config.EditBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemPlacelistBinding
 import com.hansung.traveldiary.src.plan.PlacelistFragment
-import com.hansung.traveldiary.src.plan.ScheduleFragment
 import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
-import com.hansung.traveldiary.src.plan.adapter.ScheduleAdapter
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
 class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private var finishText: TextView) : RecyclerView.Adapter<PlacelistAdapter.ViewHolder>() {
@@ -74,7 +71,7 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
         }
 
         holder.location.text =
-            placeViewModel.items.dayPlaceList[ShowPlacelistActivity.index].placeInfoArray[position].placeName
+            placeViewModel.items.dayPlaceList[ShowPlacelistActivity.index].placeFolder[position].placeName
         holder.editIcon.setOnClickListener {
             val editBtmSheetDialogFragment = EditBottomDialogFragment {
                 when (it) {
@@ -101,12 +98,12 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
 
         if (position == 0)
             holder.topBar.visibility = View.INVISIBLE
-        if (position == placeViewModel.items.dayPlaceList[ShowPlacelistActivity.index].placeInfoArray.size - 1)
+        if (position == placeViewModel.items.dayPlaceList[ShowPlacelistActivity.index].placeFolder.size - 1)
             holder.bottomBar.visibility = View.INVISIBLE
 
     }
 
     override fun getItemCount(): Int =
-        placeViewModel.items.dayPlaceList[ShowPlacelistActivity.index].placeInfoArray.size
+        placeViewModel.items.dayPlaceList[ShowPlacelistActivity.index].placeFolder.size
 
 }

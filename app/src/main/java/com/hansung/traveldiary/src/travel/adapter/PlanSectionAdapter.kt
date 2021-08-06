@@ -14,25 +14,24 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.config.DeleteBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemPlanSectionBinding
+import com.hansung.traveldiary.src.IdxList
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.PlanBookData
+import com.hansung.traveldiary.src.UserPlanData
 import com.hansung.traveldiary.src.plan.plan_day_section.PlanDaySectionActivity
 import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
+import com.hansung.traveldiary.src.travel.TravelPlanSectionFragment
 
-class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
+class PlanSectionAdapter(val userPlanData: ArrayList<UserPlanData>) :
     RecyclerView.Adapter<PlanSectionAdapter.ViewHolder>() {
     private lateinit var binding : ItemPlanSectionBinding
     private lateinit var image : Drawable
     private val monthUnit = arrayListOf("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
-
-//    fun deleteItem(position: Int){
-//        planBookList.removeAt(position)
-//        notifyDataSetChanged()
-//    }
 
     class ViewHolder(val binding : ItemPlanSectionBinding) : RecyclerView.ViewHolder(binding.root){
         val planSectionImage : ImageView
@@ -61,8 +60,8 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = planBookList[position]
-        val baseData = data.planData.planBaseData
+        val data = userPlanData[position]
+        val baseData = data.planBaseData
         val color = baseData.color
         if(color == "blue"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
@@ -80,7 +79,7 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
         }
         Glide.with(holder.itemView.context).load(image).apply(RequestOptions()).into(holder.planSectionImage)
-        holder.planSectionTitle.text = data.planData.planBaseData.title
+        holder.planSectionTitle.text = data.planBaseData.title
         val startMonth = baseData.startDate.substring(5, 7).toInt()
         val endMonth = baseData.endDate.substring(5, 7).toInt()
         holder.planSectionStartMonth.text = monthUnit[startMonth-1]
@@ -91,9 +90,7 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
         val context = holder.itemView.context
         holder.itemView.setOnClickListener{
             val intent = Intent(context, PlanDaySectionActivity::class.java)
-            intent.putExtra("title", data.title)
-            intent.putExtra("pos", position)
-            intent.putExtra("color", color)
+            intent.putExtra("index", position)
             (context as MainActivity).startActivity(intent)
         }
 
@@ -105,17 +102,7 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
                         (context as MainActivity).updatePlanBook(position, true)
                     }
                     1 -> {
-                        val user = Firebase.auth.currentUser
-                        val db = Firebase.firestore
-                        val planRef = db.collection("User").document("UserData").collection(user!!.email.toString()).document("Plan")
-                        planRef.collection("titleContents").document("지울꺼야")
-                            .delete()
-                            .addOnSuccessListener {
-                                Toast.makeText(context, "성공", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener{
-                                Toast.makeText(context, "실패", Toast.LENGTH_SHORT).show()
-                            }
+                        (context as MainActivity).removePlanBook(position)
                     }
                 }
             }
@@ -123,6 +110,6 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
         }
     }
 
-    override fun getItemCount() = planBookList.size
+    override fun getItemCount() = userPlanData.size
 
 }

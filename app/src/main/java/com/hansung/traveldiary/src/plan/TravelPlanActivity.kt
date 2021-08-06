@@ -19,7 +19,7 @@ import androidx.core.view.isVisible
 import com.google.android.gms.location.LocationServices
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelDiaryBinding
-import com.hansung.traveldiary.src.PlaceInfo
+import com.hansung.traveldiary.src.PlaceInfo2
 import com.hansung.traveldiary.src.plan.adapter.PlanAdapter
 import com.hansung.traveldiary.src.plan.model.*
 import com.hansung.traveldiary.util.StatusBarUtil
@@ -35,7 +35,7 @@ import kotlin.math.*
 class TravelPlanActivity : AppCompatActivity(), OnMapReadyCallback, TravelMapView, KakaoSearchView {
     private lateinit var TF: travelMap
     private lateinit var DF: diary
-    private val planList = ArrayList<PlaceInfo>()
+    private val planList = ArrayList<PlaceInfo2>()
     private val planAdapter = PlanAdapter(planList)
     private lateinit var binding: ActivityTravelDiaryBinding
     private lateinit var locationSource: FusedLocationSource

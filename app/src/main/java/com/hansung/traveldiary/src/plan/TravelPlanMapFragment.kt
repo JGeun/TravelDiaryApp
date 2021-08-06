@@ -24,7 +24,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlanMapBinding
-import com.hansung.traveldiary.src.PlaceInfo
+import com.hansung.traveldiary.src.PlaceInfo2
 import com.hansung.traveldiary.src.plan.model.*
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
@@ -56,7 +56,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
 
     private val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
     private var title : String? = null
-    private var placeInfoArray = ArrayList<PlaceInfo>()
+    private var placeInfoArray = ArrayList<PlaceInfo2>()
     constructor(title: String?) : this() {
         this.title = title
     }
@@ -70,7 +70,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
         println("체크 TravelPlanMapFragment ${title}")
         binding = FragmentPlanMapBinding.inflate(inflater, container, false)
 
-        placeInfoArray = userPlaceDataModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray
+        placeInfoArray = userPlaceDataModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
@@ -116,7 +116,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
 
         binding.planBtmBtnStore.setOnClickListener{
             Log.d(TAG, "입력 전: " + placeInfoArray.toString())
-            val placeInfo = PlaceInfo(searchWordResultList[searchWordIndex].place_name, searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble())
+            val placeInfo = PlaceInfo2(searchWordResultList[searchWordIndex].place_name, searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble())
             userPlaceDataModel.putPlace(placeInfo, TravelPlanBaseActivity.index)
 ////            TravelPlanBaseActivity.planTotalData.dayList[TravelPlanBaseActivity.index].placeInfoArray.add(placeInfo)
 //            println("user: " + user!!.email.toString())

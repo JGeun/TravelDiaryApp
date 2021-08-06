@@ -19,21 +19,12 @@ class TravelBaseFragment : Fragment(){
     ): View? {
         binding = FragmentTravelBinding.inflate(inflater, container, false)
 
-        println("TravelBaseFragment 들어옴")
-
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        configureTopNavigation()
-    }
-
-    private fun configureTopNavigation(){
         val pagerAdapter = FragmentAdapter(childFragmentManager)
         val pager = binding.viewPager
         pager.adapter = pagerAdapter
         val tab = binding.tab
         tab.setupWithViewPager(pager)
+
+        return binding.root
     }
 }

@@ -26,8 +26,11 @@ import com.hansung.traveldiary.src.travel.TravelBaseFragment
 import com.hansung.traveldiary.util.LoadingDialog
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-data class WeeklyWeatherData(var date: String, var icon : Drawable, var min: String, var max: String)
+data class WeeklyWeatherData(var date: String, var icon: Drawable, var min: String, var max: String)
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -39,14 +42,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var addNewPlanBookTask: ActivityResultLauncher<Intent>
     private lateinit var updatePlanBookTask: ActivityResultLauncher<Intent>
+    private lateinit var removePlanBookTask: ActivityResultLauncher<Intent>
+
     private val TAG = "MainActivity"
     private var userList = UserList()
 
     companion object {
         var firstStart = true
-        var weatherId : String = "800"
-        var weatherMain : String = "맑음"
-        lateinit var weatherIcon : Drawable
+        var weatherId: String = "800"
+        var weatherMain: String = "맑음"
+        lateinit var weatherIcon: Drawable
         var tempText = "30°C"
         var maxTempText = "30°C"
         var minTempText = "30°C"
@@ -57,7 +62,9 @@ class MainActivity : AppCompatActivity() {
         var weeklyList = ArrayList<WeeklyWeatherData>()
 
         var idxList = IdxList()
+        var myIdxList = IdxList()
         var userList = UserList()
+        var userPlanArray = ArrayList<UserPlanData>()
 
         var diaryTitleList = TitleList()
         var planTitleList = TitleList()
@@ -142,8 +149,34 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
+                showLoadingDialog(this)
                 println("resultcode 들어옴")
-                addPlan2PlanBookList(result.data?.getStringExtra("title").toString(), "add")
+                val idx = result.data?.getLongExtra("idx", 0)!!
+
+                var addPlanBaseData: PlanBaseData
+                var addPlanPlaceArray = ArrayList<PlaceInfo>()
+                val addPlanRef =
+                    db!!.collection("Plan").document(user!!.email.toString()).collection("PlanData")
+                        .document(idx.toString())
+                addPlanRef.get()
+                    .addOnSuccessListener { result ->
+                        addPlanBaseData = result.toObject<PlanBaseData>()!!
+
+                        for (i in 0..calcDate(addPlanBaseData.startDate, addPlanBaseData.endDate)) {
+                            addPlanRef.collection("PlaceInfo")
+                                .document(afterDate(addPlanBaseData.startDate, i)).get()
+                                .addOnSuccessListener { result ->
+                                    val placeData = result.toObject<PlaceInfo>()
+                                    if (placeData != null)
+                                        addPlanPlaceArray.add(placeData)
+                                }
+                        }
+                        userPlanArray.add(UserPlanData(addPlanBaseData, addPlanPlaceArray))
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_frm, TravelBaseFragment())
+                            .commitAllowingStateLoss()
+                        dismissLoadingDialog()
+                    }
             }
         }
 
@@ -156,6 +189,7 @@ class MainActivity : AppCompatActivity() {
                 addPlan2PlanBookList(result.data?.getStringExtra("title").toString(), "add")
             }
         }
+
     }
 
     override fun onStart() {
@@ -168,14 +202,48 @@ class MainActivity : AppCompatActivity() {
         addNewPlanBookTask.launch(Intent(this@MainActivity, AddTravelPlanActivity::class.java))
     }
 
-    fun updatePlanBook(index: Int, modify: Boolean){
-        val intent =Intent(this@MainActivity, AddTravelPlanActivity::class.java)
+    fun updatePlanBook(index: Int, modify: Boolean) {
+        val intent = Intent(this@MainActivity, AddTravelPlanActivity::class.java)
         intent.putExtra("index", index)
         intent.putExtra("modify", true)
         updatePlanBookTask.launch(intent)
     }
 
-    fun getUserList(){
+    fun removePlanBook(index: Int){
+        val user = Firebase.auth.currentUser
+        val db = Firebase.firestore
+        val idx = userPlanArray[index].planBaseData.idx
+
+        //userPlanArray에서 삭제
+        userPlanArray.removeAt(index)
+        idxList.idxFolder.remove(idx)
+
+        //IdxDatabase에서 삭제
+        var totalIdxList = IdxList()
+        val totalIdxRef = db.collection("IdxDatabase").document("IdxData")
+        totalIdxRef.get()
+            .addOnSuccessListener { result ->
+                totalIdxList = result.toObject<IdxList>()!!
+                totalIdxList.idxFolder.remove(idx)
+                totalIdxRef.set(totalIdxList)
+                idxList = totalIdxList
+            }
+
+        //Plan - 유저 email에서 idxFolder / PlanData 안 document 삭제.
+        val userRef = db.collection("Plan").document(user!!.email.toString())
+        myIdxList.idxFolder.remove(idx)
+        userRef.set(myIdxList)
+
+        userRef.collection("PlanData").document(idx.toString())
+            .delete()
+            .addOnSuccessListener {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frm, TravelBaseFragment())
+                    .commitAllowingStateLoss()
+            }
+    }
+
+    fun getUserList() {
         db!!.collection("UserData").document("UserEmail")
             .get()
             .addOnSuccessListener { result ->
@@ -183,8 +251,8 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    fun getIdxList(){
-        db!!.collection("UserData").document("UserEmail")
+    fun getIdxList() {
+        db!!.collection("IdxDatabase").document("IdxData")
             .get()
             .addOnSuccessListener { result ->
                 idxList = result.toObject<IdxList>()!!
@@ -193,8 +261,67 @@ class MainActivity : AppCompatActivity() {
 
     fun getDBData() {
         showLoadingDialog(this)
-        getPlanData()
+        getMyPlanData()
+//        getPlanData()
         getAllDiaryData()
+    }
+
+    fun getMyPlanData() {
+        val myIdxRef = db!!.collection("Plan").document(user!!.email.toString())
+
+        myIdxRef.get()
+            .addOnSuccessListener { result ->
+                val idxData = result.toObject<IdxList>()
+                if (idxData != null) {
+                    myIdxList = idxData
+
+                    for (myIdx in myIdxList.idxFolder) {
+                        var planBaseData = PlanBaseData()
+                        var placeArray = ArrayList<PlaceInfo>()
+                        val myPlanRef = myIdxRef.collection("PlanData").document(myIdx.toString())
+                        myPlanRef.get().addOnSuccessListener { result ->
+                            val planData = result.toObject<PlanBaseData>()
+                            if (planData != null) {
+                                planBaseData = planData
+
+                                for (i in 0..calcDate(
+                                    planBaseData.startDate,
+                                    planBaseData.endDate
+                                )) {
+                                    myPlanRef.collection("PlaceInfo")
+                                        .document(afterDate(planBaseData.startDate, i)).get()
+                                        .addOnSuccessListener { result ->
+                                            val placeData = result.toObject<PlaceInfo>()
+                                            if (placeData != null)
+                                                placeArray.add(placeData)
+                                        }
+                                }
+                                dismissLoadingDialog()
+                                userPlanArray.add(UserPlanData(planBaseData, placeArray))
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
+    fun calcDate(startDate: String, endDate: String): Int {
+        var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val startDateFormat = simpleDateFormat.parse("${startDate} 00:00:00")!!
+        val endDateFormat = simpleDateFormat.parse("${endDate} 00:00:00")!!
+        val calcDate =
+            ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
+        return calcDate
+    }
+
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
     }
 
     fun getPlanData() {
@@ -226,12 +353,12 @@ class MainActivity : AppCompatActivity() {
     fun addPlan2PlanBookList(title: String, check: String = "default") {
         val userDocRef = db!!.collection("User").document("UserData")
         val planDocRef = userDocRef.collection(user!!.email.toString()).document("Plan")
-        var planBaseData: PlanBaseData? = null
-        var placeInfoFolder: PlaceInfoFolder? = null
+        var planBaseData: PlanBaseData2? = null
+        var placeInfoFolder: PlaceInfoFolder2? = null
         planDocRef.collection(title).document("BaseData")
             .get()
             .addOnSuccessListener { result ->
-                planBaseData = result.toObject<PlanBaseData>()
+                planBaseData = result.toObject<PlanBaseData2>()
                 if (planBaseData != null && placeInfoFolder != null) {
                     planBookList.add(
                         PlanBookData(
@@ -253,7 +380,7 @@ class MainActivity : AppCompatActivity() {
         planDocRef.collection(title).document("PlaceInfo")
             .get()
             .addOnSuccessListener { result ->
-                placeInfoFolder = result.toObject<PlaceInfoFolder>()
+                placeInfoFolder = result.toObject<PlaceInfoFolder2>()
                 if (planBaseData != null && placeInfoFolder != null) {
                     planBookList.add(
                         PlanBookData(
@@ -317,15 +444,15 @@ class MainActivity : AppCompatActivity() {
         val userDocRef = db!!.collection("User").document("UserData")
         val diaryDocRef = userDocRef.collection(email).document("Diary")
 
-        var planBaseData: PlanBaseData? = null
-        var placeInfoFolder: PlaceInfoFolder? = null
+        var planBaseData: PlanBaseData2? = null
+        var placeInfoFolder: PlaceInfoFolder2? = null
         var diaryInfoFolder: DiaryInfoFolder? = null
         var diaryBaseData: DiaryBaseData? = null
 
         diaryDocRef.collection(title).document("PlanBaseData")
             .get()
             .addOnSuccessListener { result ->
-                planBaseData = result.toObject<PlanBaseData>()
+                planBaseData = result.toObject<PlanBaseData2>()
                 if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
                     val diaryBulletinData = DiaryBulletinData(
                         title,
@@ -349,7 +476,7 @@ class MainActivity : AppCompatActivity() {
         diaryDocRef.collection(title).document("PlanPlaceInfo")
             .get()
             .addOnSuccessListener { result ->
-                placeInfoFolder = result.toObject<PlaceInfoFolder>()
+                placeInfoFolder = result.toObject<PlaceInfoFolder2>()
                 if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
                     val diaryBulletinData = DiaryBulletinData(
                         title,

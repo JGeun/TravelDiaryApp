@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -14,19 +13,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
-import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentMakeDiaryDaySectionBinding
 import com.hansung.traveldiary.src.DiaryInfo
-import com.hansung.traveldiary.src.DiaryInfoFolder
-import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.PlaceInfoFolder
-import com.hansung.traveldiary.src.plan.ScheduleFragment
-import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 import com.hansung.traveldiary.src.plan.TravelPlanMapFragment
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 

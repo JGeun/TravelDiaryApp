@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityAddTravelPlanBinding
@@ -118,7 +119,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
         setRadioButton()
 
-        binding.addPlanBtn.setOnClickListener {
+        /*binding.addPlanBtn.setOnClickListener {
             var area = areaViewModel.areaData.value
             var title = binding.atpTitle.text.toString()
             var startDate = startdate
@@ -190,6 +191,103 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
             setResult(RESULT_OK, resultIntent)
             finish()
+        }*/
+
+        binding.addPlanBtn.setOnClickListener {
+            var area = areaViewModel.areaData.value
+            var title = binding.atpTitle.text.toString()
+            var startDate = startdate
+            var endDate = enddate
+
+            val totalIdxRef = db!!.collection("IdxDatabase").document("IdxData")
+            var idx : Long = 0
+            while(true){
+                idx = makeIdx()
+                if(!MainActivity.idxList.idxFolder.contains(idx)) {
+                    MainActivity.idxList.idxFolder.add(idx)
+                    totalIdxRef.set(MainActivity.idxList)
+                    break
+                }
+            }
+
+            var userIdxList = IdxList()
+
+            val userIdxRef = db!!.collection("Plan").document(user!!.email.toString())
+            userIdxRef.get()
+                .addOnSuccessListener { result ->
+                    val data = result.toObject<IdxList>()
+                    if(data != null){
+                        userIdxList = data
+                    }
+                    userIdxList.idxFolder.add(idx)
+                    userIdxRef.set(userIdxList)
+                }
+
+//            val docPlanRef = userDocRef.collection(user!!.email.toString()).document("Plan")
+//            if(!isModify) {
+//                titleList.titleFolder.add(title)
+//                docPlanRef.set(titleList)
+//            }
+//
+            var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+            val startDateFormat = simpleDateFormat.parse("$startDate 00:00:00")!!
+            val endDateFormat = simpleDateFormat.parse("$endDate 00:00:00")!!
+            val calcDate =
+                ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
+
+            val planRef = db!!.collection("Plan").document(user!!.email.toString())
+                .collection("PlanData").document(idx.toString())
+
+            if(isModify){
+                //TODO 수정눌렀을 떄의 경우 체크해야합니다.
+//                val index = intent.getIntExtra("index", 0)
+//                docPlanRef.collection(MainActivity.planBookList[index].title).document("BaseData")
+//                    .set(
+//                        PlanBaseData(
+//                            title,
+//                            color,
+//                            startDate,
+//                            endDate,
+//                            area!!,
+//                            1
+//                        )
+//                    )
+            }else{
+                planRef.set(
+                    PlanBaseData(
+                        idx,
+                        title,
+                        color,
+                        startDate,
+                        endDate,
+                        area!!,
+                        1
+                    )
+                )
+            }
+            for (i in 0..calcDate) {
+                val placeRef = planRef.collection("PlaceInfo").document(afterDate(startDate,i))
+                placeRef.set(
+                    PlaceInfo(
+                        ArrayList()
+                    )
+                )
+            }
+
+            val resultIntent = Intent()
+//            if(isModify){
+//                val index = intent.getIntExtra("index", 0)
+//                docPlanRef.collection(MainActivity.planBookList[index].title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
+//                resultIntent.putExtra("title", MainActivity.planBookList[index].title)
+//                resultIntent.putExtra("index", index)
+//            }else{
+//                docPlanRef.collection(title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
+                resultIntent.putExtra("idx", idx)
+//            }
+//
+//
+            setResult(RESULT_OK, resultIntent)
+            finish()
         }
 
         binding.apaOutblock.setOnClickListener {
@@ -207,6 +305,16 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
     fun updateFirebaseStore(title: String, startDate: String, endDate: String) {
 
+    }
+
+    fun makeIdx() : Long{
+        val str = StringBuilder()
+        val random = Random()
+        for(i in 0 until 8){
+            val num = random.nextInt(10)
+            str.append(num.toString())
+        }
+        return str.toString().toLong()
     }
 
     fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {

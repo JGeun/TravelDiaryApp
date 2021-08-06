@@ -1,7 +1,6 @@
 package com.hansung.traveldiary.src.plan
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,7 +69,7 @@ class ScheduleFragment() : Fragment(){
             index = TravelPlanBaseActivity.index
 
 
-        if(userPlaceDataModel.items.dayPlaceList[index!!].placeInfoArray.size != 0){
+        if(userPlaceDataModel.items.dayPlaceList[index!!].placeFolder.size != 0){
             binding.scheduleNoPlan.isVisible = false
             binding.scheduleRecyclerview.isVisible = true
         }else{

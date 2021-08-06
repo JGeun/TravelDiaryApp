@@ -1,6 +1,5 @@
 package com.hansung.traveldiary.src.plan.adapter
 
-import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.config.EditBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemScheduleBinding
-import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.ScheduleFragment
 import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
@@ -100,7 +98,7 @@ class ScheduleAdapter(
         }
 
         holder.location.text =
-            placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray[position].placeName
+            placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder[position].placeName
         holder.editIcon.setOnClickListener {
             val editBtmSheetDialogFragment = EditBottomDialogFragment {
                 when (it) {
@@ -126,14 +124,14 @@ class ScheduleAdapter(
         }
         Log.d(
             "리스트",
-            placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray.size.toString()
+            placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder.size.toString()
         )
         if (position == 0)
             holder.topBar.visibility = View.INVISIBLE
-        if (position == placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray.size - 1)
+        if (position == placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder.size - 1)
             holder.bottomBar.visibility = View.INVISIBLE
     }
 
     override fun getItemCount(): Int =
-        placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray.size
+        placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder.size
 }
