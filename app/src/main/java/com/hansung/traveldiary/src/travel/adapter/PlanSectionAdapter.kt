@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.config.DeleteBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemPlanSectionBinding
@@ -101,7 +105,17 @@ class PlanSectionAdapter(val planBookList: ArrayList<PlanBookData>) :
                         (context as MainActivity).updatePlanBook(position, true)
                     }
                     1 -> {
-
+                        val user = Firebase.auth.currentUser
+                        val db = Firebase.firestore
+                        val planRef = db.collection("User").document("UserData").collection(user!!.email.toString()).document("Plan")
+                        planRef.collection("titleContents").document("지울꺼야")
+                            .delete()
+                            .addOnSuccessListener {
+                                Toast.makeText(context, "성공", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener{
+                                Toast.makeText(context, "실패", Toast.LENGTH_SHORT).show()
+                            }
                     }
                 }
             }
