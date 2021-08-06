@@ -41,3 +41,5 @@ data class PlanData(
 
 data class PlanBookData(var title: String, var planData: PlanData)
 
+//UserInfoDataSet
+data class UserContents(var nickname: String, var profileImage: String)

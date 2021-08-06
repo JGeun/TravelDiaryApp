@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import com.hansung.traveldiary.src.bulletin.BulletinFragment
 import com.hansung.traveldiary.src.profile.ProfileFragment
 import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
 import com.hansung.traveldiary.src.travel.TravelBaseFragment
+import com.hansung.traveldiary.util.LoadingDialog
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var updatePlanBookTask: ActivityResultLauncher<Intent>
     private val TAG = "MainActivity"
     private val userList = UserEmailList()
+
 
     companion object {
         var firstStart = true
@@ -64,6 +67,19 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+        lateinit var mLoadingDialog: LoadingDialog
+
+        fun showLoadingDialog(context: Context) {
+            mLoadingDialog = LoadingDialog(context)
+            mLoadingDialog.show()
+        }
+
+        fun dismissLoadingDialog() {
+            if (mLoadingDialog.isShowing) {
+                mLoadingDialog.dismiss()
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,6 +171,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getDBData() {
+        showLoadingDialog(this)
         getPlanData()
         getAllDiaryData()
     }
@@ -263,6 +280,7 @@ class MainActivity : AppCompatActivity() {
                                             getUserDiaryData(email, title, false)
                                     }
                                 }
+                                dismissLoadingDialog()
                             }
                     }
                 }
@@ -379,5 +397,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Error getting documents: ", exception)
             }
     }
+
 }
 

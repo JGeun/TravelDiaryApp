@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.login
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,14 +8,26 @@ import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ActivityLoginBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.PlanBaseData
+import com.hansung.traveldiary.src.UserContents
+import com.hansung.traveldiary.util.LoadingDialog
 import com.hansung.traveldiary.util.StatusBarUtil
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
+    private var user: FirebaseUser? = null
+    private var db: FirebaseFirestore? = null
+
     var auth: FirebaseAuth? = null
+    lateinit var mLoadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +37,8 @@ class LoginActivity : AppCompatActivity() {
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         auth = FirebaseAuth.getInstance()
+        user = Firebase.auth.currentUser
+        db = Firebase.firestore
 
         binding.signinBtn.setOnClickListener {
             if (binding.inputId.text.toString().isEmpty()) {
@@ -36,23 +51,36 @@ class LoginActivity : AppCompatActivity() {
                 showCustomToast("비밀번호는 6자 이상 입력해주세요")
                 return@setOnClickListener
             } else {
+                showLoadingDialog(this)
                 auth?.signInWithEmailAndPassword(
                     binding.inputId.text.toString(),
                     binding.inputPw.text.toString()
                 )?.addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val pref = applicationContext.getSharedPreferences("user", 0)
-                            val editor = pref.edit().apply() {
-                                putString("login", "success")
-                            }.commit()
-
-                            moveHomePage(task.result?.user)
-                        } else {
-                            showCustomToast("이메일과 비밀번호를 다시 확인해주세요")
-                            binding.inputId.setText("")
-                            binding.inputPw.setText("")
-                        }
+                    if (task.isSuccessful) {
+                        db!!.document(user!!.email.toString())
+                            .get()
+                            .addOnSuccessListener { result ->
+                                val userContents = result.toObject<UserContents>()!!
+                                val pref = applicationContext.getSharedPreferences("user", 0)
+                                with(pref.edit()) {
+                                    putString("login", "success")
+                                    putString("nickname", userContents.nickname)
+                                    putString("profileImagePath", userContents.profileImage)
+                                    commit()
+                                }
+                                dismissLoadingDialog()
+                                moveHomePage(task.result?.user)
+                            }.addOnFailureListener {
+                                dismissLoadingDialog()
+                                showCustomToast("실패하였습니다.")
+                            }
+                    } else {
+                        dismissLoadingDialog()
+                        showCustomToast("이메일과 비밀번호를 다시 확인해주세요")
+                        binding.inputId.setText("")
+                        binding.inputPw.setText("")
                     }
+                }
             }
         }
 
@@ -72,5 +100,16 @@ class LoginActivity : AppCompatActivity() {
 
     fun showCustomToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showLoadingDialog(context: Context) {
+        mLoadingDialog = LoadingDialog(context)
+        mLoadingDialog.show()
+    }
+
+    fun dismissLoadingDialog() {
+        if (mLoadingDialog.isShowing) {
+            mLoadingDialog.dismiss()
+        }
     }
 }

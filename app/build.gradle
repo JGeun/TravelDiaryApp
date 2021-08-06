@@ -83,8 +83,11 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'me.relex:circleindicator:2.1.6'
 
-    //Sticky Header
+    //https://github.com/amarjain07/StickyScrollView
     implementation 'com.github.amarjain07:StickyScrollView:1.0.2'
+
+    //https://github.com/ybq/Android-SpinKit
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

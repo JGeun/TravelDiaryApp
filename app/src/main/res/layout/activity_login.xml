@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleImage" />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/input_pw"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -46,6 +46,7 @@
         android:ems="10"
         android:fontFamily="@font/main_font"
         android:hint="비밀번호"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         android:inputType="textPassword"
@@ -61,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="비밀번호 찾기"
-        android:fontFamily="@font/main_font"
+        android:fontFamily="@font/main_font2"
         app:layout_constraintTop_toBottomOf="@id/input_pw"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -71,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="회원가입"
-        android:fontFamily="@font/main_font"
+        android:fontFamily="@font/main_font2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_pw"
         app:layout_constraintEnd_toStartOf="@id/findPW"
@@ -84,7 +85,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/radius_btn"
         android:text="로그인"
-        android:fontFamily="@font/main_font"
+        android:fontFamily="@font/main_font2"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
