@@ -25,7 +25,11 @@ class ShowPlacelistActivity : AppCompatActivity() {
     private lateinit var transaction : FragmentTransaction
     private val userPlanDataModel : SharedPlaceViewModel by viewModels()
     var placeInfoFolder = PlaceInfoFolder()
-    var index : Int = 0
+
+    companion object{
+        var index = 0
+        var placeInfoFolder = PlaceInfoFolder()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,30 +41,31 @@ class ShowPlacelistActivity : AppCompatActivity() {
         user = Firebase.auth.currentUser
         db = Firebase.firestore
 
-//        initViewModel(title!!)
+        initViewModel(title!!)
 
-        transaction = supportFragmentManager.beginTransaction()
-        var fragment = PlacelistFragment(title)
-        fragment.setIdx(index)
-        transaction.replace(R.id.view_show, fragment).commit()
+//        transaction = supportFragmentManager.beginTransaction()
+//        var fragment = PlacelistFragment(title)
+//        fragment.setIdx(index)
+//        transaction.replace(R.id.view_show, fragment).commit()
 
     }
 
-//    fun initViewModel(title: String){
-//        val userDocRef = db!!.collection("User").document("UserData")
-//
-//        userDocRef.collection(user!!.email.toString()).document("Diary").collection(title).document("PlanPlaceInfo")
-//            .get().addOnSuccessListener  { documentSnapshot ->
-//                placeInfoFolder = documentSnapshot.toObject<PlaceInfoFolder>()!!
-//                userPlanDataModel.putAllData(placeInfoFolder)
-//                transaction = supportFragmentManager.beginTransaction()
-//                var fragment = ScheduleFragment(title)
-//                fragment.setIdx(index)
-//                transaction.replace(R.id.view_show, fragment).commit()
-//
-//            }
-//        Log.d("플레이스 사이즈", userDocRef.collection(user!!.email.toString()).document("Plan").collection(title).document("PlaceInfo").get().toString())
-//
-//    }
+    fun initViewModel(title: String){
+        val userDocRef = db!!.collection("User").document("UserData")
+
+        Log.d("플레이스 사이즈", userDocRef.collection(user!!.email.toString()).document("Diary").collection(title).document("PlanPlaceInfo").get().toString())
+
+        userDocRef.collection(user!!.email.toString()).document("Diary").collection(title).document("PlanPlaceInfo")
+            .get().addOnSuccessListener  { documentSnapshot ->
+                placeInfoFolder = documentSnapshot.toObject<PlaceInfoFolder>()!!
+                userPlanDataModel.putAllData(placeInfoFolder)
+
+                transaction = supportFragmentManager.beginTransaction()
+                var fragment = PlacelistFragment(title)
+                fragment.setIdx(index)
+                transaction.replace(R.id.view_show, fragment).commit()
+            }
+
+    }
 
 }
