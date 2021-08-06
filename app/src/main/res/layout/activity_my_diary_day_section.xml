@@ -20,23 +20,38 @@
         android:id="@+id/ds_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="다이어리 제목"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/main_font2"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="다이어리 제목"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ds_changeImage"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/ic_find_black"
-        app:layout_constraintTop_toTopOf="@id/ds_title"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/ds_tv_ok"
+        app:layout_constraintEnd_toStartOf="@+id/ds_tv_ok"
+        app:layout_constraintTop_toTopOf="@+id/ds_tv_ok" />
+
+    <TextView
+        android:id="@+id/ds_tv_ok"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:fontFamily="@font/main_font2"
+        android:gravity="center"
+        android:text="완료"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ds_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ds_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ds_recyclerview"

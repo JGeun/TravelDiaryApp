@@ -18,11 +18,6 @@ class BulletinFragment : Fragment(){
     ): View? {
         binding = FragmentBulletinBinding.inflate(inflater, container, false)
 
-        //액션바
-        binding.FAbtn.setOnClickListener {
-
-        }
-
 
         println("개수: ${MainActivity.allDiaryList.size}")
         binding.bulletinRecyclerView.apply{
