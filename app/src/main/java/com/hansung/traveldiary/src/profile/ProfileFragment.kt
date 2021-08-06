@@ -71,16 +71,6 @@ class ProfileFragment : Fragment() {
         val profileImagePath = pref.getString("profileImagePath", "")
         if (profileImagePath.equals("")) {
             Glide.with(requireContext()).load(ResourcesCompat.getDrawable(resources, R.drawable.img_basic_profile, null)).into(binding.userProfileImage)
-//            Firebase.storage.reference.child("profileImage/" + user!!.email + "/profileImage.png")
-//                .downloadUrl.addOnCompleteListener { task ->
-//                    val downloadUri = task.result
-//                    with(pref.edit()) {
-//                        putString("profileImagePath", downloadUri.toString())
-//                        commit()
-//                    }
-//                    Glide.with(binding.root.context).load(downloadUri)
-//                        .into(binding.userProfileImage)
-//                }
         } else {
             Glide.with(requireContext()).load(profileImagePath).into(binding.userProfileImage)
         }
@@ -92,6 +82,7 @@ class ProfileFragment : Fragment() {
 
             with(pref!!.edit()) {
                 putString("login", "fail")
+                putString("nickname", "")
                 putString("profileImagePath", "")
                 commit()
             }
