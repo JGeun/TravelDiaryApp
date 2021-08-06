@@ -9,14 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentProfileBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.login.LoginActivity
@@ -24,8 +28,11 @@ import com.hansung.traveldiary.src.profile.edit_info.EditInfoActivity
 
 class ProfileFragment : Fragment() {
     private lateinit var pref: SharedPreferences
-    private var user: FirebaseUser? = null
     private lateinit var binding: FragmentProfileBinding
+
+    private var user: FirebaseUser? = null
+    private var db: FirebaseFirestore? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +40,8 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         user = FirebaseAuth.getInstance().currentUser
+        db = Firebase.firestore
+
         pref = context?.getSharedPreferences("user", 0)!!
 
         binding.userName.text = FirebaseAuth.getInstance().currentUser?.displayName ?: "null"
@@ -46,12 +55,13 @@ class ProfileFragment : Fragment() {
 
         binding.planCount.text = MainActivity.planBookList.size.toString()
         binding.diaryCount.text = MainActivity.myDiaryList.size.toString()
+
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        val userName = pref.getString("userName", "")
+        val userName = pref.getString("nickname", "")
         if (userName.equals("")) {
             binding.userName.text = user?.displayName ?: "null"
         } else {
@@ -60,16 +70,7 @@ class ProfileFragment : Fragment() {
 
         val profileImagePath = pref.getString("profileImagePath", "")
         if (profileImagePath.equals("")) {
-            Firebase.storage.reference.child("profileImage/" + user!!.email + "/profileImage.png")
-                .downloadUrl.addOnCompleteListener { task ->
-                    val downloadUri = task.result
-                    with(pref.edit()) {
-                        putString("profileImagePath", downloadUri.toString())
-                        commit()
-                    }
-                    Glide.with(binding.root.context).load(downloadUri)
-                        .into(binding.userProfileImage)
-                }
+            Glide.with(requireContext()).load(ResourcesCompat.getDrawable(resources, R.drawable.img_basic_profile, null)).into(binding.userProfileImage)
         } else {
             Glide.with(requireContext()).load(profileImagePath).into(binding.userProfileImage)
         }
@@ -77,8 +78,12 @@ class ProfileFragment : Fragment() {
 
     private fun logout() {
         binding.logoutSetting.setOnClickListener {
+            MainActivity.showLoadingDialog(context as MainActivity)
+
             with(pref!!.edit()) {
                 putString("login", "fail")
+                putString("nickname", "")
+                putString("profileImagePath", "")
                 commit()
             }
             val user = Firebase.auth
@@ -101,6 +106,7 @@ class ProfileFragment : Fragment() {
 
                         with(pref.edit()) {
                             putString("login", "fail")
+                            putString("profileImagePath", "")
                             commit()
                         }
                         startActivity(Intent(context, LoginActivity::class.java))

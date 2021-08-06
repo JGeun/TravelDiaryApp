@@ -38,35 +38,12 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/selectPictures_btn_upload"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:gravity="center"
-        android:clickable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:focusable="true"
-        android:background="@color/maincolor">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="사진 업로드"
-            android:textSize="15sp"
-            android:textColor="#ffffff"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/sp_rv_galleryImages"
         android:layout_marginVertical="16dp"
         app:layout_constraintTop_toBottomOf="@id/selectPictures_topPanel"
-        app:layout_constraintBottom_toTopOf="@id/selectPictures_btn_upload"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
