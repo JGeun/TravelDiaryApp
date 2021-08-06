@@ -39,49 +39,11 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btItem_userImage" />
-
-        <me.relex.circleindicator.CircleIndicator3
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_gravity="bottom"
-            android:background="@null"
-            app:ci_drawable="@drawable/pager_indicator_tab_selector"
-            app:ci_height="5dp"
-            app:ci_margin="4dp"
-            app:ci_width="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.512"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewPager" />
-
-        <TextView
-            android:id="@+id/btItem_tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:ems="10"
-            android:maxLines="2"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@+id/indicator"
-            tools:text="assssssssssssssssssssssssasdas" />
-
-        <TextView
-            android:id="@+id/btItme_tv_contents"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btItem_tv_title"
-            tools:text="asdasdasdasdasdasdasdasdasdasdasdasd" />
 
         <View
             android:id="@+id/btItem_line"
@@ -98,13 +60,13 @@
             android:id="@+id/relativeLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.39"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btItem_line">
+            app:layout_constraintTop_toBottomOf="@+id/viewPager">
 
             <TextView
                 android:id="@+id/btItem_tv_likecnt"

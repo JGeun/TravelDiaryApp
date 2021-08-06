@@ -17,18 +17,15 @@ class BulletinAdapter2(private val diaryAllData: ArrayList<DiaryBulletinData>):R
     inner class ViewHolder(private val binding: ItemBulletin2Binding):RecyclerView.ViewHolder(binding.root){
         val userImage = binding.btItemUserImage
         val userName = binding.btItemUserName
-        val title = binding.btItemTvTitle
         val likeCnt=binding.btItemTvLikecnt
         val comment=binding.btItemTvComment
-        val content=binding.btItmeTvContents
+        val viewpager=binding.viewPager
         //val thumbnail = binding.btItemIvThumbnail
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
 
         val binding= ItemBulletin2Binding.inflate(LayoutInflater.from(parent.context), parent,false)
-        binding.viewPager.adapter =
-            BulletinViewPagerAdapter(diaryAllData)
-        binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
         //binding.viewPager.adapter=BulletinViewPagerAdapter(imgArray)
         return ViewHolder(binding)
     }
@@ -36,15 +33,17 @@ class BulletinAdapter2(private val diaryAllData: ArrayList<DiaryBulletinData>):R
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
         val data = diaryAllData[position].diaryData
+
         var view = holder.itemView
 //        Glide.with(context).load(data.diaryBaseData.userImage).into(holder.userImage)
         Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
         holder.userName.text = data.diaryBaseData.userName
-        holder.title.text = data.diaryBaseData.title
+        holder.viewpager.adapter =
+            BulletinViewPagerAdapter(diaryAllData[position].diaryData.diaryInfoFolder.diaryDayList)
+        holder.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
         holder.likeCnt.text=data.diaryBaseData.like.toString()
         holder.comment.text=data.diaryBaseData.comments.toString()
-        holder.content.text=data.diaryInfoFolder.diaryDayList[0].toString()
         holder.itemView.setTag(position)
 
 
