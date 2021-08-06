@@ -14,20 +14,16 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentScheduleBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.adapter.ScheduleAdapter
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
-class ScheduleFragment() : Fragment(){
+class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
     private lateinit var binding : FragmentScheduleBinding
     val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
-    private var title : String? = null
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
-    var index = 0
 
-    constructor(title: String?) : this() {
-        this.title = title
-    }
 
     companion object{
         var checked = false
@@ -45,16 +41,21 @@ class ScheduleFragment() : Fragment(){
         binding.scheduleRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            var scheduleadapter = ScheduleAdapter(userPlaceDataModel, binding.tvChecked)
-            scheduleadapter.title = title
-            adapter = scheduleadapter
+            adapter = ScheduleAdapter(userPlaceDataModel, index, binding.tvChecked)
         }
 
         binding.tvChecked.setOnClickListener {
             checked = false
-            val userDocRef = db!!.collection("User").document("UserData")
-            userDocRef.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
-                .set(TravelPlanBaseActivity.placeInfoFolder)
+            val userDocRef = db!!.collection("Plan")
+                .document(user!!.email.toString()).collection("PlanData")
+                .document(MainActivity.userPlanArray[index].planBaseData.idx.toString())
+                .collection("PlaceInfo")
+                .set()
+
+//            userDocRef.collection(user!!.email.toString())
+//                .document("Plan").collection(MainActivity.userPlanArray[index].planBaseData.title)
+//                .document("PlaceInfo")
+//                .set(TravelPlanBaseActivity.placeInfoFolder)
             binding.tvChecked.visibility = View.GONE
             binding.scheduleRecyclerview.adapter?.notifyDataSetChanged()
         }
@@ -65,26 +66,13 @@ class ScheduleFragment() : Fragment(){
     override fun onStart() {
         super.onStart()
         println("schedule fragment start")
-        if (TravelPlanBaseActivity.index!=0)
-            index = TravelPlanBaseActivity.index
 
-
-        if(userPlaceDataModel.items.dayPlaceList[index!!].placeFolder.size != 0){
+        if(userPlaceDataModel.items.placeFolder.size != 0){
             binding.scheduleNoPlan.isVisible = false
             binding.scheduleRecyclerview.isVisible = true
         }else{
             binding.scheduleNoPlan.isVisible = true
             binding.scheduleRecyclerview.isVisible = false
         }
-//        if (checked) {
-//            binding.tvChecked.visibility = View.VISIBLE
-//        }else{
-//            binding.tvChecked.visibility = View.GONE
-//        }
-
-    }
-
-    fun setIdx(idx : Int){
-        index = idx
     }
 }

@@ -15,17 +15,14 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.config.EditBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemScheduleBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.ScheduleFragment
 import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
-class ScheduleAdapter(
-    private val placeViewModel: SharedPlaceViewModel,
-    private val finishText: TextView
-) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private val index: Int, private val finishText: TextView) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
-    var title: String? = null
 
     class ViewHolder(val binding: ItemScheduleBinding) : RecyclerView.ViewHolder(binding.root) {
         val location: TextView = binding.itemScheduleLocation
@@ -46,7 +43,6 @@ class ScheduleAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         user = Firebase.auth.currentUser
         db = Firebase.firestore
-        Log.d("DB title", title.toString())
 
         val context = holder.itemView.context
         val barColor = when ((context as TravelPlanBaseActivity).getColor()) {
@@ -85,20 +81,20 @@ class ScheduleAdapter(
 
         holder.upBtn.setOnClickListener {
             if(position != 0 ){
-                placeViewModel.moveUp(TravelPlanBaseActivity.index, position)
+                placeViewModel.moveUp(index, position)
                 notifyDataSetChanged()
             }
         }
 
         holder.downBtn.setOnClickListener {
             if(position != itemCount -1){
-                placeViewModel.moveDown(TravelPlanBaseActivity.index, position)
+                placeViewModel.moveDown(index, position)
                 notifyDataSetChanged()
             }
         }
 
         holder.location.text =
-            placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder[position].placeName
+            placeViewModel.items.dayPlaceList[index].placeFolder[position].placeName
         holder.editIcon.setOnClickListener {
             val editBtmSheetDialogFragment = EditBottomDialogFragment {
                 when (it) {
@@ -108,10 +104,10 @@ class ScheduleAdapter(
                         notifyDataSetChanged()
                     }
                     1 -> {
-                        placeViewModel.removePlace(TravelPlanBaseActivity.index, position)
+                        placeViewModel.removePlace(index, position)
                         val userDocRef = db!!.collection("User").document("UserData")
                         userDocRef.collection(user!!.email.toString()).document("Plan")
-                            .collection(title!!).document("PlaceInfo")
+                            .collection(MainActivity.userPlanArray[index].planBaseData.title).document("PlaceInfo")
                             .set(TravelPlanBaseActivity.placeInfoFolder)
                         notifyDataSetChanged()
                     }
@@ -124,14 +120,13 @@ class ScheduleAdapter(
         }
         Log.d(
             "리스트",
-            placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder.size.toString()
+            placeViewModel.items.dayPlaceList[index].placeFolder.size.toString()
         )
         if (position == 0)
             holder.topBar.visibility = View.INVISIBLE
-        if (position == placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder.size - 1)
+        if (position == placeViewModel.items.dayPlaceList[index].placeFolder.size - 1)
             holder.bottomBar.visibility = View.INVISIBLE
     }
 
-    override fun getItemCount(): Int =
-        placeViewModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder.size
+    override fun getItemCount(): Int = placeViewModel.items.dayPlaceList[index].placeFolder.size
 }

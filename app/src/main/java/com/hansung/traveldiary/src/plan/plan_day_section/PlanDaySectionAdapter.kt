@@ -48,23 +48,17 @@ class PlanDaySectionAdapter(val index: Int): RecyclerView.Adapter<PlanDaySection
         holder.bar.setBackgroundColor(ResourcesCompat.getColor(context.resources, barColor, null))
 
         val intent = Intent(context, TravelPlanBaseActivity::class.java)
-        intent.putExtra("title", MainActivity.userPlanArray[index].planBaseData.title)
+        intent.putExtra("index", index)
+        intent.putExtra("day", position)
         holder.map.setOnClickListener{
             intent.putExtra("menu", "map")
-            intent.putExtra("index", position)
-            intent.putExtra("color", color)
             context.startActivity(intent)
         }
         holder.itemView.setOnClickListener{
             intent.putExtra("menu", "schedule")
-            intent.putExtra("index", position)
-            intent.putExtra("color", color)
+
             context.startActivity(intent)
         }
-
-//        holder.itemView.setOnClickListener{
-//
-//        }
     }
 
     override fun getItemCount() = MainActivity.userPlanArray[index].placeArray.size

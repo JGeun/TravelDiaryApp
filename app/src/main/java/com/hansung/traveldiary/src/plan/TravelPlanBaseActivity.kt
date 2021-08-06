@@ -16,6 +16,8 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelPlanBaseBinding
+import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.PlaceInfo
 import com.hansung.traveldiary.src.PlaceInfoFolder2
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 import com.hansung.traveldiary.util.StatusBarUtil
@@ -38,7 +40,8 @@ class TravelPlanBaseActivity : AppCompatActivity() {
     private lateinit var scheduleDrawable : Drawable
     private val userPlanDataModel : SharedPlaceViewModel by viewModels()
     private var barColor : String? = null
-
+    private var index = 0
+    private var day = 0
     private val TAG = "TravelPlanBaseActivity"
 
     companion object {
@@ -53,8 +56,8 @@ class TravelPlanBaseActivity : AppCompatActivity() {
             .baseUrl("https://dapi.kakao.com/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        var index = 0
-        var placeInfoFolder = PlaceInfoFolder2()
+
+        var placeInfoFolder = PlaceInfo()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,17 +71,17 @@ class TravelPlanBaseActivity : AppCompatActivity() {
 
         val menu = intent.getStringExtra("menu")
         index = intent.getIntExtra("index", 0)
-        val title = intent.getStringExtra("title")
-        if(title != "")
-            binding.planTopTitle.text = title
+        day = intent.getIntExtra("day", 0)
 
-        scheduleFragment = ScheduleFragment(title)
-        travelPlanMapFragment = TravelPlanMapFragment(title)
+        binding.planTopTitle.text = MainActivity.userPlanArray[index].planBaseData.title
+
+        scheduleFragment = ScheduleFragment(index, day)
+        travelPlanMapFragment = TravelPlanMapFragment(index, day)
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
 
-        initViewModel(menu!!, title!!)
+        initViewModel(menu!!)
 
         fragmentManager = supportFragmentManager
         transaction = fragmentManager.beginTransaction()
@@ -104,17 +107,16 @@ class TravelPlanBaseActivity : AppCompatActivity() {
             }
         }
 
-
         binding.planTopBack.setOnClickListener{
             finish()
         }
     }
 
-    fun initViewModel(menu : String, title: String){
+    fun initViewModel(menu : String){
         val userDocRef = db!!.collection("User").document("UserData")
-        userDocRef.collection(user!!.email.toString()).document("Plan").collection(title).document("PlaceInfo")
+        userDocRef.collection(user!!.email.toString()).document("Plan").collection(MainActivity.userPlanArray[index].planBaseData.title).document("PlaceInfo")
             .get().addOnSuccessListener  { documentSnapshot ->
-                placeInfoFolder = documentSnapshot.toObject<PlaceInfoFolder2>()!!
+                placeInfoFolder = MainActivity.userPlanArray[index].placeArray[day]
                 userPlanDataModel.putAllData(placeInfoFolder)
 
                 if(menu == "schedule"){

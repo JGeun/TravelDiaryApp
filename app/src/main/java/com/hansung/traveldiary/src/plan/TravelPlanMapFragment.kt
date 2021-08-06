@@ -24,6 +24,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlanMapBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.PlaceInfo2
 import com.hansung.traveldiary.src.plan.model.*
 import com.naver.maps.geometry.LatLng
@@ -33,7 +34,7 @@ import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.overlay.PathOverlay
 import com.naver.maps.map.util.FusedLocationSource
 
-class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView {
+class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapReadyCallback, KakaoSearchView {
     private lateinit var binding : FragmentPlanMapBinding
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -55,11 +56,8 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
     private val TAG = "TravelPlanMapFragment"
 
     private val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
-    private var title : String? = null
     private var placeInfoArray = ArrayList<PlaceInfo2>()
-    constructor(title: String?) : this() {
-        this.title = title
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,10 +65,10 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
         savedInstanceState: Bundle?
     ): View? {
         println("map created")
-        println("체크 TravelPlanMapFragment ${title}")
+
         binding = FragmentPlanMapBinding.inflate(inflater, container, false)
 
-        placeInfoArray = userPlaceDataModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeFolder
+        placeInfoArray = userPlaceDataModel.items.dayPlaceList[index].placeFolder
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
@@ -117,12 +115,12 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
         binding.planBtmBtnStore.setOnClickListener{
             Log.d(TAG, "입력 전: " + placeInfoArray.toString())
             val placeInfo = PlaceInfo2(searchWordResultList[searchWordIndex].place_name, searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble())
-            userPlaceDataModel.putPlace(placeInfo, TravelPlanBaseActivity.index)
+            userPlaceDataModel.putPlace(placeInfo)
 ////            TravelPlanBaseActivity.planTotalData.dayList[TravelPlanBaseActivity.index].placeInfoArray.add(placeInfo)
 //            println("user: " + user!!.email.toString())
 //            println("title: " + title)
             val userDocRef = db!!.collection("User").document("UserData")
-            userDocRef.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
+            userDocRef.collection(user!!.email.toString()).document("Plan").collection(MainActivity.userPlanArray[index].planBaseData.title).document("PlaceInfo")
                 .set(TravelPlanBaseActivity.placeInfoFolder)
             val marker=Marker()
             marker.icon= OverlayImage.fromResource(R.drawable.ic_travel_marker)
