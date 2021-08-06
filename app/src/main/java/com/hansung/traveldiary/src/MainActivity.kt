@@ -280,7 +280,6 @@ class MainActivity : AppCompatActivity() {
                                             getUserDiaryData(email, title, false)
                                     }
                                 }
-                                dismissLoadingDialog()
                             }
                     }
                 }
@@ -319,6 +318,7 @@ class MainActivity : AppCompatActivity() {
                     if (isMyEmail) {
                         myDiaryList.add(diaryBulletinData)
                     }
+                    dismissLoadingDialog()
                 }
             }
             .addOnFailureListener { exception ->
@@ -343,6 +343,7 @@ class MainActivity : AppCompatActivity() {
                     if (isMyEmail) {
                         myDiaryList.add(diaryBulletinData)
                     }
+                    dismissLoadingDialog()
                 }
             }
             .addOnFailureListener { exception ->
@@ -367,6 +368,7 @@ class MainActivity : AppCompatActivity() {
                     if (isMyEmail) {
                         myDiaryList.add(diaryBulletinData)
                     }
+                    dismissLoadingDialog()
                 }
             }
             .addOnFailureListener { exception ->
@@ -391,6 +393,7 @@ class MainActivity : AppCompatActivity() {
                     if (isMyEmail) {
                         myDiaryList.add(diaryBulletinData)
                     }
+                    dismissLoadingDialog()
                 }
             }
             .addOnFailureListener { exception ->

@@ -105,7 +105,6 @@ class TravelPlanBaseActivity : AppCompatActivity() {
             }
         }
 
-
         binding.planTopBack.setOnClickListener{
             finish()
         }

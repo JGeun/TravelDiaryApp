@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,6 +45,8 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
         binding.dsTitle.text = MainActivity.myDiaryList[index].diaryData.diaryBaseData.title
 
 
+        Log.d("에러수정", MainActivity.myDiaryList.size.toString())
+        Log.d("에러수정", MainActivity.myDiaryList[0].diaryData.diaryInfoFolder.diaryDayList[0].date)
         binding.dsRecyclerview.apply {
             setHasFixedSize(true)
             adapter= MyDiaryDaySectionAdapter(MainActivity.myDiaryList, index, viewModel)
