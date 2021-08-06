@@ -15,10 +15,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentScheduleBinding
+import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
+import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity.Companion.index
 import com.hansung.traveldiary.src.plan.adapter.ScheduleAdapter
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
-class ScheduleFragment() : Fragment(){
+class PlacelistFragment() : Fragment(){
     private lateinit var binding : FragmentScheduleBinding
     val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
     private var title : String? = null
@@ -65,9 +67,9 @@ class ScheduleFragment() : Fragment(){
 
     override fun onStart() {
         super.onStart()
-        println("schedule fragment start")
-        if (TravelPlanBaseActivity.index!=0)
-            index = TravelPlanBaseActivity.index
+        println("Placelist fragment start")
+//        if (ShowPlacelistActivity.index!=0)
+//            index
 
 
         if(userPlaceDataModel.items.dayPlaceList[index!!].placeInfoArray.size != 0){

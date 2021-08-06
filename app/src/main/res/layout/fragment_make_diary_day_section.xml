@@ -86,16 +86,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/day_select_layout" />
 
-        <ImageView
-            android:id="@+id/iv_show_placelist"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/ic_map_black"
-            app:layout_constraintBottom_toBottomOf="@+id/upload_diary_commitbtn"
-            app:layout_constraintEnd_toStartOf="@+id/upload_diary_commitbtn"
-            app:layout_constraintTop_toTopOf="@+id/upload_diary_commitbtn" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
