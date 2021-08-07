@@ -52,13 +52,17 @@
 
     <TextView
         android:id="@+id/sd_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Today is trip three days!"
         android:textColor="@color/black"
-        android:textSize="25sp"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
         android:fontFamily="@font/main_font2"
+        android:layout_marginHorizontal="30dp"
+        android:ellipsize="end"
+        android:maxLines="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sd_date" />

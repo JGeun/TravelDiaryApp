@@ -40,9 +40,12 @@ class ShowDiaryActivity : AppCompatActivity(){
             diary = MainActivity.userDiaryArray[index]
         }
 
+        println("Show index: ${index} day: ${day}")
         binding.sdDate.text = afterDate(diary.baseData.startDate, day)
-        binding.sdContents.text = diary.diaryArray[day].diaryInfo.diaryContents
         binding.sdTitle.text = diary.diaryArray[day].diaryInfo.diaryTitle
+        binding.sdContents.text = diary.diaryArray[day].diaryInfo.diaryContents
+        println("Show Title: ${diary.diaryArray[day].diaryInfo.diaryTitle}")
+        println("Show Contents: ${diary.diaryArray[day].diaryInfo.diaryContents}")
 
         binding.sdViewPager.adapter= ShowDiaryVPAdapter(diary.diaryArray[day].diaryInfo.imagePathArray)
         binding.sdViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
