@@ -61,7 +61,7 @@ class DiaryImageEditActivity : AppCompatActivity() {
         var day = intent.getIntExtra("day", 0)
         Log.d("인덱스, 데이", "$index / $day")
         binding.tvChecked.setOnClickListener {
-            //이미지 WriteImageAdapter에 넣고
+            //이미지 메인 데이터에 넣고
             for(i in 0..diaryImageList.size-1) {
 //                var imageUri = "drawable://" + diaryImageList.get(i)
 //                MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList[day - 1].diaryInfo.imagePathArray.add(imageUri)
@@ -69,7 +69,6 @@ class DiaryImageEditActivity : AppCompatActivity() {
             finish()
         }
 
-//        binding.editImageRv.isNestedScrollingEnabled = false
     }
     private fun initdiaryImageList(){
         diaryImageList.add(ResourcesCompat.getDrawable(resources, R.drawable.ig_home_seoul, null)!!)

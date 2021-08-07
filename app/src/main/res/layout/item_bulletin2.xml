@@ -124,7 +124,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/btItem_tv_sharepeople"
                 app:layout_constraintEnd_toStartOf="@+id/btItem_tv_sharepeople"
                 app:layout_constraintTop_toTopOf="@+id/btItem_tv_sharepeople"
-                app:srcCompat="@drawable/ic_edit" />
+                app:srcCompat="@drawable/ic_share_gray" />
 
             <TextView
                 android:id="@+id/btItem_tv_sharepeople"
