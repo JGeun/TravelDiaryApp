@@ -35,5 +35,5 @@ class BulletinDaySectionAdapter(private val diaryAllList:ArrayList<DiaryBulletin
         }
     }
 
-    override fun getItemCount() = diaryAllList[index].diaryData.diaryInfoFolder.diaryDayList.size
+    override fun getItemCount() = diaryAllList[index].diaryData.diaryInfoFolder.diaryDayFolder.size
 }

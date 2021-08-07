@@ -27,7 +27,7 @@ class ShowDiaryActivity : AppCompatActivity(){
         val index = intent.getIntExtra("index", 0)
         val day = intent.getIntExtra("day", 0)
 
-        val diaryDayData = MainActivity.allDiaryList[index].diaryData.diaryInfoFolder.diaryDayList[day]
+        val diaryDayData = MainActivity.allDiaryList[index].diaryData.diaryInfoFolder.diaryDayFolder[day]
 
         binding.sdDate.text = diaryDayData.date
         binding.sdContents.text = diaryDayData.diaryInfo.diaryContents

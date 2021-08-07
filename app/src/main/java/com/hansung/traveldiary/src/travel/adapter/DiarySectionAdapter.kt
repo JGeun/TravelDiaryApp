@@ -13,7 +13,7 @@ import com.hansung.traveldiary.src.DiaryBulletinData
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity
 
-class DiarySectionAdapter(val myDiaryList : ArrayList<DiaryBulletinData>):RecyclerView.Adapter<DiarySectionAdapter.ViewHolder>() {
+class DiarySectionAdapter():RecyclerView.Adapter<DiarySectionAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemLasttripBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.btItemTvTitle
         val thumbnail = binding.btItemIvThumbnail
@@ -25,11 +25,11 @@ class DiarySectionAdapter(val myDiaryList : ArrayList<DiaryBulletinData>):Recycl
     }
 
     override fun onBindViewHolder(holder: DiarySectionAdapter.ViewHolder, position: Int) {
-        val data = myDiaryList[position]
+        val data = MainActivity.userDiaryArray[position]
         val context = holder.itemView.context
-        holder.title.text = data.diaryData.diaryBaseData.title
+        holder.title.text = data.baseData.title
 //        holder.hashtag.text = data.tv_tag
-        val imagePath = data.diaryData.diaryBaseData.mainImage
+        val imagePath = data.baseData.mainImage
         if(imagePath != "")
             Glide.with(holder.itemView.context).load(imagePath).into(holder.thumbnail)
         else{
@@ -50,6 +50,6 @@ class DiarySectionAdapter(val myDiaryList : ArrayList<DiaryBulletinData>):Recycl
         }
     }
 
-    override fun getItemCount(): Int = myDiaryList.size
+    override fun getItemCount(): Int = MainActivity.userDiaryArray.size
 
 }

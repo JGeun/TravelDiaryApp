@@ -1,7 +1,6 @@
 package com.hansung.traveldiary.src.bulletin
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
@@ -9,11 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.ItemBulletin2Binding
 import com.hansung.traveldiary.databinding.ItemBulletinImageBinding
-import com.hansung.traveldiary.src.DiaryBulletinData
 import com.hansung.traveldiary.src.DiaryDayInfo
-import com.hansung.traveldiary.src.DiaryInfo
 
 class BulletinViewPagerAdapter(private val diaryinfoArray: ArrayList<DiaryDayInfo>): RecyclerView.Adapter<BulletinViewPagerAdapter.PagerViewHolder>() {
 

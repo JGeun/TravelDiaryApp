@@ -8,27 +8,18 @@ data class PlaceDayInfo2(var date: String = "", var placeFolder : ArrayList<Plac
 data class PlaceInfoFolder2(var dayPlaceList: ArrayList<PlaceDayInfo2> = ArrayList())
 
 //DiaryDataSet
-data class DiaryBulletinData(var planTitle: String, var diaryData: DiaryData)
+data class DiaryBulletinData(var planTitle: String, var diaryData: DiaryTotalData2)
 
-data class DiaryBaseData(var title: String="", var mainImage: String="", var userName: String="", var userImage: String="",var uploadDate: String="",
-                         var locationTag: String="", var like: Int=0, var comments: Int=0)
 
-data class DiaryData(
+data class DiaryTotalData2(
     var planBaseData: PlanBaseData2 = PlanBaseData2(),
     var diaryBaseData: DiaryBaseData = DiaryBaseData(),
     var placeFolder : PlaceInfoFolder2 =PlaceInfoFolder2(),
-    var diaryInfoFolder: DiaryInfoFolder = DiaryInfoFolder()
+    var diaryInfoFolder: DiaryInfo2 = DiaryInfo2()
 )
 
-data class DiaryInfoFolder(var diaryDayList : ArrayList<DiaryDayInfo> = ArrayList())
-
-data class DiaryDayInfo(var date : String ="", var diaryInfo : DiaryInfo = DiaryInfo())
-
-data class DiaryInfo(
-    var imagePathArray : ArrayList<String> = ArrayList(),
-    var diaryTitle : String = "",
-    var diaryContents : String = ""
-)
+data class DiaryDayInfo(var date : String ="", var diaryInfo : DiaryData = DiaryData())
+data class DiaryInfo2(var diaryDayFolder : ArrayList<DiaryDayInfo> = ArrayList())
 
 //PlanDataSet
 data class PlanBaseData2(var title: String="", var color: String = "", var startDate: String = "", var endDate: String = "", var area: String="서울", var peopleCount: Int= 1)
@@ -68,5 +59,12 @@ data class UserPlanData(var planBaseData: PlanBaseData = PlanBaseData(), var pla
             return this.planBaseData.endDate.compareTo(other.planBaseData.endDate)
         }
     }
-
 }
+
+data class DiaryBaseData(var idx : Long = 0, var title: String="", var mainImage: String="", var userEmail: String="", var uploadDate: String="",
+                         var startDate: String = "", var endDate: String = "", var color: String = "", var area: String="", var peopleCount: Int= 1, var like: Int=0, var comments: Int=0,)
+
+data class DiaryData(var imagePathArray : ArrayList<String> = ArrayList(), var diaryTitle : String = "", var diaryContents : String = "")
+data class DiaryInfo(var diaryDayFolder : ArrayList<DiaryData> = ArrayList())
+data class UserDiaryData(var diaryInfo : DiaryInfo = DiaryInfo(), var placeInfo: PlaceInfo = PlaceInfo())
+data class DiaryTotalData(var baseData: DiaryBaseData = DiaryBaseData(), var totalData: UserDiaryData = UserDiaryData())

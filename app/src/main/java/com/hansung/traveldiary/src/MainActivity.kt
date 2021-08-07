@@ -61,10 +61,12 @@ class MainActivity : AppCompatActivity() {
         var cloudsText: String = "30%"
         var weeklyList = ArrayList<WeeklyWeatherData>()
 
-        var idxList = IdxList()
-        var myIdxList = IdxList()
-        var userList = UserList()
-        var userPlanArray = ArrayList<UserPlanData>()
+        var userList = UserList() //유저 이메일 정보 리스트
+        var idxList = IdxList() //전체 idx 리스트
+        var myPlanIdxList = IdxList() //나의 plan idx 리스트
+        var myDiaryIdxList = IdxList() //나의 diary idx 리스트
+        var userPlanArray = ArrayList<UserPlanData>() //나의 plan data 리스트
+        var userDiaryArray = ArrayList<DiaryTotalData>() //나의 diary data 리스트
 
         var diaryTitleList = TitleList()
         var planTitleList = TitleList()
@@ -101,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         getDBData()
 
         getUserList()
-        getIdxList()
+        getTotalIdxList()
 
 
         val pref = applicationContext.getSharedPreferences("login", 0)
@@ -162,7 +164,7 @@ class MainActivity : AppCompatActivity() {
                     .addOnSuccessListener { result ->
                         addPlanBaseData = result.toObject<PlanBaseData>()!!
 
-                        for (i in 0..calcDate(addPlanBaseData.startDate, addPlanBaseData.endDate)) {
+                        for (i in 0..getCalcDate(addPlanBaseData.startDate, addPlanBaseData.endDate)) {
                             addPlanRef.collection("PlaceInfo")
                                 .document(afterDate(addPlanBaseData.startDate, i)).get()
                                 .addOnSuccessListener { result ->
@@ -231,8 +233,8 @@ class MainActivity : AppCompatActivity() {
 
         //Plan - 유저 email에서 idxFolder / PlanData 안 document 삭제.
         val userRef = db.collection("Plan").document(user!!.email.toString())
-        myIdxList.idxFolder.remove(idx)
-        userRef.set(myIdxList)
+        myPlanIdxList.idxFolder.remove(idx)
+        userRef.set(myPlanIdxList)
 
         userRef.collection("PlanData").document(idx.toString())
             .delete()
@@ -251,7 +253,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    fun getIdxList() {
+    fun getTotalIdxList() {
         db!!.collection("IdxDatabase").document("IdxData")
             .get()
             .addOnSuccessListener { result ->
@@ -262,29 +264,66 @@ class MainActivity : AppCompatActivity() {
     fun getDBData() {
         showLoadingDialog(this)
         getMyPlanData()
+        getMyDiaryData()
 //        getPlanData()
-        getAllDiaryData()
+//        getAllDiaryData()
     }
 
-    fun getMyPlanData() {
-        val myIdxRef = db!!.collection("Plan").document(user!!.email.toString())
-
-        myIdxRef.get()
+    fun getMyDiaryData(){
+        val myDiaryIdxRef = db!!.collection("Diary").document(user!!.email.toString())
+        myDiaryIdxRef.get()
             .addOnSuccessListener { result ->
                 val idxData = result.toObject<IdxList>()
                 if (idxData != null) {
-                    myIdxList = idxData
+                    myDiaryIdxList = idxData
 
-                    for (myIdx in myIdxList.idxFolder) {
+                    for(myIdx in myDiaryIdxList.idxFolder){
+                        var diaryBaseData = DiaryBaseData()
+                        var diaryTotalData = UserDiaryData()
+
+                        val myDiaryRef = myDiaryIdxRef.collection("DiaryData").document(myIdx.toString())
+                        myDiaryRef.get().addOnSuccessListener { result->
+                                val diaryData = result.toObject<DiaryBaseData>()
+                                if(diaryData != null){
+                                    diaryBaseData = diaryData
+
+                                    for(i in 0..getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)){
+                                        myDiaryRef.collection("DayList").document(afterDate(diaryBaseData.startDate, i))
+                                            .get().addOnSuccessListener { result->
+                                                val totalData = result.toObject<UserDiaryData>()
+                                                if(totalData != null){
+                                                    diaryTotalData = totalData
+                                                }
+                                            }
+                                    }
+                                    userDiaryArray.add(DiaryTotalData(diaryBaseData, diaryTotalData))
+                                }
+                            }
+
+                    }
+                }
+            }
+    }
+
+    fun getMyPlanData() {
+        val myPlanIdxRef = db!!.collection("Plan").document(user!!.email.toString())
+
+        myPlanIdxRef.get()
+            .addOnSuccessListener { result ->
+                val idxData = result.toObject<IdxList>()
+                if (idxData != null) {
+                    myPlanIdxList = idxData
+
+                    for (myIdx in myPlanIdxList.idxFolder) {
                         var planBaseData = PlanBaseData()
                         var placeArray = ArrayList<PlaceInfo>()
-                        val myPlanRef = myIdxRef.collection("PlanData").document(myIdx.toString())
+                        val myPlanRef = myPlanIdxRef.collection("PlanData").document(myIdx.toString())
                         myPlanRef.get().addOnSuccessListener { result ->
                             val planData = result.toObject<PlanBaseData>()
                             if (planData != null) {
                                 planBaseData = planData
 
-                                for (i in 0..calcDate(
+                                for (i in 0..getCalcDate(
                                     planBaseData.startDate,
                                     planBaseData.endDate
                                 )) {
@@ -296,16 +335,17 @@ class MainActivity : AppCompatActivity() {
                                                 placeArray.add(placeData)
                                         }
                                 }
-                                dismissLoadingDialog()
+
                                 userPlanArray.add(UserPlanData(planBaseData, placeArray))
                             }
+                            dismissLoadingDialog()
                         }
                     }
                 }
             }
     }
 
-    fun calcDate(startDate: String, endDate: String): Int {
+    fun getCalcDate(startDate: String, endDate: String): Int {
         var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val startDateFormat = simpleDateFormat.parse("${startDate} 00:00:00")!!
         val endDateFormat = simpleDateFormat.parse("${endDate} 00:00:00")!!
@@ -446,7 +486,7 @@ class MainActivity : AppCompatActivity() {
 
         var planBaseData: PlanBaseData2? = null
         var placeInfoFolder: PlaceInfoFolder2? = null
-        var diaryInfoFolder: DiaryInfoFolder? = null
+        var diaryInfoFolder: DiaryInfo2? = null
         var diaryBaseData: DiaryBaseData? = null
 
         diaryDocRef.collection(title).document("PlanBaseData")
@@ -456,7 +496,7 @@ class MainActivity : AppCompatActivity() {
                 if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
                     val diaryBulletinData = DiaryBulletinData(
                         title,
-                        DiaryData(
+                        DiaryTotalData2(
                             planBaseData!!,
                             diaryBaseData!!,
                             placeInfoFolder!!,
@@ -480,7 +520,7 @@ class MainActivity : AppCompatActivity() {
                 if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
                     val diaryBulletinData = DiaryBulletinData(
                         title,
-                        DiaryData(
+                        DiaryTotalData2(
                             planBaseData!!,
                             diaryBaseData!!,
                             placeInfoFolder!!,
@@ -504,7 +544,7 @@ class MainActivity : AppCompatActivity() {
                 if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
                     val diaryBulletinData = DiaryBulletinData(
                         title,
-                        DiaryData(
+                        DiaryTotalData2(
                             planBaseData!!,
                             diaryBaseData!!,
                             placeInfoFolder!!,
@@ -524,11 +564,11 @@ class MainActivity : AppCompatActivity() {
         diaryDocRef.collection(title).document("DiaryData")
             .get()
             .addOnSuccessListener { result ->
-                diaryInfoFolder = result.toObject<DiaryInfoFolder>()
+                diaryInfoFolder = result.toObject<DiaryInfo2>()
                 if (planBaseData != null && placeInfoFolder != null && diaryInfoFolder != null && diaryBaseData != null) {
                     val diaryBulletinData = DiaryBulletinData(
                         title,
-                        DiaryData(
+                        DiaryTotalData2(
                             planBaseData!!,
                             diaryBaseData!!,
                             placeInfoFolder!!,

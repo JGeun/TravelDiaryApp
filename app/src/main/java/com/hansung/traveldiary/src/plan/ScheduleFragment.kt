@@ -56,10 +56,9 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
             }
         }
 
-
         binding.tvChecked.setOnClickListener {
             checked = false
-            val userDocRef = db!!.collection("Plan")
+            db!!.collection("Plan")
                 .document(user!!.email.toString()).collection("PlanData")
                 .document(MainActivity.userPlanArray[index].planBaseData.idx.toString())
                 .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].planBaseData.startDate,day))

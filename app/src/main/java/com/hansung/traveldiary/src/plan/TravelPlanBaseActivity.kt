@@ -155,5 +155,4 @@ class TravelPlanBaseActivity : AppCompatActivity() {
 
         return format.format(calendar.time)
     }
-
 }

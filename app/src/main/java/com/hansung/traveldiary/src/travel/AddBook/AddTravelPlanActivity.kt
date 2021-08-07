@@ -199,7 +199,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
             var startDate = startdate
             var endDate = enddate
 
-            println("여기-${MainActivity.idxList.idxFolder.size}")
             val totalIdxRef = db!!.collection("IdxDatabase").document("IdxData")
             var idx : Long = 0
             while(true){
@@ -213,7 +212,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
                     break
                 }
             }
-            println("여기 지나고 나서-${MainActivity.idxList.idxFolder.size}")
 
             var userIdxList = IdxList()
 
@@ -234,11 +232,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
 //                docPlanRef.set(titleList)
 //            }
 //
-            var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-            val startDateFormat = simpleDateFormat.parse("$startDate 00:00:00")!!
-            val endDateFormat = simpleDateFormat.parse("$endDate 00:00:00")!!
-            val calcDate =
-                ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
 
             val planRef = db!!.collection("Plan").document(user!!.email.toString())
                 .collection("PlanData").document(idx.toString())
@@ -270,7 +263,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
                     )
                 )
             }
-            for (i in 0..calcDate) {
+            for (i in 0..getCalcDate(startDate, endDate)) {
                 val placeRef = planRef.collection("PlaceInfo").document(afterDate(startDate,i))
                 placeRef.set(
                     PlaceInfo(
@@ -331,6 +324,66 @@ class AddTravelPlanActivity : AppCompatActivity() {
         calendar.add(Calendar.DAY_OF_YEAR, day)
 
         return format.format(calendar.time)
+    }
+
+    fun getCalcDate(startDate: String, endDate: String): Int {
+        var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val startDateFormat = simpleDateFormat.parse("${startDate} 00:00:00")!!
+        val endDateFormat = simpleDateFormat.parse("${endDate} 00:00:00")!!
+        val calcDate =
+            ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
+        return calcDate
+    }
+
+    fun getEmailList() {
+        db!!.collection("User").document("UserData")
+            .get()
+            .addOnSuccessListener { result ->
+                val data = result.data?.get("emailFolder")
+                if (data != null) {
+                    emailList.emailFolder = data as ArrayList<String>
+                    println("size: ${emailList.emailFolder.size}")
+                    println("content: ${emailList.emailFolder[0]}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+    }
+
+    fun getTitleList() {
+        val userDocRef = db!!.collection("User").document("UserData")
+        userDocRef.collection(user!!.email.toString()).document("Plan")
+            .get()
+            .addOnSuccessListener { result ->
+                val data = result.data?.get("titleFolder")
+                if (data != null) {
+                    titleList.titleFolder = data as ArrayList<String>
+                    println("size: ${titleList.titleFolder.size}")
+                    println("content: ${titleList.titleFolder[0]}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+    }
+
+    fun showDatepicker() {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
+            enddate = String.format("$y-%02d-%02d", m + 1, d)
+            date += " ~ " + String.format("$y-%02d-%02d", m + 1, d)
+            Log.d("끝날짜", date)
+            binding.atpDate.setText(date)
+        }
+
+        val datePickerDialog =
+            DatePickerDialog(this, listener, year, month, day)
+        datePickerDialog.show()
     }
 
     fun setRadioButton() {
@@ -396,57 +449,5 @@ class AddTravelPlanActivity : AppCompatActivity() {
             binding.addPlanRbPurple.isChecked = false
             binding.addPlanRbOrange.isChecked = true
         }
-
-    }
-
-    fun getEmailList() {
-        db!!.collection("User").document("UserData")
-            .get()
-            .addOnSuccessListener { result ->
-                val data = result.data?.get("emailFolder")
-                if (data != null) {
-                    emailList.emailFolder = data as ArrayList<String>
-                    println("size: ${emailList.emailFolder.size}")
-                    println("content: ${emailList.emailFolder[0]}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
-    }
-
-    fun getTitleList() {
-        val userDocRef = db!!.collection("User").document("UserData")
-        userDocRef.collection(user!!.email.toString()).document("Plan")
-            .get()
-            .addOnSuccessListener { result ->
-                val data = result.data?.get("titleFolder")
-                if (data != null) {
-                    titleList.titleFolder = data as ArrayList<String>
-                    println("size: ${titleList.titleFolder.size}")
-                    println("content: ${titleList.titleFolder[0]}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
-    }
-
-    fun showDatepicker() {
-        val cal = Calendar.getInstance()
-        val year = cal.get(Calendar.YEAR)
-        val month = cal.get(Calendar.MONTH)
-        val day = cal.get(Calendar.DAY_OF_MONTH)
-
-        var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-            enddate = String.format("$y-%02d-%02d", m + 1, d)
-            date += " ~ " + String.format("$y-%02d-%02d", m + 1, d)
-            Log.d("끝날짜", date)
-            binding.atpDate.setText(date)
-        }
-
-        val datePickerDialog =
-            DatePickerDialog(this, listener, year, month, day)
-        datePickerDialog.show()
     }
 }

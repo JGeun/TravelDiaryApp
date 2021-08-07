@@ -24,7 +24,6 @@ class PlanDaySectionActivity : AppCompatActivity() {
         ActivityPlanDaySectionBinding.inflate(layoutInflater)
     }
     private var index: Int = 0
-    private var title: String? = null
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
     private var placeInfoFolder: PlaceInfoFolder2 = PlaceInfoFolder2()
@@ -62,7 +61,7 @@ class PlanDaySectionActivity : AppCompatActivity() {
 
         binding.dsIvSend.setOnClickListener {
             val intent = Intent(this, SendTravelPlanActivity::class.java)
-            intent.putExtra("title", title)
+            intent.putExtra("index", index)
             startActivity(intent)
         }
     }

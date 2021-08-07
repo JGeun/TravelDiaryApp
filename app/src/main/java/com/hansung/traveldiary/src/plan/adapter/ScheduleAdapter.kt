@@ -107,7 +107,7 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
                     }
                     1 -> {
                         placeViewModel.removePlace(position)
-                        val userDocRef = db!!.collection("Plan").document(user!!.email.toString())
+                        db!!.collection("Plan").document(user!!.email.toString())
                             .collection("PlanData").document(MainActivity.userPlanArray[index].planBaseData.idx.toString())
                             .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].planBaseData.startDate, position))
                             .set(placeViewModel.items)

@@ -9,9 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemBulletin2Binding
-import com.hansung.traveldiary.src.DiaryBaseData
 import com.hansung.traveldiary.src.DiaryBulletinData
-import com.hansung.traveldiary.src.diary.write_diary.WriteImageAdapter
 
 class BulletinAdapter2(private val diaryAllData: ArrayList<DiaryBulletinData>):RecyclerView.Adapter<BulletinAdapter2.ViewHolder>() {
     inner class ViewHolder(private val binding: ItemBulletin2Binding):RecyclerView.ViewHolder(binding.root){
@@ -37,9 +35,9 @@ class BulletinAdapter2(private val diaryAllData: ArrayList<DiaryBulletinData>):R
         var view = holder.itemView
 //        Glide.with(context).load(data.diaryBaseData.userImage).into(holder.userImage)
         Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
-        holder.userName.text = data.diaryBaseData.userName
+        holder.userName.text = data.diaryBaseData.userEmail
         holder.viewpager.adapter =
-            BulletinViewPagerAdapter(diaryAllData[position].diaryData.diaryInfoFolder.diaryDayList)
+            BulletinViewPagerAdapter(diaryAllData[position].diaryData.diaryInfoFolder.diaryDayFolder)
         holder.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
         holder.likeCnt.text=data.diaryBaseData.like.toString()

@@ -1,7 +1,6 @@
 package com.hansung.traveldiary.src.diary
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -40,8 +39,8 @@ class MyDiaryDaySectionAdapter(
 //        holder.tag.text = data.tag
         val context = holder.itemView.context
 
-        if(data.diaryInfoFolder.diaryDayList[position].diaryInfo.imagePathArray.size != 0){
-            Glide.with(holder.itemView.context).load(data.diaryInfoFolder.diaryDayList[position].diaryInfo.imagePathArray[0]).into(holder.diaryImage)
+        if(data.diaryInfoFolder.diaryDayFolder[position].diaryInfo.imagePathArray.size != 0){
+            Glide.with(holder.itemView.context).load(data.diaryInfoFolder.diaryDayFolder[position].diaryInfo.imagePathArray[0]).into(holder.diaryImage)
         }else{
             Glide.with(holder.itemView.context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_no_main_image, null)).into(holder.diaryImage)
         }
@@ -86,5 +85,5 @@ class MyDiaryDaySectionAdapter(
 //        }
     }
 
-    override fun getItemCount() = myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList.size
+    override fun getItemCount() = myDiaryList[index].diaryData.diaryInfoFolder.diaryDayFolder.size
 }

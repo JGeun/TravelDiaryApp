@@ -21,7 +21,7 @@ class TravelDiarySectionFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentTravelDiarySectionBinding.inflate(inflater, container, false)
 
-        if(MainActivity.myDiaryList.size == 0){
+        if(MainActivity.userDiaryArray.size == 0){
             binding.diarySectionNoPlan.isVisible = true
             binding.diarySectionRecyclerView.isVisible = false
         }else{
@@ -34,7 +34,7 @@ class TravelDiarySectionFragment : Fragment() {
         binding.diarySectionRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = DiarySectionAdapter(MainActivity.myDiaryList)
+            adapter = DiarySectionAdapter()
         }
 
         return binding.root

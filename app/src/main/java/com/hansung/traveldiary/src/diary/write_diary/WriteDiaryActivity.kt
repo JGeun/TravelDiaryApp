@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityWriteDiaryBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.plan.ScheduleFragment
 import com.hansung.traveldiary.util.StatusBarUtil
 
 class WriteDiaryActivity : AppCompatActivity() {
@@ -61,8 +59,8 @@ class WriteDiaryActivity : AppCompatActivity() {
         fragmentArray.clear()
         Log.d("과정", "Write-Start Index: $index")
         Log.d("과정", "Write-Start Day: $day")
-        for (i in 1..MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList.size) {
-            fragmentArray.add(WriteDayDiaryFragment(MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList[i-1].diaryInfo, index, MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList.size))
+        for (i in 1..MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayFolder.size) {
+            fragmentArray.add(WriteDayDiaryFragment(MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayFolder[i-1].diaryInfo, index, MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayFolder.size))
         }
 
         viewModel.setDay(day)

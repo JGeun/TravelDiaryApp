@@ -15,11 +15,11 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hansung.traveldiary.databinding.FragmentMakeDiaryDaySectionBinding
-import com.hansung.traveldiary.src.DiaryInfo
+import com.hansung.traveldiary.src.DiaryData
 import com.hansung.traveldiary.src.plan.TravelPlanMapFragment
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
-class WriteDayDiaryFragment(val diaryInfo: DiaryInfo, val index: Int, val size: Int) : Fragment() {
+class WriteDayDiaryFragment(val diaryInfo: DiaryData, val index: Int, val size: Int) : Fragment() {
     private lateinit var btmSheetFragment :SelectDayBtmSheetFragment
     private val viewModel : SelectDayViewModel by activityViewModels()
     private var user: FirebaseUser? = null
