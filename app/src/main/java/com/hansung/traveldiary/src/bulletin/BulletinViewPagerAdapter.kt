@@ -37,7 +37,7 @@ class BulletinViewPagerAdapter(private val diaryinfoArray: ArrayList<DiaryDayInf
             val url = data.imagePathArray[0]
             Glide.with(context).load(url).apply(RequestOptions().fitCenter()).into(holder.image)
         }else{
-            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources,R.drawable.img_beach,null)).apply(RequestOptions().fitCenter()).into(holder.image)
+            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources,R.drawable.img_beach,null)).apply(RequestOptions().centerCrop()).into(holder.image)
         }
             holder.content.text=data.diaryContents
             holder.title.text=data.diaryTitle

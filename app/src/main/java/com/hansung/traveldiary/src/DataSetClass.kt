@@ -28,7 +28,7 @@ data class DiaryDayInfo(var date : String ="", var diaryInfo : DiaryInfo = Diary
 data class DiaryInfo(
     var imagePathArray : ArrayList<String> = ArrayList(),
     var diaryTitle : String = "",
-    var diaryContents : String = ""
+    var diaryContents : String =""
 )
 
 //PlanDataSet
