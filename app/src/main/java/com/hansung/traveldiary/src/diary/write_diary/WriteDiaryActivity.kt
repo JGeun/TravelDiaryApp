@@ -3,14 +3,7 @@ package com.hansung.traveldiary.src.diary.write_diary
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
-<<<<<<< HEAD
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import com.google.firebase.firestore.FirebaseFirestoreException
-=======
->>>>>>> jg_branch
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityWriteDiaryBinding
 import com.hansung.traveldiary.src.MainActivity

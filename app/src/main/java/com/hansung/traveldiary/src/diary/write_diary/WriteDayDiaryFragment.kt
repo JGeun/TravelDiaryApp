@@ -77,17 +77,17 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
             startActivity(intent)
         }
 
-        //diaryInfo.diaryTitle=title.toString()
-        val diaryInfoFolder= DiaryInfoFolder()
-        var diaryDayList : ArrayList<DiaryDayInfo> = ArrayList<DiaryDayInfo>()
-        db!!.collection("User").document("UserData").collection(user!!.email.toString()).document("Diary")
-            .collection(MainActivity.myDiaryList[index].planTitle.toString())
-            .document("DiaryData").get().addOnSuccessListener{ result ->
-                val data = result.toObject<DiaryInfoFolder>()
-                if(data != null){
-                    diaryDayList=data.diaryDayList
-                }
-            }
+//        //diaryInfo.diaryTitle=title.toString()
+//        val diaryInfoFolder= DiaryInfoFolder()
+//        var diaryDayList : ArrayList<DiaryDayInfo> = ArrayList<DiaryDayInfo>()
+//        db!!.collection("User").document("UserData").collection(user!!.email.toString()).document("Diary")
+//            .collection(MainActivity.myDiaryList[index].planTitle.toString())
+//            .document("DiaryData").get().addOnSuccessListener{ result ->
+//                val data = result.toObject<DiaryInfoFolder>()
+//                if(data != null){
+//                    diaryDayList=data.diaryDayList
+//                }
+//            }
 
 
         var diaryDayInfo=DiaryDayInfo()
