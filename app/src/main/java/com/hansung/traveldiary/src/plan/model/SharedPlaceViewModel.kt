@@ -18,6 +18,7 @@ class SharedPlaceViewModel : ViewModel() {
         items = data
         userPlanData.value = items
     }
+
     fun putPlace(place : PlaceData){
         items.placeFolder.add(place)
         userPlanData.value = items

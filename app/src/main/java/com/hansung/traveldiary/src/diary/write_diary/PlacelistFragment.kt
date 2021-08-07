@@ -55,7 +55,7 @@ class PlacelistFragment() : Fragment(){
             checked = false
             val userDocRef = db!!.collection("User").document("UserData")
             userDocRef.collection(user!!.email.toString()).document("Diary").collection(title!!).document("PlanPlaceInfo")
-                .set(ShowPlacelistActivity.placeInfoFolder)
+                .set(ShowPlacelistActivity.placeInfo)
             binding.tvChecked.visibility = View.GONE
             binding.placelistRecyclerview.adapter?.notifyDataSetChanged()
         }
@@ -68,7 +68,7 @@ class PlacelistFragment() : Fragment(){
         println("Placelist fragment start")
 
 
-        if(userPlaceDataModel.items.dayPlaceList[index!!].placeFolder.size != 0){
+        if(userPlaceDataModel.items.placeFolder.size != 0){
             binding.scheduleNoPlan.isVisible = false
             binding.placelistRecyclerview.isVisible = true
         }else{

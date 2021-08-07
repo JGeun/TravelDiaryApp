@@ -19,6 +19,8 @@ import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.ScheduleFragment
 import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private val index: Int, private val finishText: TextView) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     private var db: FirebaseFirestore? = null
@@ -81,20 +83,20 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
 
         holder.upBtn.setOnClickListener {
             if(position != 0 ){
-                placeViewModel.moveUp(index, position)
+                placeViewModel.moveUp(position)
                 notifyDataSetChanged()
             }
         }
 
         holder.downBtn.setOnClickListener {
             if(position != itemCount -1){
-                placeViewModel.moveDown(index, position)
+                placeViewModel.moveDown(position)
                 notifyDataSetChanged()
             }
         }
 
         holder.location.text =
-            placeViewModel.items.dayPlaceList[index].placeFolder[position].placeName
+            placeViewModel.items.placeFolder[position].placeName
         holder.editIcon.setOnClickListener {
             val editBtmSheetDialogFragment = EditBottomDialogFragment {
                 when (it) {
@@ -104,11 +106,11 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
                         notifyDataSetChanged()
                     }
                     1 -> {
-                        placeViewModel.removePlace(index, position)
-                        val userDocRef = db!!.collection("User").document("UserData")
-                        userDocRef.collection(user!!.email.toString()).document("Plan")
-                            .collection(MainActivity.userPlanArray[index].planBaseData.title).document("PlaceInfo")
-                            .set(TravelPlanBaseActivity.placeInfoFolder)
+                        placeViewModel.removePlace(position)
+                        val userDocRef = db!!.collection("Plan").document(user!!.email.toString())
+                            .collection("PlanData").document(MainActivity.userPlanArray[index].planBaseData.idx.toString())
+                            .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].planBaseData.startDate, position))
+                            .set(placeViewModel.items)
                         notifyDataSetChanged()
                     }
                 }
@@ -120,13 +122,23 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
         }
         Log.d(
             "리스트",
-            placeViewModel.items.dayPlaceList[index].placeFolder.size.toString()
+            placeViewModel.items.placeFolder.size.toString()
         )
         if (position == 0)
             holder.topBar.visibility = View.INVISIBLE
-        if (position == placeViewModel.items.dayPlaceList[index].placeFolder.size - 1)
+        if (position == placeViewModel.items.placeFolder.size - 1)
             holder.bottomBar.visibility = View.INVISIBLE
     }
 
-    override fun getItemCount(): Int = placeViewModel.items.dayPlaceList[index].placeFolder.size
+    override fun getItemCount(): Int = placeViewModel.items.placeFolder.size
+
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
+    }
 }

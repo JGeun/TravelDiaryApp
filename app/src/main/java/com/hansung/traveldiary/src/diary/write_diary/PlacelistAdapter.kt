@@ -58,20 +58,20 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
 
         holder.upBtn.setOnClickListener {
             if(position != 0 ){
-                placeViewModel.moveUp(ShowPlacelistActivity.index, position)
+                placeViewModel.moveUp(position)
                 notifyDataSetChanged()
             }
         }
 
         holder.downBtn.setOnClickListener {
             if(position != itemCount -1){
-                placeViewModel.moveDown(ShowPlacelistActivity.index, position)
+                placeViewModel.moveDown(position)
                 notifyDataSetChanged()
             }
         }
 
         holder.location.text =
-            placeViewModel.items.dayPlaceList[ShowPlacelistActivity.index].placeFolder[position].placeName
+            placeViewModel.items.placeFolder[position].placeName
         holder.editIcon.setOnClickListener {
             val editBtmSheetDialogFragment = EditBottomDialogFragment {
                 when (it) {
@@ -81,7 +81,7 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
                         notifyDataSetChanged()
                     }
                     1 -> {
-                        placeViewModel.removePlace(ShowPlacelistActivity.index, position)
+                        placeViewModel.removePlace(position)
                         val userDocRef = db!!.collection("User").document("UserData")
                         userDocRef.collection(user!!.email.toString()).document("Diary")
                             .collection(title!!).document("PlanPlaceInfo")
@@ -98,12 +98,12 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
 
         if (position == 0)
             holder.topBar.visibility = View.INVISIBLE
-        if (position == placeViewModel.items.dayPlaceList[ShowPlacelistActivity.index].placeFolder.size - 1)
+        if (position == placeViewModel.items.placeFolder.size - 1)
             holder.bottomBar.visibility = View.INVISIBLE
 
     }
 
     override fun getItemCount(): Int =
-        placeViewModel.items.dayPlaceList[ShowPlacelistActivity.index].placeFolder.size
+        placeViewModel.items.placeFolder.size
 
 }

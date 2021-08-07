@@ -23,6 +23,8 @@ import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 import com.hansung.traveldiary.util.StatusBarUtil
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TravelPlanBaseActivity : AppCompatActivity() {
     private val binding by lazy{
@@ -42,6 +44,9 @@ class TravelPlanBaseActivity : AppCompatActivity() {
     private var barColor : String? = null
     private var index = 0
     private var day = 0
+
+    private var menu = "schedule"
+
     private val TAG = "TravelPlanBaseActivity"
 
     companion object {
@@ -69,7 +74,7 @@ class TravelPlanBaseActivity : AppCompatActivity() {
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
-        val menu = intent.getStringExtra("menu")
+        menu = intent.getStringExtra("menu").toString()
         index = intent.getIntExtra("index", 0)
         day = intent.getIntExtra("day", 0)
 
@@ -113,11 +118,14 @@ class TravelPlanBaseActivity : AppCompatActivity() {
     }
 
     fun initViewModel(menu : String){
-        val userDocRef = db!!.collection("User").document("UserData")
-        userDocRef.collection(user!!.email.toString()).document("Plan").collection(MainActivity.userPlanArray[index].planBaseData.title).document("PlaceInfo")
-            .get().addOnSuccessListener  { documentSnapshot ->
-                placeInfoFolder = MainActivity.userPlanArray[index].placeArray[day]
-                userPlanDataModel.putAllData(placeInfoFolder)
+        db!!.collection("Plan").document(user!!.email.toString()).collection("PlanData")
+            .document(MainActivity.userPlanArray[index].planBaseData.idx.toString())
+            .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].planBaseData.startDate, day))
+            .get().addOnSuccessListener { result ->
+                val data = result.toObject<PlaceInfo>()
+                if(data != null) {
+                    userPlanDataModel.putAllData(data)
+                }
 
                 if(menu == "schedule"){
                     binding.planTopMenu.setImageDrawable(mapDrawable)
@@ -127,8 +135,8 @@ class TravelPlanBaseActivity : AppCompatActivity() {
                     transaction.replace(R.id.tp_fragment, travelPlanMapFragment).commitAllowingStateLoss()
                 }
             }
-
     }
+
     override fun onStart() {
         super.onStart()
         println("TravelPlanBaseActivity start")
@@ -136,6 +144,16 @@ class TravelPlanBaseActivity : AppCompatActivity() {
 
     fun getColor() : String?{
         return barColor
+    }
+
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
     }
 
 }

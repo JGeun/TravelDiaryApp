@@ -17,6 +17,8 @@ import com.hansung.traveldiary.databinding.FragmentScheduleBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.adapter.ScheduleAdapter
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
     private lateinit var binding : FragmentScheduleBinding
@@ -44,18 +46,25 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
             adapter = ScheduleAdapter(userPlaceDataModel, index, binding.tvChecked)
         }
 
+        userPlaceDataModel.userPlanData.observe(viewLifecycleOwner){
+            if(userPlaceDataModel.userPlanData.value!!.placeFolder.size != 0){
+                binding.scheduleNoPlan.isVisible = false
+                binding.scheduleRecyclerview.isVisible = true
+            }else{
+                binding.scheduleNoPlan.isVisible = true
+                binding.scheduleRecyclerview.isVisible = false
+            }
+        }
+
+
         binding.tvChecked.setOnClickListener {
             checked = false
             val userDocRef = db!!.collection("Plan")
                 .document(user!!.email.toString()).collection("PlanData")
                 .document(MainActivity.userPlanArray[index].planBaseData.idx.toString())
-                .collection("PlaceInfo")
-                .set()
+                .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].planBaseData.startDate,day))
+                .set(MainActivity.userPlanArray[index].placeArray[day])
 
-//            userDocRef.collection(user!!.email.toString())
-//                .document("Plan").collection(MainActivity.userPlanArray[index].planBaseData.title)
-//                .document("PlaceInfo")
-//                .set(TravelPlanBaseActivity.placeInfoFolder)
             binding.tvChecked.visibility = View.GONE
             binding.scheduleRecyclerview.adapter?.notifyDataSetChanged()
         }
@@ -63,16 +72,14 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        println("schedule fragment start")
 
-        if(userPlaceDataModel.items.placeFolder.size != 0){
-            binding.scheduleNoPlan.isVisible = false
-            binding.scheduleRecyclerview.isVisible = true
-        }else{
-            binding.scheduleNoPlan.isVisible = true
-            binding.scheduleRecyclerview.isVisible = false
-        }
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
     }
 }
