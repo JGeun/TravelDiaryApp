@@ -77,6 +77,8 @@ class WriteDayDiaryFragment(val diaryInfo: DiaryInfo, val index: Int, val size: 
 
         binding.uploadDiaryCommitbtn.setOnClickListener {
             var intent = Intent(context, DiaryImageEditActivity::class.java)
+            intent.putExtra("index", index)
+            intent.putExtra("day", viewModel.dayData.value)
             startActivity(intent)
         }
 

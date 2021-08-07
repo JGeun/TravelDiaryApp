@@ -8,10 +8,10 @@
     tools:context=".src.diary.write_diary.DiaryImageEditActivity">
 
     <TextView
-        android:id="@+id/edit_btn"
+        android:id="@+id/tv_checked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/main_font2"
         android:text="완료"
@@ -21,18 +21,19 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="45dp"
         android:orientation="vertical"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_btn"
-        android:scrollbars="none">
+        app:layout_constraintTop_toBottomOf="@+id/tv_checked">
 
         <LinearLayout
+            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -53,12 +54,13 @@
                 android:fontFamily="@font/main_font2"
                 android:text="사진 추가"
                 android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
