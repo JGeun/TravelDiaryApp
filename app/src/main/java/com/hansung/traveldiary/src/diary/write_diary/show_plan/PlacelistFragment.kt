@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentPlacelistBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
@@ -21,8 +22,8 @@ class PlacelistFragment() : Fragment(){
     private lateinit var binding : FragmentPlacelistBinding
     val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
     private var title : String? = null
-    private var user: FirebaseUser? = null
-    private var db: FirebaseFirestore? = null
+//    private var user: FirebaseUser? = null
+//    private var db: FirebaseFirestore? = null
     var index = 0
 
     constructor(title: String?) : this() {
@@ -39,25 +40,29 @@ class PlacelistFragment() : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPlacelistBinding.inflate(inflater, container, false)
-        user = Firebase.auth.currentUser
-        db = Firebase.firestore
+//        user = Firebase.auth.currentUser
+//        db = Firebase.firestore
 
         binding.placelistRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            var scheduleadapter = PlacelistAdapter(userPlaceDataModel, binding.tvChecked)
+            var scheduleadapter = PlacelistAdapter(binding.tvChecked)
             scheduleadapter.title = title
             adapter = scheduleadapter
         }
 
-        binding.tvChecked.setOnClickListener {
-            checked = false
-            val userDocRef = db!!.collection("User").document("UserData")
-            userDocRef.collection(user!!.email.toString()).document("Diary").collection(title!!).document("PlanPlaceInfo")
-                .set(ShowPlacelistActivity.placeInfo)
-            binding.tvChecked.visibility = View.GONE
-            binding.placelistRecyclerview.adapter?.notifyDataSetChanged()
-        }
+//        binding.tvChecked.setOnClickListener {
+//            checked = false
+////            val userDocRef = db!!.collection("User").document("UserData")
+////            userDocRef.collection(user!!.email.toString()).document("Diary").collection(title!!).document("PlanPlaceInfo")
+////                .set(ShowPlacelistActivity.placeInfo)
+//
+//            //MainActivity에 데이터 넣기
+//            var day = MainActivity().afterDate(MainActivity.userDiaryArray[index].baseData.startDate, 0).toInt()
+//            var placeinfo = MainActivity.userDiaryArray[index].diaryArray[day].placeInfo
+//            binding.tvChecked.visibility = View.GONE
+//            binding.placelistRecyclerview.adapter?.notifyDataSetChanged()
+//        }
 
         return binding.root
     }

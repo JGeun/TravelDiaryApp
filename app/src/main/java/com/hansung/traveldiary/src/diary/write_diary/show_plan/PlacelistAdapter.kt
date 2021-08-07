@@ -13,11 +13,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ItemPlacelistBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
-class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private var finishText: TextView) : RecyclerView.Adapter<PlacelistAdapter.ViewHolder>() {
-    private var db: FirebaseFirestore? = null
-    private var user: FirebaseUser? = null
+class PlacelistAdapter(private var finishText: TextView) : RecyclerView.Adapter<PlacelistAdapter.ViewHolder>() {
+//    private var db: FirebaseFirestore? = null
+//    private var user: FirebaseUser? = null
     var title: String? = null
 
     class ViewHolder(val binding : ItemPlacelistBinding) : RecyclerView.ViewHolder(binding.root){
@@ -25,9 +26,9 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
         val editIcon: ImageView = binding.itemScheduleEdit
         val topBar: View = binding.topBar
         val bottomBar: View = binding.bottomBar
-        val dotImg: ImageView = binding.dotImg
-        val upBtn: ImageView = binding.ivMoveup
-        val downBtn: ImageView = binding.ivMovedown
+//        val dotImg: ImageView = binding.dotImg
+//        val upBtn: ImageView = binding.ivMoveup
+//        val downBtn: ImageView = binding.ivMovedown
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,39 +37,36 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        user = Firebase.auth.currentUser
-        db = Firebase.firestore
         Log.d("DB title", title.toString())
 
         val context = holder.itemView.context
 
-        if (PlacelistFragment.checked) {
-            holder.editIcon.visibility = View.INVISIBLE
-            holder.upBtn.visibility = View.VISIBLE
-            holder.downBtn.visibility = View.VISIBLE
+//        if (PlacelistFragment.checked) {
+//            holder.editIcon.visibility = View.INVISIBLE
+//            holder.upBtn.visibility = View.VISIBLE
+//            holder.downBtn.visibility = View.VISIBLE
+//
+//        } else {
+//            holder.editIcon.visibility = View.VISIBLE
+//            holder.upBtn.visibility = View.GONE
+//            holder.downBtn.visibility = View.GONE
+//        }
 
-        } else {
-            holder.editIcon.visibility = View.VISIBLE
-            holder.upBtn.visibility = View.GONE
-            holder.downBtn.visibility = View.GONE
-        }
+//        holder.upBtn.setOnClickListener {
+//            if(position != 0 ){
+//                placeViewModel.moveUp(position)
+//                notifyDataSetChanged()
+//            }
+//        }
+//
+//        holder.downBtn.setOnClickListener {
+//            if(position != itemCount -1){
+//                placeViewModel.moveDown(position)
+//                notifyDataSetChanged()
+//            }
+//        }
 
-        holder.upBtn.setOnClickListener {
-            if(position != 0 ){
-                placeViewModel.moveUp(position)
-                notifyDataSetChanged()
-            }
-        }
-
-        holder.downBtn.setOnClickListener {
-            if(position != itemCount -1){
-                placeViewModel.moveDown(position)
-                notifyDataSetChanged()
-            }
-        }
-
-        holder.location.text =
-            placeViewModel.items.placeFolder[position].placeName
+        holder.location.text = MainActivity.userDiaryArray[index].diaryArray[day].placeInfo.placeFolder[position].placeName
 //        holder.editIcon.setOnClickListener {
 //            val editBtmSheetDialogFragment = EditBottomDialogFragment {
 //                when (it) {
@@ -95,12 +93,12 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
 
         if (position == 0)
             holder.topBar.visibility = View.INVISIBLE
-        if (position == placeViewModel.items.placeFolder.size - 1)
+        if (position == MainActivity.userDiaryArray[index].diaryArray[day].placeInfo.placeFolder.size - 1)
             holder.bottomBar.visibility = View.INVISIBLE
 
     }
 
     override fun getItemCount(): Int =
-        placeViewModel.items.placeFolder.size
+        MainActivity.userDiaryArray.size
 
 }

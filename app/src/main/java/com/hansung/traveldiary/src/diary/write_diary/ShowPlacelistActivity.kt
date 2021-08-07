@@ -19,8 +19,8 @@ import com.hansung.traveldiary.src.diary.write_diary.show_plan.PlacelistFragment
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
 class ShowPlacelistActivity : AppCompatActivity() {
-    private var user: FirebaseUser? = null
-    private var db: FirebaseFirestore? = null
+//    private var user: FirebaseUser? = null
+//    private var db: FirebaseFirestore? = null
     private lateinit var transaction : FragmentTransaction
     private val userPlanDataModel : SharedPlaceViewModel by viewModels()
     var placeInfoFolder = PlaceInfoFolder2()
@@ -35,10 +35,11 @@ class ShowPlacelistActivity : AppCompatActivity() {
         setContentView(R.layout.activity_show_placelist)
 
         index = intent.getIntExtra("index", 0)
-        var title = MainActivity.myDiaryList[index].planTitle
+        var title = MainActivity.userDiaryArray[index].baseData.title
 
-        user = Firebase.auth.currentUser
-        db = Firebase.firestore
+
+//        user = Firebase.auth.currentUser
+//        db = Firebase.firestore
 
         initViewModel(title!!)
 

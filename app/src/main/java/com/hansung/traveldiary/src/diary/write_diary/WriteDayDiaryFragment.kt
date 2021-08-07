@@ -65,7 +65,7 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
             btmSheetFragment.show(childFragmentManager,btmSheetFragment.tag)
         }
 
-        binding.uploadDiaryCommitbtn.setOnClickListener {
+        binding.uploadDiaryAddbtn.setOnClickListener {
             var intent = Intent(context, DiaryImageEditActivity::class.java)
             startActivity(intent)
         }
