@@ -52,7 +52,7 @@ class HomeFragment : Fragment(), HomeView{
             this.statusBarColor = Color.TRANSPARENT
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN }
 
-        if(MainActivity.firstStart){
+        if(MainActivity.firstStart && MainActivity.weeklyList.size == 0){
             WeatherService(this).tryGetWeatherInfo()
             MainActivity.firstStart = false
         }else{

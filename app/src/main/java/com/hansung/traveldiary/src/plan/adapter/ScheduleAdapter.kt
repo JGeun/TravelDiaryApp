@@ -22,7 +22,7 @@ import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private val index: Int, private val finishText: TextView) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private val index: Int, private val day: Int, private val finishText: TextView) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
 
@@ -107,11 +107,15 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
                     }
                     1 -> {
                         placeViewModel.removePlace(position)
+                        println("Size: ${placeViewModel.items.placeFolder.size}")
+                        println("Document:${afterDate(MainActivity.userPlanArray[index].baseData.startDate, position)}")
                         db!!.collection("Plan").document(user!!.email.toString())
                             .collection("PlanData").document(MainActivity.userPlanArray[index].baseData.idx.toString())
-                            .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].baseData.startDate, position))
-                            .set(placeViewModel.items)
-                        notifyDataSetChanged()
+                            .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].baseData.startDate, day))
+                            .set(placeViewModel.items).addOnSuccessListener {
+                                notifyDataSetChanged()
+                            }
+
                     }
                 }
             }
@@ -120,10 +124,7 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
                 editBtmSheetDialogFragment.tag
             )
         }
-        Log.d(
-            "리스트",
-            placeViewModel.items.placeFolder.size.toString()
-        )
+
         if (position == 0)
             holder.topBar.visibility = View.INVISIBLE
         if (position == placeViewModel.items.placeFolder.size - 1)

@@ -33,15 +33,11 @@ data class PlanData(
 
 data class PlanBookData(var title: String, var planData: PlanData)
 
-
-
 ///---------앞으로 사용할 것-----------------------------------------------
-
-
 //UserInfoDataSet
 data class UserContents(var nickname: String="", var profileImage: String="")
 
-//------------------------앞으로 사용할 것 ------------------------------------------
+
 //Total User Email List
 data class UserList(var emailFolder: ArrayList<String> = ArrayList())
 data class UserInfo(var nickname:String= "", var imagePath: String= "")//프로필
