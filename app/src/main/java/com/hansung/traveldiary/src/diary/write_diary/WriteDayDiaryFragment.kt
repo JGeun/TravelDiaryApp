@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -16,24 +15,18 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentMakeDiaryDaySectionBinding
 import com.hansung.traveldiary.src.*
-import com.hansung.traveldiary.src.MainActivity.Companion.allDiaryList
-import com.hansung.traveldiary.src.MainActivity.Companion.myDiaryList
-import com.hansung.traveldiary.src.plan.ScheduleFragment
-import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.TravelPlanMapFragment
 import com.hansung.traveldiary.src.plan.diary
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
-class WriteDayDiaryFragment(val diaryInfo: DiaryInfo, val index: Int, val size: Int,val title:String) : Fragment() {
-    private lateinit var btmSheetFragment :SelectDayBtmSheetFragment
+class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
+    private lateinit var btmSheetFragment : SelectDayBtmSheetFragment
     private val viewModel : SelectDayViewModel by activityViewModels()
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
@@ -47,6 +40,8 @@ class WriteDayDiaryFragment(val diaryInfo: DiaryInfo, val index: Int, val size: 
     ): View? {
         val binding = FragmentMakeDiaryDaySectionBinding.inflate(layoutInflater)
         Log.d("과정", "WriteAdapter-ViewModel Data: ${viewModel.dayData.value!!}")
+        val diaryInfo = MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo
+
         if(diaryInfo.imagePathArray.size == 0){
             binding.uploadViewPager.isVisible = false
             binding.indicator.isVisible = false
@@ -67,9 +62,8 @@ class WriteDayDiaryFragment(val diaryInfo: DiaryInfo, val index: Int, val size: 
 
         binding.uploadContents.setText(diaryInfo.diaryContents)
 
-        //      btmSheetFragment=SelectDayBtmSheetFragment(size)
-        val dayText = "${viewModel.dayData.value}일차 일기"
-        println("dayText: ${dayText}")
+        btmSheetFragment= SelectDayBtmSheetFragment(MainActivity.userDiaryArray[index].diaryArray.size)
+        val dayText = "${viewModel.dayData.value!! +1}일차 일기"
         binding.atpTvDays.text = dayText
 
         binding.daySelectLayout.setOnClickListener{
@@ -82,6 +76,7 @@ class WriteDayDiaryFragment(val diaryInfo: DiaryInfo, val index: Int, val size: 
             intent.putExtra("day", viewModel.dayData.value)
             startActivity(intent)
         }
+
         //diaryInfo.diaryTitle=title.toString()
         val diaryInfoFolder= DiaryInfoFolder()
         var diaryDayList : ArrayList<DiaryDayInfo> = ArrayList<DiaryDayInfo>()

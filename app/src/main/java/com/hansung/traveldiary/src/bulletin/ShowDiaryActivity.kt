@@ -8,6 +8,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityShowDiaryBinding
 import com.hansung.traveldiary.src.MainActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ShowDiaryActivity : AppCompatActivity(){
     private val binding by lazy{
@@ -27,17 +29,27 @@ class ShowDiaryActivity : AppCompatActivity(){
         val index = intent.getIntExtra("index", 0)
         val day = intent.getIntExtra("day", 0)
 
-        val diaryDayData = MainActivity.allDiaryList[index].diaryData.diaryInfoFolder.diaryDayList[day]
+        val diary =MainActivity.userDiaryArray[index]
 
-        binding.sdDate.text = diaryDayData.date
-        binding.sdContents.text = diaryDayData.diaryInfo.diaryContents
-        binding.sdTitle.text = diaryDayData.diaryInfo.diaryTitle
+        binding.sdDate.text = afterDate(diary.baseData.startDate, day)
+        binding.sdContents.text = diary.diaryArray[day].diaryInfo.diaryContents
+        binding.sdTitle.text = diary.diaryArray[day].diaryInfo.diaryTitle
 
-        binding.sdViewPager.adapter= ShowDiaryVPAdapter(diaryDayData.diaryInfo.imagePathArray)
+        binding.sdViewPager.adapter= ShowDiaryVPAdapter(diary.diaryArray[day].diaryInfo.imagePathArray)
         binding.sdViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.sdIndicator.setViewPager(binding.sdViewPager)
         binding.sdIvBack.setOnClickListener {
             finish()
         }
+    }
+
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
     }
 }

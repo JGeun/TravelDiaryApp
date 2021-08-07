@@ -1,7 +1,6 @@
 package com.hansung.traveldiary.src.plan
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,20 +14,18 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentScheduleBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.plan.adapter.ScheduleAdapter
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ScheduleFragment() : Fragment(){
+class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
     private lateinit var binding : FragmentScheduleBinding
     val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
-    private var title : String? = null
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
-    var index = 0
 
-    constructor(title: String?) : this() {
-        this.title = title
-    }
 
     companion object{
         var checked = false
@@ -46,16 +43,27 @@ class ScheduleFragment() : Fragment(){
         binding.scheduleRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            var scheduleadapter = ScheduleAdapter(userPlaceDataModel, binding.tvChecked)
-            scheduleadapter.title = title
-            adapter = scheduleadapter
+            adapter = ScheduleAdapter(userPlaceDataModel, index, binding.tvChecked)
+        }
+
+        userPlaceDataModel.userPlanData.observe(viewLifecycleOwner){
+            if(userPlaceDataModel.userPlanData.value!!.placeFolder.size != 0){
+                binding.scheduleNoPlan.isVisible = false
+                binding.scheduleRecyclerview.isVisible = true
+            }else{
+                binding.scheduleNoPlan.isVisible = true
+                binding.scheduleRecyclerview.isVisible = false
+            }
         }
 
         binding.tvChecked.setOnClickListener {
             checked = false
-            val userDocRef = db!!.collection("User").document("UserData")
-            userDocRef.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
-                .set(TravelPlanBaseActivity.placeInfoFolder)
+            db!!.collection("Plan")
+                .document(user!!.email.toString()).collection("PlanData")
+                .document(MainActivity.userPlanArray[index].baseData.idx.toString())
+                .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].baseData.startDate,day))
+                .set(MainActivity.userPlanArray[index].placeArray[day])
+
             binding.tvChecked.visibility = View.GONE
             binding.scheduleRecyclerview.adapter?.notifyDataSetChanged()
         }
@@ -63,29 +71,14 @@ class ScheduleFragment() : Fragment(){
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        println("schedule fragment start")
-        if (TravelPlanBaseActivity.index!=0)
-            index = TravelPlanBaseActivity.index
 
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
 
-        if(userPlaceDataModel.items.dayPlaceList[index!!].placeInfoArray.size != 0){
-            binding.scheduleNoPlan.isVisible = false
-            binding.scheduleRecyclerview.isVisible = true
-        }else{
-            binding.scheduleNoPlan.isVisible = true
-            binding.scheduleRecyclerview.isVisible = false
-        }
-//        if (checked) {
-//            binding.tvChecked.visibility = View.VISIBLE
-//        }else{
-//            binding.tvChecked.visibility = View.GONE
-//        }
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
 
-    }
-
-    fun setIdx(idx : Int){
-        index = idx
+        return format.format(calendar.time)
     }
 }

@@ -9,7 +9,6 @@ import com.hansung.traveldiary.R
 class DiaryDayViewModel: ViewModel() {
     val imageData : MutableLiveData<Int> = MutableLiveData()
 
-
     init{
         imageData.value = R.drawable.ic_edit
     }

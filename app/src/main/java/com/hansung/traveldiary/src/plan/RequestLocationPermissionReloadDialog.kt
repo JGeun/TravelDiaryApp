@@ -34,7 +34,7 @@ class RequestLocationPermissionReloadDialog(context: Context){
         }
         dlg.findViewById<TextView>(R.id.dg_lp_cancel).setOnClickListener{
             dlg.dismiss()
-            (parentContext as TravelPlanActivity).finish()
+            (parentContext as TravelPlanBaseActivity).finish()
         }
         dlg.setCancelable(true)
         dlg.window!!.setBackgroundDrawable(

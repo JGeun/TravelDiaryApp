@@ -14,14 +14,16 @@ import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
 class TravelDiarySectionFragment : Fragment() {
     private lateinit var binding : FragmentTravelDiarySectionBinding
 
+    private val diarySectionAdapter = DiarySectionAdapter()
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
+        println("Create!!!!!!!!")
         binding = FragmentTravelDiarySectionBinding.inflate(inflater, container, false)
 
-        if(MainActivity.myDiaryList.size == 0){
+        if(MainActivity.userDiaryArray.size == 0){
             binding.diarySectionNoPlan.isVisible = true
             binding.diarySectionRecyclerView.isVisible = false
         }else{
@@ -29,20 +31,27 @@ class TravelDiarySectionFragment : Fragment() {
             binding.diarySectionRecyclerView.isVisible = true
         }
 
-        binding.diarySectionRecyclerView.adapter?.notifyDataSetChanged()
+
 
         binding.diarySectionRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = DiarySectionAdapter(MainActivity.myDiaryList)
+            adapter = diarySectionAdapter
         }
 
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        println("Start!!!")
+        MainActivity.userDiaryArray.sortBy { it.baseData.startDate }
+        diarySectionAdapter.notifyDataSetChanged()
+    }
+
     override fun onResume() {
         super.onResume()
-        binding.diarySectionRecyclerView.adapter!!.notifyDataSetChanged()
+        println("Resume!!!")
     }
 
     fun newInstant() : TravelDiarySectionFragment

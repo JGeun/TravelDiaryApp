@@ -24,7 +24,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlanMapBinding
-import com.hansung.traveldiary.src.PlaceInfo
+import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.PlaceData
 import com.hansung.traveldiary.src.plan.model.*
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
@@ -32,8 +33,12 @@ import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.overlay.PathOverlay
 import com.naver.maps.map.util.FusedLocationSource
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
-class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView {
+class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapReadyCallback, KakaoSearchView {
     private lateinit var binding : FragmentPlanMapBinding
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -55,11 +60,6 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
     private val TAG = "TravelPlanMapFragment"
 
     private val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
-    private var title : String? = null
-    private var placeInfoArray = ArrayList<PlaceInfo>()
-    constructor(title: String?) : this() {
-        this.title = title
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,17 +67,14 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
         savedInstanceState: Bundle?
     ): View? {
         println("map created")
-        println("체크 TravelPlanMapFragment ${title}")
+
         binding = FragmentPlanMapBinding.inflate(inflater, container, false)
 
-        placeInfoArray = userPlaceDataModel.items.dayPlaceList[TravelPlanBaseActivity.index].placeInfoArray
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
         initGCMap()
         searchWordResultTaskInit()
-
-        Log.d(TAG, placeInfoArray.size.toString())
 
         val fm = childFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
@@ -99,8 +96,8 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
             }
 
             override fun afterTextChanged(s: Editable?) {}
-
         })
+
         binding.planEtSearch.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
                 if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -115,15 +112,16 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
         })
 
         binding.planBtmBtnStore.setOnClickListener{
-            Log.d(TAG, "입력 전: " + placeInfoArray.toString())
-            val placeInfo = PlaceInfo(searchWordResultList[searchWordIndex].place_name, searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble())
-            userPlaceDataModel.putPlace(placeInfo, TravelPlanBaseActivity.index)
+            val placeData = PlaceData(searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble(),searchWordResultList[searchWordIndex].place_name)
+            userPlaceDataModel.putPlace(placeData)
 ////            TravelPlanBaseActivity.planTotalData.dayList[TravelPlanBaseActivity.index].placeInfoArray.add(placeInfo)
 //            println("user: " + user!!.email.toString())
 //            println("title: " + title)
-            val userDocRef = db!!.collection("User").document("UserData")
-            userDocRef.collection(user!!.email.toString()).document("Plan").collection(title!!).document("PlaceInfo")
-                .set(TravelPlanBaseActivity.placeInfoFolder)
+            val planDocRef = db!!.collection("Plan").document(user!!.email.toString()).collection("PlanData")
+                .document(MainActivity.userPlanArray[index].baseData.idx.toString()).collection("PlaceInfo")
+                .document(afterDate(MainActivity.userPlanArray[index].baseData.startDate, day))
+                .set(userPlaceDataModel.items)
+
             val marker=Marker()
             marker.icon= OverlayImage.fromResource(R.drawable.ic_travel_marker)
             marker.width=100
@@ -134,7 +132,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
             latLngList.add(searchLatlng)
 //            Log.d(TAG, "입력 후: " + userPlaceDataModel.items.size.toString())
 
-            if(placeInfoArray.size >= 2){
+            if(userPlaceDataModel.items.placeFolder.size >= 2){
                 if(path == null){
                     setLine()
                     path!!.coords = latLngList
@@ -144,6 +142,16 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
             }
         }
         return binding.root
+    }
+
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
     }
 
     fun initGCMap(){
@@ -229,10 +237,11 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
 
         latLngList.clear()
 
-        if(placeInfoArray.size != 0){
-            lastLatitude = placeInfoArray[placeInfoArray.size-1].latitude
-            lastLongitude  = placeInfoArray[placeInfoArray.size-1].longitude
-            for(placeData in placeInfoArray){
+        val size = userPlaceDataModel.items.placeFolder.size
+        if(size > 0){
+            lastLatitude = userPlaceDataModel.items.placeFolder[size-1].latitude
+            lastLongitude  = userPlaceDataModel.items.placeFolder[size-1].longitude
+            for(placeData in userPlaceDataModel.items.placeFolder){
                 val marker = Marker()
                 //마커 이미지 변경 및 크기 조절
                 marker.icon= OverlayImage.fromResource(R.drawable.ic_travel_marker)
@@ -242,10 +251,10 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
                 marker.position = LatLng(placeData.latitude, placeData.longitude)
                 marker.map = naverMap
             }
-            if(path != null && placeInfoArray.size < 2){
+            if(path != null && size < 2){
                 path!!.map = null
                 path = null
-            }else if(placeInfoArray.size >= 2){
+            }else if(size >= 2){
                 if(path == null){
                     setLine()
                 }

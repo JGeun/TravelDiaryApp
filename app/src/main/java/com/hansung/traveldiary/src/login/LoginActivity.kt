@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -15,7 +14,6 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ActivityLoginBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.PlanBaseData
 import com.hansung.traveldiary.src.UserContents
 import com.hansung.traveldiary.util.LoadingDialog
 import com.hansung.traveldiary.util.StatusBarUtil

@@ -9,12 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hansung.traveldiary.databinding.BottomSheetDialogFragmentBinding
-import com.hansung.traveldiary.src.travel.AddBook.AreaViewModel
 
 class SelectDayBtmSheetFragment(val size: Int) : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetDialogFragmentBinding
     var dayList = ArrayList<String>()
-    private val selecyDayViewModel : SelectDayViewModel by activityViewModels()
+    private val selectDayViewModel : SelectDayViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,12 +21,12 @@ class SelectDayBtmSheetFragment(val size: Int) : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = BottomSheetDialogFragmentBinding.inflate(inflater, container, false)
-        dayList=ArrayList<String>()
         initRegion()
+
         binding.daylistRv.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = SelectDayAdapter(dayList, selecyDayViewModel, this@SelectDayBtmSheetFragment)
+            adapter = SelectDayAdapter(dayList, selectDayViewModel, this@SelectDayBtmSheetFragment)
         }
         //날짜 길이 받기
         return binding.root

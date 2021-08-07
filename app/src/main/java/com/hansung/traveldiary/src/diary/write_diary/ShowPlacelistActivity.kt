@@ -13,10 +13,9 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.PlaceInfoFolder
+import com.hansung.traveldiary.src.PlaceInfo
+import com.hansung.traveldiary.src.PlaceInfoFolder2
 import com.hansung.traveldiary.src.plan.PlacelistFragment
-import com.hansung.traveldiary.src.plan.ScheduleFragment
-import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
 class ShowPlacelistActivity : AppCompatActivity() {
@@ -24,11 +23,11 @@ class ShowPlacelistActivity : AppCompatActivity() {
     private var db: FirebaseFirestore? = null
     private lateinit var transaction : FragmentTransaction
     private val userPlanDataModel : SharedPlaceViewModel by viewModels()
-    var placeInfoFolder = PlaceInfoFolder()
+    var placeInfoFolder = PlaceInfoFolder2()
 
     companion object{
         var index = 0
-        var placeInfoFolder = PlaceInfoFolder()
+        var placeInfo = PlaceInfo()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +56,8 @@ class ShowPlacelistActivity : AppCompatActivity() {
 
         userDocRef.collection(user!!.email.toString()).document("Diary").collection(title).document("PlanPlaceInfo")
             .get().addOnSuccessListener  { documentSnapshot ->
-                placeInfoFolder = documentSnapshot.toObject<PlaceInfoFolder>()!!
-                userPlanDataModel.putAllData(placeInfoFolder)
+                placeInfo = documentSnapshot.toObject<PlaceInfo>()!!
+                userPlanDataModel.putAllData(placeInfo)
 
                 transaction = supportFragmentManager.beginTransaction()
                 var fragment = PlacelistFragment(title)

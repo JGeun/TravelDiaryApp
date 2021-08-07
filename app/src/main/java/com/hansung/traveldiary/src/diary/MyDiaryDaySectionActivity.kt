@@ -42,21 +42,18 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
 
         val index = intent.getIntExtra("index", 0)
 
-        binding.dsTitle.text = MainActivity.myDiaryList[index].diaryData.diaryBaseData.title
+        binding.dsTitle.text = MainActivity.userDiaryArray[index].baseData.title
 
 
         Log.d("에러수정", MainActivity.myDiaryList.size.toString())
         Log.d("에러수정", MainActivity.myDiaryList[0].diaryData.diaryInfoFolder.diaryDayList[0].date)
         binding.dsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter= MyDiaryDaySectionAdapter(MainActivity.myDiaryList, index, viewModel)
+            adapter= MyDiaryDaySectionAdapter(index, viewModel)
             layoutManager= LinearLayoutManager(this@MyDiaryDaySectionActivity)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
     override fun onBackPressed() {
         super.onBackPressed()
         finish()

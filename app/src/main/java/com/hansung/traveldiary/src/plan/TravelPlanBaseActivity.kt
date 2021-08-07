@@ -16,11 +16,14 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelPlanBaseBinding
-import com.hansung.traveldiary.src.PlaceInfoFolder
+import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.PlaceInfo
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 import com.hansung.traveldiary.util.StatusBarUtil
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TravelPlanBaseActivity : AppCompatActivity() {
     private val binding by lazy{
@@ -38,6 +41,10 @@ class TravelPlanBaseActivity : AppCompatActivity() {
     private lateinit var scheduleDrawable : Drawable
     private val userPlanDataModel : SharedPlaceViewModel by viewModels()
     private var barColor : String? = null
+    private var index = 0
+    private var day = 0
+
+    private var menu = "schedule"
 
     private val TAG = "TravelPlanBaseActivity"
 
@@ -53,8 +60,8 @@ class TravelPlanBaseActivity : AppCompatActivity() {
             .baseUrl("https://dapi.kakao.com/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        var index = 0
-        var placeInfoFolder = PlaceInfoFolder()
+
+        var placeInfoFolder = PlaceInfo()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,22 +71,21 @@ class TravelPlanBaseActivity : AppCompatActivity() {
 
         barColor = intent.getStringExtra("color")
 
-
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
-        val menu = intent.getStringExtra("menu")
+        menu = intent.getStringExtra("menu").toString()
         index = intent.getIntExtra("index", 0)
-        val title = intent.getStringExtra("title")
-        if(title != "")
-            binding.planTopTitle.text = title
+        day = intent.getIntExtra("day", 0)
 
-        scheduleFragment = ScheduleFragment(title)
-        travelPlanMapFragment = TravelPlanMapFragment(title)
+        binding.planTopTitle.text = MainActivity.userPlanArray[index].baseData.title
+
+        scheduleFragment = ScheduleFragment(index, day)
+        travelPlanMapFragment = TravelPlanMapFragment(index, day)
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
 
-        initViewModel(menu!!, title!!)
+        initViewModel(menu!!)
 
         fragmentManager = supportFragmentManager
         transaction = fragmentManager.beginTransaction()
@@ -108,15 +114,17 @@ class TravelPlanBaseActivity : AppCompatActivity() {
         binding.planTopBack.setOnClickListener{
             finish()
         }
-
     }
 
-    fun initViewModel(menu : String, title: String){
-        val userDocRef = db!!.collection("User").document("UserData")
-        userDocRef.collection(user!!.email.toString()).document("Plan").collection(title).document("PlaceInfo")
-            .get().addOnSuccessListener  { documentSnapshot ->
-                placeInfoFolder = documentSnapshot.toObject<PlaceInfoFolder>()!!
-                userPlanDataModel.putAllData(placeInfoFolder)
+    fun initViewModel(menu : String){
+        db!!.collection("Plan").document(user!!.email.toString()).collection("PlanData")
+            .document(MainActivity.userPlanArray[index].baseData.idx.toString())
+            .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].baseData.startDate, day))
+            .get().addOnSuccessListener { result ->
+                val data = result.toObject<PlaceInfo>()
+                if(data != null) {
+                    userPlanDataModel.putAllData(data)
+                }
 
                 if(menu == "schedule"){
                     binding.planTopMenu.setImageDrawable(mapDrawable)
@@ -126,8 +134,8 @@ class TravelPlanBaseActivity : AppCompatActivity() {
                     transaction.replace(R.id.tp_fragment, travelPlanMapFragment).commitAllowingStateLoss()
                 }
             }
-
     }
+
     override fun onStart() {
         super.onStart()
         println("TravelPlanBaseActivity start")
@@ -137,4 +145,13 @@ class TravelPlanBaseActivity : AppCompatActivity() {
         return barColor
     }
 
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
+    }
 }

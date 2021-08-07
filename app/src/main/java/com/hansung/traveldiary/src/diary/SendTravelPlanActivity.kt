@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.hansung.traveldiary.databinding.ActivitySendTravelPlanBinding
@@ -23,7 +22,6 @@ import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SendTravelPlanActivity : AppCompatActivity() {
     private var user: FirebaseUser? = null
@@ -33,12 +31,14 @@ class SendTravelPlanActivity : AppCompatActivity() {
         ActivitySendTravelPlanBinding.inflate(layoutInflater)
     }
 
+    private var index = 0
+
     private lateinit var getResultImage: ActivityResultLauncher<Intent>
-    private lateinit var imagePath: String
+    private var getImagePath: String = ""
+    private var mainImagePath: String = ""
     private var planTitle = ""
 
-    private var planBaseData: PlanBaseData = PlanBaseData()
-    private var placeInfoFolder: PlaceInfoFolder = PlaceInfoFolder()
+    private var placeInfo: PlaceInfo = PlaceInfo()
 
     private val TAG = "SendTravelPlanActivity"
 
@@ -48,22 +48,18 @@ class SendTravelPlanActivity : AppCompatActivity() {
 
         user = FirebaseAuth.getInstance().currentUser
         db = Firebase.firestore
-
-        planTitle = intent.getStringExtra("title").toString()
-
-        getTitleList()
-        getDataAboutPlanTitle()
+        index = intent.getIntExtra("index", 0)
 
         getResultImage = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                imagePath = result.data?.getStringExtra("imagePath")!!
-                Glide.with(this).load(imagePath).circleCrop().into(binding.stpMainImage)
+                getImagePath = result.data?.getStringExtra("imagePath")!!
+                Glide.with(this).load(getImagePath).circleCrop().into(binding.stpMainImage)
 
                 val op = BitmapFactory.Options()
                 var bitmap: Bitmap? = null
-                bitmap = BitmapFactory.decodeFile(imagePath, op)
+                bitmap = BitmapFactory.decodeFile(getImagePath, op)
                 uploadFirebase2Image(bitmap)
             }
         }
@@ -79,54 +75,54 @@ class SendTravelPlanActivity : AppCompatActivity() {
 
         binding.sendPlanBtn.setOnClickListener {
             var diaryTitle = binding.editTravelTitle.text.toString()
-            var hashTag = binding.editHashtag.text.toString()
-//            var image = binding.stpMainImage.drawable
-            var imagePath = ""
 
-            val userDocRef = db!!.collection("User").document("UserData")
-            val docDiaryRef = userDocRef.collection(user!!.email.toString()).document("Diary")
-            titleList.titleFolder.add(planTitle)
-            docDiaryRef.set(titleList)
-
-            docDiaryRef.collection(planTitle).document("PlanBaseData").set(planBaseData)
-            docDiaryRef.collection(planTitle).document("PlanPlaceInfo").set(placeInfoFolder)
-
-            val diaryDayList = ArrayList<DiaryDayInfo>()
-            for (i in 0 until placeInfoFolder.dayPlaceList.size)
-                diaryDayList.add(DiaryDayInfo(placeInfoFolder.dayPlaceList[i].date, DiaryInfo()))
-            docDiaryRef.collection(planTitle).document("DiaryData").set(
-                DiaryInfoFolder(diaryDayList)
-            )
+            val idx = MainActivity.userPlanArray[index].baseData.idx.toLong()
+            MainActivity.myDiaryIdxList.idxFolder.add(idx)
+            val idxRef =db!!.collection("Diary").document(user!!.email.toString())
+            idxRef.set(MainActivity.myDiaryIdxList)
 
             val now = System.currentTimeMillis();
             val mDate = Date(now)
             val simpleDate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             val getTime = simpleDate.format(mDate)
 
-            Firebase.storage.reference.child("profileImage/" + user!!.email + "/profileImage.png")
-                .downloadUrl.addOnCompleteListener { task ->
-                    val downloadUri = task.result
-                    imagePath = downloadUri.toString()
+            val startDate = MainActivity.userPlanArray[index].baseData.startDate
+            val endDate = MainActivity.userPlanArray[index].baseData.endDate
 
-                    docDiaryRef.collection(planTitle).document("DiaryBaseData").set(
-                        DiaryBaseData(
-                            diaryTitle,
-                            imagePath,
-                            user!!.email.toString(),
-                            user!!.displayName.toString(),
-                            getTime,
-                            "",
-                            0,
-                            0
-                        )
-                    ).addOnSuccessListener {
-                        println("이미지 넣기 끝!")
+            val diaryBaseData = DiaryBaseData(
+                idx,
+                diaryTitle,
+                mainImagePath,
+                user!!.email.toString(),
+                getTime,
+                startDate,
+                endDate,
+                MainActivity.userPlanArray[index].baseData.color,
+                MainActivity.userPlanArray[index].baseData.area,
+                MainActivity.userPlanArray[index].baseData.peopleCount,
+                0,
+                0
+            )
+
+            idxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+
+            val diaryArray = ArrayList<DiaryInfo>()
+            val diaryRef = idxRef.collection("DiaryData").document(idx.toString()).collection("DayList")
+            val calcDate = getCalcDate(startDate, endDate)
+            for (i in 0..calcDate) {
+                val dayRef = diaryRef.document(afterDate(startDate, i))
+                val diaryInfo = DiaryInfo(DiaryData(), MainActivity.userPlanArray[index].placeArray[i])
+                diaryArray.add(diaryInfo)
+                dayRef.set(diaryInfo).addOnSuccessListener {
+                    if(i == calcDate){
+                        MainActivity.userDiaryArray.add(UserDiaryData(diaryBaseData, diaryArray))
+
                         showCustomToast("끝")
+                        setResult(RESULT_OK)
                         finish()
                     }
-                }.addOnFailureListener {
-                    showCustomToast("실패")
                 }
+            }
         }
 
         binding.outblock.setOnClickListener {
@@ -141,7 +137,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
     fun uploadFirebase2Image(bitmap: Bitmap) {
         val storage = Firebase.storage
         val storageRef = storage.reference
-        val imageStorageRef = storageRef.child("/diary/${user!!.email}/${planTitle}/mainImage.png")
+        val imageStorageRef = storageRef.child("/diary/${user!!.email}/${MainActivity.userPlanArray[index].baseData.idx}/mainImage.png")
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val data = baos.toByteArray()
@@ -158,55 +154,29 @@ class SendTravelPlanActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val downloadUri = task.result
                 Log.d("체크", downloadUri.toString())
+                mainImagePath = downloadUri.toString()
                 showCustomToast("메인 이미지가 변경되었습니다.")
-            } else {
-
             }
         }
     }
 
-    fun getTitleList() {
-        val userDocRef = db!!.collection("User").document("UserData")
-        userDocRef.collection(user!!.email.toString()).document("Diary")
-            .get()
-            .addOnSuccessListener { result ->
-                val data = result.data?.get("titleFolder")
-                if (data != null) {
-                    titleList.titleFolder = data as ArrayList<String>
-                    println("size: ${titleList.titleFolder.size}")
-                    println("content: ${titleList.titleFolder[0]}")
-                }
+    private fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
 
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-                finish()
-            }
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
     }
 
-    fun getDataAboutPlanTitle() {
-        val userDocRef = db!!.collection("User").document("UserData")
-        val planDocRef =
-            userDocRef.collection(user!!.email.toString()).document("Plan").collection(planTitle)
-        planDocRef.document("BaseData")
-            .get()
-            .addOnSuccessListener { result ->
-                planBaseData = result.toObject<PlanBaseData>()!!
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-                finish()
-            }
-
-        planDocRef.document("PlaceInfo")
-            .get()
-            .addOnSuccessListener { result ->
-                placeInfoFolder = result.toObject<PlaceInfoFolder>()!!
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-                finish()
-            }
+    fun getCalcDate(startDate: String, endDate: String): Int {
+        var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val startDateFormat = simpleDateFormat.parse("${startDate} 00:00:00")!!
+        val endDateFormat = simpleDateFormat.parse("${endDate} 00:00:00")!!
+        val calcDate =
+            ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
+        return calcDate
     }
 
     fun showCustomToast(message: String) {

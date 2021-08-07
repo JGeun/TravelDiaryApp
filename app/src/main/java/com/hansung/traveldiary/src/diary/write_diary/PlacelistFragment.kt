@@ -1,7 +1,6 @@
 package com.hansung.traveldiary.src.plan
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +14,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentPlacelistBinding
-import com.hansung.traveldiary.databinding.FragmentScheduleBinding
 import com.hansung.traveldiary.src.diary.write_diary.PlacelistAdapter
 import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
-import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity.Companion.index
-import com.hansung.traveldiary.src.plan.adapter.ScheduleAdapter
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
 class PlacelistFragment() : Fragment(){
@@ -59,7 +55,7 @@ class PlacelistFragment() : Fragment(){
             checked = false
             val userDocRef = db!!.collection("User").document("UserData")
             userDocRef.collection(user!!.email.toString()).document("Diary").collection(title!!).document("PlanPlaceInfo")
-                .set(ShowPlacelistActivity.placeInfoFolder)
+                .set(ShowPlacelistActivity.placeInfo)
             binding.tvChecked.visibility = View.GONE
             binding.placelistRecyclerview.adapter?.notifyDataSetChanged()
         }
@@ -72,7 +68,7 @@ class PlacelistFragment() : Fragment(){
         println("Placelist fragment start")
 
 
-        if(userPlaceDataModel.items.dayPlaceList[index!!].placeInfoArray.size != 0){
+        if(userPlaceDataModel.items.placeFolder.size != 0){
             binding.scheduleNoPlan.isVisible = false
             binding.placelistRecyclerview.isVisible = true
         }else{

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 class SelectDayViewModel : ViewModel(){
     var dayData : MutableLiveData<Int> = MutableLiveData()
     init{
-        dayData.value = 1
+        dayData.value = 0
     }
 
     fun setDay(day : Int){
