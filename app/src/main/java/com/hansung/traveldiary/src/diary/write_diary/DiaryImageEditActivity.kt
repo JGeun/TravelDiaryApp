@@ -24,6 +24,7 @@ class DiaryImageEditActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityDiaryImageEditBinding.inflate(layoutInflater)
     }
+
     private val diaryImageList = ArrayList<Drawable>()
     private lateinit var getResultImage: ActivityResultLauncher<Intent>
     private lateinit var imagePath: String

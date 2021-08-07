@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 
 class SelectDayViewModel : ViewModel(){
     var dayData : MutableLiveData<Int> = MutableLiveData()
-
     init{
         dayData.value = 1
     }

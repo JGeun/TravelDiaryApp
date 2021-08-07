@@ -36,7 +36,7 @@ class BulletinAdapter2(private val diaryAllData: ArrayList<DiaryBulletinData>):R
 
         var view = holder.itemView
 //        Glide.with(context).load(data.diaryBaseData.userImage).into(holder.userImage)
-        Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
+        Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).fitCenter().into(holder.userImage)
         holder.userName.text = data.diaryBaseData.userName
         holder.viewpager.adapter =
             BulletinViewPagerAdapter(diaryAllData[position].diaryData.diaryInfoFolder.diaryDayList)
