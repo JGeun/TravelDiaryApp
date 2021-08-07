@@ -98,6 +98,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        initList()
+
         weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
         user = Firebase.auth.currentUser
         db = Firebase.firestore
@@ -226,6 +228,17 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         firstStart = true
+    }
+
+    private fun initList(){
+        userList.emailFolder.clear()
+        UserInfoList.clear()
+        idxList.idxFolder.clear()
+        myPlanIdxList.idxFolder.clear()
+        myDiaryIdxList.idxFolder.clear()
+        userPlanArray.clear()
+        userDiaryArray.clear()
+        bulletinDiaryArray.clear()
     }
 
     fun makePlanBook() {

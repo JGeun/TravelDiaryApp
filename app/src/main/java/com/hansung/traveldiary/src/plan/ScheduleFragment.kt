@@ -43,7 +43,7 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
         binding.scheduleRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = ScheduleAdapter(userPlaceDataModel, index, binding.tvChecked)
+            adapter = ScheduleAdapter(userPlaceDataModel, index, day, binding.tvChecked)
         }
 
         userPlaceDataModel.userPlanData.observe(viewLifecycleOwner){
@@ -58,11 +58,10 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
 
         binding.tvChecked.setOnClickListener {
             checked = false
-            db!!.collection("Plan")
-                .document(user!!.email.toString()).collection("PlanData")
-                .document(MainActivity.userPlanArray[index].baseData.idx.toString())
-                .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].baseData.startDate,day))
-                .set(MainActivity.userPlanArray[index].placeArray[day])
+            db!!.collection("Plan").document(user!!.email.toString())
+                .collection("PlanData").document(MainActivity.userPlanArray[index].baseData.idx.toString())
+                .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].baseData.startDate, day))
+                .set(userPlaceDataModel.items)
 
             binding.tvChecked.visibility = View.GONE
             binding.scheduleRecyclerview.adapter?.notifyDataSetChanged()
