@@ -88,7 +88,7 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
                         val userDocRef = db!!.collection("User").document("UserData")
                         userDocRef.collection(user!!.email.toString()).document("Diary")
                             .collection(title!!).document("PlanPlaceInfo")
-                            .set(TravelPlanBaseActivity.placeInfoFolder)
+                            .set(ShowPlacelistActivity.placeInfoFolder)
                         notifyDataSetChanged()
                     }
                 }
