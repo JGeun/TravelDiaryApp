@@ -60,18 +60,19 @@ class MainActivity : AppCompatActivity() {
         var cloudsText: String = "30%"
         var weeklyList = ArrayList<WeeklyWeatherData>()
 
-        var userList = UserList()
-        var UserInfoList = ArrayList<UserInfo>() //유저 이메일 정보 리스트
+        var userList = UserList() //유저 이메일 정보 리스트
+        var UserInfoList = ArrayList<UserInfo>() //유저 닉네임, 이미지 정보 리스트
         var idxList = IdxList() //전체 idx 리스트
         var myPlanIdxList = IdxList() //나의 plan idx 리스트
         var myDiaryIdxList = IdxList() //나의 diary idx 리스트
         var userPlanArray = ArrayList<UserPlanData>() //나의 plan data 리스트
         var userDiaryArray = ArrayList<UserDiaryData>() //나의 diary data 리스트
-        var bulletinDiaryArray = ArrayList<BulletinData>()
+        var bulletinDiaryArray = ArrayList<BulletinData>() //게시글에 들어가는 전체 diary 리스트
 
         val planBookList = ArrayList<PlanBookData>()
         val myDiaryList = ArrayList<DiaryBulletinData>()
         val allDiaryList = ArrayList<DiaryBulletinData>()
+
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -469,7 +470,6 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-
     fun getCalcDate(startDate: String, endDate: String): Int {
         var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val startDateFormat = simpleDateFormat.parse("${startDate} 00:00:00")!!
@@ -479,11 +479,7 @@ class MainActivity : AppCompatActivity() {
         return calcDate
     }
 
-    fun afterDate(
-        date: String,
-        day: Int,
-        pattern: String = "yyyy-MM-dd"
-    ): String {
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
         val format = SimpleDateFormat(pattern, Locale.getDefault())
 
         val calendar = Calendar.getInstance()

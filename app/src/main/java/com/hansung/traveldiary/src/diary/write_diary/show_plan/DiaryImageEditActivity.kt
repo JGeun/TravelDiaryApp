@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.diary.write_diary
+package com.hansung.traveldiary.src.diary.write_diary.show_plan
 
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -7,17 +7,12 @@ import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityDiaryImageEditBinding
-import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
 
 class DiaryImageEditActivity : AppCompatActivity() {

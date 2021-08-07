@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hansung.traveldiary.databinding.FragmentMakeDiaryDaySectionBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.diary.write_diary.show_plan.DiaryImageEditActivity
 import com.hansung.traveldiary.src.plan.TravelPlanMapFragment
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
@@ -71,6 +72,4 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
 
         return binding.root
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.plan
+package com.hansung.traveldiary.src.diary.write_diary.show_plan
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentPlacelistBinding
-import com.hansung.traveldiary.src.diary.write_diary.PlacelistAdapter
 import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 

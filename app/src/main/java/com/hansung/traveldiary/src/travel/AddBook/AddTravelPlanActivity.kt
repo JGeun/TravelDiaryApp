@@ -213,7 +213,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
         val str = StringBuilder()
         val random = Random()
         for(i in 0 until 8){
-            val num = random.nextInt(10)
+            val num = random.nextInt(9)+1
             str.append(num.toString())
         }
         return str.toString().toLong()

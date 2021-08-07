@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.diary.write_diary
+package com.hansung.traveldiary.src.diary.write_diary.show_plan
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

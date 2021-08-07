@@ -15,7 +15,7 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.PlaceInfo
 import com.hansung.traveldiary.src.PlaceInfoFolder2
-import com.hansung.traveldiary.src.plan.PlacelistFragment
+import com.hansung.traveldiary.src.diary.write_diary.show_plan.PlacelistFragment
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
 class ShowPlacelistActivity : AppCompatActivity() {

@@ -9,10 +9,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemGalleryBinding
-import com.hansung.traveldiary.src.diary.write_diary.DiaryImageEditActivity
-import com.hansung.traveldiary.src.diary.write_diary.EditImageAdapter
-import com.hansung.traveldiary.src.profile.edit_info.EditInfoActivity
-import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
+import com.hansung.traveldiary.src.diary.write_diary.show_plan.DiaryImageEditActivity
 
 class PictureAdapter(val context: Context, val images: ArrayList<String>) :
     RecyclerView.Adapter<PictureAdapter.ViewHolder>() {

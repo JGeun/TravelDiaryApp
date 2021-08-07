@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.diary.write_diary
+package com.hansung.traveldiary.src.diary.write_diary.show_plan
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,10 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.hansung.traveldiary.config.EditBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemPlacelistBinding
-import com.hansung.traveldiary.src.plan.PlacelistFragment
-import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
 class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private var finishText: TextView) : RecyclerView.Adapter<PlacelistAdapter.ViewHolder>() {
