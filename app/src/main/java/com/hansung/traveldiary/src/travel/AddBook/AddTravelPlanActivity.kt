@@ -180,7 +180,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
             val resultIntent = Intent()
             if(isModify){
                 val index = intent.getIntExtra("index", 0)
-                docPlanRef.collection(MainActivity.planBookList[index].title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
+                    docPlanRef.collection(MainActivity.planBookList[index].title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
                 resultIntent.putExtra("title", MainActivity.planBookList[index].title)
                 resultIntent.putExtra("index", index)
             }else{

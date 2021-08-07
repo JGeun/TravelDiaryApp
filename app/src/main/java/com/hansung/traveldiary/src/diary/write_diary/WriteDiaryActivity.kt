@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityWriteDiaryBinding
 import com.hansung.traveldiary.src.MainActivity
@@ -28,11 +30,9 @@ class WriteDiaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         Log.d("과정", "WriteDiaryActivity Create")
-
         index = intent.getIntExtra("index", 0)
         day = intent.getIntExtra("day", 0)
 
@@ -45,6 +45,10 @@ class WriteDiaryActivity : AppCompatActivity() {
             transaction2.commit()
         }
 
+
+
+
+
         binding.writeDiaryTitle.setText(MainActivity.myDiaryList[index].diaryData.diaryBaseData.title)
         binding.writeDiaryIvCancle.setOnClickListener {
             finish()
@@ -54,15 +58,15 @@ class WriteDiaryActivity : AppCompatActivity() {
             intent.putExtra("index", index)
             startActivity(intent)
         }
-    }
 
+    }
     override fun onStart() {
         super.onStart()
         fragmentArray.clear()
         Log.d("과정", "Write-Start Index: $index")
         Log.d("과정", "Write-Start Day: $day")
         for (i in 1..MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList.size) {
-            fragmentArray.add(WriteDayDiaryFragment(MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList[i-1].diaryInfo, index, MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList.size))
+            fragmentArray.add(WriteDayDiaryFragment(MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList[i-1].diaryInfo, index, MainActivity.myDiaryList[index].diaryData.diaryInfoFolder.diaryDayList.size,binding.writeDiaryTitle.text.toString()))
         }
 
         viewModel.setDay(day)

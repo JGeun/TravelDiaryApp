@@ -12,7 +12,7 @@ class DiaryImageEditActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityDiaryImageEditBinding.inflate(layoutInflater)
     }
-    private val diaryImageList = ArrayList<Drawable>()
+    var diaryImageList = ArrayList<Drawable>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

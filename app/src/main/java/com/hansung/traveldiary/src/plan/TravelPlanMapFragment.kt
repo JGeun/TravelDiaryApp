@@ -192,7 +192,7 @@ class TravelPlanMapFragment() : Fragment(), OnMapReadyCallback, KakaoSearchView 
 
                 val marker = Marker()
                 marker.icon= OverlayImage.fromResource(R.drawable.ic_search_marker)
-                marker.width=100
+                marker.width=140
                 marker.height=150
                 /*binding.planBtmBtnStore.setOnClickListener {
                     marker.icon= OverlayImage.fromResource(R.drawable.ic_travel_marker)

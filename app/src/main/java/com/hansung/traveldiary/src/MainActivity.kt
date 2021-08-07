@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
         weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
         user = Firebase.auth.currentUser
         db = Firebase.firestore
-
         getDBData()
 
         val pref = applicationContext.getSharedPreferences("login", 0)
