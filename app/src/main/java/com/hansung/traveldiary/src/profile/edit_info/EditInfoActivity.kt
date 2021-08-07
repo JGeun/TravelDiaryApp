@@ -27,7 +27,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityEditInfoBinding
-import com.hansung.traveldiary.src.UserContents
+import com.hansung.traveldiary.src.UserInfo
 import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
 import com.hansung.traveldiary.util.LoadingDialog
 import com.hansung.traveldiary.util.StatusBarUtil
@@ -98,8 +98,8 @@ class EditInfoActivity : AppCompatActivity() {
             } else {
                 val nickname = binding.editEtNickname.text.toString()
                 val userRef = db!!.collection("UserInfo").document(user!!.email.toString())
-                val userContents = UserContents(nickname, pref.getString("profileImagePath", "").toString())
-                userRef.set(userContents)
+                val userInfo = UserInfo(nickname, pref.getString("profileImagePath", "").toString())
+                userRef.set(userInfo)
                 with(pref.edit()) {
                     putString("nickname", nickname)
                     commit()
@@ -137,8 +137,8 @@ class EditInfoActivity : AppCompatActivity() {
                 val nickname = binding.editEtNickname.text.toString()
                 Log.d("체크", downloadUri.toString())
                 val userRef = db!!.collection("UserInfo").document(user!!.email.toString())
-                val userContents = UserContents(nickname, downloadUri.toString())
-                userRef.set(userContents)
+                val userInfo = UserInfo(nickname, downloadUri.toString())
+                userRef.set(userInfo)
                 with(pref.edit()) {
                     putString("nickname", nickname)
                     putString("profileImagePath", downloadUri.toString())

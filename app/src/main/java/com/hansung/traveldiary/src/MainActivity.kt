@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         var weeklyList = ArrayList<WeeklyWeatherData>()
 
         var userList = UserList() //유저 이메일 정보 리스트
-        var UserInfoList = ArrayList<UserInfo>() //유저 닉네임, 이미지 정보 리스트
+        var userInfoList = ArrayList<UserInfo>() //유저 닉네임, 이미지 정보 리스트
         var idxList = IdxList() //전체 idx 리스트
         var myPlanIdxList = IdxList() //나의 plan idx 리스트
         var myDiaryIdxList = IdxList() //나의 diary idx 리스트
@@ -232,7 +232,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initList(){
         userList.emailFolder.clear()
-        UserInfoList.clear()
+        userInfoList.clear()
         idxList.idxFolder.clear()
         myPlanIdxList.idxFolder.clear()
         myDiaryIdxList.idxFolder.clear()
@@ -299,16 +299,22 @@ class MainActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 userList = result.toObject<UserList>()!!
+                getUserInfoList()
                 getAllDiaryData()
             }
     }
 
-    private fun getUserInfoList(email: String) {
-        db!!.collection("UserInfo").document(email)
-            .get()
-            .addOnSuccessListener { result ->
-                UserInfoList.add(result.toObject<UserInfo>()!!)
-            }
+    private fun getUserInfoList() {
+        for(email in userList.emailFolder){
+            db!!.collection("UserInfo").document(email)
+                .get()
+                .addOnSuccessListener { result ->
+                    val data = result.toObject<UserInfo>()!!
+                    println("userInfo: " + data.nickname+ "/ " + data.profileImage)
+                    userInfoList.add(data)
+                }
+        }
+
     }
 
     private fun getTotalIdxList() {
@@ -424,7 +430,6 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
-                    dismissLoadingDialog()
                 }
             }
     }
@@ -478,7 +483,6 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
-                    dismissLoadingDialog()
                 }
             }
     }

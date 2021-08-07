@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.bulletin
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -29,16 +30,34 @@ class BulletinViewPagerAdapter(private val index: Int): RecyclerView.Adapter<Bul
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
         val context = holder.itemView.context
         val data= MainActivity.bulletinDiaryArray[index]
-        println("길이")
-        if(data.userDiaryData.diaryArray[position].diaryInfo.imagePathArray.size!=0) {
-            val url = data.userDiaryData.diaryArray[position].diaryInfo.imagePathArray[0]
-            Glide.with(context).load(url).apply(RequestOptions().fitCenter()).into(holder.image)
+
+        if(position == 0){
+            holder.title.text = data.userDiaryData.baseData.title
+            holder.content.text="아직 미정이예요"
+            val mainImagePath = data.userDiaryData.baseData.mainImage
+            if(mainImagePath != "") {
+                Glide.with(context).load(mainImagePath).apply(RequestOptions().fitCenter()).into(holder.image)
+            }else{
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.resources,R.drawable.img_beach,null)).apply(RequestOptions().centerCrop()).into(holder.image)
+            }
         }else{
-            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources,R.drawable.img_beach,null)).apply(RequestOptions().centerCrop()).into(holder.image)
+            val day = position-1
+            if(data.userDiaryData.diaryArray[day].diaryInfo.imagePathArray.size!=0) {
+                val url = data.userDiaryData.diaryArray[day].diaryInfo.imagePathArray[0]
+                Glide.with(context).load(url).apply(RequestOptions().fitCenter()).into(holder.image)
+            }else{
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.resources,R.drawable.img_beach,null)).apply(RequestOptions().centerCrop()).into(holder.image)
+            }
+            holder.content.text=data.userDiaryData.diaryArray[day].diaryInfo.diaryContents
+            holder.title.text = data.userDiaryData.diaryArray[day].diaryInfo.diaryTitle
         }
-        holder.content.text=data.userDiaryData.diaryArray[position].diaryInfo.diaryContents
-        holder.title.text = data.userDiaryData.diaryArray[position].diaryInfo.diaryTitle
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context,BulletinDaySectionActivity::class.java)
+            intent.putExtra("index", index)
+            context.startActivity(intent)
+        }
     }
 
-    override fun getItemCount(): Int = MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray.size
+    override fun getItemCount(): Int = MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray.size+1
 }

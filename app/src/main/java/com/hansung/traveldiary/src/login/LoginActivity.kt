@@ -14,7 +14,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ActivityLoginBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.UserContents
+import com.hansung.traveldiary.src.UserInfo
 import com.hansung.traveldiary.util.LoadingDialog
 import com.hansung.traveldiary.util.StatusBarUtil
 
@@ -60,12 +60,12 @@ class LoginActivity : AppCompatActivity() {
                         db!!.collection("UserInfo").document(user!!.email.toString())
                             .get()
                             .addOnSuccessListener { result ->
-                                val userContents = result.toObject<UserContents>()!!
+                                val userInfo = result.toObject<UserInfo>()!!
                                 val pref = applicationContext.getSharedPreferences("user", 0)
                                 with(pref.edit()) {
                                     putString("login", "success")
-                                    putString("nickname", userContents.nickname)
-                                    putString("profileImagePath", userContents.profileImage)
+                                    putString("nickname", userInfo.nickname)
+                                    putString("profileImagePath", userInfo.profileImage)
                                     commit()
                                 }
                                 dismissLoadingDialog()

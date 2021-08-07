@@ -20,6 +20,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         val index = intent.getIntExtra("index", 0)
 
+        binding.bdsTitle.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.title
         binding.bdsIvBack.setOnClickListener{
             finish()
         }

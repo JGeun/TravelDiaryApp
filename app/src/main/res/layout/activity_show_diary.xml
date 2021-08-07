@@ -65,13 +65,15 @@
 
     <TextView
         android:id="@+id/sd_contents"
-        android:layout_width="wrap_content"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/main_font2"
         android:text="The weatehr was really good and I felt so good.\n\n
 I eat my favorite pasta and pizza.\n I chat with my frineds\n"
         app:layout_constraintTop_toBottomOf="@id/sd_title"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="30dp"/>
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
