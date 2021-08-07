@@ -18,17 +18,17 @@ import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 
-class PlacelistFragment() : Fragment(){
+class PlacelistFragment(val index: Int, val day: Int) : Fragment(){
     private lateinit var binding : FragmentPlacelistBinding
     val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
     private var title : String? = null
 //    private var user: FirebaseUser? = null
 //    private var db: FirebaseFirestore? = null
-    var index = 0
+//    var index = 0
 
-    constructor(title: String?) : this() {
-        this.title = title
-    }
+//    constructor(title: String?) : this() {
+//        this.title = title
+//    }
 
     companion object{
         var checked = false
@@ -46,8 +46,8 @@ class PlacelistFragment() : Fragment(){
         binding.placelistRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            var scheduleadapter = PlacelistAdapter(binding.tvChecked)
-            scheduleadapter.title = title
+            var scheduleadapter = PlacelistAdapter(userPlaceDataModel, index, day, binding.tvChecked)
+//            scheduleadapter.title = title
             adapter = scheduleadapter
         }
 
@@ -87,7 +87,7 @@ class PlacelistFragment() : Fragment(){
 
     }
 
-    fun setIdx(idx : Int){
-        index = idx
-    }
+//    fun setIdx(idx : Int){
+//        index = idx
+//    }
 }
