@@ -18,7 +18,6 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityTravelPlanBaseBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.PlaceInfo
-import com.hansung.traveldiary.src.PlaceInfoFolder2
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 import com.hansung.traveldiary.util.StatusBarUtil
 import retrofit2.Retrofit
@@ -78,7 +77,7 @@ class TravelPlanBaseActivity : AppCompatActivity() {
         index = intent.getIntExtra("index", 0)
         day = intent.getIntExtra("day", 0)
 
-        binding.planTopTitle.text = MainActivity.userPlanArray[index].planBaseData.title
+        binding.planTopTitle.text = MainActivity.userPlanArray[index].baseData.title
 
         scheduleFragment = ScheduleFragment(index, day)
         travelPlanMapFragment = TravelPlanMapFragment(index, day)
@@ -119,8 +118,8 @@ class TravelPlanBaseActivity : AppCompatActivity() {
 
     fun initViewModel(menu : String){
         db!!.collection("Plan").document(user!!.email.toString()).collection("PlanData")
-            .document(MainActivity.userPlanArray[index].planBaseData.idx.toString())
-            .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].planBaseData.startDate, day))
+            .document(MainActivity.userPlanArray[index].baseData.idx.toString())
+            .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].baseData.startDate, day))
             .get().addOnSuccessListener { result ->
                 val data = result.toObject<PlaceInfo>()
                 if(data != null) {

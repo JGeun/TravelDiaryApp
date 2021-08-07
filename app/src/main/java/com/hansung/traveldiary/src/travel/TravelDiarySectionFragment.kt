@@ -14,6 +14,7 @@ import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
 class TravelDiarySectionFragment : Fragment() {
     private lateinit var binding : FragmentTravelDiarySectionBinding
 
+    private val diarySectionAdapter = DiarySectionAdapter()
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?,
@@ -29,20 +30,27 @@ class TravelDiarySectionFragment : Fragment() {
             binding.diarySectionRecyclerView.isVisible = true
         }
 
-        binding.diarySectionRecyclerView.adapter?.notifyDataSetChanged()
+
 
         binding.diarySectionRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = DiarySectionAdapter()
+            adapter = diarySectionAdapter
         }
 
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        println("Start!!!")
+        println("size: ${MainActivity.userDiaryArray.size}")
+        diarySectionAdapter.notifyDataSetChanged()
+    }
+
     override fun onResume() {
         super.onResume()
-        binding.diarySectionRecyclerView.adapter!!.notifyDataSetChanged()
+        println("Resume!!!")
     }
 
     fun newInstant() : TravelDiarySectionFragment

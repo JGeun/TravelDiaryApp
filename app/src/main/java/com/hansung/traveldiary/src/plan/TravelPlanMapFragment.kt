@@ -26,7 +26,6 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlanMapBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.PlaceData
-import com.hansung.traveldiary.src.PlaceInfo
 import com.hansung.traveldiary.src.plan.model.*
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
@@ -119,8 +118,8 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
 //            println("user: " + user!!.email.toString())
 //            println("title: " + title)
             val planDocRef = db!!.collection("Plan").document(user!!.email.toString()).collection("PlanData")
-                .document(MainActivity.userPlanArray[index].planBaseData.idx.toString()).collection("PlaceInfo")
-                .document(afterDate(MainActivity.userPlanArray[index].planBaseData.startDate, day))
+                .document(MainActivity.userPlanArray[index].baseData.idx.toString()).collection("PlaceInfo")
+                .document(afterDate(MainActivity.userPlanArray[index].baseData.startDate, day))
                 .set(userPlaceDataModel.items)
 
             val marker=Marker()

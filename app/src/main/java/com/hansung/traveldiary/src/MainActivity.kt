@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         var myPlanIdxList = IdxList() //나의 plan idx 리스트
         var myDiaryIdxList = IdxList() //나의 diary idx 리스트
         var userPlanArray = ArrayList<UserPlanData>() //나의 plan data 리스트
-        var userDiaryArray = ArrayList<DiaryTotalData>() //나의 diary data 리스트
+        var userDiaryArray = ArrayList<UserDiaryData>() //나의 diary data 리스트
 
         var diaryTitleList = TitleList()
         var planTitleList = TitleList()
@@ -77,6 +77,8 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+        var isSend = false
 
         lateinit var mLoadingDialog: LoadingDialog
 
@@ -218,7 +220,6 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         firstStart = true
-        println("MainStart")
     }
 
     fun makePlanBook() {
@@ -235,7 +236,7 @@ class MainActivity : AppCompatActivity() {
     fun removePlanBook(index: Int){
         val user = Firebase.auth.currentUser
         val db = Firebase.firestore
-        val idx = userPlanArray[index].planBaseData.idx
+        val idx = userPlanArray[index].baseData.idx
 
         //userPlanArray에서 삭제
         userPlanArray.removeAt(index)
@@ -301,7 +302,7 @@ class MainActivity : AppCompatActivity() {
 
                     for(myIdx in myDiaryIdxList.idxFolder){
                         var diaryBaseData = DiaryBaseData()
-                        var diaryTotalData = UserDiaryData()
+                        var diaryArray = ArrayList<DiaryInfo>()
 
                         val myDiaryRef = myDiaryIdxRef.collection("DiaryData").document(myIdx.toString())
                         myDiaryRef.get().addOnSuccessListener { result->
@@ -312,16 +313,15 @@ class MainActivity : AppCompatActivity() {
                                     for(i in 0..getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)){
                                         myDiaryRef.collection("DayList").document(afterDate(diaryBaseData.startDate, i))
                                             .get().addOnSuccessListener { result->
-                                                val totalData = result.toObject<UserDiaryData>()
-                                                if(totalData != null){
-                                                    diaryTotalData = totalData
+                                                val diaryInfoData = result.toObject<DiaryInfo>()
+                                                if(diaryInfoData != null){
+                                                    diaryArray.add(diaryInfoData)
                                                 }
                                             }
                                     }
-                                    userDiaryArray.add(DiaryTotalData(diaryBaseData, diaryTotalData))
+                                    userDiaryArray.add(UserDiaryData(diaryBaseData, diaryArray))
                                 }
                             }
-
                     }
                 }
             }

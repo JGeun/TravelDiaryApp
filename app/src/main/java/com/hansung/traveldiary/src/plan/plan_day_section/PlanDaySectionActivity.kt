@@ -4,13 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.view.isVisible
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ActivityPlanDaySectionBinding
 import com.hansung.traveldiary.src.MainActivity
@@ -31,6 +31,8 @@ class PlanDaySectionActivity : AppCompatActivity() {
 
     private var count = 1
 
+    private lateinit var updateDiaryTask: ActivityResultLauncher<Intent>
+
     private val TAG = "PlanAddDayActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +46,7 @@ class PlanDaySectionActivity : AppCompatActivity() {
         index = intent.getIntExtra("index", 0)
         Log.d("체크", "DaySection color: ${color}")
 
-        binding.addDayTitle.text = MainActivity.userPlanArray[index].planBaseData.title
+        binding.addDayTitle.text = MainActivity.userPlanArray[index].baseData.title
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
@@ -62,7 +64,15 @@ class PlanDaySectionActivity : AppCompatActivity() {
         binding.dsIvSend.setOnClickListener {
             val intent = Intent(this, SendTravelPlanActivity::class.java)
             intent.putExtra("index", index)
-            startActivity(intent)
+            updateDiaryTask.launch(intent)
+        }
+
+        updateDiaryTask = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                finish()
+            }
         }
     }
 }

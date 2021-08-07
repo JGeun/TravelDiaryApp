@@ -8,14 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemPlanDaySectionBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.PlaceInfoFolder2
 import com.hansung.traveldiary.src.plan.TravelPlanBaseActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class PlanDaySectionAdapter(val index: Int): RecyclerView.Adapter<PlanDaySectionAdapter.ViewHolder>() {
-    private val color = MainActivity.userPlanArray[index].planBaseData.color
+    private val color = MainActivity.userPlanArray[index].baseData.color
     inner class ViewHolder(private val binding: ItemPlanDaySectionBinding): RecyclerView.ViewHolder(binding.root){
         val dayText = binding.itemAdpDayCount
         val date = binding.itemAdpDate
@@ -32,7 +31,7 @@ class PlanDaySectionAdapter(val index: Int): RecyclerView.Adapter<PlanDaySection
         val context= holder.itemView.context
         val dayCountText = (position+1).toString()+"일차 여행 코스"
         holder.dayText.text = dayCountText
-        val date = afterDate(MainActivity.userPlanArray[index].planBaseData.startDate, position)
+        val date = afterDate(MainActivity.userPlanArray[index].baseData.startDate, position)
         holder.date.text = date
         val day = getDateDay(date)
 

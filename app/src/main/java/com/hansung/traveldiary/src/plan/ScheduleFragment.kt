@@ -60,8 +60,8 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
             checked = false
             db!!.collection("Plan")
                 .document(user!!.email.toString()).collection("PlanData")
-                .document(MainActivity.userPlanArray[index].planBaseData.idx.toString())
-                .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].planBaseData.startDate,day))
+                .document(MainActivity.userPlanArray[index].baseData.idx.toString())
+                .collection("PlaceInfo").document(afterDate(MainActivity.userPlanArray[index].baseData.startDate,day))
                 .set(MainActivity.userPlanArray[index].placeArray[day])
 
             binding.tvChecked.visibility = View.GONE

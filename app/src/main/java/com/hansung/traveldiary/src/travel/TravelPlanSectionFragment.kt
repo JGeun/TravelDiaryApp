@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.travel
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -54,10 +55,10 @@ class TravelPlanSectionFragment : Fragment() {
         }
         println("TravelPlanSection 들어옴")
 
-        MainActivity.userPlanArray.sortBy { it.planBaseData.startDate }
+        MainActivity.userPlanArray.sortBy { it.baseData.startDate }
 
         for (i in 0 until MainActivity.userPlanArray.size) {
-            Log.d("정렬중", MainActivity.userPlanArray[i].planBaseData.title + " / " + MainActivity.userPlanArray[i].planBaseData.startDate)
+            Log.d("정렬중", MainActivity.userPlanArray[i].baseData.title + " / " + MainActivity.userPlanArray[i].baseData.startDate)
         }
 
         binding.planSectionRecyclerView.apply {
@@ -86,6 +87,11 @@ class TravelPlanSectionFragment : Fragment() {
         binding.planSectionRecyclerView.addOnScrollListener(onScrollListener)
 
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println("TravelPlanSection Stop")
     }
 
     fun newInstant(): TravelPlanSectionFragment {

@@ -51,8 +51,8 @@ class AddTravelPlanActivity : AppCompatActivity() {
         isModify = intent.getBooleanExtra("modify", false)
         if (isModify) {
             val index = intent.getIntExtra("index", 0)
-            binding.atpTitle.setText(MainActivity.userPlanArray[index].planBaseData.title)
-            val data = MainActivity.userPlanArray[index].planBaseData
+            binding.atpTitle.setText(MainActivity.userPlanArray[index].baseData.title)
+            val data = MainActivity.userPlanArray[index].baseData
             binding.atpPeople.setText(data.peopleCount.toString())
             areaViewModel.setArea(data.area)
             val date = "${data.startDate} ~ ${data.endDate}"
@@ -157,7 +157,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
                 uploadData(idx, title, color, startDate, endDate, area!!, peopleCount)
             }else{
                 val index = intent.getIntExtra("index", 0)
-                uploadData(MainActivity.userPlanArray[index].planBaseData.idx, title, color, startDate, endDate, area!!, peopleCount)
+                uploadData(MainActivity.userPlanArray[index].baseData.idx, title, color, startDate, endDate, area!!, peopleCount)
             }
         }
 

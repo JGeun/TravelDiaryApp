@@ -6,26 +6,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.config.DeleteBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemPlanSectionBinding
-import com.hansung.traveldiary.src.IdxList
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.PlanBookData
 import com.hansung.traveldiary.src.UserPlanData
 import com.hansung.traveldiary.src.plan.plan_day_section.PlanDaySectionActivity
-import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
-import com.hansung.traveldiary.src.travel.TravelPlanSectionFragment
 
 class PlanSectionAdapter(val userPlanData: ArrayList<UserPlanData>) :
     RecyclerView.Adapter<PlanSectionAdapter.ViewHolder>() {
@@ -61,7 +51,7 @@ class PlanSectionAdapter(val userPlanData: ArrayList<UserPlanData>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = userPlanData[position]
-        val baseData = data.planBaseData
+        val baseData = data.baseData
         val color = baseData.color
         if(color == "blue"){
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
@@ -79,7 +69,7 @@ class PlanSectionAdapter(val userPlanData: ArrayList<UserPlanData>) :
             image = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.ic_diary_blue, null)!!
         }
         Glide.with(holder.itemView.context).load(image).apply(RequestOptions()).into(holder.planSectionImage)
-        holder.planSectionTitle.text = data.planBaseData.title
+        holder.planSectionTitle.text = data.baseData.title
         val startMonth = baseData.startDate.substring(5, 7).toInt()
         val endMonth = baseData.endDate.substring(5, 7).toInt()
         holder.planSectionStartMonth.text = monthUnit[startMonth-1]
