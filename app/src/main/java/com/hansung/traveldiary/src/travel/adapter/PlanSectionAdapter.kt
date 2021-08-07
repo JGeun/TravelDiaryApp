@@ -98,7 +98,6 @@ class PlanSectionAdapter(val userPlanData: ArrayList<UserPlanData>) :
             val deleteBtmSheetDialogFragment = DeleteBottomDialogFragment{
                 when(it){
                     0 -> {
-                        val intent =Intent(context, AddTravelPlanActivity::class.java)
                         (context as MainActivity).updatePlanBook(position, true)
                     }
                     1 -> {

@@ -102,10 +102,6 @@ class MainActivity : AppCompatActivity() {
 
         getDBData()
 
-        getUserList()
-        getTotalIdxList()
-
-
         val pref = applicationContext.getSharedPreferences("login", 0)
         Log.d("MainActivity", pref.getString("login", "")!!)
 
@@ -187,8 +183,33 @@ class MainActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 val index = result.data?.getIntExtra("index", 0)!!
-                planBookList.removeAt(index)
-                addPlan2PlanBookList(result.data?.getStringExtra("title").toString(), "add")
+                val idx = result.data?.getLongExtra("idx", 0)!!
+                userPlanArray.removeAt(index)
+
+                var updatePlanBaseData: PlanBaseData
+                var updatePlanPlaceArray = ArrayList<PlaceInfo>()
+
+                val updatePlanRef = db!!.collection("Plan").document(user!!.email.toString()).collection("PlanData")
+                    .document(idx.toString())
+                updatePlanRef.get()
+                    .addOnSuccessListener { result ->
+                        updatePlanBaseData = result.toObject<PlanBaseData>()!!
+
+                        for (i in 0..getCalcDate(updatePlanBaseData.startDate, updatePlanBaseData.endDate)) {
+                            updatePlanRef.collection("PlaceInfo")
+                                .document(afterDate(updatePlanBaseData.startDate, i)).get()
+                                .addOnSuccessListener { result ->
+                                    val placeData = result.toObject<PlaceInfo>()
+                                    if (placeData != null)
+                                        updatePlanPlaceArray.add(placeData)
+                                }
+                        }
+                        userPlanArray.add(UserPlanData(updatePlanBaseData, updatePlanPlaceArray))
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_frm, TravelBaseFragment())
+                            .commitAllowingStateLoss()
+                        dismissLoadingDialog()
+                    }
             }
         }
 
@@ -263,9 +284,10 @@ class MainActivity : AppCompatActivity() {
 
     fun getDBData() {
         showLoadingDialog(this)
+        getUserList()
+        getTotalIdxList()
         getMyPlanData()
         getMyDiaryData()
-//        getPlanData()
 //        getAllDiaryData()
     }
 
@@ -345,6 +367,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+
     fun getCalcDate(startDate: String, endDate: String): Int {
         var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val startDateFormat = simpleDateFormat.parse("${startDate} 00:00:00")!!
@@ -364,7 +387,7 @@ class MainActivity : AppCompatActivity() {
         return format.format(calendar.time)
     }
 
-    fun getPlanData() {
+    /*fun getPlanData() {
         val userDocRef = db!!.collection("User").document("UserData")
         //getTitle
         userDocRef.collection(user!!.email.toString()).document("Plan")
@@ -382,15 +405,15 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
             }
-    }
+    }*/
 
-    fun getPlanAllData() {
+    /*fun getPlanAllData() {
         for (title in planTitleList.titleFolder) {
             addPlan2PlanBookList(title)
         }
-    }
+    }*/
 
-    fun addPlan2PlanBookList(title: String, check: String = "default") {
+    /*fun addPlan2PlanBookList(title: String, check: String = "default") {
         val userDocRef = db!!.collection("User").document("UserData")
         val planDocRef = userDocRef.collection(user!!.email.toString()).document("Plan")
         var planBaseData: PlanBaseData2? = null
@@ -438,7 +461,7 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
             }
-    }
+    }*/
 
 
     fun getAllDiaryData() {

@@ -51,11 +51,12 @@ class AddTravelPlanActivity : AppCompatActivity() {
         isModify = intent.getBooleanExtra("modify", false)
         if (isModify) {
             val index = intent.getIntExtra("index", 0)
-            binding.atpTitle.setText(MainActivity.planBookList[index].planData.planBaseData.title)
-            val data = MainActivity.planBookList[index].planData.planBaseData
+            binding.atpTitle.setText(MainActivity.userPlanArray[index].planBaseData.title)
+            val data = MainActivity.userPlanArray[index].planBaseData
             binding.atpPeople.setText(data.peopleCount.toString())
             areaViewModel.setArea(data.area)
-            binding.atpDate.text = data.startDate + " ~ " + data.endDate
+            val date = "${data.startDate} ~ ${data.endDate}"
+            binding.atpDate.text = date
             startdate = data.startDate
             enddate = data.endDate
             binding.addPlanBtn.text = "수정"
@@ -119,174 +120,45 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
         setRadioButton()
 
-        /*binding.addPlanBtn.setOnClickListener {
-            var area = areaViewModel.areaData.value
-            var title = binding.atpTitle.text.toString()
-            var startDate = startdate
-            var endDate = enddate
-
-            val userDocRef = db!!.collection("User").document("UserData")
-
-            val email = user!!.email.toString()
-            if (!emailList.emailFolder.contains(email)) {
-                emailList.emailFolder.add(email)
-                userDocRef.set(emailList)
-            }
-
-            val docPlanRef = userDocRef.collection(user!!.email.toString()).document("Plan")
-            if(!isModify) {
-                titleList.titleFolder.add(title)
-                docPlanRef.set(titleList)
-            }
-
-            var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-            val startDateFormat = simpleDateFormat.parse("$startDate 00:00:00")!!
-            val endDateFormat = simpleDateFormat.parse("$endDate 00:00:00")!!
-            val calcDate =
-                ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
-
-            if(isModify){
-                val index = intent.getIntExtra("index", 0)
-                docPlanRef.collection(MainActivity.planBookList[index].title).document("BaseData")
-                    .set(
-                    PlanBaseData(
-                        title,
-                        color,
-                        startDate,
-                        endDate,
-                        area!!,
-                        1
-                    )
-                )
-            }else{
-                docPlanRef.collection(title).document("BaseData").set(
-                    PlanBaseData(
-                        title,
-                        color,
-                        startDate,
-                        endDate,
-                        area!!,
-                        1
-                    )
-                )
-            }
-
-
-            val dayList = ArrayList<PlaceDayInfo>()
-            for (i in 0..calcDate) {
-                dayList.add(PlaceDayInfo(afterDate(startDate, i), arrayListOf()))
-            }
-
-            val resultIntent = Intent()
-            if(isModify){
-                val index = intent.getIntExtra("index", 0)
-                docPlanRef.collection(MainActivity.planBookList[index].title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
-                resultIntent.putExtra("title", MainActivity.planBookList[index].title)
-                resultIntent.putExtra("index", index)
-            }else{
-                docPlanRef.collection(title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
-                resultIntent.putExtra("title", title)
-            }
-
-
-            setResult(RESULT_OK, resultIntent)
-            finish()
-        }*/
-
         binding.addPlanBtn.setOnClickListener {
-            var area = areaViewModel.areaData.value
-            var title = binding.atpTitle.text.toString()
-            var startDate = startdate
-            var endDate = enddate
+            val area = areaViewModel.areaData.value
+            val title = binding.atpTitle.text.toString()
+            val startDate = startdate
+            val endDate = enddate
+            val peopleCount = binding.atpPeople.text.toString().toInt()
 
-            val totalIdxRef = db!!.collection("IdxDatabase").document("IdxData")
-            var idx : Long = 0
-            while(true){
-                idx = makeIdx()
-                if(!MainActivity.idxList.idxFolder.contains(idx)) {
-                    MainActivity.idxList.idxFolder.add(idx)
-                    totalIdxRef.set(MainActivity.idxList)
-                        .addOnSuccessListener {
-                            println("여기 지나고 나서-success-${MainActivity.idxList.idxFolder.size}")
-                        }
-                    break
-                }
-            }
-
-            var userIdxList = IdxList()
-
-            val userIdxRef = db!!.collection("Plan").document(user!!.email.toString())
-            userIdxRef.get()
-                .addOnSuccessListener { result ->
-                    val data = result.toObject<IdxList>()
-                    if(data != null){
-                        userIdxList = data
+            if(!isModify){
+                val totalIdxRef = db!!.collection("IdxDatabase").document("IdxData")
+                var idx : Long = 0L
+                while(true){
+                    idx = makeIdx()
+                    if(!MainActivity.idxList.idxFolder.contains(idx)) {
+                        MainActivity.idxList.idxFolder.add(idx)
+                        totalIdxRef.set(MainActivity.idxList)
+                            .addOnSuccessListener {
+                                println("여기 지나고 나서-success-${MainActivity.idxList.idxFolder.size}")
+                            }
+                        break
                     }
-                    userIdxList.idxFolder.add(idx)
-                    userIdxRef.set(userIdxList)
                 }
 
-//            val docPlanRef = userDocRef.collection(user!!.email.toString()).document("Plan")
-//            if(!isModify) {
-//                titleList.titleFolder.add(title)
-//                docPlanRef.set(titleList)
-//            }
-//
+                var userIdxList = IdxList()
 
-            val planRef = db!!.collection("Plan").document(user!!.email.toString())
-                .collection("PlanData").document(idx.toString())
-
-            if(isModify){
-                //TODO 수정눌렀을 떄의 경우 체크해야합니다.
-//                val index = intent.getIntExtra("index", 0)
-//                docPlanRef.collection(MainActivity.planBookList[index].title).document("BaseData")
-//                    .set(
-//                        PlanBaseData(
-//                            title,
-//                            color,
-//                            startDate,
-//                            endDate,
-//                            area!!,
-//                            1
-//                        )
-//                    )
+                val userIdxRef = db!!.collection("Plan").document(user!!.email.toString())
+                userIdxRef.get()
+                    .addOnSuccessListener { result ->
+                        val data = result.toObject<IdxList>()
+                        if(data != null){
+                            userIdxList = data
+                        }
+                        userIdxList.idxFolder.add(idx)
+                        userIdxRef.set(userIdxList)
+                    }
+                uploadData(idx, title, color, startDate, endDate, area!!, peopleCount)
             }else{
-                planRef.set(
-                    PlanBaseData(
-                        idx,
-                        title,
-                        color,
-                        startDate,
-                        endDate,
-                        area!!,
-                        1
-                    )
-                )
+                val index = intent.getIntExtra("index", 0)
+                uploadData(MainActivity.userPlanArray[index].planBaseData.idx, title, color, startDate, endDate, area!!, peopleCount)
             }
-            for (i in 0..getCalcDate(startDate, endDate)) {
-                val placeRef = planRef.collection("PlaceInfo").document(afterDate(startDate,i))
-                placeRef.set(
-                    PlaceInfo(
-                        ArrayList()
-                    )
-                )
-            }
-
-            val resultIntent = Intent()
-//            if(isModify){
-//                val index = intent.getIntExtra("index", 0)
-//                docPlanRef.collection(MainActivity.planBookList[index].title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
-//                resultIntent.putExtra("title", MainActivity.planBookList[index].title)
-//                resultIntent.putExtra("index", index)
-//            }else{
-//                docPlanRef.collection(title).document("PlaceInfo").set(PlaceInfoFolder(dayList))
-                resultIntent.putExtra("idx", idx)
-//            }
-//
-//
-            println("여기 finish-${MainActivity.idxList.idxFolder.size}")
-            setResult(RESULT_OK, resultIntent)
-            finish()
         }
 
         binding.apaOutblock.setOnClickListener {
@@ -302,8 +174,39 @@ class AddTravelPlanActivity : AppCompatActivity() {
         }
     }
 
-    fun updateFirebaseStore(title: String, startDate: String, endDate: String) {
+    fun uploadData(idx: Long, title: String, color: String, startDate: String, endDate: String, area: String, peopleCount: Int){
+        val planRef = db!!.collection("Plan").document(user!!.email.toString())
+            .collection("PlanData").document(idx.toString())
+        planRef.set(
+            PlanBaseData(
+                idx,
+                title,
+                color,
+                startDate,
+                endDate,
+                area,
+                peopleCount
+            )
+        )
+        for (i in 0..getCalcDate(startDate, endDate)) {
+            val placeRef = planRef.collection("PlaceInfo").document(afterDate(startDate,i))
+            placeRef.set(
+                PlaceInfo(
+                    ArrayList()
+                )
+            )
+        }
 
+        val resultIntent = Intent()
+        resultIntent.putExtra("idx", idx)
+        if(isModify){
+            val index = intent.getIntExtra("index", 0)
+            resultIntent.putExtra("index", index)
+        }
+
+        println("여기 finish-${MainActivity.idxList.idxFolder.size}")
+        setResult(RESULT_OK, resultIntent)
+        finish()
     }
 
     fun makeIdx() : Long{

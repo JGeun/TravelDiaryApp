@@ -78,48 +78,50 @@ class SendTravelPlanActivity : AppCompatActivity() {
         }
 
         binding.sendPlanBtn.setOnClickListener {
-            var diaryTitle = binding.editTravelTitle.text.toString()
+//            var diaryTitle = binding.editTravelTitle.text.toString()
+//
+//            val idx = MainActivity.userPlanArray[index].planBaseData.idx
+//            MainActivity.myDiaryIdxList.idxFolder.add(idx)
+//            val idxRef =db!!.collection("Diary").document(user!!.email.toString())
+//            idxRef.set(MainActivity.myDiaryIdxList)
+//
+//            val now = System.currentTimeMillis();
+//            val mDate = Date(now)
+//            val simpleDate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//            val getTime = simpleDate.format(mDate)
+//
+//            val startDate = MainActivity.userPlanArray[index].planBaseData.startDate
+//            val endDate = MainActivity.userPlanArray[index].planBaseData.endDate
+//            idxRef.collection("DiaryData").document(idx.toString()).set(
+//                DiaryBaseData(
+//                    idx,
+//                    diaryTitle,
+//                    mainImagePath,
+//                    user!!.email.toString(),
+//                    getTime,
+//                    startDate,
+//                    endDate,
+//                    MainActivity.userPlanArray[index].planBaseData.color,
+//                    MainActivity.userPlanArray[index].planBaseData.area,
+//                    MainActivity.userPlanArray[index].planBaseData.peopleCount,
+//                    0,
+//                    0
+//                )
+//            )
+//
+//            val diaryRef = idxRef.collection("DiaryData").document(idx.toString()).collection("DayList")
+//            val calcDate = getCalcDate(startDate, endDate)
+//            for (i in 0..calcDate) {
+//                val dayRef = diaryRef.document(afterDate(startDate, i))
+//                dayRef.set(
+//                   UserDiaryData(DiaryInfo(ArrayList()), MainActivity.userPlanArray[index].placeArray[i])
+//                ).addOnSuccessListener {
+//                    showCustomToast("끝")
+//                    finish()
+//                }
+//            }
+            finish()
 
-            val idx = MainActivity.userPlanArray[index].planBaseData.idx
-            MainActivity.myDiaryIdxList.idxFolder.add(idx)
-            val idxRef =db!!.collection("Diary").document(user!!.email.toString())
-            idxRef.set(MainActivity.myDiaryIdxList)
-
-            val now = System.currentTimeMillis();
-            val mDate = Date(now)
-            val simpleDate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            val getTime = simpleDate.format(mDate)
-
-            val startDate = MainActivity.userPlanArray[index].planBaseData.startDate
-            val endDate = MainActivity.userPlanArray[index].planBaseData.endDate
-            idxRef.collection("DiaryData").document(idx.toString()).set(
-                DiaryBaseData(
-                    idx,
-                    diaryTitle,
-                    mainImagePath,
-                    user!!.email.toString(),
-                    getTime,
-                    startDate,
-                    endDate,
-                    MainActivity.userPlanArray[index].planBaseData.color,
-                    MainActivity.userPlanArray[index].planBaseData.area,
-                    MainActivity.userPlanArray[index].planBaseData.peopleCount,
-                    0,
-                    0
-                )
-            )
-
-            val diaryRef = idxRef.collection("DiaryData").document(idx.toString()).collection("DayList")
-            val calcDate = getCalcDate(startDate, endDate)
-            for (i in 0..calcDate) {
-                val dayRef = diaryRef.document(afterDate(startDate, i))
-                dayRef.set(
-                   UserDiaryData(DiaryInfo(ArrayList()), MainActivity.userPlanArray[index].placeArray[i])
-                ).addOnSuccessListener {
-                    showCustomToast("끝")
-                    finish()
-                }
-            }
         }
 
         binding.outblock.setOnClickListener {
