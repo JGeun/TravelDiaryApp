@@ -5,8 +5,9 @@
     android:layout_height="wrap_content"
     android:paddingVertical="20dp"
     android:paddingHorizontal="20dp"
+    android:layout_marginStart="12dp"
     android:orientation="vertical"
-    android:layout_marginEnd="20dp"
+    android:layout_marginEnd="12dp"
     android:background="@drawable/bg_item_tip">
 
     <ImageView
