@@ -72,29 +72,29 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
 
         holder.location.text =
             placeViewModel.items.placeFolder[position].placeName
-        holder.editIcon.setOnClickListener {
-            val editBtmSheetDialogFragment = EditBottomDialogFragment {
-                when (it) {
-                    0 -> {
-                        PlacelistFragment.checked = true
-                        finishText.visibility = View.VISIBLE
-                        notifyDataSetChanged()
-                    }
-                    1 -> {
-                        placeViewModel.removePlace(position)
-                        val userDocRef = db!!.collection("User").document("UserData")
-                        userDocRef.collection(user!!.email.toString()).document("Diary")
-                            .collection(title!!).document("PlanPlaceInfo")
-                            .set(ShowPlacelistActivity.placeInfoFolder)
-                        notifyDataSetChanged()
-                    }
-                }
-            }
-            editBtmSheetDialogFragment.show(
-                (context as ShowPlacelistActivity).supportFragmentManager,
-                editBtmSheetDialogFragment.tag
-            )
-        }
+//        holder.editIcon.setOnClickListener {
+//            val editBtmSheetDialogFragment = EditBottomDialogFragment {
+//                when (it) {
+//                    0 -> {
+//                        PlacelistFragment.checked = true
+//                        finishText.visibility = View.VISIBLE
+//                        notifyDataSetChanged()
+//                    }
+//                    1 -> {
+//                        placeViewModel.removePlace(position)
+//                        val userDocRef = db!!.collection("User").document("UserData")
+//                        userDocRef.collection(user!!.email.toString()).document("Diary")
+//                            .collection(title!!).document("PlanPlaceInfo")
+//                            .set(ShowPlacelistActivity.placeInfoFolder)
+//                        notifyDataSetChanged()
+//                    }
+//                }
+//            }
+//            editBtmSheetDialogFragment.show(
+//                (context as ShowPlacelistActivity).supportFragmentManager,
+//                editBtmSheetDialogFragment.tag
+//            )
+//        }
 
         if (position == 0)
             holder.topBar.visibility = View.INVISIBLE
