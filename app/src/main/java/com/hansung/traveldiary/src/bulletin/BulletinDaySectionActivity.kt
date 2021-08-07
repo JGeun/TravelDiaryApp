@@ -26,7 +26,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         binding.bdsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter= BulletinDaySectionAdapter(MainActivity.allDiaryList, index)
+            adapter= BulletinDaySectionAdapter(MainActivity.userDiaryArray, index)
             layoutManager=LinearLayoutManager(this@BulletinDaySectionActivity)
         }
     }

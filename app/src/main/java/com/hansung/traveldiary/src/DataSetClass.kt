@@ -33,13 +33,18 @@ data class PlanData(
 
 data class PlanBookData(var title: String, var planData: PlanData)
 
+
+
+///---------앞으로 사용할 것-----------------------------------------------
+
+
 //UserInfoDataSet
 data class UserContents(var nickname: String="", var profileImage: String="")
 
 //------------------------앞으로 사용할 것 ------------------------------------------
 //Total User Email List
 data class UserList(var emailFolder: ArrayList<String> = ArrayList())
-data class UserInfo(var nickname:String= "", var imagePath: String= "")
+data class UserInfo(var nickname:String= "", var imagePath: String= "")//프로필
 data class UserData(var userInfo: UserInfo = UserInfo(), var email: String = "")
 
 //Total Idx List
@@ -66,7 +71,7 @@ data class UserPlanData(var baseData: PlanBaseData = PlanBaseData(), var placeAr
 }
 
 data class DiaryBaseData(var idx : Long = 0, var title: String="", var mainImage: String="", var userEmail: String="", var uploadDate: String="",
-                         var startDate: String = "", var endDate: String = "", var color: String = "", var area: String="", var peopleCount: Int= 1, var like: Int=0, var comments: Int=0,)
+                         var startDate: String = "", var endDate: String = "", var color: String = "", var area: String="", var peopleCount: Int= 1, var like: Int=0, var comments: Int=0,)//기본정보
 
 data class DiaryData(var imagePathArray : ArrayList<String> = ArrayList(), var diaryTitle : String = "", var diaryContents : String = "")
 
