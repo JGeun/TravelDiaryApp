@@ -19,12 +19,12 @@ class DiarySectionAdapter():RecyclerView.Adapter<DiarySectionAdapter.ViewHolder>
         val thumbnail = binding.btItemIvThumbnail
         val hashtag = binding.btItemTvTag
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiarySectionAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding= ItemLasttripBinding.inflate(LayoutInflater.from(parent.context), parent,false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: DiarySectionAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = MainActivity.userDiaryArray[position]
         val context = holder.itemView.context
         holder.title.text = data.baseData.title
@@ -38,13 +38,9 @@ class DiarySectionAdapter():RecyclerView.Adapter<DiarySectionAdapter.ViewHolder>
 
         holder.itemView.setTag(position)
 
-
         holder.itemView.setOnClickListener{
             val intent = Intent(context, MyDiaryDaySectionActivity::class.java)
             intent.putExtra("index", position)
-            Log.d("과정", "DiarySectionAdapter Index: $position")
-            Log.d("과정", "진짜title: ${MainActivity.diaryTitleList.titleFolder[position]}")
-            Log.d("과정", "플랜title: ${MainActivity.myDiaryList[position].diaryData.diaryBaseData.title}")
             context.startActivity(intent)
             (context as MainActivity).overridePendingTransition(0, 0)
         }

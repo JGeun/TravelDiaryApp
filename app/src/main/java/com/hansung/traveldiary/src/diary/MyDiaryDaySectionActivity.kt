@@ -41,19 +41,16 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
 
         val index = intent.getIntExtra("index", 0)
 
-        binding.dsTitle.text = MainActivity.myDiaryList[index].diaryData.diaryBaseData.title
+        binding.dsTitle.text = MainActivity.userDiaryArray[index].baseData.title
 
 
         binding.dsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter= MyDiaryDaySectionAdapter(MainActivity.myDiaryList, index, viewModel)
+            adapter= MyDiaryDaySectionAdapter(index, viewModel)
             layoutManager= LinearLayoutManager(this@MyDiaryDaySectionActivity)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
     override fun onBackPressed() {
         super.onBackPressed()
         finish()

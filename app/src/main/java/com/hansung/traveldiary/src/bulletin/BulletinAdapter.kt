@@ -2,32 +2,49 @@ package com.hansung.traveldiary.src.bulletin
 
 import android.content.Intent
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.hansung.traveldiary.databinding.ItemBulletinBinding
+import com.hansung.traveldiary.R
+import com.hansung.traveldiary.databinding.ItemBulletin2Binding
 import com.hansung.traveldiary.src.DiaryBulletinData
+import com.hansung.traveldiary.src.MainActivity
 
-class BulletinAdapter(private val diaryAllData: ArrayList<DiaryBulletinData>):RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
-    inner class ViewHolder(private val binding: ItemBulletinBinding):RecyclerView.ViewHolder(binding.root){
-        val title = binding.btItemTvTitle
-        val thumbnail = binding.btItemIvThumbnail
+class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
+    inner class ViewHolder(private val binding: ItemBulletin2Binding):RecyclerView.ViewHolder(binding.root){
+        val userImage = binding.btItemUserImage
+        val userName = binding.btItemUserName
+        val likeCnt=binding.btItemTvLikecnt
+        val comment=binding.btItemTvComment
+        val viewpager=binding.viewPager
+        //val thumbnail = binding.btItemIvThumbnail
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
-        val binding= ItemBulletinBinding.inflate(LayoutInflater.from(parent.context), parent,false)
+
+        val binding= ItemBulletin2Binding.inflate(LayoutInflater.from(parent.context), parent,false)
+
+        //binding.viewPager.adapter=BulletinViewPagerAdapter(imgArray)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = diaryAllData[position].diaryData
-        holder.title.text = data.diaryBaseData.title
-        Glide.with(holder.itemView.context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
+        val context = holder.itemView.context
+        val data = MainActivity.bulletinDiaryArray[position].userDiaryData
 
+        var view = holder.itemView
+//        Glide.with(context).load(data.diaryBaseData.userImage).into(holder.userImage)
+        Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
+        holder.userName.text = data.baseData.userEmail
+        holder.viewpager.adapter = BulletinViewPagerAdapter(position)
+        holder.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        //Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
+        holder.likeCnt.text=data.baseData.like.toString()
+        holder.comment.text=data.baseData.comments.toString()
         holder.itemView.setTag(position)
 
-        val context = holder.itemView.context
+
 
         holder.itemView.setOnClickListener{
             val intent = Intent(context,BulletinDaySectionActivity::class.java)
@@ -36,6 +53,6 @@ class BulletinAdapter(private val diaryAllData: ArrayList<DiaryBulletinData>):Re
         }
     }
 
-    override fun getItemCount(): Int = diaryAllData.size
+    override fun getItemCount(): Int = MainActivity.bulletinDiaryArray.size
 
 }

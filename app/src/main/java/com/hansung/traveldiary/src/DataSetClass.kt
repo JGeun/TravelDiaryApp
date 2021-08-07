@@ -39,6 +39,8 @@ data class UserContents(var nickname: String="", var profileImage: String="")
 //------------------------앞으로 사용할 것 ------------------------------------------
 //Total User Email List
 data class UserList(var emailFolder: ArrayList<String> = ArrayList())
+data class UserInfo(var nickname:String= "", var imagePath: String= "")
+data class UserData(var userInfo: UserInfo = UserInfo(), var email: String = "")
 
 //Total Idx List
 data class IdxList(var idxFolder: ArrayList<Long> = ArrayList())
@@ -69,6 +71,16 @@ data class DiaryBaseData(var idx : Long = 0, var title: String="", var mainImage
 data class DiaryData(var imagePathArray : ArrayList<String> = ArrayList(), var diaryTitle : String = "", var diaryContents : String = "")
 
 data class DiaryInfo(var diaryInfo : DiaryData = DiaryData(), var placeInfo: PlaceInfo = PlaceInfo())
-data class UserDiaryData(var baseData: DiaryBaseData = DiaryBaseData(), var diaryArray: ArrayList<DiaryInfo> = ArrayList())
+data class UserDiaryData(var baseData: DiaryBaseData = DiaryBaseData(), var diaryArray: ArrayList<DiaryInfo> = ArrayList()) : Comparable<UserDiaryData> {
+    override fun compareTo(other: UserDiaryData): Int {
+        if (this.baseData.startDate.compareTo(other.baseData.startDate) < 0) {
+            return -1
+        } else if (this.baseData.startDate.compareTo(other.baseData.startDate) > 0) {
+            return 1
+        } else {
+            return this.baseData.endDate.compareTo(other.baseData.endDate)
+        }
+    }
+}
 
-
+data class BulletinData(var userDiaryData : UserDiaryData = UserDiaryData(), var userInfo : UserInfo = UserInfo())

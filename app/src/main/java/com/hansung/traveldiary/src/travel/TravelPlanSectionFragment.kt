@@ -57,9 +57,6 @@ class TravelPlanSectionFragment : Fragment() {
 
         MainActivity.userPlanArray.sortBy { it.baseData.startDate }
 
-        for (i in 0 until MainActivity.userPlanArray.size) {
-            Log.d("정렬중", MainActivity.userPlanArray[i].baseData.title + " / " + MainActivity.userPlanArray[i].baseData.startDate)
-        }
 
         binding.planSectionRecyclerView.apply {
             setHasFixedSize(true)
@@ -89,10 +86,6 @@ class TravelPlanSectionFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStop() {
-        super.onStop()
-        println("TravelPlanSection Stop")
-    }
 
     fun newInstant(): TravelPlanSectionFragment {
         val args = Bundle()

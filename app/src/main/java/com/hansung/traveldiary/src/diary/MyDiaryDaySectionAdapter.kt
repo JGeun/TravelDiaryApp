@@ -10,20 +10,16 @@ import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemDiaryDaySectionBinding
 import com.hansung.traveldiary.src.DiaryBulletinData
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.bulletin.ShowDiaryActivity
 import com.hansung.traveldiary.src.diary.write_diary.WriteDiaryActivity
 
-class MyDiaryDaySectionAdapter(
-    private val myDiaryList: ArrayList<DiaryBulletinData>,
-    private val index: Int,
-    private var viewModel: DiaryDayViewModel
-) : RecyclerView.Adapter<MyDiaryDaySectionAdapter.ViewHolder>() {
+class MyDiaryDaySectionAdapter(private val index: Int, private var viewModel: DiaryDayViewModel) :
+    RecyclerView.Adapter<MyDiaryDaySectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemDiaryDaySectionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val dayText = binding.dsItemTvDayCount
-
-        //        val tag = binding.dsItemTvTag
         val diaryImage = binding.dsItemIvDiary
     }
 
@@ -34,19 +30,26 @@ class MyDiaryDaySectionAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = myDiaryList[index].diaryData
+        val data = MainActivity.userDiaryArray[index].diaryArray[position]
         holder.dayText.text = (position + 1).toString()
 //        holder.tag.text = data.tag
         val context = holder.itemView.context
 
-        if(data.diaryInfoFolder.diaryDayFolder[position].diaryInfo.imagePathArray.size != 0){
-            Glide.with(holder.itemView.context).load(data.diaryInfoFolder.diaryDayFolder[position].diaryInfo.imagePathArray[0]).into(holder.diaryImage)
-        }else{
-            Glide.with(holder.itemView.context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_no_main_image, null)).into(holder.diaryImage)
+        if (data.diaryInfo.imagePathArray.size != 0) {
+            Glide.with(holder.itemView.context).load(data.diaryInfo.imagePathArray[0])
+                .into(holder.diaryImage)
+        } else {
+            Glide.with(holder.itemView.context).load(
+                ResourcesCompat.getDrawable(
+                    context.resources,
+                    R.drawable.img_no_main_image,
+                    null
+                )
+            ).into(holder.diaryImage)
         }
 
 
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             val intent: Intent
             val showImage = R.drawable.ic_find_black
             if (viewModel.imageData.value == showImage) {
@@ -57,33 +60,10 @@ class MyDiaryDaySectionAdapter(
                 intent = Intent(context, WriteDiaryActivity::class.java)
             }
             intent.putExtra("index", index)
-            intent.putExtra("day", position+1)
-            Log.d("과정", "클릭-넘어온Index: ${index}")
-            Log.d("과정", "클릭-Day: ${position+1}")
+            intent.putExtra("day", position)
             context.startActivity(intent)
         }
-
-
-//        holder.itemView.setOnClickListener{
-//            val intent = Intent(context, ShowDiaryActivity::class.java)
-//            intent.putExtra("index", index)
-//            intent.putExtra("day", position)
-//            context.startActivity(Intent(context, ShowDiaryActivity::class.java))
-//        }
-//        holder.showImage.setOnClickListener{
-//            val intent = Intent(context, ShowDiaryActivity::class.java)
-//            intent.putExtra("index", index)
-//            intent.putExtra("day", position)
-//            context.startActivity(Intent(context, ShowDiaryActivity::class.java))
-//        }
-//
-//        holder.writeImage.setOnClickListener{
-//            val intent = Intent(context, ShowDiaryActivity::class.java)
-//            intent.putExtra("index", index)
-//            intent.putExtra("day", position)
-//            context.startActivity(Intent(context, WriteDiaryActivity::class.java))
-//        }
     }
 
-    override fun getItemCount() = myDiaryList[index].diaryData.diaryInfoFolder.diaryDayFolder.size
+    override fun getItemCount() = MainActivity.userDiaryArray[index].diaryArray.size
 }

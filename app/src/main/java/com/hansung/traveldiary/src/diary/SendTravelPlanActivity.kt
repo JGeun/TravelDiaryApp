@@ -76,7 +76,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
         binding.sendPlanBtn.setOnClickListener {
             var diaryTitle = binding.editTravelTitle.text.toString()
 
-            val idx = MainActivity.userPlanArray[index].baseData.idx
+            val idx = MainActivity.userPlanArray[index].baseData.idx.toLong()
             MainActivity.myDiaryIdxList.idxFolder.add(idx)
             val idxRef =db!!.collection("Diary").document(user!!.email.toString())
             idxRef.set(MainActivity.myDiaryIdxList)
@@ -116,6 +116,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
                 dayRef.set(diaryInfo).addOnSuccessListener {
                     if(i == calcDate){
                         MainActivity.userDiaryArray.add(UserDiaryData(diaryBaseData, diaryArray))
+
                         showCustomToast("끝")
                         setResult(RESULT_OK)
                         finish()

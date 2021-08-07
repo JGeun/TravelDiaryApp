@@ -10,8 +10,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemBulletinImageBinding
 import com.hansung.traveldiary.src.DiaryDayInfo
+import com.hansung.traveldiary.src.MainActivity
 
-class BulletinViewPagerAdapter(private val diaryinfoArray: ArrayList<DiaryDayInfo>): RecyclerView.Adapter<BulletinViewPagerAdapter.PagerViewHolder>() {
+class BulletinViewPagerAdapter(private val index: Int): RecyclerView.Adapter<BulletinViewPagerAdapter.PagerViewHolder>() {
 
     class PagerViewHolder(val binding : ItemBulletinImageBinding) : RecyclerView.ViewHolder(binding.root) {
         var image : ImageView = binding.image
@@ -27,17 +28,17 @@ class BulletinViewPagerAdapter(private val diaryinfoArray: ArrayList<DiaryDayInf
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
         val context = holder.itemView.context
-        val data=diaryinfoArray[position].diaryInfo
+        val data= MainActivity.bulletinDiaryArray[index]
         println("길이")
-        if(data.imagePathArray.size!=0) {
-            val url = data.imagePathArray[0]
+        if(data.userDiaryData.diaryArray[position].diaryInfo.imagePathArray.size!=0) {
+            val url = data.userDiaryData.diaryArray[position].diaryInfo.imagePathArray[0]
             Glide.with(context).load(url).apply(RequestOptions().fitCenter()).into(holder.image)
         }else{
             Glide.with(context).load(ResourcesCompat.getDrawable(context.resources,R.drawable.img_beach,null)).apply(RequestOptions().fitCenter()).into(holder.image)
         }
-            holder.content.text=data.diaryContents
-            holder.title.text=data.diaryTitle
+        holder.content.text=data.userDiaryData.diaryArray[position].diaryInfo.diaryContents
+        holder.title.text = data.userDiaryData.diaryArray[position].diaryInfo.diaryTitle
     }
 
-    override fun getItemCount(): Int = diaryinfoArray.size
+    override fun getItemCount(): Int = MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray.size
 }

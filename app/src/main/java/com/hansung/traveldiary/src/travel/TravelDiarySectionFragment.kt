@@ -20,6 +20,7 @@ class TravelDiarySectionFragment : Fragment() {
             savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
+        println("Create!!!!!!!!")
         binding = FragmentTravelDiarySectionBinding.inflate(inflater, container, false)
 
         if(MainActivity.userDiaryArray.size == 0){
@@ -44,7 +45,7 @@ class TravelDiarySectionFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         println("Start!!!")
-        println("size: ${MainActivity.userDiaryArray.size}")
+        MainActivity.userDiaryArray.sortBy { it.baseData.startDate }
         diarySectionAdapter.notifyDataSetChanged()
     }
 
