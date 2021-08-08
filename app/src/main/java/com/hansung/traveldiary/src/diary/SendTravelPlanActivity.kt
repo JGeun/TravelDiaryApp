@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.diary
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -19,6 +20,7 @@ import com.google.firebase.storage.ktx.storage
 import com.hansung.traveldiary.databinding.ActivitySendTravelPlanBinding
 import com.hansung.traveldiary.src.*
 import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
+import com.hansung.traveldiary.util.LoadingDialog
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,6 +41,8 @@ class SendTravelPlanActivity : AppCompatActivity() {
     private var planTitle = ""
 
     private var placeInfo: PlaceInfo = PlaceInfo()
+
+    lateinit var mLoadingDialog: LoadingDialog
 
     private val TAG = "SendTravelPlanActivity"
 
@@ -77,7 +81,8 @@ class SendTravelPlanActivity : AppCompatActivity() {
             var diaryTitle = binding.editTravelTitle.text.toString()
 
             val idx = MainActivity.userPlanArray[index].baseData.idx.toLong()
-            MainActivity.myDiaryIdxList.idxFolder.add(idx)
+            if(!MainActivity.myDiaryIdxList.idxFolder.contains(idx))
+                MainActivity.myDiaryIdxList.idxFolder.add(idx)
             val idxRef =db!!.collection("Diary").document(user!!.email.toString())
             idxRef.set(MainActivity.myDiaryIdxList)
 
@@ -110,8 +115,9 @@ class SendTravelPlanActivity : AppCompatActivity() {
             val diaryRef = idxRef.collection("DiaryData").document(idx.toString()).collection("DayList")
             val calcDate = getCalcDate(startDate, endDate)
             for (i in 0..calcDate) {
-                val dayRef = diaryRef.document(afterDate(startDate, i))
-                val diaryInfo = DiaryInfo(DiaryData(), MainActivity.userPlanArray[index].placeArray[i])
+                val date = afterDate(startDate, i)
+                val dayRef = diaryRef.document(date)
+                val diaryInfo = DiaryInfo(date, DiaryData(), MainActivity.userPlanArray[index].placeArray[i])
                 diaryArray.add(diaryInfo)
                 dayRef.set(diaryInfo).addOnSuccessListener {
                     if(i == calcDate){
@@ -142,6 +148,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val data = baos.toByteArray()
 
+        showLoadingDialog(this)
         val uploadTask = imageStorageRef.putBytes(data)
         val urlTask = uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
@@ -156,6 +163,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
                 Log.d("체크", downloadUri.toString())
                 mainImagePath = downloadUri.toString()
                 showCustomToast("메인 이미지가 변경되었습니다.")
+                dismissLoadingDialog()
             }
         }
     }
@@ -177,6 +185,17 @@ class SendTravelPlanActivity : AppCompatActivity() {
         val calcDate =
             ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
         return calcDate
+    }
+
+    fun showLoadingDialog(context: Context) {
+        mLoadingDialog = LoadingDialog(context)
+        mLoadingDialog.show()
+    }
+
+    fun dismissLoadingDialog() {
+        if (mLoadingDialog.isShowing) {
+            mLoadingDialog.dismiss()
+        }
     }
 
     fun showCustomToast(message: String) {

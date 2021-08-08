@@ -68,7 +68,11 @@ data class DiaryBaseData(var idx : Long = 0, var title: String="", var mainImage
 
 data class DiaryData(var imagePathArray : ArrayList<String> = ArrayList(), var diaryTitle : String = "", var diaryContents : String = "")
 
-data class DiaryInfo(var diaryInfo : DiaryData = DiaryData(), var placeInfo: PlaceInfo = PlaceInfo())
+data class DiaryInfo(var date: String="", var diaryInfo : DiaryData = DiaryData(), var placeInfo: PlaceInfo = PlaceInfo()) : Comparable<DiaryInfo>{
+    override fun compareTo(other: DiaryInfo): Int {
+        return this.date.compareTo(other.date)
+    }
+}
 data class UserDiaryData(var baseData: DiaryBaseData = DiaryBaseData(), var diaryArray: ArrayList<DiaryInfo> = ArrayList()) : Comparable<UserDiaryData> {
     override fun compareTo(other: UserDiaryData): Int {
         if (this.baseData.startDate.compareTo(other.baseData.startDate) < 0) {

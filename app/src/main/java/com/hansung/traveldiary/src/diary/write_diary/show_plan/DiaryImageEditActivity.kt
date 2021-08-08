@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityDiaryImageEditBinding
 import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
+import com.hansung.traveldiary.util.StatusBarUtil
 
 class DiaryImageEditActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -29,6 +30,8 @@ class DiaryImageEditActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        initdiaryImageList()
+
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         binding.editImageRv.apply {
             layoutManager = LinearLayoutManager(context)
