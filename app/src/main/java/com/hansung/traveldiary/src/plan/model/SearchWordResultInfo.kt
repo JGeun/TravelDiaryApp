@@ -4,15 +4,16 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.io.Serializable
 
-class SearchWordResultInfo(title: String, address: String, distance:String) : Serializable {
+class SearchWordResultInfo(title: String, address: String,groupCode:String,place_code:HashMap<String,String>) : Serializable {
     var title : String
     var address : String
-    var distance:String
-
+    var groupCode:String
+    var place_code:HashMap<String,String>
     init{
         this.title = title
         this.address = address
-        this.distance=distance
+        this.groupCode=groupCode
+        this.place_code=place_code
     }
 
 

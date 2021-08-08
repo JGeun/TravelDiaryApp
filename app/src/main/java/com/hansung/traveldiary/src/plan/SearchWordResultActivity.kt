@@ -18,11 +18,11 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
     private val binding by lazy {
         ActivitySearchWordResultBinding.inflate(layoutInflater)
     }
+    private var categoryGCeMap : HashMap<String, String> = HashMap()
     private var searchWord = ""
     private var result = ArrayList<SearchWordResultInfo>()
     private var is_end = true
     private var page = 2
-
     companion object {
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://openapi.naver.com/v1/")
@@ -39,7 +39,6 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
         binding.srIvBack.setOnClickListener {
             finish()
         }
-
         println("is_end: " + is_end)
 
         searchWord = intent.getStringExtra("word").toString()
@@ -50,6 +49,7 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
         binding.srRvResult.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@SearchWordResultActivity)
+            //어댑터
             adapter = SearchWordResultAdapter(result)
         }
 
@@ -70,14 +70,32 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
             }
         })
     }
-
+    fun initGCMap(){
+        categoryGCeMap.put("MT1", "대형마트")
+        categoryGCeMap.put("CS2", "편의점")
+        categoryGCeMap.put("PS3", "어린이집")
+        categoryGCeMap.put("SC4", "학교")
+        categoryGCeMap.put("AC5", "학원")
+        categoryGCeMap.put("PK6", "주차장")
+        categoryGCeMap.put("OL7", "주유소")
+        categoryGCeMap.put("SW8", "지하철역")
+        categoryGCeMap.put("BK9", "은행")
+        categoryGCeMap.put("AG2", "문화시설")
+        categoryGCeMap.put("PO3", "공공기관")
+        categoryGCeMap.put("AT4", "관광명소")
+        categoryGCeMap.put("AD5", "숙박")
+        categoryGCeMap.put("FD6", "음식점")
+        categoryGCeMap.put("CE7", "카페")
+        categoryGCeMap.put("HP8", "병원")
+        categoryGCeMap.put("PM9", "약국")
+    }
 
     override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse) {
         val searchWordResultList = response.documents
         for (resultContent in searchWordResultList) {
             result.add(
                 SearchWordResultInfo(
-                    resultContent.place_name, resultContent.address_name, resultContent.category_group_name
+                    resultContent.place_name, resultContent.address_name, resultContent.category_group_name,categoryGCeMap
                 )
             )
         }
