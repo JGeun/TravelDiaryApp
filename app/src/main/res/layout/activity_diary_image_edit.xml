@@ -42,7 +42,8 @@
                 android:id="@+id/editImage_rv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:overScrollMode="never"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/add_image_btn"

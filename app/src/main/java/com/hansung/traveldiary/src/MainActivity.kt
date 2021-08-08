@@ -69,10 +69,6 @@ class MainActivity : AppCompatActivity() {
         var userDiaryArray = ArrayList<UserDiaryData>() //나의 diary data 리스트
         var bulletinDiaryArray = ArrayList<BulletinData>() //게시글에 들어가는 전체 diary 리스트
 
-        val planBookList = ArrayList<PlanBookData>()
-        val myDiaryList = ArrayList<DiaryBulletinData>()
-        val allDiaryList = ArrayList<DiaryBulletinData>()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())

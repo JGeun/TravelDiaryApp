@@ -53,8 +53,8 @@ class ProfileFragment : Fragment() {
         logout()
         deleteUser()
 
-        binding.planCount.text = MainActivity.planBookList.size.toString()
-        binding.diaryCount.text = MainActivity.myDiaryList.size.toString()
+        binding.planCount.text = MainActivity.userPlanArray.size.toString()
+        binding.diaryCount.text = MainActivity.userDiaryArray.size.toString()
 
         return binding.root
     }
