@@ -7,12 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.*
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
+
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemDiaryPictureBinding
 
-class ShowDiaryVPAdapter(val imagePathArray: ArrayList<String>) : RecyclerView.Adapter<ShowDiaryVPAdapter.PagerViewHolder>() {
+class ShowDiaryVPAdapter(val imagePathArray: ArrayList<String>,val chk:Boolean) : RecyclerView.Adapter<ShowDiaryVPAdapter.PagerViewHolder>() {
 
     class PagerViewHolder(val binding : ItemDiaryPictureBinding) : RecyclerView.ViewHolder(binding.root) {
         var image : ImageView = binding.itemDpImage
@@ -21,6 +23,7 @@ class ShowDiaryVPAdapter(val imagePathArray: ArrayList<String>) : RecyclerView.A
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder{
         val binding = ItemDiaryPictureBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding.chkDefaultImage.isVisible=chk
         return PagerViewHolder(binding)
     }
 

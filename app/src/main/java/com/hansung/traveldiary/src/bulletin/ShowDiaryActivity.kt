@@ -46,8 +46,17 @@ class ShowDiaryActivity : AppCompatActivity(){
         binding.sdContents.text = diary.diaryArray[day].diaryInfo.diaryContents
         println("Show Title: ${diary.diaryArray[day].diaryInfo.diaryTitle}")
         println("Show Contents: ${diary.diaryArray[day].diaryInfo.diaryContents}")
-
-        binding.sdViewPager.adapter= ShowDiaryVPAdapter(diary.diaryArray[day].diaryInfo.imagePathArray)
+        val default_imgArr:ArrayList<String> = ArrayList<String>()
+        default_imgArr.add("https://media.istockphoto.com/photos/suitcase-minimal-travel-concept-with-blue-background-picture-id1130628787?k=6&m=1130628787&s=612x612&w=0&h=Dg-E5XfMagOFGGSA0kHGSZfkgVw_uE9i1ieGk5SDX_8=")
+        if(diary.diaryArray[day].diaryInfo.imagePathArray.size!=0) {
+            print("이미지가 있어요")
+            binding.sdViewPager.adapter =
+                ShowDiaryVPAdapter(diary.diaryArray[day].diaryInfo.imagePathArray,false)
+        }else{
+            println("이미지가 없어요")
+            binding.sdViewPager.adapter =
+                ShowDiaryVPAdapter(default_imgArr,true)
+        }
         binding.sdViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL
         binding.sdIndicator.setViewPager(binding.sdViewPager)
         binding.sdIvBack.setOnClickListener {

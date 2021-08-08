@@ -43,6 +43,7 @@ class DiaryImageEditActivity : AppCompatActivity() {
 
     private var index = 0
     private var day = 0
+    private var title=""
     private var user : FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +54,6 @@ class DiaryImageEditActivity : AppCompatActivity() {
         user = Firebase.auth.currentUser
         index = intent.getIntExtra("index", 0)
         day = intent.getIntExtra("day", 0)
-
         val path = MainActivity.userDiaryArray[index].diaryArray[day]
         if(path.diaryInfo.imagePathArray.size != 0){
             val size = path.diaryInfo.imagePathArray.size

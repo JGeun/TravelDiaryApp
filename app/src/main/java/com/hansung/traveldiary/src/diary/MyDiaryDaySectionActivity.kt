@@ -22,7 +22,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        println("여기 들어옴")
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
 
         val showDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_find_black, null)
