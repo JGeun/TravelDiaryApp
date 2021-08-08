@@ -34,13 +34,10 @@ data class PlanData(
 data class PlanBookData(var title: String, var planData: PlanData)
 
 ///---------앞으로 사용할 것-----------------------------------------------
-//UserInfoDataSet
-data class UserContents(var nickname: String="", var profileImage: String="")
-
 
 //Total User Email List
 data class UserList(var emailFolder: ArrayList<String> = ArrayList())
-data class UserInfo(var nickname:String= "", var imagePath: String= "")//프로필
+data class UserInfo(var nickname:String= "", var profileImage: String= "") //프로필
 data class UserData(var userInfo: UserInfo = UserInfo(), var email: String = "")
 
 //Total Idx List
@@ -71,7 +68,11 @@ data class DiaryBaseData(var idx : Long = 0, var title: String="", var mainImage
 
 data class DiaryData(var imagePathArray : ArrayList<String> = ArrayList(), var diaryTitle : String = "", var diaryContents : String = "")
 
-data class DiaryInfo(var diaryInfo : DiaryData = DiaryData(), var placeInfo: PlaceInfo = PlaceInfo())
+data class DiaryInfo(var date: String="", var diaryInfo : DiaryData = DiaryData(), var placeInfo: PlaceInfo = PlaceInfo()) : Comparable<DiaryInfo>{
+    override fun compareTo(other: DiaryInfo): Int {
+        return this.date.compareTo(other.date)
+    }
+}
 data class UserDiaryData(var baseData: DiaryBaseData = DiaryBaseData(), var diaryArray: ArrayList<DiaryInfo> = ArrayList()) : Comparable<UserDiaryData> {
     override fun compareTo(other: UserDiaryData): Int {
         if (this.baseData.startDate.compareTo(other.baseData.startDate) < 0) {

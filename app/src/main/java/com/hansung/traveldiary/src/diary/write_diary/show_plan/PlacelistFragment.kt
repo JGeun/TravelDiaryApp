@@ -14,20 +14,23 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentPlacelistBinding
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
-class PlacelistFragment() : Fragment(){
+class PlacelistFragment(val index: Int, val day: Int) : Fragment(){
     private lateinit var binding : FragmentPlacelistBinding
     val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
     private var title : String? = null
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
-    var index = 0
+//    var index = 0
 
-    constructor(title: String?) : this() {
-        this.title = title
-    }
+//    constructor(title: String?) : this() {
+//        this.title = title
+//    }
 
     companion object{
         var checked = false
@@ -45,16 +48,26 @@ class PlacelistFragment() : Fragment(){
         binding.placelistRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            var scheduleadapter = PlacelistAdapter(userPlaceDataModel, binding.tvChecked)
-            scheduleadapter.title = title
+            var scheduleadapter = PlacelistAdapter(userPlaceDataModel, index, day, binding.tvChecked)
+//            scheduleadapter.title = title
             adapter = scheduleadapter
         }
 
         binding.tvChecked.setOnClickListener {
             checked = false
-            val userDocRef = db!!.collection("User").document("UserData")
-            userDocRef.collection(user!!.email.toString()).document("Diary").collection(title!!).document("PlanPlaceInfo")
-                .set(ShowPlacelistActivity.placeInfo)
+//            val userDocRef = db!!.collection("User").document("UserData")
+//            userDocRef.collection(user!!.email.toString()).document("Diary").collection(title!!).document("PlanPlaceInfo")
+//                .set(ShowPlacelistActivity.placeInfo)
+
+            //MainActivity에 데이터 넣기
+//            var day = MainActivity().afterDate(MainActivity.userDiaryArray[index].baseData.startDate, 0).toInt()
+//            var placeinfo = MainActivity.userDiaryArray[index].diaryArray[day].placeInfo
+
+            db!!.collection("Diary").document(user!!.email.toString())
+                .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
+                .collection("DayList").document(afterDate(MainActivity.userDiaryArray[index].baseData.startDate, day))
+                .set(MainActivity.userDiaryArray[index].diaryArray[day])
+
             binding.tvChecked.visibility = View.GONE
             binding.placelistRecyclerview.adapter?.notifyDataSetChanged()
         }
@@ -66,7 +79,6 @@ class PlacelistFragment() : Fragment(){
         super.onStart()
         println("Placelist fragment start")
 
-
         if(userPlaceDataModel.items.placeFolder.size != 0){
             binding.scheduleNoPlan.isVisible = false
             binding.placelistRecyclerview.isVisible = true
@@ -74,15 +86,16 @@ class PlacelistFragment() : Fragment(){
             binding.scheduleNoPlan.isVisible = true
             binding.placelistRecyclerview.isVisible = false
         }
-//        if (checked) {
-//            binding.tvChecked.visibility = View.VISIBLE
-//        }else{
-//            binding.tvChecked.visibility = View.GONE
-//        }
 
     }
 
-    fun setIdx(idx : Int){
-        index = idx
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
     }
 }

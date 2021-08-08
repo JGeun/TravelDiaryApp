@@ -26,7 +26,7 @@ class BulletinDaySectionAdapter(private val userDiaryArray:ArrayList<UserDiaryDa
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = MainActivity.userDiaryArray[index].diaryArray[position]
+        val data = MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray[position]
             //diaryAllList[index].diaryData
         holder.dayText.text = (position+1).toString()
 //        holder.tag.text = data.tag
@@ -43,10 +43,13 @@ class BulletinDaySectionAdapter(private val userDiaryArray:ArrayList<UserDiaryDa
                 )
             ).into(holder.diaryImage)
         }
-        val intent = Intent(context, ShowDiaryActivity::class.java)
-        intent.putExtra("index", index)
-        intent.putExtra("day", position)
         holder.itemView.setOnClickListener{
+            println("index: ${index} day: ${position}")
+            println(MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray[position].diaryInfo.diaryTitle)
+            val intent = Intent(context, ShowDiaryActivity::class.java)
+            intent.putExtra("index", index)
+            intent.putExtra("day", position)
+            intent.putExtra("isBulletin", true)
             context.startActivity(intent)
         }
     }

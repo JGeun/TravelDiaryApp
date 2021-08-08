@@ -7,12 +7,28 @@
     android:paddingHorizontal="20dp"
     android:paddingVertical="10dp">
 
+
+    <TextView
+        android:id="@+id/bds_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="영진이의 부산여행"
+        android:fontFamily="@font/main_font2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"/>
+
     <ImageView
         android:id="@+id/bds_iv_back"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/back"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bds_title"
+        app:layout_constraintBottom_toBottomOf="@id/bds_title"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,8 +37,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bds_iv_back"
-        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/bds_title"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="30dp"
         android:overScrollMode="never"/>
 
 <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->

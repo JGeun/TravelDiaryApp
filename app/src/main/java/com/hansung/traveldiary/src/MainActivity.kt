@@ -61,17 +61,13 @@ class MainActivity : AppCompatActivity() {
         var weeklyList = ArrayList<WeeklyWeatherData>()
 
         var userList = UserList() //유저 이메일 정보 리스트
-        var UserInfoList = ArrayList<UserInfo>() //유저 닉네임, 이미지 정보 리스트
+        var userInfoList = ArrayList<UserInfo>() //유저 닉네임, 이미지 정보 리스트
         var idxList = IdxList() //전체 idx 리스트
         var myPlanIdxList = IdxList() //나의 plan idx 리스트
         var myDiaryIdxList = IdxList() //나의 diary idx 리스트
         var userPlanArray = ArrayList<UserPlanData>() //나의 plan data 리스트
         var userDiaryArray = ArrayList<UserDiaryData>() //나의 diary data 리스트
         var bulletinDiaryArray = ArrayList<BulletinData>() //게시글에 들어가는 전체 diary 리스트
-
-        val planBookList = ArrayList<PlanBookData>()
-        val myDiaryList = ArrayList<DiaryBulletinData>()
-        val allDiaryList = ArrayList<DiaryBulletinData>()
 
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
@@ -230,9 +226,9 @@ class MainActivity : AppCompatActivity() {
         firstStart = true
     }
 
-    private fun initList(){
+    private fun initList() {
         userList.emailFolder.clear()
-        UserInfoList.clear()
+        userInfoList.clear()
         idxList.idxFolder.clear()
         myPlanIdxList.idxFolder.clear()
         myDiaryIdxList.idxFolder.clear()
@@ -299,16 +295,20 @@ class MainActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 userList = result.toObject<UserList>()!!
+                getUserInfoList()
                 getAllDiaryData()
             }
     }
 
-    private fun getUserInfoList(email: String) {
-        db!!.collection("UserInfo").document(email)
-            .get()
-            .addOnSuccessListener { result ->
-                UserInfoList.add(result.toObject<UserInfo>()!!)
-            }
+    private fun getUserInfoList() {
+        for (email in userList.emailFolder) {
+            db!!.collection("UserInfo").document(email)
+                .get()
+                .addOnSuccessListener { result ->
+                    val data = result.toObject<UserInfo>()!!
+                    userInfoList.add(data)
+                }
+        }
     }
 
     private fun getTotalIdxList() {
@@ -339,38 +339,44 @@ class MainActivity : AppCompatActivity() {
                             var diaryBaseData = DiaryBaseData()
                             val baseRef =
                                 diaryIdxRef.collection("DiaryData").document(idx.toString())
-                            baseRef.get().addOnSuccessListener { result ->
+                            baseRef.get().addOnSuccessListener { baseResult ->
                                 Log.d("체크", "baseRef")
-                                val baseData = result.toObject<DiaryBaseData>()
+                                val baseData = baseResult.toObject<DiaryBaseData>()
                                 if (baseData != null) {
                                     diaryBaseData = baseData
                                     var diaryArray = ArrayList<DiaryInfo>()
-                                    for (i in 0..getCalcDate(
-                                        diaryBaseData.startDate,
-                                        diaryBaseData.endDate
-                                    )) {
+                                    val calcDate =
+                                        getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
+                                    for (i in 0..calcDate) {
                                         baseRef.collection("DayList")
                                             .document(afterDate(diaryBaseData.startDate, i))
-                                            .get().addOnSuccessListener { result ->
-                                                val diaryData = result.toObject<DiaryInfo>()
+                                            .get().addOnSuccessListener { dayResult ->
+                                                val diaryData = dayResult.toObject<DiaryInfo>()
                                                 if (diaryData != null) {
                                                     diaryArray.add(diaryData)
+                                                    if (i == calcDate) {
+                                                        diaryArray.sortBy { it.date }
+                                                        println("---------------------Bulletin체크-----------------")
+                                                        for (j in 0 until diaryArray.size) {
+                                                            println(diaryArray[j].date + " / " + diaryArray[j].diaryInfo.diaryTitle + " / " + diaryArray[j].diaryInfo.diaryContents)
+                                                        }
+                                                        bulletinDiaryArray.add(
+                                                            BulletinData(
+                                                                UserDiaryData(
+                                                                    diaryBaseData,
+                                                                    diaryArray
+                                                                ), userInfo
+                                                            )
+                                                        )
+                                                        dismissLoadingDialog()
+                                                    }
                                                 }
                                             }
                                     }
-                                    bulletinDiaryArray.add(
-                                        BulletinData(
-                                            UserDiaryData(
-                                                diaryBaseData,
-                                                diaryArray
-                                            ), userInfo
-                                        )
-                                    )
-                                    Log.d("체크", bulletinDiaryArray[0].userInfo.nickname)
                                 }
                             }
                         }
-                        dismissLoadingDialog()
+
                     }
                 }
         }
@@ -392,39 +398,41 @@ class MainActivity : AppCompatActivity() {
 
                         val myDiaryRef = myDiaryIdxRef.collection("DiaryData")
                             .document(myIdx.toString())
-                        myDiaryRef.get().addOnSuccessListener { result ->
-                            val diaryData = result.toObject<DiaryBaseData>()
+                        myDiaryRef.get().addOnSuccessListener { baseResult ->
+                            val diaryData = baseResult.toObject<DiaryBaseData>()
                             if (diaryData != null) {
                                 diaryBaseData = diaryData
-
-                                for (i in 0..getCalcDate(
-                                    diaryBaseData.startDate,
-                                    diaryBaseData.endDate
-                                )) {
+                                Log.d("수정체크", diaryBaseData.startDate)
+                                val calcDate =
+                                    getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
+                                for (i in 0..calcDate) {
                                     myDiaryRef.collection("DayList").document(
-                                        afterDate(
-                                            diaryBaseData.startDate,
-                                            i
-                                        )
-                                    )
-                                        .get().addOnSuccessListener { result ->
-                                            val diaryInfoData =
-                                                result.toObject<DiaryInfo>()
-                                            if (diaryInfoData != null) {
-                                                diaryArray.add(diaryInfoData)
+                                        afterDate(diaryBaseData.startDate, i)
+                                    ).get().addOnSuccessListener { infoResult ->
+                                        val diaryInfoData = infoResult.toObject<DiaryInfo>()
+                                        if (diaryInfoData != null) {
+                                            Log.d("수정체크", diaryInfoData.date)
+                                            diaryArray.add(diaryInfoData)
+
+                                            if (i == calcDate) {
+                                                diaryArray.sortBy { it.date }
+                                                println("---------------------MyDiary체크-----------------")
+                                                for (j in 0 until diaryArray.size) {
+                                                    println(diaryArray[j].date + " / " + diaryArray[j].diaryInfo.diaryTitle + " / " + diaryArray[j].diaryInfo.diaryContents)
+                                                }
+                                                userDiaryArray.add(
+                                                    UserDiaryData(
+                                                        diaryBaseData,
+                                                        diaryArray
+                                                    )
+                                                )
                                             }
                                         }
+                                    }
                                 }
-                                userDiaryArray.add(
-                                    UserDiaryData(
-                                        diaryBaseData,
-                                        diaryArray
-                                    )
-                                )
                             }
                         }
                     }
-                    dismissLoadingDialog()
                 }
             }
     }
@@ -478,7 +486,6 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
-                    dismissLoadingDialog()
                 }
             }
     }

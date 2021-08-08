@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityShowDiaryBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.UserDiaryData
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,12 +29,23 @@ class ShowDiaryActivity : AppCompatActivity(){
 
         val index = intent.getIntExtra("index", 0)
         val day = intent.getIntExtra("day", 0)
+        val isBulletin = intent.getBooleanExtra("isBulletin", false)
 
-        val diary =MainActivity.userDiaryArray[index]
 
+        val diary : UserDiaryData
+
+        if(isBulletin){
+            diary= MainActivity.bulletinDiaryArray[index].userDiaryData
+        }else{
+            diary = MainActivity.userDiaryArray[index]
+        }
+
+        println("Show index: ${index} day: ${day}")
         binding.sdDate.text = afterDate(diary.baseData.startDate, day)
-        binding.sdContents.text = diary.diaryArray[day].diaryInfo.diaryContents
         binding.sdTitle.text = diary.diaryArray[day].diaryInfo.diaryTitle
+        binding.sdContents.text = diary.diaryArray[day].diaryInfo.diaryContents
+        println("Show Title: ${diary.diaryArray[day].diaryInfo.diaryTitle}")
+        println("Show Contents: ${diary.diaryArray[day].diaryInfo.diaryContents}")
 
         binding.sdViewPager.adapter= ShowDiaryVPAdapter(diary.diaryArray[day].diaryInfo.imagePathArray)
         binding.sdViewPager.orientation= ViewPager2.ORIENTATION_HORIZONTAL

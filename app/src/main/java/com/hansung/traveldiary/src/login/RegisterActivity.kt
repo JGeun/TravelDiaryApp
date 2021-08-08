@@ -8,7 +8,6 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.UserInfo
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,10 +15,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ActivityRegisterBinding
-import com.hansung.traveldiary.src.UserContents
+import com.hansung.traveldiary.src.UserInfo
 import com.hansung.traveldiary.src.UserList
 import com.hansung.traveldiary.util.LoadingDialog
 import com.hansung.traveldiary.util.StatusBarUtil
+import com.google.firebase.auth.UserInfo as UserInfo1
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -73,9 +73,9 @@ class RegisterActivity : AppCompatActivity() {
                         userDataRef.set(userList)
                         val nickname = binding.registerNickname.text.toString()
                         val user = FirebaseAuth.getInstance().currentUser
-                        val userContents = UserContents(nickname, "")
+                        val userInfo = UserInfo(nickname, "")
                         db!!.collection("UserInfo").document(user!!.email.toString())
-                            .set(userContents)
+                            .set(userInfo)
                             .addOnSuccessListener {
                                 dismissLoadingDialog()
                                 showCustomToast("회원가입이 완료되었습니다")

@@ -14,13 +14,14 @@ import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
 class TravelDiarySectionFragment : Fragment() {
     private lateinit var binding : FragmentTravelDiarySectionBinding
 
-    private val diarySectionAdapter = DiarySectionAdapter()
+    private val diarySectionAdapter = DiarySectionAdapter(MainActivity.userDiaryArray)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         println("Create!!!!!!!!")
+        println("")
         binding = FragmentTravelDiarySectionBinding.inflate(inflater, container, false)
 
         if(MainActivity.userDiaryArray.size == 0){
@@ -31,14 +32,6 @@ class TravelDiarySectionFragment : Fragment() {
             binding.diarySectionRecyclerView.isVisible = true
         }
 
-
-
-        binding.diarySectionRecyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
-            adapter = diarySectionAdapter
-        }
-
         return binding.root
     }
 
@@ -46,6 +39,11 @@ class TravelDiarySectionFragment : Fragment() {
         super.onStart()
         println("Start!!!")
         MainActivity.userDiaryArray.sortBy { it.baseData.startDate }
+        binding.diarySectionRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = diarySectionAdapter
+        }
         diarySectionAdapter.notifyDataSetChanged()
     }
 

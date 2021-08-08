@@ -12,20 +12,25 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.hansung.traveldiary.config.EditBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemPlacelistBinding
+import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
-class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private var finishText: TextView) : RecyclerView.Adapter<PlacelistAdapter.ViewHolder>() {
+class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private val index: Int, private val day: Int, private var finishText: TextView) : RecyclerView.Adapter<PlacelistAdapter.ViewHolder>() {
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
-    var title: String? = null
+//    var title: String? = null
 
     class ViewHolder(val binding : ItemPlacelistBinding) : RecyclerView.ViewHolder(binding.root){
         val location: TextView = binding.itemScheduleLocation
         val editIcon: ImageView = binding.itemScheduleEdit
         val topBar: View = binding.topBar
         val bottomBar: View = binding.bottomBar
-        val dotImg: ImageView = binding.dotImg
+//        val dotImg: ImageView = binding.dotImg
         val upBtn: ImageView = binding.ivMoveup
         val downBtn: ImageView = binding.ivMovedown
     }
@@ -36,9 +41,9 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+//        Log.d("DB title", title.toString())
         user = Firebase.auth.currentUser
         db = Firebase.firestore
-        Log.d("DB title", title.toString())
 
         val context = holder.itemView.context
 
@@ -67,31 +72,36 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
             }
         }
 
-        holder.location.text =
-            placeViewModel.items.placeFolder[position].placeName
-//        holder.editIcon.setOnClickListener {
-//            val editBtmSheetDialogFragment = EditBottomDialogFragment {
-//                when (it) {
-//                    0 -> {
-//                        PlacelistFragment.checked = true
-//                        finishText.visibility = View.VISIBLE
-//                        notifyDataSetChanged()
-//                    }
-//                    1 -> {
-//                        placeViewModel.removePlace(position)
-//                        val userDocRef = db!!.collection("User").document("UserData")
-//                        userDocRef.collection(user!!.email.toString()).document("Diary")
-//                            .collection(title!!).document("PlanPlaceInfo")
-//                            .set(ShowPlacelistActivity.placeInfoFolder)
-//                        notifyDataSetChanged()
-//                    }
-//                }
-//            }
-//            editBtmSheetDialogFragment.show(
-//                (context as ShowPlacelistActivity).supportFragmentManager,
-//                editBtmSheetDialogFragment.tag
-//            )
-//        }
+
+        Log.d("포지션", position.toString())
+        holder.location.text = placeViewModel.items.placeFolder[position].placeName
+
+        holder.editIcon.setOnClickListener {
+            val editBtmSheetDialogFragment = EditBottomDialogFragment {
+                when (it) {
+                    0 -> {
+                        PlacelistFragment.checked = true
+                        finishText.visibility = View.VISIBLE
+                        notifyDataSetChanged()
+                    }
+                    1 -> {
+                        MainActivity.userDiaryArray[index].diaryArray[day].placeInfo = placeViewModel.items
+                        placeViewModel.removePlace(position)
+                        db!!.collection("Diary").document(user!!.email.toString())
+                            .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
+                            .collection("DayList").document(afterDate(MainActivity.userDiaryArray[index].baseData.startDate, day))
+                            .set(MainActivity.userDiaryArray[index].diaryArray[day]).addOnSuccessListener {
+                                notifyDataSetChanged()
+                            }
+
+                    }
+                }
+            }
+            editBtmSheetDialogFragment.show(
+                (context as ShowPlacelistActivity).supportFragmentManager,
+                editBtmSheetDialogFragment.tag
+            )
+        }
 
         if (position == 0)
             holder.topBar.visibility = View.INVISIBLE
@@ -100,7 +110,18 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
 
     }
 
-    override fun getItemCount(): Int =
-        placeViewModel.items.placeFolder.size
+//    override fun getItemCount(): Int = MainActivity.userDiaryArray[index].diaryArray[day].placeInfo.placeFolder.size
+    override fun getItemCount(): Int = placeViewModel.items.placeFolder.size
+
+
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+        format.parse(date)?.let { calendar.time = it }
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+
+        return format.format(calendar.time)
+    }
 
 }

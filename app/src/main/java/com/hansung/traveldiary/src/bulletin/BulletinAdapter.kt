@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.ItemBulletin2Binding
-import com.hansung.traveldiary.src.DiaryBulletinData
+import com.hansung.traveldiary.databinding.ItemBulletinBinding
 import com.hansung.traveldiary.src.MainActivity
 
 class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
-    inner class ViewHolder(private val binding: ItemBulletin2Binding):RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(binding: ItemBulletinBinding):RecyclerView.ViewHolder(binding.root){
         val userImage = binding.btItemUserImage
         val userName = binding.btItemUserName
         val likeCnt=binding.btItemTvLikecnt
@@ -23,9 +22,8 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
 
-        val binding= ItemBulletin2Binding.inflate(LayoutInflater.from(parent.context), parent,false)
+        val binding= ItemBulletinBinding.inflate(LayoutInflater.from(parent.context), parent,false)
 
-        //binding.viewPager.adapter=BulletinViewPagerAdapter(imgArray)
         return ViewHolder(binding)
     }
 
@@ -35,7 +33,15 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
 
         var view = holder.itemView
 //        Glide.with(context).load(data.diaryBaseData.userImage).into(holder.userImage)
-        Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
+
+        val index = MainActivity.userList.emailFolder.indexOf(data.baseData.userEmail)
+        val userImagePath = MainActivity.userInfoList[index].profileImage
+
+        if(userImagePath == "")
+            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
+        else
+            Glide.with(context).load(userImagePath).circleCrop().into(holder.userImage)
+
         holder.userName.text = data.baseData.userEmail
         holder.viewpager.adapter = BulletinViewPagerAdapter(position)
         holder.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -43,8 +49,6 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         holder.likeCnt.text=data.baseData.like.toString()
         holder.comment.text=data.baseData.comments.toString()
         holder.itemView.setTag(position)
-
-
 
         holder.itemView.setOnClickListener{
             val intent = Intent(context,BulletinDaySectionActivity::class.java)
