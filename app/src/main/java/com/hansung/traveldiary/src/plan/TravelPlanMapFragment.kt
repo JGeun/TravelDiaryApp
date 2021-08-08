@@ -308,7 +308,7 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
         for (result in searchWordResultList) {
             resultList.add(
                 SearchWordResultInfo(
-                    result.place_name, result.address_name, result.category_group_name
+                    result.place_name, result.address_name,result.category_group_code,categoryGCeMap
                 )
             )
         }
