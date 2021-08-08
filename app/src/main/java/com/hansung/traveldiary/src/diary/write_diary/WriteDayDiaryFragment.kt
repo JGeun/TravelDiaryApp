@@ -77,7 +77,10 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
         }
 
         binding.uploadDiaryCommitbtn.setOnClickListener{
-
+            db!!.collection("Diary").document(user!!.email.toString())
+                .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
+                .collection("DayList").document(MainActivity.userDiaryArray[index].diaryArray[day].date)
+                .set(MainActivity.userDiaryArray[index].diaryArray[day])
         }
         return binding.root
     }
