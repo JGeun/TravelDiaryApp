@@ -45,6 +45,7 @@ class WriteDiaryActivity : AppCompatActivity() {
         binding.showPlacelist.setOnClickListener {
             var intent = Intent(it.context, ShowPlacelistActivity::class.java)
             intent.putExtra("index", index)
+            intent.putExtra("day", day)
             startActivity(intent)
         }
 

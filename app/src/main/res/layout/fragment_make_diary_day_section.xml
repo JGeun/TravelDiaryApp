@@ -104,6 +104,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:fontFamily="@font/main_font2"
+                android:lineSpacingExtra="5dp"
                 android:gravity="top"
                 android:hint="일기를 작성해주세요."
                 android:textColor="@color/black"
