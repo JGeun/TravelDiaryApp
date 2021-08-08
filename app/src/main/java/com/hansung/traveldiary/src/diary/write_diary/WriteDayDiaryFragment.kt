@@ -38,8 +38,6 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
 
     private val diaryInfo = MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo
 
-    private lateinit var updateImageTask: ActivityResultLauncher<Intent>
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,14 +69,6 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
             binding.indicator.setViewPager(binding.uploadViewPager)
         }
 
-        updateImageTask = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == RESULT_OK) {
-                println("WriteDayFragment RESULT_OK!!!!!!!!!!!!!")
-            }
-        }
-
         binding.uploadDiaryAddbtn.setOnClickListener {
             var intent = Intent(context, DiaryImageEditActivity::class.java)
             intent.putExtra("index", index)
@@ -86,6 +76,9 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
             startActivity(intent)
         }
 
+        binding.uploadDiaryCommitbtn.setOnClickListener{
+
+        }
         return binding.root
     }
 
