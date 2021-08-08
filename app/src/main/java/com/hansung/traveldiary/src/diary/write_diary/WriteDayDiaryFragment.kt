@@ -46,16 +46,10 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
 
         transaction = childFragmentManager.beginTransaction()
 
-        binding.uploadContents.setText(diaryInfo.diaryContents)
-
         btmSheetFragment =
             SelectDayBtmSheetFragment(MainActivity.userDiaryArray[index].diaryArray.size)
         val dayText = "${viewModel.dayData.value!! + 1}일차 일기"
-        binding.atpTvDays.text = dayText
 
-        binding.daySelectLayout.setOnClickListener {
-            btmSheetFragment.show(childFragmentManager, btmSheetFragment.tag)
-        }
 
         if (diaryInfo.imagePathArray.size == 0) {
             binding.uploadViewPager.isVisible = false

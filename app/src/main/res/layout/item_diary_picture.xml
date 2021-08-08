@@ -16,4 +16,16 @@
         android:contentDescription="Gallery image"
         app:layout_constraintDimensionRatio="1"
         tools:ignore="MissingConstraints"/>
+
+    <TextView
+        android:id="@+id/chk_defaultImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기본 이미지입니다."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_dp_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_dp_image"
+        app:layout_constraintVertical_bias="0.229" />
 </androidx.constraintlayout.widget.ConstraintLayout>

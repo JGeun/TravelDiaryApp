@@ -47,7 +47,6 @@ class ShowPlacelistActivity : AppCompatActivity() {
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
-
         initViewModel()
 
 //        transaction = supportFragmentManager.beginTransaction()

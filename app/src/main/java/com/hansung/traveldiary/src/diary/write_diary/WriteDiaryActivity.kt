@@ -12,6 +12,7 @@ import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.util.StatusBarUtil
 
 class WriteDiaryActivity : AppCompatActivity() {
+    private lateinit var btmSheetFragment : SelectDayBtmSheetFragment
     private val binding by lazy {
         ActivityWriteDiaryBinding.inflate(layoutInflater)
     }
@@ -40,11 +41,20 @@ class WriteDiaryActivity : AppCompatActivity() {
             transaction2.commit()
         }
 
-        binding.writeDiaryTitle.setText(MainActivity.userDiaryArray[index].baseData.title)
+
 
         binding.writeDiaryIvCancle.setOnClickListener {
             finish()
         }
+
+        btmSheetFragment = SelectDayBtmSheetFragment(MainActivity.userDiaryArray[index].diaryArray.size)
+        val dayText = "${viewModel.dayData.value!! +1}일차 일기"
+        binding.atpTvDays.text = dayText
+        binding.daySelectLayout.setOnClickListener{
+            btmSheetFragment.show(supportFragmentManager,btmSheetFragment.tag)
+        }
+
+
 
         binding.showPlacelist.setOnClickListener {
             val intent = Intent(it.context, ShowPlacelistActivity::class.java)
