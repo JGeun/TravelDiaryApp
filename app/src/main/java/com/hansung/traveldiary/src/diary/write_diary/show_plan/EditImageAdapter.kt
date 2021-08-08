@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemEditDiaryImageBinding
 import com.hansung.traveldiary.src.diary.write_diary.CountViewModel
+import com.hansung.traveldiary.src.diary.write_diary.WriteDiaryActivity
 
-class EditImageAdapter(val imageArrayList: ArrayList<String>, val countViewModel: CountViewModel) : RecyclerView.Adapter<EditImageAdapter.ViewHolder>() {
+class EditImageAdapter(val countViewModel: CountViewModel, val imagePathList : ArrayList<String>) : RecyclerView.Adapter<EditImageAdapter.ViewHolder>() {
     class ViewHolder(val binding : ItemEditDiaryImageBinding) : RecyclerView.ViewHolder(binding.root) {
         var image : ImageView = binding.itemEditDiaryImage
         var deletebtn : LinearLayout = binding.deleteBtn
@@ -23,14 +24,14 @@ class EditImageAdapter(val imageArrayList: ArrayList<String>, val countViewModel
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
-        Glide.with(context).load(imageArrayList[position]).into(holder.image)
+        Glide.with(context).load(imagePathList[position]).into(holder.image)
 
         holder.deletebtn.setOnClickListener {
-            imageArrayList.removeAt(position)
+            imagePathList.removeAt(position)
             countViewModel.countDown()
             notifyDataSetChanged()
         }
     }
 
-    override fun getItemCount(): Int = imageArrayList.size
+    override fun getItemCount(): Int = imagePathList.size
 }
