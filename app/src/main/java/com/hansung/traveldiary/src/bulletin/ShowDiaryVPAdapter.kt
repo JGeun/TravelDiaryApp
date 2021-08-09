@@ -29,7 +29,12 @@ class ShowDiaryVPAdapter(val imagePathArray: ArrayList<String>,val chk:Boolean) 
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
         val context = holder.itemView.context
-        Glide.with(context).load(imagePathArray[position]).into(holder.image)
+        if(!chk) {
+            Glide.with(context).load(imagePathArray[position]).into(holder.image)
+        }else{
+            Glide.with(context).load(R.drawable.img_post_default_default).into(holder.image)
+        }
+
     }
 
     override fun getItemCount(): Int = imagePathArray.size
