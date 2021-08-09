@@ -6,12 +6,18 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.print.PrintAttributes
 import android.util.Log
+import android.util.TypedValue
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -49,15 +55,20 @@ class DiaryImageEditActivity : AppCompatActivity() {
     private var user: FirebaseUser? = null
 
     private var db: FirebaseFirestore? = null
+    fun Int.toDp(context: Context):Int = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),context.resources.displayMetrics
+    ).toInt()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        val context:Context = this
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
         user = Firebase.auth.currentUser
         db = Firebase.firestore
         index = intent.getIntExtra("index", 0)
         day = intent.getIntExtra("day", 0)
+        println("***********************************************")
+        println("이미지 길이"+imagePathList.size)
         val path = MainActivity.userDiaryArray[index].diaryArray[day]
         if (path.diaryInfo.imagePathArray.size != 0) {
             val size = path.diaryInfo.imagePathArray.size
@@ -70,9 +81,10 @@ class DiaryImageEditActivity : AppCompatActivity() {
                     imagePathList.add(MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.imagePathArray[i])
                 }
             }
-
+            binding.textView5.isVisible =false
             binding.editImageRv.apply {
                 layoutManager = LinearLayoutManager(context)
+
                 adapter = EditImageAdapter(countViewModel, imagePathList)
                 setHasFixedSize(true)
             }
@@ -196,5 +208,6 @@ class DiaryImageEditActivity : AppCompatActivity() {
                 mLoadingDialog.dismiss()
             }
         }
+
     }
 }

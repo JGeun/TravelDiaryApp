@@ -33,10 +33,15 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_checked">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:orientation="vertical">
+
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/editImage_rv"
@@ -55,13 +60,13 @@
                 android:fontFamily="@font/main_font2"
                 android:text="사진 추가"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
 
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
