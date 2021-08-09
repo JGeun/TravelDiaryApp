@@ -305,11 +305,7 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
         searchWordResultList = response.documents
         val resultList = ArrayList<SearchWordResultInfo>()
         for (result in searchWordResultList) {
-            resultList.add(
-                SearchWordResultInfo(
-                    result.place_name, result.address_name,result.category_group_code,categoryGCeMap
-                )
-            )
+            resultList.add(SearchWordResultInfo(result.place_name, result.address_name,result.category_group_code))
         }
 
         intent.putExtra("is_end", response.meta.is_end)

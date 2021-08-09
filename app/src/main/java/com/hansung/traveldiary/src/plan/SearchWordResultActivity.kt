@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.plan
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -10,6 +11,7 @@ import com.hansung.traveldiary.databinding.ActivitySearchWordResultBinding
 import com.hansung.traveldiary.src.plan.adapter.SearchWordResultAdapter
 import com.hansung.traveldiary.src.plan.model.KakaoSearchKeywordResponse
 import com.hansung.traveldiary.src.plan.model.SearchWordResultInfo
+import com.hansung.traveldiary.util.LoadingDialog
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -23,6 +25,9 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
     private var result = ArrayList<SearchWordResultInfo>()
     private var is_end = true
     private var page = 2
+
+    lateinit var mLoadingDialog: LoadingDialog
+
     companion object {
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://openapi.naver.com/v1/")
@@ -34,12 +39,13 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        initGCMap()
+
         is_end = intent.getBooleanExtra("is_end", true)
 
         binding.srIvBack.setOnClickListener {
             finish()
         }
-        println("is_end: " + is_end)
 
         searchWord = intent.getStringExtra("word").toString()
         binding.srTvWord.text = searchWord
@@ -50,7 +56,7 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@SearchWordResultActivity)
             //어댑터
-            adapter = SearchWordResultAdapter(result)
+            adapter = SearchWordResultAdapter(result, categoryGCeMap)
         }
 
         binding.srRvResult.addOnScrollListener(object: RecyclerView.OnScrollListener(){
@@ -63,6 +69,7 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
 
                 if (!is_end && !binding.srRvResult.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
                     println("스크롤 도착")
+                    showLoadingDialog(this@SearchWordResultActivity)
                     KakaoSearchKeywordService(this@SearchWordResultActivity).tryGetKeyWordSearchInfo(
                         searchWord, page
                     )
@@ -70,6 +77,7 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
             }
         })
     }
+
     fun initGCMap(){
         categoryGCeMap.put("MT1", "대형마트")
         categoryGCeMap.put("CS2", "편의점")
@@ -93,23 +101,32 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
     override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse) {
         val searchWordResultList = response.documents
         for (resultContent in searchWordResultList) {
-            result.add(
-                SearchWordResultInfo(
-                    resultContent.place_name, resultContent.address_name, resultContent.category_group_name,categoryGCeMap
-                )
-            )
+            result.add(SearchWordResultInfo(resultContent.place_name, resultContent.address_name, resultContent.category_group_code))
         }
         is_end = response.meta.is_end
         if(!is_end)
             page+=1
         binding.srRvResult.adapter!!.notifyDataSetChanged()
+        dismissLoadingDialog()
     }
 
     override fun onGetKeywordSearchFailure(message: String) {
+        dismissLoadingDialog()
         showCustomToast("오류 : $message")
     }
 
     private fun showCustomToast(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showLoadingDialog(context: Context) {
+        mLoadingDialog = LoadingDialog(context)
+        mLoadingDialog.show()
+    }
+
+    fun dismissLoadingDialog() {
+        if (mLoadingDialog.isShowing) {
+            mLoadingDialog.dismiss()
+        }
     }
 }

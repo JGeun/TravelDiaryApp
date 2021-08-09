@@ -1,6 +1,5 @@
 package com.hansung.traveldiary.src.diary.write_diary.show_plan
 
-import android.R.attr.src
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -107,18 +106,23 @@ class DiaryImageEditActivity : AppCompatActivity() {
                             BitmapFactory.decodeFile(imagePathList[i], BitmapFactory.Options())
                         uploadFirebase2Image(bitmap, i + 1)
                     } else {
-                        try {
-                            val url = URL(imagePathList[i])
-                            val connection: HttpURLConnection =
-                                url.openConnection() as HttpURLConnection
-                            connection.setDoInput(true)
-                            connection.connect()
-                            val input: InputStream = connection.getInputStream()
-                            val bitmap = BitmapFactory.decodeStream(input)
-                            uploadFirebase2Image(bitmap, i + 1)
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
+                        val url = URL(imagePathList[i])
+                        val connection: HttpURLConnection =
+                            url.openConnection() as HttpURLConnection
+                        connection.setDoInput(true)
+                        object : Thread() {
+                            override fun run() {
+                                try {
+                                    connection.connect()
+                                    val input: InputStream = connection.getInputStream()
+                                    val bitmap = BitmapFactory.decodeStream(input)
+                                    uploadFirebase2Image(bitmap, i + 1)
+                                } catch (e: IOException) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }.start()
+
                     }
                 }
             } else {
