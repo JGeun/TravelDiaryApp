@@ -42,7 +42,6 @@ class PlanDaySectionActivity : AppCompatActivity() {
         )
 
         index = intent.getIntExtra("index", 0)
-        Log.d("체크", "DaySection color: ${color}")
 
         binding.addDayTitle.text = MainActivity.userPlanArray[index].baseData.title
 

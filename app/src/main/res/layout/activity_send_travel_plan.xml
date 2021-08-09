@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/outblock"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/transparent"
     android:orientation="vertical"
     tools:context=".src.diary.SendTravelPlanActivity">
@@ -18,7 +18,8 @@
         android:background="@drawable/bg_dialog_add_plan"
         android:orientation="vertical"
         android:paddingHorizontal="40dp"
-        android:paddingVertical="50dp">
+        android:paddingVertical="50dp"
+        android:layout_gravity="center">
 
         <TextView
             android:layout_width="match_parent"
@@ -77,22 +78,22 @@
             android:inputType="textPersonName"
             android:textColor="@color/black" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="해시태그"
-            android:textSize="16sp"
-            android:fontFamily="@font/main_font2"
-            android:textColor="@color/black" />
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="해시태그"-->
+<!--            android:textSize="16sp"-->
+<!--            android:fontFamily="@font/main_font2"-->
+<!--            android:textColor="@color/black" />-->
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edit_hashtag"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/maincolor"
-            android:inputType="textPersonName"
-            android:textColor="@color/black" />
+<!--        <androidx.appcompat.widget.AppCompatEditText-->
+<!--            android:id="@+id/edit_hashtag"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:backgroundTint="@color/maincolor"-->
+<!--            android:inputType="textPersonName"-->
+<!--            android:textColor="@color/black" />-->
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sendPlan_btn"
@@ -102,7 +103,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/radius_btn"
             android:fontFamily="@font/main_font2"
-            android:text="추가"
+            android:text="완료"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />

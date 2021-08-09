@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.hansung.traveldiary.databinding.ActivitySendTravelPlanBinding
@@ -43,6 +44,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
 
     lateinit var mLoadingDialog: LoadingDialog
 
+    private var isModify = false
     private val TAG = "SendTravelPlanActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +54,15 @@ class SendTravelPlanActivity : AppCompatActivity() {
         user = FirebaseAuth.getInstance().currentUser
         db = Firebase.firestore
         index = intent.getIntExtra("index", 0)
+        isModify = intent.getBooleanExtra("isModify", false)
+
+        if (isModify) {
+            mainImagePath = MainActivity.userDiaryArray[index].baseData.mainImage
+            Glide.with(this).load(mainImagePath).into(binding.stpMainImage)
+            binding.editTravelTitle.setText(MainActivity.userDiaryArray[index].baseData.title)
+            binding.sendPlanBtn.text = "수정"
+        }
+
 
         getResultImage = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -77,71 +88,12 @@ class SendTravelPlanActivity : AppCompatActivity() {
         }
 
         binding.sendPlanBtn.setOnClickListener {
-            var diaryTitle = binding.editTravelTitle.text.toString()
+            val diaryTitle = binding.editTravelTitle.text.toString()
 
-            val idx = MainActivity.userPlanArray[index].baseData.idx
-            MainActivity.myPlanIdxList.idxFolder.remove(idx)
-            val planIdxRef = db!!.collection("Plan").document(user!!.email.toString())
-            planIdxRef.set(MainActivity.myPlanIdxList)
-
-
-            if(!MainActivity.myDiaryIdxList.idxFolder.contains(idx))
-                MainActivity.myDiaryIdxList.idxFolder.add(idx)
-            val diaryIdxRef =db!!.collection("Diary").document(user!!.email.toString())
-            diaryIdxRef.set(MainActivity.myDiaryIdxList)
-
-            val now = System.currentTimeMillis();
-            val mDate = Date(now)
-            val simpleDate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            val getTime = simpleDate.format(mDate)
-
-            val startDate = MainActivity.userPlanArray[index].baseData.startDate
-            val endDate = MainActivity.userPlanArray[index].baseData.endDate
-
-            val diaryBaseData = DiaryBaseData(
-                idx,
-                diaryTitle,
-                mainImagePath,
-                user!!.email.toString(),
-                getTime,
-                startDate,
-                endDate,
-                MainActivity.userPlanArray[index].baseData.color,
-                MainActivity.userPlanArray[index].baseData.area,
-                MainActivity.userPlanArray[index].baseData.peopleCount,
-                0,
-                0
-            )
-
-            diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
-
-            val diaryArray = ArrayList<DiaryInfo>()
-            val diaryRef = diaryIdxRef.collection("DiaryData").document(idx.toString()).collection("DayList")
-            val calcDate = getCalcDate(startDate, endDate)
-            for (i in 0..calcDate) {
-                val date = afterDate(startDate, i)
-                val dayRef = diaryRef.document(date)
-                val diaryInfo = DiaryInfo(date, DiaryData(), MainActivity.userPlanArray[index].placeArray[i])
-                diaryArray.add(diaryInfo)
-                dayRef.set(diaryInfo).addOnSuccessListener {
-                    if(i == calcDate){
-                        MainActivity.userDiaryArray.add(UserDiaryData(diaryBaseData, diaryArray))
-
-                        for(i in 0 until MainActivity.userPlanArray.size){
-                            if(MainActivity.userPlanArray[i].baseData.idx == idx){
-                                MainActivity.userPlanArray.removeAt(i)
-                                break
-                            }
-                        }
-
-                        planIdxRef.collection("PlanData").document(idx.toString())
-                            .delete().addOnSuccessListener {
-                                showCustomToast("끝")
-                                setResult(RESULT_OK)
-                                finish()
-                            }
-                    }
-                }
+            if (!isModify) {
+                isFirstMakeDiary(diaryTitle)
+            } else {
+                isModifyDiary(diaryTitle)
             }
         }
 
@@ -154,10 +106,110 @@ class SendTravelPlanActivity : AppCompatActivity() {
         }
     }
 
+    fun isFirstMakeDiary(diaryTitle: String) {
+        val idx = MainActivity.userPlanArray[index].baseData.idx
+        MainActivity.myPlanIdxList.idxFolder.remove(idx)
+        val planIdxRef = db!!.collection("Plan").document(user!!.email.toString())
+        planIdxRef.set(MainActivity.myPlanIdxList)
+
+        if (!MainActivity.myDiaryIdxList.idxFolder.contains(idx))
+            MainActivity.myDiaryIdxList.idxFolder.add(idx)
+        val diaryIdxRef = db!!.collection("Diary").document(user!!.email.toString())
+        diaryIdxRef.set(MainActivity.myDiaryIdxList)
+
+        val now = System.currentTimeMillis();
+        val mDate = Date(now)
+        val simpleDate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        val getTime = simpleDate.format(mDate)
+
+        val startDate = MainActivity.userPlanArray[index].baseData.startDate
+        val endDate = MainActivity.userPlanArray[index].baseData.endDate
+
+        val diaryBaseData = DiaryBaseData(
+            idx,
+            diaryTitle,
+            mainImagePath,
+            user!!.email.toString(),
+            getTime,
+            startDate,
+            endDate,
+            MainActivity.userPlanArray[index].baseData.color,
+            MainActivity.userPlanArray[index].baseData.area,
+            MainActivity.userPlanArray[index].baseData.peopleCount,
+            0,
+            0
+        )
+
+        diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+
+        val diaryArray = ArrayList<DiaryInfo>()
+        val diaryRef =
+            diaryIdxRef.collection("DiaryData").document(idx.toString()).collection("DayList")
+        val calcDate = getCalcDate(startDate, endDate)
+        for (i in 0..calcDate) {
+            val date = afterDate(startDate, i)
+            val dayRef = diaryRef.document(date)
+            val diaryInfo = DiaryInfo(date, DiaryData(), MainActivity.userPlanArray[index].placeArray[i])
+            diaryArray.add(diaryInfo)
+            dayRef.set(diaryInfo).addOnSuccessListener {
+                if (i == calcDate) {
+                    val userDiaryData = UserDiaryData(diaryBaseData, diaryArray)
+                    MainActivity.userDiaryArray.add(userDiaryData)
+                    for (j in 0 until MainActivity.userPlanArray.size) {
+                        if (MainActivity.userPlanArray[j].baseData.idx == idx) {
+                            MainActivity.userPlanArray.removeAt(i)
+                            break
+                        }
+                    }
+
+                    db!!.collection("UserInfo").document(user!!.email.toString())
+                        .get().addOnSuccessListener { result->
+                            val userInfo = result.toObject<UserInfo>()!!
+                            MainActivity.bulletinDiaryArray.add(BulletinData(userDiaryData, userInfo))
+                        }
+
+                    planIdxRef.collection("PlanData").document(idx.toString())
+                        .delete().addOnSuccessListener {
+                            showCustomToast("끝")
+                            setResult(RESULT_OK)
+                            finish()
+                        }
+                }
+            }
+        }
+    }
+
+
+    fun isModifyDiary(diaryTitle: String) {
+        println("isModifyDiary")
+        val idx = MainActivity.userDiaryArray[index].baseData.idx
+
+        MainActivity.userDiaryArray[index].baseData.title = diaryTitle
+        MainActivity.userDiaryArray[index].baseData.mainImage = mainImagePath
+
+        db!!.collection("Diary").document(user!!.email.toString())
+            .collection("DiaryData").document(idx.toString())
+            .set(MainActivity.userDiaryArray[index].baseData)
+            .addOnSuccessListener {
+                println("성공")
+                for(i in 0 until MainActivity.bulletinDiaryArray.size) {
+                    if (MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == idx) {
+                        MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.title = diaryTitle
+                        MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.mainImage = mainImagePath
+                        showCustomToast("끝")
+                        setResult(RESULT_OK)
+                        finish()
+                    }
+                }
+            }
+    }
+
+
     fun uploadFirebase2Image(bitmap: Bitmap) {
         val storage = Firebase.storage
         val storageRef = storage.reference
-        val imageStorageRef = storageRef.child("/diary/${user!!.email}/${MainActivity.userPlanArray[index].baseData.idx}/mainImage.png")
+        val imageStorageRef =
+            storageRef.child("/diary/${user!!.email}/${MainActivity.userPlanArray[index].baseData.idx}/mainImage.png")
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val data = baos.toByteArray()
@@ -182,7 +234,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
         }
     }
 
-    private fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
+    fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
         val format = SimpleDateFormat(pattern, Locale.getDefault())
 
         val calendar = Calendar.getInstance()

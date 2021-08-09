@@ -78,15 +78,22 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
         }
 
         binding.uploadDiaryCommitbtn.setOnClickListener{
+            val idx = MainActivity.userDiaryArray[index].baseData.idx
             MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.diaryTitle = binding.writeDiaryTitle.text.toString()
             MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.diaryContents = binding.uploadContents.text.toString()
-
-            //TODO Bulletin이랑 연결되도록 해야해요
 
             db!!.collection("Diary").document(user!!.email.toString())
                 .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
                 .collection("DayList").document(MainActivity.userDiaryArray[index].diaryArray[day].date)
                 .set(MainActivity.userDiaryArray[index].diaryArray[day]).addOnSuccessListener {
+                    //전체 게시글에 저장
+                    for(i in 0 until MainActivity.bulletinDiaryArray.size){
+                        if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == idx){
+                            MainActivity.bulletinDiaryArray[i].userDiaryData.diaryArray[day].diaryInfo.diaryTitle = binding.writeDiaryTitle.text.toString()
+                            MainActivity.bulletinDiaryArray[i].userDiaryData.diaryArray[day].diaryInfo.diaryContents =binding.uploadContents.text.toString()
+                            break
+                        }
+                    }
                     showCustomToast("저장되었습니다")
                 }
         }
