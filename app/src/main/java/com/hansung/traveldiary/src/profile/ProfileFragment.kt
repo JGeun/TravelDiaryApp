@@ -78,7 +78,6 @@ class ProfileFragment : Fragment() {
 
     private fun logout() {
         binding.logoutSetting.setOnClickListener {
-            MainActivity.showLoadingDialog(context as MainActivity)
 
             with(pref!!.edit()) {
                 putString("login", "fail")
