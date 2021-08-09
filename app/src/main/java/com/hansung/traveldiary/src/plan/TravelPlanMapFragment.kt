@@ -25,6 +25,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlanMapBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.MainActivity.Companion.dismissLoadingDialog
 import com.hansung.traveldiary.src.PlaceData
 import com.hansung.traveldiary.src.plan.model.*
 import com.naver.maps.geometry.LatLng
@@ -46,6 +47,9 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
     private var searchWordResultList = ArrayList<KakaoSearchKeywordInfo>()
     private lateinit var searchWordResultTask: ActivityResultLauncher<Intent>
     private var searchWordIndex = 0
+    private var is_end = true
+    private var page = 2
+    private var result = ArrayList<SearchWordResultInfo>()
     private var markerList=ArrayList<Marker>()
     private val latLngList = ArrayList<LatLng>()
     private var path : PathOverlay? = null
@@ -98,9 +102,11 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
         })
 
         binding.planEtSearch.setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
 
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+
+                if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    println("클릭을 했따")
                     KakaoSearchKeywordService(this@TravelPlanMapFragment).tryGetKeyWordSearchInfo(
                         searchWord, 1
                     )
@@ -301,7 +307,6 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
 
         val intent = Intent(context, SearchWordResultActivity::class.java)
         intent.putExtra("word", searchWord)
-
         searchWordResultList = response.documents
         val resultList = ArrayList<SearchWordResultInfo>()
         for (result in searchWordResultList) {

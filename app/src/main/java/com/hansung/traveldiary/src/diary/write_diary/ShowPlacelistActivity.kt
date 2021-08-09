@@ -34,7 +34,6 @@ class ShowPlacelistActivity : AppCompatActivity() {
         var index = 0
         var placeInfo = PlaceInfo()
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_placelist)

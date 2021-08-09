@@ -1,14 +1,23 @@
 package com.hansung.traveldiary.src.plan
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ActivitySearchWordResultBinding
 import com.hansung.traveldiary.src.plan.adapter.SearchWordResultAdapter
+import com.hansung.traveldiary.src.plan.model.KakaoSearchKeywordInfo
 import com.hansung.traveldiary.src.plan.model.KakaoSearchKeywordResponse
 import com.hansung.traveldiary.src.plan.model.SearchWordResultInfo
 import com.hansung.traveldiary.util.LoadingDialog
@@ -20,12 +29,13 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
     private val binding by lazy {
         ActivitySearchWordResultBinding.inflate(layoutInflater)
     }
+    private lateinit var searchWordResultTask: ActivityResultLauncher<Intent>
     private var categoryGCeMap : HashMap<String, String> = HashMap()
     private var searchWord = ""
+    private var searchWordResultList = ArrayList<KakaoSearchKeywordInfo>()
     private var result = ArrayList<SearchWordResultInfo>()
     private var is_end = true
     private var page = 2
-
     lateinit var mLoadingDialog: LoadingDialog
 
     companion object {
@@ -48,7 +58,6 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
         }
 
         searchWord = intent.getStringExtra("word").toString()
-        binding.srTvWord.text = searchWord
 
         result = intent.getSerializableExtra("result") as ArrayList<SearchWordResultInfo>
 
@@ -58,6 +67,28 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
             //어댑터
             adapter = SearchWordResultAdapter(result, categoryGCeMap)
         }
+
+        binding.srTvWord.setText(searchWord)
+
+        binding.srTvWord.addTextChangedListener {
+            println("값 변경중")
+            println(binding.srTvWord.text)
+        }
+
+        binding.srTvWord.setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    println("엔터 눌렀음")
+                    intent.putExtra("word", binding.srTvWord.text.toString())
+                    KakaoSearchKeywordService(this@SearchWordResultActivity).tryGetKeyWordSearchInfo(
+                        binding.srTvWord.text.toString(), 1
+                    )
+                    return true
+                }
+                return false
+            }
+        })
+
 
         binding.srRvResult.addOnScrollListener(object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -74,6 +105,7 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
                         searchWord, page
                     )
                 }
+
             }
         })
     }
@@ -99,15 +131,24 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
     }
 
     override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse) {
-        val searchWordResultList = response.documents
-        for (resultContent in searchWordResultList) {
-            result.add(SearchWordResultInfo(resultContent.place_name, resultContent.address_name, resultContent.category_group_code))
+        Log.d("확인", response.documents.size.toString())
+
+        val intent = Intent(this, SearchWordResultActivity::class.java)
+        intent.putExtra("word", searchWord)
+        searchWordResultList = response.documents
+        val resultList = ArrayList<SearchWordResultInfo>()
+        intent.putExtra("result", resultList)
+        searchWord = ""
+        result = intent.getSerializableExtra("result") as ArrayList<SearchWordResultInfo>
+        for (result in searchWordResultList) {
+            resultList.add(SearchWordResultInfo(result.place_name, result.address_name,result.category_group_code))
         }
-        is_end = response.meta.is_end
-        if(!is_end)
-            page+=1
-        binding.srRvResult.adapter!!.notifyDataSetChanged()
-        dismissLoadingDialog()
+        binding.srRvResult.apply{
+            setHasFixedSize(true)
+            adapter = SearchWordResultAdapter(result, categoryGCeMap)
+        }
+
+        searchWord=""
     }
 
     override fun onGetKeywordSearchFailure(message: String) {

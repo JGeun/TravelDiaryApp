@@ -56,6 +56,8 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
             }
         }
 
+
+
         binding.tvChecked.setOnClickListener {
             checked = false
             db!!.collection("Plan").document(user!!.email.toString())

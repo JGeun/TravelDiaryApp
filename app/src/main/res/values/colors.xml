@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="home_bgcolor">#F0F0F0</color>
     <color name="diary_section_bgcolor">#FCFCFC</color>
-
+    <color name="home_bgcolor1">#33F0F0F0</color>
     <color name="maincolor">#E2C5FD</color>
     <color name="loadingColor">#BE80F8</color>
     <color name="loginTextColor">#3A1061</color>
