@@ -12,7 +12,6 @@ import com.hansung.traveldiary.databinding.BottomSheetDialogFragmentBinding
 
 class SelectDayBtmSheetFragment(val size: Int) : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetDialogFragmentBinding
-    var dayList = ArrayList<String>()
     private val selectDayViewModel : SelectDayViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -21,12 +20,11 @@ class SelectDayBtmSheetFragment(val size: Int) : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = BottomSheetDialogFragmentBinding.inflate(inflater, container, false)
-        initRegion()
 
         binding.daylistRv.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = SelectDayAdapter(dayList, selectDayViewModel, this@SelectDayBtmSheetFragment)
+            adapter = SelectDayAdapter(size, selectDayViewModel, this@SelectDayBtmSheetFragment)
         }
         //날짜 길이 받기
         return binding.root
@@ -37,12 +35,6 @@ class SelectDayBtmSheetFragment(val size: Int) : BottomSheetDialogFragment() {
         val sheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
         val behavior = BottomSheetBehavior.from(sheet!!)
         behavior.state = BottomSheetBehavior.STATE_DRAGGING
-    }
-
-    private fun initRegion(){
-        for(i in 1..size){
-            dayList.add("${i}일차 일기")
-        }
     }
 }
 

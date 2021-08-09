@@ -70,7 +70,6 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
 
         binding = FragmentPlanMapBinding.inflate(inflater, container, false)
 
-
         user = Firebase.auth.currentUser
         db = Firebase.firestore
         initGCMap()

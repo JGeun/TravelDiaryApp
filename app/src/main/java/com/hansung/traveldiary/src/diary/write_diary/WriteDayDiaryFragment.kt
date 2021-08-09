@@ -1,12 +1,14 @@
 package com.hansung.traveldiary.src.diary.write_diary
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -17,12 +19,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentMakeDiaryDaySectionBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.write_diary.show_plan.DiaryImageEditActivity
 import com.hansung.traveldiary.src.plan.TravelPlanMapFragment
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
+import com.hansung.traveldiary.util.LoadingDialog
 
 class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
     private val binding: FragmentMakeDiaryDaySectionBinding by lazy {
@@ -36,6 +42,8 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
     private lateinit var transaction: FragmentTransaction
     private lateinit var travelPlanMapFragment: TravelPlanMapFragment
 
+    lateinit var mLoadingDialog: LoadingDialog
+
     private val diaryInfo = MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo
 
     override fun onCreateView(
@@ -43,13 +51,8 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        transaction = childFragmentManager.beginTransaction()
-
-        btmSheetFragment =
-            SelectDayBtmSheetFragment(MainActivity.userDiaryArray[index].diaryArray.size)
-        val dayText = "${viewModel.dayData.value!! + 1}일차 일기"
-
+        user = Firebase.auth.currentUser
+        db = Firebase.firestore
 
         if (diaryInfo.imagePathArray.size == 0) {
             binding.uploadViewPager.isVisible = false
@@ -63,7 +66,11 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
             binding.indicator.setViewPager(binding.uploadViewPager)
         }
 
+        binding.writeDiaryTitle.setText(MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.diaryTitle)
+        binding.uploadContents.setText(MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.diaryContents)
+
         binding.uploadDiaryAddbtn.setOnClickListener {
+            println("Fragment 버튼클릭")
             var intent = Intent(context, DiaryImageEditActivity::class.java)
             intent.putExtra("index", index)
             intent.putExtra("day", day)
@@ -71,10 +78,17 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
         }
 
         binding.uploadDiaryCommitbtn.setOnClickListener{
+            MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.diaryTitle = binding.writeDiaryTitle.text.toString()
+            MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.diaryContents = binding.uploadContents.text.toString()
+
+            //TODO Bulletin이랑 연결되도록 해야해요
+
             db!!.collection("Diary").document(user!!.email.toString())
                 .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
                 .collection("DayList").document(MainActivity.userDiaryArray[index].diaryArray[day].date)
-                .set(MainActivity.userDiaryArray[index].diaryArray[day])
+                .set(MainActivity.userDiaryArray[index].diaryArray[day]).addOnSuccessListener {
+                    showCustomToast("저장되었습니다")
+                }
         }
         return binding.root
     }
@@ -97,5 +111,20 @@ class WriteDayDiaryFragment(val index: Int, val day: Int) : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         println("WriteDayFragment ${day} DESTROY!!!!!!!!!!!!")
+    }
+
+    fun showCustomToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showLoadingDialog(context: Context) {
+        mLoadingDialog = LoadingDialog(context)
+        mLoadingDialog.show()
+    }
+
+    fun dismissLoadingDialog() {
+        if (mLoadingDialog.isShowing) {
+            mLoadingDialog.dismiss()
+        }
     }
 }

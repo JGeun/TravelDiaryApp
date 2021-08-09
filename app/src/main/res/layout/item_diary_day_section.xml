@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="140dp"
-    android:layout_marginBottom="15dp"
+    android:layout_marginBottom="12dp"
     android:background="@drawable/shadow"
     android:elevation="10dp"
     android:orientation="horizontal"
@@ -54,7 +54,5 @@
         android:layout_weight="2"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/gwangwhamun" />
-
-
 
 </LinearLayout>

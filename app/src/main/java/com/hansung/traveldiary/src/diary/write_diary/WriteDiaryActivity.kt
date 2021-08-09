@@ -23,8 +23,6 @@ class WriteDiaryActivity : AppCompatActivity() {
 
     private val fragmentArray = ArrayList<WriteDayDiaryFragment>()
 
-    private lateinit var updateImageTask: ActivityResultLauncher<Intent>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -36,12 +34,12 @@ class WriteDiaryActivity : AppCompatActivity() {
         println("WriteDiaryActivity CREATE!!!!!")
 
         viewModel.dayData.observe(this) {
+            val dayText = "${viewModel.dayData.value!! +1}일차 일기"
+            binding.atpTvDays.text = dayText
             val transaction2 = supportFragmentManager.beginTransaction()
                 .replace(R.id.framelayout, fragmentArray[viewModel.dayData.value!!])
             transaction2.commit()
         }
-
-
 
         binding.writeDiaryIvCancle.setOnClickListener {
             finish()
@@ -53,8 +51,6 @@ class WriteDiaryActivity : AppCompatActivity() {
         binding.daySelectLayout.setOnClickListener{
             btmSheetFragment.show(supportFragmentManager,btmSheetFragment.tag)
         }
-
-
 
         binding.showPlacelist.setOnClickListener {
             val intent = Intent(it.context, ShowPlacelistActivity::class.java)

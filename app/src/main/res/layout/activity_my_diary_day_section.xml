@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@id/ds_iv_back"
         android:layout_marginTop="20dp"
         android:overScrollMode="never"
-        android:paddingBottom="80dp"/>
+        android:paddingBottom="50dp"/>
 
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--        android:id="@+id/FAbtn2"-->

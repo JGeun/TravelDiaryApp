@@ -35,6 +35,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/upload_viewPager" />
 
+        <EditText
+            android:id="@+id/writeDiaryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:fontFamily="@font/main_font2"
+            android:hint="제목을 작성해주세요."
+            android:paddingHorizontal="10dp"
+            android:textSize="20sp"
+            android:background="@null"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/indicator" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/upload_diary_addbtn"
@@ -48,19 +63,19 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/indicator" />
+            app:layout_constraintTop_toTopOf="@id/writeDiaryTitle"
+            app:layout_constraintBottom_toBottomOf="@id/writeDiaryTitle"/>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:orientation="horizontal"
             android:layout_width="0dp"
             android:layout_height="176dp"
-            android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_diary_contents"
             android:paddingHorizontal="10dp"
             android:paddingVertical="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/upload_diary_addbtn"
+            app:layout_constraintStart_toStartOf="@id/writeDiaryTitle"
             app:layout_constraintTop_toBottomOf="@+id/writeDiaryTitle"
             android:layout_marginTop="16dp">
 
@@ -89,20 +104,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-        <EditText
-            android:id="@+id/writeDiaryTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:paddingHorizontal="4dp"
-            android:text="제목"
-            android:textSize="20sp"
-            android:background="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/upload_diary_addbtn"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/indicator"
-            app:layout_constraintVertical_bias="0.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
