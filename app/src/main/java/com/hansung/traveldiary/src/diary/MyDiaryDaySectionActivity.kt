@@ -51,6 +51,11 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.dsRecyclerview.adapter!!.notifyDataSetChanged()
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
