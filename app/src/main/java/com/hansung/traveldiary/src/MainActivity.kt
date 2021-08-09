@@ -328,8 +328,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             var diaryIdxList = IdxList()
-            val diaryIdxRef =
-                db!!.collection("Diary").document(email)
+            val diaryIdxRef = db!!.collection("Diary").document(email)
             diaryIdxRef.get()
                 .addOnSuccessListener { result ->
                     val idxData = result.toObject<IdxList>()
@@ -337,16 +336,14 @@ class MainActivity : AppCompatActivity() {
                         diaryIdxList = idxData
                         for (idx in diaryIdxList.idxFolder) {
                             var diaryBaseData = DiaryBaseData()
-                            val baseRef =
-                                diaryIdxRef.collection("DiaryData").document(idx.toString())
+                            val baseRef = diaryIdxRef.collection("DiaryData").document(idx.toString())
                             baseRef.get().addOnSuccessListener { baseResult ->
-                                Log.d("체크", "baseRef")
+                                Log.d("체크", "baseRef idx: ${idx}")
                                 val baseData = baseResult.toObject<DiaryBaseData>()
                                 if (baseData != null) {
                                     diaryBaseData = baseData
                                     var diaryArray = ArrayList<DiaryInfo>()
-                                    val calcDate =
-                                        getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
+                                    val calcDate = getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
                                     for (i in 0..calcDate) {
                                         baseRef.collection("DayList")
                                             .document(afterDate(diaryBaseData.startDate, i))
@@ -356,7 +353,7 @@ class MainActivity : AppCompatActivity() {
                                                     diaryArray.add(diaryData)
                                                     if (i == calcDate) {
                                                         diaryArray.sortBy { it.date }
-                                                        println("---------------------Bulletin체크-----------------")
+                                                        println("---------------------Bulletin체크  idx:${idx}-----------------")
                                                         for (j in 0 until diaryArray.size) {
                                                             println(diaryArray[j].date + " / " + diaryArray[j].diaryInfo.diaryTitle + " / " + diaryArray[j].diaryInfo.diaryContents)
                                                         }
@@ -368,6 +365,7 @@ class MainActivity : AppCompatActivity() {
                                                                 ), userInfo
                                                             )
                                                         )
+                                                        println("MyBulletin SIZE: ${bulletinDiaryArray.size}")
                                                         dismissLoadingDialog()
                                                     }
                                                 }
@@ -396,19 +394,16 @@ class MainActivity : AppCompatActivity() {
                         var diaryBaseData = DiaryBaseData()
                         var diaryArray = ArrayList<DiaryInfo>()
 
-                        val myDiaryRef = myDiaryIdxRef.collection("DiaryData")
-                            .document(myIdx.toString())
+                        val myDiaryRef = myDiaryIdxRef.collection("DiaryData").document(myIdx.toString())
                         myDiaryRef.get().addOnSuccessListener { baseResult ->
                             val diaryData = baseResult.toObject<DiaryBaseData>()
                             if (diaryData != null) {
                                 diaryBaseData = diaryData
                                 Log.d("수정체크", diaryBaseData.startDate)
-                                val calcDate =
-                                    getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
+                                val calcDate = getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
                                 for (i in 0..calcDate) {
-                                    myDiaryRef.collection("DayList").document(
-                                        afterDate(diaryBaseData.startDate, i)
-                                    ).get().addOnSuccessListener { infoResult ->
+                                    myDiaryRef.collection("DayList").document(afterDate(diaryBaseData.startDate, i))
+                                        .get().addOnSuccessListener { infoResult ->
                                         val diaryInfoData = infoResult.toObject<DiaryInfo>()
                                         if (diaryInfoData != null) {
                                             Log.d("수정체크", diaryInfoData.date)

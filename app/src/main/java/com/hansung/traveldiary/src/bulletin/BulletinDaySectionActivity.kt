@@ -20,6 +20,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         println("BulletinDaySectionActivity 들어옴")
         val index = intent.getIntExtra("index", 0)
+        println("받은 index: ${index}")
 
         binding.bdsTitle.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.title
         binding.bdsIvBack.setOnClickListener{
@@ -28,7 +29,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         binding.bdsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter= BulletinDaySectionAdapter(index)
+            adapter= BulletinDaySectionAdapter(index, MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray.size)
             layoutManager=LinearLayoutManager(this@BulletinDaySectionActivity)
         }
     }

@@ -56,6 +56,7 @@ class BulletinViewPagerAdapter(private val index: Int): RecyclerView.Adapter<Bul
         }
 
         holder.itemView.setOnClickListener{
+            println("index: ${position} 넘겨줌")
             val intent = Intent(context,BulletinDaySectionActivity::class.java)
             intent.putExtra("index", index)
             context.startActivity(intent)

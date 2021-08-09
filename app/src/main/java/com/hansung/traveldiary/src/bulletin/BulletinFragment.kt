@@ -17,6 +17,7 @@ class BulletinFragment : Fragment(){
     ): View? {
         binding = FragmentBulletinBinding.inflate(inflater, container, false)
 
+        println("BulletinList SIZE: ${MainActivity.bulletinDiaryArray.size}")
         binding.bulletinRecyclerView.apply{
             setHasFixedSize(true)
             adapter = BulletinAdapter()

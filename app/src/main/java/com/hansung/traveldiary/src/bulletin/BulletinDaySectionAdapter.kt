@@ -11,7 +11,7 @@ import com.hansung.traveldiary.databinding.ItemBulletinDaySectionBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.UserDiaryData
 
-class BulletinDaySectionAdapter(private val index: Int): RecyclerView.Adapter<BulletinDaySectionAdapter.ViewHolder>() {
+class BulletinDaySectionAdapter(private val index: Int, private val size: Int): RecyclerView.Adapter<BulletinDaySectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemBulletinDaySectionBinding):RecyclerView.ViewHolder(binding.root){
         val dayText = binding.itemBdsDayCount
@@ -53,5 +53,5 @@ class BulletinDaySectionAdapter(private val index: Int): RecyclerView.Adapter<Bu
         }
     }
 
-    override fun getItemCount() = MainActivity.userDiaryArray[index].diaryArray.size
+    override fun getItemCount() = size
 }
