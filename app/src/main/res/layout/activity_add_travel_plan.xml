@@ -131,30 +131,66 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/atp_date"
-                        android:layout_width="match_parent"
+                        android:id="@+id/atp_start_date"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/add_plan_btn"
                         android:clickable="true"
                         android:focusable="true"
+                        android:fontFamily="@font/main_font2"
                         android:gravity="center_vertical"
                         android:paddingHorizontal="15dp"
                         android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView2"
-                        tools:text=""
-                        android:fontFamily="@font/main_font2"/>
+                        tools:text="" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="~"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@id/atp_start_date"
+                        app:layout_constraintEnd_toStartOf="@+id/atp_end_date"
+                        app:layout_constraintStart_toEndOf="@id/atp_start_date"
+                        app:layout_constraintTop_toTopOf="@id/atp_start_date" />
+
+                    <TextView
+                        android:id="@+id/atp_end_date"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/add_plan_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="@font/main_font2"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="15dp"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        tools:text="" />
 
                     <ImageView
-                        android:id="@+id/atp_datepicker"
+                        android:id="@+id/atp_datepicker1"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="15dp"
                         android:src="@drawable/ic_calendar"
-                        app:layout_constraintBottom_toBottomOf="@+id/atp_date"
-                        app:layout_constraintEnd_toEndOf="@+id/atp_date"
-                        app:layout_constraintTop_toTopOf="@+id/atp_date" />
+                        app:layout_constraintBottom_toBottomOf="@+id/atp_start_date"
+                        app:layout_constraintEnd_toEndOf="@+id/atp_start_date"
+                        app:layout_constraintTop_toTopOf="@+id/atp_start_date" />
+
+                    <ImageView
+                        android:id="@+id/atp_datepicker2"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="@+id/atp_end_date"
+                        app:layout_constraintEnd_toEndOf="@+id/atp_end_date"
+                        app:layout_constraintTop_toTopOf="@+id/atp_end_date" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
