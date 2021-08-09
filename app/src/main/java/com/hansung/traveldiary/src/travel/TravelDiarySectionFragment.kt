@@ -38,13 +38,22 @@ class TravelDiarySectionFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         println("TravelDiarySection Start!!!")
-        MainActivity.userDiaryArray.sortBy { it.baseData.startDate }
-        binding.diarySectionRecyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
-            adapter = diarySectionAdapter
+
+        if(MainActivity.userDiaryArray.size == 0){
+            binding.diarySectionNoPlan.isVisible = true
+            binding.diarySectionRecyclerView.isVisible = false
+        }else{
+            binding.diarySectionNoPlan.isVisible = false
+            binding.diarySectionRecyclerView.isVisible = true
+
+            MainActivity.userDiaryArray.sortBy { it.baseData.startDate }
+            binding.diarySectionRecyclerView.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(context)
+                adapter = diarySectionAdapter
+            }
+            diarySectionAdapter.notifyDataSetChanged()
         }
-        diarySectionAdapter.notifyDataSetChanged()
     }
 
     fun newInstant() : TravelDiarySectionFragment

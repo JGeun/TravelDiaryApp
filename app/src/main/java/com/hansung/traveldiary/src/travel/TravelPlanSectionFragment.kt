@@ -88,6 +88,13 @@ class TravelPlanSectionFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        if (MainActivity.userPlanArray.size == 0) {
+            binding.planSectionNoPlan.isVisible = true
+            binding.planSectionRecyclerView.isVisible = false
+        } else {
+            binding.planSectionNoPlan.isVisible = false
+            binding.planSectionRecyclerView.isVisible = true
+        }
         binding.planSectionRecyclerView.adapter!!.notifyDataSetChanged()
     }
 

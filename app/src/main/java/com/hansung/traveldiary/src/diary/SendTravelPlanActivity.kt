@@ -51,6 +51,9 @@ class SendTravelPlanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+
+        println("SendTravel 들어옴 size: ${MainActivity.userPlanArray.size}")
+
         user = FirebaseAuth.getInstance().currentUser
         db = Firebase.firestore
         index = intent.getIntExtra("index", 0)
@@ -157,7 +160,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
                     MainActivity.userDiaryArray.add(userDiaryData)
                     for (j in 0 until MainActivity.userPlanArray.size) {
                         if (MainActivity.userPlanArray[j].baseData.idx == idx) {
-                            MainActivity.userPlanArray.removeAt(i)
+                            MainActivity.userPlanArray.removeAt(j)
                             break
                         }
                     }

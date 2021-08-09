@@ -21,6 +21,7 @@ import com.hansung.traveldiary.src.plan.model.KakaoSearchKeywordInfo
 import com.hansung.traveldiary.src.plan.model.KakaoSearchKeywordResponse
 import com.hansung.traveldiary.src.plan.model.SearchWordResultInfo
 import com.hansung.traveldiary.util.LoadingDialog
+import com.hansung.traveldiary.util.StatusBarUtil
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -49,6 +50,7 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
         initGCMap()
 
         is_end = intent.getBooleanExtra("is_end", true)
