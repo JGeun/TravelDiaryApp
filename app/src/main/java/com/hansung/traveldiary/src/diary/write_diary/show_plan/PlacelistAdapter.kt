@@ -12,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.hansung.traveldiary.R
 import com.hansung.traveldiary.config.EditBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemPlacelistBinding
 import com.hansung.traveldiary.src.MainActivity
@@ -30,7 +31,7 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
         val editIcon: ImageView = binding.itemScheduleEdit
         val topBar: View = binding.topBar
         val bottomBar: View = binding.bottomBar
-//        val dotImg: ImageView = binding.dotImg
+        val dotImg: ImageView = binding.dotImg
         val upBtn: ImageView = binding.ivMoveup
         val downBtn: ImageView = binding.ivMovedown
     }
@@ -46,6 +47,29 @@ class PlacelistAdapter(private val placeViewModel: SharedPlaceViewModel, private
         db = Firebase.firestore
 
         val context = holder.itemView.context
+
+        val barColor = when (MainActivity.userDiaryArray[index].baseData.color) {
+            "pink" -> R.color.pink
+            "purple" -> R.color.purple
+            "yellow" -> R.color.yellow
+            "sky" -> R.color.sky
+            "blue" -> R.color.blue
+            "orange" -> R.color.orange
+            else -> R.color.orange
+        }
+        holder.topBar.setBackgroundColor(context.resources.getColor(barColor))
+        holder.bottomBar.setBackgroundColor(context.resources.getColor(barColor))
+
+        val dotColor = when (MainActivity.userDiaryArray[index].baseData.color) {
+            "pink" -> R.drawable.pink_dot
+            "purple" -> R.drawable.purple_dot
+            "yellow" -> R.drawable.yellow_dot
+            "sky" -> R.drawable.sky_dot
+            "blue" -> R.drawable.blue_dot
+            "orange" -> R.drawable.orange_dot
+            else -> R.drawable.orange_dot
+        }
+        holder.dotImg.setBackgroundResource(dotColor)
 
         if (PlacelistFragment.checked) {
             holder.editIcon.visibility = View.INVISIBLE
