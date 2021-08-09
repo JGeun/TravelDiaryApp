@@ -83,14 +83,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
             MainActivity.myPlanIdxList.idxFolder.remove(idx)
             val planIdxRef = db!!.collection("Plan").document(user!!.email.toString())
             planIdxRef.set(MainActivity.myPlanIdxList)
-            planIdxRef.collection("PlanData").document(idx.toString())
-                .delete()
-            for(i in 0 until MainActivity.userPlanArray.size){
-                if(MainActivity.userPlanArray[i].baseData.idx == idx){
-                    MainActivity.userPlanArray.removeAt(i)
-                    break
-                }
-            }
+
 
             if(!MainActivity.myDiaryIdxList.idxFolder.contains(idx))
                 MainActivity.myDiaryIdxList.idxFolder.add(idx)
@@ -134,9 +127,19 @@ class SendTravelPlanActivity : AppCompatActivity() {
                     if(i == calcDate){
                         MainActivity.userDiaryArray.add(UserDiaryData(diaryBaseData, diaryArray))
 
-                        showCustomToast("끝")
-                        setResult(RESULT_OK)
-                        finish()
+                        for(i in 0 until MainActivity.userPlanArray.size){
+                            if(MainActivity.userPlanArray[i].baseData.idx == idx){
+                                MainActivity.userPlanArray.removeAt(i)
+                                break
+                            }
+                        }
+
+                        planIdxRef.collection("PlanData").document(idx.toString())
+                            .delete().addOnSuccessListener {
+                                showCustomToast("끝")
+                                setResult(RESULT_OK)
+                                finish()
+                            }
                     }
                 }
             }

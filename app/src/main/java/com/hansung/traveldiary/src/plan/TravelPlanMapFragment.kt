@@ -113,6 +113,8 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
         binding.planBtmBtnStore.setOnClickListener{
             val placeData = PlaceData(searchWordResult.latitude.toDouble(), searchWordResult.longitude.toDouble(),searchWordResult.placeName)
             userPlaceDataModel.putPlace(placeData)
+            MainActivity.userPlanArray[index].placeArray[day].placeFolder.add(placeData)
+
 ////            TravelPlanBaseActivity.planTotalData.dayList[TravelPlanBaseActivity.index].placeInfoArray.add(placeInfo)
 //            println("user: " + user!!.email.toString())
 //            println("title: " + title)
