@@ -72,12 +72,8 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                         context.startActivity(intent)
                     }
                     1 -> {
-                        println("삭제")
-                        println("$userDiaryArray[position].baseData.title")
-//                        userDiaryArray.removeAt(position)
-//                        db!!.collection("Diary").document(user!!.email.toString())
-//                            .set(userDiaryArray)
-
+                        (context as MainActivity).removeDiary(position)
+                        notifyDataSetChanged()
                     }
                 }
             }

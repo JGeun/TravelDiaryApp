@@ -37,7 +37,7 @@ class TravelDiarySectionFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        println("Start!!!")
+        println("TravelDiarySection Start!!!")
         MainActivity.userDiaryArray.sortBy { it.baseData.startDate }
         binding.diarySectionRecyclerView.apply {
             setHasFixedSize(true)
@@ -47,10 +47,7 @@ class TravelDiarySectionFragment : Fragment() {
         diarySectionAdapter.notifyDataSetChanged()
     }
 
-    override fun onResume() {
-        super.onResume()
-        println("Resume!!!")
-    }
+
 
     fun newInstant() : TravelDiarySectionFragment
     {

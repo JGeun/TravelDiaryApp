@@ -28,14 +28,12 @@
 
     <ImageView
         android:id="@+id/btItem_iv_edit"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="12dp"
+        android:layout_height="15dp"
         android:layout_marginTop="10dp"
-        android:scaleX="0.9"
-        android:scaleY="0.9"
         android:src="@drawable/ic_dots2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btItem_cardview"/>
 
     <TextView
         android:id="@+id/btItem_tv_title"

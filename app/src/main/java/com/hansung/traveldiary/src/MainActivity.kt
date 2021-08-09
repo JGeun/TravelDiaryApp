@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var addNewPlanBookTask: ActivityResultLauncher<Intent>
     private lateinit var updatePlanBookTask: ActivityResultLauncher<Intent>
-    private lateinit var removePlanBookTask: ActivityResultLauncher<Intent>
 
     private val TAG = "MainActivity"
 
@@ -279,6 +278,39 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.main_frm, TravelBaseFragment())
                     .commitAllowingStateLoss()
+            }
+    }
+
+    fun removeDiary(index: Int){
+        val user = Firebase.auth.currentUser
+        val db = Firebase.firestore
+        val idx = userDiaryArray[index].baseData.idx
+
+        userDiaryArray.removeAt(index)
+        idxList.idxFolder.remove(idx)
+
+        var totalIdxList = IdxList()
+        val totalIdxRef = db.collection("IdxDatabase").document("IdxData")
+        totalIdxRef.get()
+            .addOnSuccessListener { result ->
+                totalIdxList = result.toObject<IdxList>()!!
+                totalIdxList.idxFolder.remove(idx)
+                totalIdxRef.set(totalIdxList)
+                idxList = totalIdxList
+            }
+
+        //Diary - 유저 email에서 idxFolder / DiaryData 안 document 삭제.
+        val userRef = db.collection("Diary").document(user!!.email.toString())
+        myDiaryIdxList.idxFolder.remove(idx)
+        userRef.set(myDiaryIdxList)
+
+        userRef.collection("DiaryData").document(idx.toString())
+            .delete()
+            .addOnSuccessListener {
+                println("삭제성공")
+//                supportFragmentManager.beginTransaction()
+//                    .replace(R.id.main_frm, TravelBaseFragment())
+//                    .commitAllowingStateLoss()
             }
     }
 
