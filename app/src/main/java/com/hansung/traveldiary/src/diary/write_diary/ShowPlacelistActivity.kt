@@ -17,6 +17,7 @@ import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.PlaceInfo
 import com.hansung.traveldiary.src.diary.write_diary.show_plan.PlacelistFragment
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
+import com.hansung.traveldiary.util.StatusBarUtil
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,6 +36,8 @@ class ShowPlacelistActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_placelist)
+
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
         index = intent.getIntExtra("index", 0)
         day = intent.getIntExtra("day", 0)

@@ -14,6 +14,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlacelistBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
@@ -55,6 +56,33 @@ class PlacelistFragment(val index: Int, val day: Int) : Fragment(){
             var scheduleadapter = PlacelistAdapter(userPlaceDataModel, index, day, binding.tvChecked)
 //            scheduleadapter.title = title
             adapter = scheduleadapter
+        }
+
+        //println(MainActivity.userDiaryArray[index].baseData.color)
+        when(MainActivity.userDiaryArray[index].baseData.color){
+            "pink"->{
+                binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_pink_plan)
+            }
+            "sky"->{
+                binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_sky_plan)
+
+            }
+            "yellow"->{
+                binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_yellow_plan)
+            }
+            "orange"->{
+                binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_orange_plan)
+
+            }
+            "purple"->{
+                binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_purple_plan)
+            }
+            "test_color"->{
+                binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_pink_plan)
+            }
+            "mapLineColor"->{
+                binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_main_color_plan)
+            }
         }
 
         binding.tvChecked.setOnClickListener {
