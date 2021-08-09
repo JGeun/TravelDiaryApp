@@ -27,8 +27,6 @@ class SearchWordResultAdapter(private val dataList:ArrayList<SearchWordResultInf
         val data = dataList[position]
         holder.title.text = data.placeName
         holder.address.text = data.address
-        println(data.title)
-        println(data.address)
         val context = holder.itemView.context
         val place_code_key=data.groupCode
 

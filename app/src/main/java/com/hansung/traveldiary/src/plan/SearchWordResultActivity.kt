@@ -4,15 +4,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-<<<<<<< HEAD
-=======
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.LinearLayout
->>>>>>> yjh
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.widget.addTextChangedListener
@@ -72,25 +69,19 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
         }
 
         binding.srTvWord.setText(searchWord)
-
-        binding.srTvWord.addTextChangedListener {
-            println("값 변경중")
-            println(binding.srTvWord.text)
-        }
-
         binding.srTvWord.setOnKeyListener(object : View.OnKeyListener {
+
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
                 if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    println("엔터 눌렀음")
-                    intent.putExtra("word", binding.srTvWord.text.toString())
-                    KakaoSearchKeywordService(this@SearchWordResultActivity).tryGetKeyWordSearchInfo(
-                        binding.srTvWord.text.toString(), 1
-                    )
+                    searchWord = binding.srTvWord.text.toString()
+                    searchResult.clear()
+                    KakaoSearchKeywordService(this@SearchWordResultActivity).tryGetKeyWordSearchInfo(searchWord, 1)
                     return true
                 }
                 return false
             }
         })
+
 
 
         binding.srRvResult.addOnScrollListener(object: RecyclerView.OnScrollListener(){
