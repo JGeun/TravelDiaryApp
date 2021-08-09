@@ -73,8 +73,12 @@ class DiaryImageEditActivity : AppCompatActivity() {
             for (i in 0 until pathSize) {
                 imagePathList.add(MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.imagePathArray[i])
             }
+            binding.addImageBtn2.isVisible=false
+            binding.textView5.isVisible=false
         } else {
+            binding.scrollView2.isVisible=false
             countViewModel.setCount(0)
+
         }
 
         binding.editImageRv.apply {
@@ -104,6 +108,17 @@ class DiaryImageEditActivity : AppCompatActivity() {
 
             }
         }
+
+        binding.addImageBtn2.setOnClickListener {
+            println("버튼클릭")
+            if (countViewModel.imageCount.value!! >= 5) {
+                showCustomToast("사진은 최대 5개까지 넣으실 수 있어요")
+            } else {
+                getResultImage.launch(Intent(this, SelectPictureActivity::class.java))
+
+            }
+        }
+
 
         binding.tvChecked.setOnClickListener {
             //이미지 메인 데이터에 넣고
