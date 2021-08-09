@@ -4,8 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingVertical="20dp"
+    android:paddingVertical="5dp"
     android:paddingHorizontal="25dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/schedule_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:overScrollMode="never"/>
 
     <TextView
         android:id="@+id/tv_checked"
@@ -15,7 +25,7 @@
         android:clickable="true"
         android:text="완료"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/schedule_recyclerview"
         android:visibility="gone"
         tools:visibility="visible"/>
 
@@ -37,13 +47,6 @@
         android:visibility="invisible"
         tools:visibility="visible"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/schedule_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_checked" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -75,7 +75,6 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
             holder.editIcon.visibility = View.INVISIBLE
             holder.upBtn.visibility = View.VISIBLE
             holder.downBtn.visibility = View.VISIBLE
-
         } else {
             holder.editIcon.visibility = View.VISIBLE
             holder.upBtn.visibility = View.GONE
@@ -124,9 +123,9 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
         }
 
         if (position == 0)
-            holder.topBar.visibility = View.INVISIBLE
+            holder.topBar.visibility = View.GONE
         if (position == placeViewModel.items.placeFolder.size - 1)
-            holder.bottomBar.visibility = View.INVISIBLE
+            holder.bottomBar.visibility = View.GONE
     }
 
     override fun getItemCount(): Int = placeViewModel.items.placeFolder.size
