@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.print.PrintAttributes
 import android.util.Log
 import android.util.TypedValue
 import android.view.ViewGroup
@@ -55,9 +54,7 @@ class DiaryImageEditActivity : AppCompatActivity() {
     private var user: FirebaseUser? = null
 
     private var db: FirebaseFirestore? = null
-    fun Int.toDp(context: Context):Int = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),context.resources.displayMetrics
-    ).toInt()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -81,7 +78,6 @@ class DiaryImageEditActivity : AppCompatActivity() {
                     imagePathList.add(MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.imagePathArray[i])
                 }
             }
-            binding.textView5.isVisible =false
             binding.editImageRv.apply {
                 layoutManager = LinearLayoutManager(context)
 
