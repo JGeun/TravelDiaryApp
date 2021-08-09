@@ -9,10 +9,8 @@ data class UserInfo(var nickname:String= "", var profileImage: String= "") //프
 //Total Idx List
 data class IdxList(var idxFolder: ArrayList<Long> = ArrayList())
 
-
 ////UserInfoDataSet
 //data class UserContents(var nickname: String="", var profileImage: String="")
-//
 data class PlaceData(var latitude: Double = 37.58842461354086, var longitude: Double = 127.00601781685579, var placeName: String? = null)
 data class PlaceInfo(var placeFolder : ArrayList<PlaceData> = ArrayList())
 data class PlanBaseData(var idx: Long = 0, var title: String="", var color: String = "", var startDate: String = "", var endDate: String = "", var area: String="서울", var peopleCount: Int= 1)
