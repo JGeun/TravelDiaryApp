@@ -16,6 +16,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.view.marginTop
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -67,18 +68,15 @@ class DiaryImageEditActivity : AppCompatActivity() {
 
         val pathSize =
             MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.imagePathArray.size
-        if (pathSize != 0) {
             countViewModel.setCount(pathSize)
             for (i in 0 until pathSize) {
                 imagePathList.add(MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.imagePathArray[i])
             }
-            binding.addImageBtn2.isVisible=false
             binding.textView5.isVisible=false
-        } else {
-            binding.scrollView2.isVisible=false
-            countViewModel.setCount(0)
 
-        }
+        countViewModel.imageCount.observe(this, Observer {
+            binding.textView5.isVisible = countViewModel.imageCount.value == 0
+        })
 
         binding.editImageRv.apply {
             layoutManager = LinearLayoutManager(context)
@@ -99,16 +97,6 @@ class DiaryImageEditActivity : AppCompatActivity() {
         }
 
         binding.addImageBtn.setOnClickListener {
-            println("버튼클릭")
-            if (countViewModel.imageCount.value!! >= 5) {
-                showCustomToast("사진은 최대 5개까지 넣으실 수 있어요")
-            } else {
-                getResultImage.launch(Intent(this, SelectPictureActivity::class.java))
-
-            }
-        }
-
-        binding.addImageBtn2.setOnClickListener {
             println("버튼클릭")
             if (countViewModel.imageCount.value!! >= 5) {
                 showCustomToast("사진은 최대 5개까지 넣으실 수 있어요")

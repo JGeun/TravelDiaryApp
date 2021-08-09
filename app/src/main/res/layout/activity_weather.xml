@@ -84,12 +84,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_weather_condition" />
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="7dp"
+        android:src="@drawable/ic_high_temperature"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_maximum_temperature"
+        app:layout_constraintEnd_toStartOf="@+id/tv_maximum_temperature"
+        app:layout_constraintTop_toTopOf="@+id/tv_maximum_temperature" />
 
     <TextView
         android:id="@+id/tv_maximum_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="60dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/number_font"
         android:text="23°C"
@@ -97,6 +106,15 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_minimum_temperature"
         app:layout_constraintStart_toEndOf="@id/tv_current_temperature" />
+
+    <ImageView
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="7dp"
+        android:src="@drawable/ic_low_temperature"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_minimum_temperature"
+        app:layout_constraintEnd_toStartOf="@+id/tv_minimum_temperature"
+        app:layout_constraintTop_toTopOf="@+id/tv_minimum_temperature" />
 
     <TextView
         android:id="@+id/tv_minimum_temperature"
@@ -111,12 +129,12 @@
 
     <View
         android:id="@+id/view"
-        android:layout_width="43dp"
+        android:layout_width="65dp"
         android:layout_height="1dp"
         android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@id/tv_minimum_temperature"
         app:layout_constraintEnd_toEndOf="@id/tv_maximum_temperature"
-        app:layout_constraintStart_toStartOf="@id/tv_maximum_temperature"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@id/tv_maximum_temperature" />
 
     <LinearLayout
