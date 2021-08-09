@@ -149,8 +149,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
         for (i in 0..calcDate) {
             val date = afterDate(startDate, i)
             val dayRef = diaryRef.document(date)
-            val diaryInfo =
-                DiaryInfo(date, DiaryData(), MainActivity.userPlanArray[index].placeArray[i])
+            val diaryInfo = DiaryInfo(date, DiaryData(), MainActivity.userPlanArray[index].placeArray[i])
             diaryArray.add(diaryInfo)
             dayRef.set(diaryInfo).addOnSuccessListener {
                 if (i == calcDate) {
@@ -183,7 +182,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
 
     fun isModifyDiary(diaryTitle: String) {
         println("isModifyDiary")
-        val idx = MainActivity.userPlanArray[index].baseData.idx
+        val idx = MainActivity.userDiaryArray[index].baseData.idx
 
         MainActivity.userDiaryArray[index].baseData.title = diaryTitle
         MainActivity.userDiaryArray[index].baseData.mainImage = mainImagePath
@@ -200,7 +199,6 @@ class SendTravelPlanActivity : AppCompatActivity() {
                         showCustomToast("끝")
                         setResult(RESULT_OK)
                         finish()
-                        break
                     }
                 }
             }

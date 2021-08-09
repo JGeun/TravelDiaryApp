@@ -94,7 +94,6 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
 
                 if (!is_end && !binding.srRvResult.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
                     println("스크롤 도착")
-                    showLoadingDialog(this@SearchWordResultActivity)
                     KakaoSearchKeywordService(this@SearchWordResultActivity).tryGetKeyWordSearchInfo(
                         searchWord, page
                     )
@@ -134,7 +133,6 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
             setHasFixedSize(true)
             adapter = SearchWordResultAdapter(searchResult, categoryGCeMap)
         }
-
         searchWord=""
     }
 

@@ -47,8 +47,6 @@ class TravelDiarySectionFragment : Fragment() {
         diarySectionAdapter.notifyDataSetChanged()
     }
 
-
-
     fun newInstant() : TravelDiarySectionFragment
     {
         val args = Bundle()

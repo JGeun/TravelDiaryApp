@@ -37,31 +37,54 @@
 
     <TextView
         android:id="@+id/btItem_tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:maxEms="10"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:fontFamily="@font/main_font2"
-        app:layout_constraintBottom_toTopOf="@id/btItem_tv_tag"
         app:layout_constraintStart_toEndOf="@id/btItem_cardview"
         app:layout_constraintTop_toTopOf="@id/btItem_cardview"
+        app:layout_constraintEnd_toStartOf="@id/btItem_iv_edit"
         tools:text="assssssssssssssssssssssssasdas" />
 
     <TextView
-        android:id="@+id/btItem_tv_tag"
+        android:id="@+id/btItem_tv_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="10dp"
-        android:text="#부산 #해운대"
-        android:textSize="11sp"
+        android:text="#부산"
+        android:textSize="14sp"
+        android:fontFamily="@font/main_font2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btItem_cardview" />
+
+    <TextView
+        android:id="@+id/btItem_tv_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#1인"
+        android:textSize="14sp"
+        android:fontFamily="@font/main_font2"
+        app:layout_constraintStart_toEndOf="@id/btItem_tv_area"
+        app:layout_constraintTop_toTopOf="@id/btItem_tv_area"
+        android:layout_marginStart="6dp"/>
+
+    <TextView
+        android:id="@+id/btItem_tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="09/07 ~ 09/11"
+        android:textSize="14sp"
+        android:fontFamily="@font/main_font2"
+        app:layout_constraintBottom_toTopOf="@id/btItem_tv_area"
+        app:layout_constraintStart_toStartOf="@id/btItem_tv_area"
+        android:layout_marginBottom="3dp"/>
 
     <TextView
         android:id="@+id/btItem_tv_comment"
@@ -100,9 +123,9 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginEnd="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btItem_tv_tag"
+        app:layout_constraintBottom_toBottomOf="@+id/btItem_tv_area"
         app:layout_constraintEnd_toStartOf="@id/btItem_tv_likecnt"
-        app:layout_constraintTop_toTopOf="@+id/btItem_tv_tag"
+        app:layout_constraintTop_toTopOf="@+id/btItem_tv_area"
         app:srcCompat="@drawable/ic_heart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

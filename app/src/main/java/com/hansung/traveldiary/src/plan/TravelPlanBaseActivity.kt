@@ -141,10 +141,6 @@ class TravelPlanBaseActivity : AppCompatActivity() {
         println("TravelPlanBaseActivity start")
     }
 
-    fun getColor() : String?{
-        return barColor
-    }
-
     fun afterDate(date: String, day: Int, pattern: String = "yyyy-MM-dd"): String {
         val format = SimpleDateFormat(pattern, Locale.getDefault())
 

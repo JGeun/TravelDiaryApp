@@ -218,10 +218,10 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
                     .reason(3)
                     .animate(CameraAnimation.Easing, 2000)
                     .finishCallback {
-                        showCustomToast("완료")
+                        Log.d(TAG, "완료")
                     }
                     .cancelCallback {
-                        showCustomToast("취소")
+                        Log.d(TAG, "취소")
                     }
                 naverMap.moveCamera(cameraUpdate)
 
@@ -332,19 +332,5 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
         path!!.outlineWidth = 0
         path!!.width = 15
         path!!.color = ResourcesCompat.getColor(resources, R.color.mapLineColor, null)
-    }
-
-    fun getColor() : Int{
-        val color = (context as TravelPlanBaseActivity).getColor()
-        Log.d("체크", "Map color: $color")
-        return when(color){
-            "pink" -> R.color.pink
-            "purple" -> R.color.purple
-            "yellow" -> R.color.yellow
-            "sky" -> R.color.sky
-            "blue" -> R.color.blue
-            "orange" -> R.color.orange
-            else -> R.color.orange
-        }
     }
 }
