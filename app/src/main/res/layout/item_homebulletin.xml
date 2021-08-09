@@ -41,18 +41,20 @@
 
     <TextView
         android:id="@+id/item_hb_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:fontFamily="@font/main_font2"
         android:maxLines="1"
+        android:paddingEnd="31dp"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/user_id"
+        app:layout_constraintEnd_toEndOf="@+id/item_hb_contents"
+        app:layout_constraintStart_toStartOf="@+id/item_hb_contents"
         app:layout_constraintTop_toBottomOf="@+id/user_id"
-        tools:text="서울 2박3일 여행~" />
+        tools:text="서울 2박3일 여행~~~~~~" />
 
     <TextView
         android:id="@+id/item_hb_contents"
@@ -63,11 +65,11 @@
         android:ems="15"
         android:fontFamily="@font/main_font2"
         android:maxLines="2"
-        android:paddingEnd="15dp"
+        android:paddingEnd="35dp"
         android:text="친구들과 여행을 다녀왔는데 너무 좋았어요."
-        android:textSize="9sp"
+        android:textSize="10sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/item_hb_title"
+        app:layout_constraintStart_toStartOf="@+id/user_image"
         app:layout_constraintTop_toBottomOf="@id/item_hb_title" />
 
 

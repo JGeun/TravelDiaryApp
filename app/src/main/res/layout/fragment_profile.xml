@@ -11,13 +11,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/home_bgcolor">
+
+        android:background="@color/home_bgcolor1">
 
         <ImageView
             android:id="@+id/bg_profile_toppanel"
             android:layout_width="match_parent"
             android:layout_height="270dp"
             android:scaleType="fitXY"
+            android:foreground="@drawable/image_overlay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,10 +50,11 @@
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_gravity=""
+            android:layout_marginTop="16dp"
             android:text="날아가라 뽀롱뽀롱"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -154,6 +157,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

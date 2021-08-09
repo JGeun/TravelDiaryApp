@@ -1,13 +1,26 @@
 package com.hansung.traveldiary.src.plan
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+<<<<<<< HEAD
+=======
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
+import android.view.View
+import android.widget.LinearLayout
+>>>>>>> yjh
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ActivitySearchWordResultBinding
 import com.hansung.traveldiary.src.plan.adapter.SearchWordResultAdapter
+import com.hansung.traveldiary.src.plan.model.KakaoSearchKeywordInfo
 import com.hansung.traveldiary.src.plan.model.KakaoSearchKeywordResponse
 import com.hansung.traveldiary.src.plan.model.SearchWordResultInfo
 import com.hansung.traveldiary.util.LoadingDialog
@@ -19,12 +32,13 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
     private val binding by lazy {
         ActivitySearchWordResultBinding.inflate(layoutInflater)
     }
+    private lateinit var searchWordResultTask: ActivityResultLauncher<Intent>
     private var categoryGCeMap : HashMap<String, String> = HashMap()
     private var searchWord = ""
     private var searchResult = ArrayList<SearchWordResultInfo>()
+
     private var is_end = true
     private var page = 2
-
     lateinit var mLoadingDialog: LoadingDialog
 
     companion object {
@@ -47,7 +61,6 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
         }
 
         searchWord = intent.getStringExtra("word").toString()
-        binding.srTvWord.text = searchWord
 
         searchResult = intent.getSerializableExtra("result") as ArrayList<SearchWordResultInfo>
 
@@ -57,6 +70,28 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
             //어댑터
             adapter = SearchWordResultAdapter(searchResult, categoryGCeMap)
         }
+
+        binding.srTvWord.setText(searchWord)
+
+        binding.srTvWord.addTextChangedListener {
+            println("값 변경중")
+            println(binding.srTvWord.text)
+        }
+
+        binding.srTvWord.setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    println("엔터 눌렀음")
+                    intent.putExtra("word", binding.srTvWord.text.toString())
+                    KakaoSearchKeywordService(this@SearchWordResultActivity).tryGetKeyWordSearchInfo(
+                        binding.srTvWord.text.toString(), 1
+                    )
+                    return true
+                }
+                return false
+            }
+        })
+
 
         binding.srRvResult.addOnScrollListener(object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -73,6 +108,7 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
                         searchWord, page
                     )
                 }
+
             }
         })
     }
@@ -103,11 +139,12 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
             searchResult.add(SearchWordResultInfo(result.place_name, result.address_name,result.category_group_code,
                 result.category_name, result.road_address_name, result.phone, result.place_url, result.x, result.y))
         }
-        is_end = response.meta.is_end
-        if(!is_end)
-            page+=1
-        binding.srRvResult.adapter!!.notifyDataSetChanged()
-        dismissLoadingDialog()
+        binding.srRvResult.apply{
+            setHasFixedSize(true)
+            adapter = SearchWordResultAdapter(searchResult, categoryGCeMap)
+        }
+
+        searchWord=""
     }
 
     override fun onGetKeywordSearchFailure(message: String) {
