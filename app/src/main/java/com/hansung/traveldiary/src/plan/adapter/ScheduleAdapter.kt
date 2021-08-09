@@ -47,7 +47,8 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
         db = Firebase.firestore
 
         val context = holder.itemView.context
-        val barColor = when ((context as TravelPlanBaseActivity).getColor()) {
+
+        val barColor = when (MainActivity.userPlanArray[index].baseData.color) {
             "pink" -> R.color.pink
             "purple" -> R.color.purple
             "yellow" -> R.color.yellow
@@ -59,7 +60,7 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
         holder.topBar.setBackgroundColor(context.resources.getColor(barColor))
         holder.bottomBar.setBackgroundColor(context.resources.getColor(barColor))
 
-        val dotColor = when ((context).getColor()) {
+        val dotColor = when (MainActivity.userPlanArray[index].baseData.color) {
             "pink" -> R.drawable.pink_dot
             "purple" -> R.drawable.purple_dot
             "yellow" -> R.drawable.yellow_dot
@@ -119,10 +120,7 @@ class ScheduleAdapter(private val placeViewModel: SharedPlaceViewModel, private 
                     }
                 }
             }
-            editBtmSheetDialogFragment.show(
-                context.supportFragmentManager,
-                editBtmSheetDialogFragment.tag
-            )
+            editBtmSheetDialogFragment.show((context as TravelPlanBaseActivity).supportFragmentManager, editBtmSheetDialogFragment.tag)
         }
 
         if (position == 0)
