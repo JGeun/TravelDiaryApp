@@ -31,7 +31,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
     private var emailList = UserList()
-    private var titleList = TitleList()
     private val TAG = "AddPlanActivity"
     private var color = "pink"
     private var area = ""
@@ -61,9 +60,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
             enddate = data.endDate
             binding.addPlanBtn.text = "수정"
         }
-
-        getTitleList()
-        getEmailList()
 
         val inputMethodManager: InputMethodManager =
             getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -236,39 +232,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
         val calcDate =
             ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
         return calcDate
-    }
-
-    fun getEmailList() {
-        db!!.collection("User").document("UserData")
-            .get()
-            .addOnSuccessListener { result ->
-                val data = result.data?.get("emailFolder")
-                if (data != null) {
-                    emailList.emailFolder = data as ArrayList<String>
-                    println("size: ${emailList.emailFolder.size}")
-                    println("content: ${emailList.emailFolder[0]}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
-    }
-
-    fun getTitleList() {
-        val userDocRef = db!!.collection("User").document("UserData")
-        userDocRef.collection(user!!.email.toString()).document("Plan")
-            .get()
-            .addOnSuccessListener { result ->
-                val data = result.data?.get("titleFolder")
-                if (data != null) {
-                    titleList.titleFolder = data as ArrayList<String>
-                    println("size: ${titleList.titleFolder.size}")
-                    println("content: ${titleList.titleFolder[0]}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
     }
 
     fun showDatepicker() {

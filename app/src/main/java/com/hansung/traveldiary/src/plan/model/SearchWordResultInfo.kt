@@ -1,18 +1,29 @@
 package com.hansung.traveldiary.src.plan.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import java.io.Serializable
 
-class SearchWordResultInfo(title: String, address: String,groupCode:String) : Serializable {
-    var title : String
+class SearchWordResultInfo(placeName: String, address: String, groupCode:String, categoryName: String, roadAddress: String, phone:String, url:String,
+longitude: String, latitude: String) : Serializable {
+    var placeName : String
     var address : String
     var groupCode:String
+    var categoryName: String
+    var roadAddress: String
+    var phone: String
+    var url: String
+    var longitude: String
+    var latitude: String
 
     init{
-        this.title = title
+        this.placeName = placeName
         this.address = address
         this.groupCode=groupCode
+        this.categoryName = categoryName
+        this.roadAddress = roadAddress
+        this.phone = phone
+        this.url  = url
+        this.longitude = longitude
+        this.latitude = latitude
     }
 }
 

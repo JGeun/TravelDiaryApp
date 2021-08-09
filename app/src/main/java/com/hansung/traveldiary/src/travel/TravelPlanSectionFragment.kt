@@ -78,7 +78,7 @@ class TravelPlanSectionFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 binding.floatingActionButton.show()
-                temp = 1
+                temp = 10
             }
         }
         binding.planSectionRecyclerView.addOnScrollListener(onScrollListener)
@@ -86,6 +86,10 @@ class TravelPlanSectionFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.planSectionRecyclerView.adapter!!.notifyDataSetChanged()
+    }
 
     fun newInstant(): TravelPlanSectionFragment {
         val args = Bundle()

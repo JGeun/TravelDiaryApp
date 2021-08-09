@@ -28,7 +28,6 @@ import java.util.*
 class SendTravelPlanActivity : AppCompatActivity() {
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
-    private var titleList = TitleList()
     private val binding by lazy {
         ActivitySendTravelPlanBinding.inflate(layoutInflater)
     }
@@ -80,11 +79,16 @@ class SendTravelPlanActivity : AppCompatActivity() {
         binding.sendPlanBtn.setOnClickListener {
             var diaryTitle = binding.editTravelTitle.text.toString()
 
-            val idx = MainActivity.userPlanArray[index].baseData.idx.toLong()
+            val idx = MainActivity.userPlanArray[index].baseData.idx
+            MainActivity.myPlanIdxList.idxFolder.remove(idx)
+            val planIdxRef = db!!.collection("Plan").document(user!!.email.toString())
+            planIdxRef.set(MainActivity.myPlanIdxList)
+
+
             if(!MainActivity.myDiaryIdxList.idxFolder.contains(idx))
                 MainActivity.myDiaryIdxList.idxFolder.add(idx)
-            val idxRef =db!!.collection("Diary").document(user!!.email.toString())
-            idxRef.set(MainActivity.myDiaryIdxList)
+            val diaryIdxRef =db!!.collection("Diary").document(user!!.email.toString())
+            diaryIdxRef.set(MainActivity.myDiaryIdxList)
 
             val now = System.currentTimeMillis();
             val mDate = Date(now)
@@ -109,10 +113,10 @@ class SendTravelPlanActivity : AppCompatActivity() {
                 0
             )
 
-            idxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+            diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
 
             val diaryArray = ArrayList<DiaryInfo>()
-            val diaryRef = idxRef.collection("DiaryData").document(idx.toString()).collection("DayList")
+            val diaryRef = diaryIdxRef.collection("DiaryData").document(idx.toString()).collection("DayList")
             val calcDate = getCalcDate(startDate, endDate)
             for (i in 0..calcDate) {
                 val date = afterDate(startDate, i)
@@ -123,9 +127,19 @@ class SendTravelPlanActivity : AppCompatActivity() {
                     if(i == calcDate){
                         MainActivity.userDiaryArray.add(UserDiaryData(diaryBaseData, diaryArray))
 
-                        showCustomToast("끝")
-                        setResult(RESULT_OK)
-                        finish()
+                        for(i in 0 until MainActivity.userPlanArray.size){
+                            if(MainActivity.userPlanArray[i].baseData.idx == idx){
+                                MainActivity.userPlanArray.removeAt(i)
+                                break
+                            }
+                        }
+
+                        planIdxRef.collection("PlanData").document(idx.toString())
+                            .delete().addOnSuccessListener {
+                                showCustomToast("끝")
+                                setResult(RESULT_OK)
+                                finish()
+                            }
                     }
                 }
             }

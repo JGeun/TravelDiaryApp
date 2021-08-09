@@ -21,7 +21,6 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.config.DeleteBottomDialogFragment
 import com.hansung.traveldiary.config.EditBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemDiaryBinding
-import com.hansung.traveldiary.src.DiaryBulletinData
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.UserDiaryData
 import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity

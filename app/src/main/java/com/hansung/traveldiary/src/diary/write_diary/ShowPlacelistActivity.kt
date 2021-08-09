@@ -15,7 +15,6 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.src.DiaryInfo
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.PlaceInfo
-import com.hansung.traveldiary.src.PlaceInfoFolder2
 import com.hansung.traveldiary.src.diary.write_diary.show_plan.PlacelistFragment
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 import java.text.SimpleDateFormat
@@ -27,7 +26,6 @@ class ShowPlacelistActivity : AppCompatActivity() {
     private lateinit var transaction : FragmentTransaction
 //    private val userPlanDataModel : SharedPlaceViewModel by viewModels()
     private val userDiaryDataModel : SharedPlaceViewModel by viewModels()
-    var placeInfoFolder = PlaceInfoFolder2()
     private var day = 0
 
     companion object{

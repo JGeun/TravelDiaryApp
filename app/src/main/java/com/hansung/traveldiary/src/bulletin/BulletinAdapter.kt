@@ -31,9 +31,6 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         val context = holder.itemView.context
         val data = MainActivity.bulletinDiaryArray[position].userDiaryData
 
-        var view = holder.itemView
-//        Glide.with(context).load(data.diaryBaseData.userImage).into(holder.userImage)
-
         val index = MainActivity.userList.emailFolder.indexOf(data.baseData.userEmail)
         val userImagePath = MainActivity.userInfoList[index].profileImage
 
@@ -51,6 +48,7 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         holder.itemView.setTag(position)
 
         holder.itemView.setOnClickListener{
+            println("index: ${position} 넘겨줌")
             val intent = Intent(context,BulletinDaySectionActivity::class.java)
             intent.putExtra("index", position)
             context.startActivity(intent)

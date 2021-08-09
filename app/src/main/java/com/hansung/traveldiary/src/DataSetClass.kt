@@ -1,38 +1,5 @@
 package com.hansung.traveldiary.src
 
-
-data class TitleList(var titleFolder: ArrayList<String> = ArrayList())
-
-data class PlaceInfo2(var placeName: String? = null, var latitude: Double = 37.58842461354086, var longitude: Double = 127.00601781685579)
-data class PlaceDayInfo2(var date: String = "", var placeFolder : ArrayList<PlaceInfo2> = ArrayList<PlaceInfo2>())
-data class PlaceInfoFolder2(var dayPlaceList: ArrayList<PlaceDayInfo2> = ArrayList())
-
-//DiaryDataSet
-data class DiaryBulletinData(var planTitle: String, var diaryData: DiaryTotalData2)
-
-
-data class DiaryTotalData2(
-    var planBaseData: PlanBaseData2 = PlanBaseData2(),
-    var diaryBaseData: DiaryBaseData = DiaryBaseData(),
-    var placeFolder : PlaceInfoFolder2 =PlaceInfoFolder2(),
-    var diaryInfoFolder: DiaryInfo2 = DiaryInfo2()
-)
-
-data class DiaryDayInfo(var date : String ="", var diaryInfo : DiaryData = DiaryData())
-data class DiaryInfo2(var diaryDayFolder : ArrayList<DiaryDayInfo> = ArrayList())
-
-data class DiaryInfo3(var diaryDayFolder : ArrayList<DiaryData> = ArrayList())
-
-//PlanDataSet
-data class PlanBaseData2(var title: String="", var color: String = "", var startDate: String = "", var endDate: String = "", var area: String="서울", var peopleCount: Int= 1)
-
-data class PlanData(
-    var planBaseData: PlanBaseData2 = PlanBaseData2(),
-    var placeFolder: PlaceInfoFolder2 = PlaceInfoFolder2()
-)
-
-data class PlanBookData(var title: String, var planData: PlanData)
-
 ///---------앞으로 사용할 것-----------------------------------------------
 
 //Total User Email List

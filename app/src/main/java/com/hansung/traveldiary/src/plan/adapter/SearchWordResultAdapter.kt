@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemWordSearchResultBinding
 import com.hansung.traveldiary.src.plan.SearchWordResultActivity
-import com.hansung.traveldiary.src.plan.TravelPlanMapFragment
 import com.hansung.traveldiary.src.plan.model.SearchWordResultInfo
-import com.hansung.traveldiary.src.profile.edit_info.EditInfoActivity
-import com.hansung.traveldiary.src.profile.gallery.SelectPictureActivity
 
 class SearchWordResultAdapter(private val dataList:ArrayList<SearchWordResultInfo>, private val categoryGCeMap : HashMap<String, String>): RecyclerView.Adapter<SearchWordResultAdapter.ViewHolder>() {
 
@@ -28,7 +25,7 @@ class SearchWordResultAdapter(private val dataList:ArrayList<SearchWordResultInf
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = dataList[position]
-        holder.title.text = data.title
+        holder.title.text = data.placeName
         holder.address.text = data.address
         val context = holder.itemView.context
         val place_code_key=data.groupCode
@@ -90,7 +87,7 @@ class SearchWordResultAdapter(private val dataList:ArrayList<SearchWordResultInf
         holder.itemView.setOnClickListener{
             val intent = Intent()
             intent.putExtra("index", position)
-
+            intent.putExtra("result", dataList[position])
             (context as SearchWordResultActivity).setResult(Activity.RESULT_OK, intent)
             context.finish()
         }

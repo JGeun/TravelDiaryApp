@@ -11,7 +11,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemDiaryDaySectionBinding
-import com.hansung.traveldiary.src.DiaryBulletinData
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.bulletin.ShowDiaryActivity
 import com.hansung.traveldiary.src.diary.write_diary.WriteDiaryActivity
