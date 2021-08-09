@@ -30,7 +30,7 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
     val userPlaceDataModel : SharedPlaceViewModel by activityViewModels()
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
-    var userDiaryArray = ArrayList<UserDiaryData>() //나의 diary data 리스트
+
     private lateinit var diaryBaseData:DiaryBaseData
     companion object{
         var checked = false
@@ -45,7 +45,6 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
         user = Firebase.auth.currentUser
         db = Firebase.firestore
         diaryBaseData= DiaryBaseData()
-        userDiaryArray=ArrayList<UserDiaryData>()
         binding.scheduleRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
@@ -54,7 +53,7 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
         val userRef = db!!.collection("UserInfo").document(user!!.email.toString())
         println("------------------------------------------------------------")
         //println(MainActivity.userDiaryArray[index].baseData.color)
-        when(MainActivity.userDiaryArray[index].baseData.color){
+        when(MainActivity.userPlanArray[index].baseData.color){
             "pink"->{
                 binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_pink_plan)
             }
@@ -79,11 +78,6 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
                 binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_main_color_plan)
             }
         }
-
-        //println(db!!.collection("Diary").document(user?.email.toString()).collection("DiaryData").document("37997867").get())
-        //println(userDiaryArray[0].baseData.color)
-        //userDiaryArray.add()
-
 
         userPlaceDataModel.userPlanData.observe(viewLifecycleOwner){
             if(userPlaceDataModel.userPlanData.value!!.placeFolder.size != 0){
