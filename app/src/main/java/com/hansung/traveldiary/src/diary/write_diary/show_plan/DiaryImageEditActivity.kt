@@ -139,15 +139,7 @@ class DiaryImageEditActivity : AppCompatActivity() {
             } else {
                 imagePathList.clear()
                 MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.imagePathArray.clear()
-                db!!.collection("Diary").document(user!!.email.toString())
-                    .collection("DiaryData")
-                    .document(MainActivity.userDiaryArray[index].baseData.idx.toString())
-                    .collection("DayList")
-                    .document(MainActivity.userDiaryArray[index].diaryArray[day].date)
-                    .set(MainActivity.userDiaryArray[index].diaryArray[day])
-                    .addOnSuccessListener {
-                        finish()
-                    }
+                putImageIntoFirestore()
             }
         }
     }
@@ -183,19 +175,31 @@ class DiaryImageEditActivity : AppCompatActivity() {
                             imagePathList[j]
                         )
                     }
-                    db!!.collection("Diary").document(user!!.email.toString())
-                        .collection("DiaryData")
-                        .document(MainActivity.userDiaryArray[index].baseData.idx.toString())
-                        .collection("DayList")
-                        .document(MainActivity.userDiaryArray[index].diaryArray[day].date)
-                        .set(MainActivity.userDiaryArray[index].diaryArray[day])
-                        .addOnSuccessListener {
-                            dismissLoadingDialog()
-                            finish()
-                        }
+                    putImageIntoFirestore()
                 }
             }
         }
+    }
+    
+    fun putImageIntoFirestore(){
+        db!!.collection("Diary").document(user!!.email.toString())
+            .collection("DiaryData")
+            .document(MainActivity.userDiaryArray[index].baseData.idx.toString())
+            .collection("DayList")
+            .document(MainActivity.userDiaryArray[index].diaryArray[day].date)
+            .set(MainActivity.userDiaryArray[index].diaryArray[day])
+            .addOnSuccessListener {
+                //전체 게시글도 갱신
+                val idx = MainActivity.userDiaryArray[index].baseData.idx
+                for(i in 0 until MainActivity.bulletinDiaryArray.size){
+                    if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == idx){
+                        MainActivity.bulletinDiaryArray[i].userDiaryData.diaryArray[day].diaryInfo.imagePathArray = imagePathList
+                        break
+                    }
+                }
+                dismissLoadingDialog()
+                finish()
+            }
     }
 
     fun showCustomToast(message: String) {
