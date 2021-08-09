@@ -33,10 +33,15 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_checked">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:orientation="vertical">
+
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/editImage_rv"
@@ -55,13 +60,35 @@
                 android:fontFamily="@font/main_font2"
                 android:text="사진 추가"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
 
         </LinearLayout>
-
-
     </androidx.core.widget.NestedScrollView>
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="9"
+        android:text="아직 사진이 없으시군요? 이제 업로드해 볼까요?"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_image_btn2"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="15dp"
+        android:background="@drawable/radius_whitebtn"
+        android:fontFamily="@font/main_font2"
+        android:text="사진 추가"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

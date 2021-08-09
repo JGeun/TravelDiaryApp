@@ -6,11 +6,16 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -48,15 +53,17 @@ class DiaryImageEditActivity : AppCompatActivity() {
     private var user: FirebaseUser? = null
 
     private var db: FirebaseFirestore? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        val context:Context = this
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
         user = Firebase.auth.currentUser
         db = Firebase.firestore
         index = intent.getIntExtra("index", 0)
         day = intent.getIntExtra("day", 0)
+
 
         val pathSize =
             MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.imagePathArray.size
@@ -65,8 +72,12 @@ class DiaryImageEditActivity : AppCompatActivity() {
             for (i in 0 until pathSize) {
                 imagePathList.add(MainActivity.userDiaryArray[index].diaryArray[day].diaryInfo.imagePathArray[i])
             }
+            binding.addImageBtn2.isVisible=false
+            binding.textView5.isVisible=false
         } else {
+            binding.scrollView2.isVisible=false
             countViewModel.setCount(0)
+
         }
 
         binding.editImageRv.apply {
@@ -93,8 +104,20 @@ class DiaryImageEditActivity : AppCompatActivity() {
                 showCustomToast("사진은 최대 5개까지 넣으실 수 있어요")
             } else {
                 getResultImage.launch(Intent(this, SelectPictureActivity::class.java))
+
             }
         }
+
+        binding.addImageBtn2.setOnClickListener {
+            println("버튼클릭")
+            if (countViewModel.imageCount.value!! >= 5) {
+                showCustomToast("사진은 최대 5개까지 넣으실 수 있어요")
+            } else {
+                getResultImage.launch(Intent(this, SelectPictureActivity::class.java))
+
+            }
+        }
+
 
         binding.tvChecked.setOnClickListener {
             //이미지 메인 데이터에 넣고
@@ -200,5 +223,6 @@ class DiaryImageEditActivity : AppCompatActivity() {
         if (mLoadingDialog.isShowing) {
             mLoadingDialog.dismiss()
         }
+
     }
 }
