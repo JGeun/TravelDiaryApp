@@ -3,7 +3,6 @@ package com.hansung.traveldiary.src.plan
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +21,7 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
     }
     private var categoryGCeMap : HashMap<String, String> = HashMap()
     private var searchWord = ""
-    private var result = ArrayList<SearchWordResultInfo>()
+    private var searchResult = ArrayList<SearchWordResultInfo>()
     private var is_end = true
     private var page = 2
 
@@ -50,13 +49,13 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
         searchWord = intent.getStringExtra("word").toString()
         binding.srTvWord.text = searchWord
 
-        result = intent.getSerializableExtra("result") as ArrayList<SearchWordResultInfo>
+        searchResult = intent.getSerializableExtra("result") as ArrayList<SearchWordResultInfo>
 
         binding.srRvResult.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@SearchWordResultActivity)
             //어댑터
-            adapter = SearchWordResultAdapter(result, categoryGCeMap)
+            adapter = SearchWordResultAdapter(searchResult, categoryGCeMap)
         }
 
         binding.srRvResult.addOnScrollListener(object: RecyclerView.OnScrollListener(){
@@ -100,8 +99,9 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
 
     override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse) {
         val searchWordResultList = response.documents
-        for (resultContent in searchWordResultList) {
-            result.add(SearchWordResultInfo(resultContent.place_name, resultContent.address_name, resultContent.category_group_code))
+        for (result in searchWordResultList) {
+            searchResult.add(SearchWordResultInfo(result.place_name, result.address_name,result.category_group_code,
+                result.category_name, result.road_address_name, result.phone, result.place_url, result.x, result.y))
         }
         is_end = response.meta.is_end
         if(!is_end)

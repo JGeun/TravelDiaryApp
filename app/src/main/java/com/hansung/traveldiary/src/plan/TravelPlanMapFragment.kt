@@ -43,8 +43,8 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
     private var searchWord = ""
-    private var searchWordResultList = ArrayList<KakaoSearchKeywordInfo>()
     private lateinit var searchWordResultTask: ActivityResultLauncher<Intent>
+    private lateinit var searchWordResult : SearchWordResultInfo
     private var searchWordIndex = 0
     private var markerList=ArrayList<Marker>()
     private val latLngList = ArrayList<LatLng>()
@@ -111,7 +111,7 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
         })
 
         binding.planBtmBtnStore.setOnClickListener{
-            val placeData = PlaceData(searchWordResultList[searchWordIndex].y.toDouble(), searchWordResultList[searchWordIndex].x.toDouble(),searchWordResultList[searchWordIndex].place_name)
+            val placeData = PlaceData(searchWordResult.latitude.toDouble(), searchWordResult.longitude.toDouble(),searchWordResult.placeName)
             userPlaceDataModel.putPlace(placeData)
 ////            TravelPlanBaseActivity.planTotalData.dayList[TravelPlanBaseActivity.index].placeInfoArray.add(placeInfo)
 //            println("user: " + user!!.email.toString())
@@ -178,22 +178,21 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
-                searchWordIndex = result.data?.getIntExtra("index", 0)!!
+                searchWordResult = result.data?.getSerializableExtra("result") as SearchWordResultInfo
                 binding.planBtmClShowPlaceInfo.isVisible = true
-                binding.planBtmPlaceTitle.text = searchWordResultList[searchWordIndex].place_name
-                val categoryArr = searchWordResultList[searchWordIndex].category_name.trim().split(">")
+                binding.planBtmPlaceTitle.text = searchWordResult.placeName
+                val categoryArr = searchWordResult.categoryName.trim().split(">")
                 binding.planBtmPlaceCategory.text = categoryArr[categoryArr.size-1]
-                val roadAddressName = searchWordResultList[searchWordIndex].road_address_name
+                val roadAddressName = searchWordResult.roadAddress
                 if(roadAddressName.isEmpty())
-                    binding.planBtmPlaceAddress.text = searchWordResultList[searchWordIndex].address_name
+                    binding.planBtmPlaceAddress.text = searchWordResult.address
                 else
                     binding.planBtmPlaceAddress.text = roadAddressName
-                binding.planBtmPlaceNumber.text = searchWordResultList[searchWordIndex].phone
-                binding.planBtmPlaceUrl.text = searchWordResultList[searchWordIndex].place_url
+                binding.planBtmPlaceNumber.text = searchWordResult.phone
+                binding.planBtmPlaceUrl.text = searchWordResult.url
 
-                val longitude = searchWordResultList[searchWordIndex].x.toDouble()
-                val latitude = searchWordResultList[searchWordIndex].y.toDouble()
-                Log.d("위치체크", longitude.toString() + " / " + latitude.toString())
+                val longitude = searchWordResult.longitude.toDouble()
+                val latitude = searchWordResult.latitude.toDouble()
 //                val tm128 = Tm128(mapx.toDouble(), mapy.toDouble())
                 searchLatlng = LatLng(latitude, longitude)
 
@@ -302,10 +301,11 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
         val intent = Intent(context, SearchWordResultActivity::class.java)
         intent.putExtra("word", searchWord)
 
-        searchWordResultList = response.documents
+        var searchWordResultList = response.documents
         val resultList = ArrayList<SearchWordResultInfo>()
         for (result in searchWordResultList) {
-            resultList.add(SearchWordResultInfo(result.place_name, result.address_name,result.category_group_code))
+            resultList.add(SearchWordResultInfo(result.place_name, result.address_name,result.category_group_code,
+                result.category_name, result.road_address_name, result.phone, result.place_url, result.x, result.y))
         }
 
         intent.putExtra("is_end", response.meta.is_end)
