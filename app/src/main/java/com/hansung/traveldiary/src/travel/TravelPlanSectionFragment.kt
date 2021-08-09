@@ -86,6 +86,10 @@ class TravelPlanSectionFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.planSectionRecyclerView.adapter!!.notifyDataSetChanged()
+    }
 
     fun newInstant(): TravelPlanSectionFragment {
         val args = Bundle()

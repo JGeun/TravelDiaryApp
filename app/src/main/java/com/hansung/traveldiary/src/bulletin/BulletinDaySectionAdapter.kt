@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemBulletinDaySectionBinding
-import com.hansung.traveldiary.src.DiaryBulletinData
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.UserDiaryData
 
-class BulletinDaySectionAdapter(private val userDiaryArray:ArrayList<UserDiaryData>, private val index: Int): RecyclerView.Adapter<BulletinDaySectionAdapter.ViewHolder>() {
+class BulletinDaySectionAdapter(private val index: Int): RecyclerView.Adapter<BulletinDaySectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemBulletinDaySectionBinding):RecyclerView.ViewHolder(binding.root){
         val dayText = binding.itemBdsDayCount

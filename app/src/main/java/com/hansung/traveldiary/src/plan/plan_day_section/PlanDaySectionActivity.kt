@@ -14,7 +14,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ActivityPlanDaySectionBinding
 import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.PlaceInfoFolder2
 import com.hansung.traveldiary.src.diary.SendTravelPlanActivity
 import com.hansung.traveldiary.util.StatusBarUtil
 import java.util.*
@@ -26,7 +25,6 @@ class PlanDaySectionActivity : AppCompatActivity() {
     private var index: Int = 0
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
-    private var placeInfoFolder: PlaceInfoFolder2 = PlaceInfoFolder2()
     private var color: String? = null
 
     private var count = 1

@@ -18,6 +18,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
 
+        println("BulletinDaySectionActivity 들어옴")
         val index = intent.getIntExtra("index", 0)
 
         binding.bdsTitle.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.title
@@ -27,7 +28,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         binding.bdsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter= BulletinDaySectionAdapter(MainActivity.userDiaryArray, index)
+            adapter= BulletinDaySectionAdapter(index)
             layoutManager=LinearLayoutManager(this@BulletinDaySectionActivity)
         }
     }

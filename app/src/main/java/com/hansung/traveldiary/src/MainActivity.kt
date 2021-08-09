@@ -457,32 +457,17 @@ class MainActivity : AppCompatActivity() {
                             if (planData != null) {
                                 planBaseData = planData
 
-                                for (i in 0..getCalcDate(
-                                    planBaseData.startDate,
-                                    planBaseData.endDate
-                                )) {
+                                for (i in 0..getCalcDate(planBaseData.startDate, planBaseData.endDate)) {
                                     myPlanRef.collection("PlaceInfo")
-                                        .document(
-                                            afterDate(
-                                                planBaseData.startDate,
-                                                i
-                                            )
-                                        ).get()
+                                        .document(afterDate(planBaseData.startDate, i)).get()
                                         .addOnSuccessListener { result ->
-                                            val placeData =
-                                                result.toObject<PlaceInfo>()
+                                            val placeData = result.toObject<PlaceInfo>()
                                             if (placeData != null)
                                                 placeArray.add(placeData)
                                         }
                                 }
 
-
-                                userPlanArray.add(
-                                    UserPlanData(
-                                        planBaseData,
-                                        placeArray
-                                    )
-                                )
+                                userPlanArray.add(UserPlanData(planBaseData, placeArray))
                             }
                         }
                     }

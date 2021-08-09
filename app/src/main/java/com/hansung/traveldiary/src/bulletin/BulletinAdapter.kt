@@ -31,9 +31,6 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         val context = holder.itemView.context
         val data = MainActivity.bulletinDiaryArray[position].userDiaryData
 
-        var view = holder.itemView
-//        Glide.with(context).load(data.diaryBaseData.userImage).into(holder.userImage)
-
         val index = MainActivity.userList.emailFolder.indexOf(data.baseData.userEmail)
         val userImagePath = MainActivity.userInfoList[index].profileImage
 
