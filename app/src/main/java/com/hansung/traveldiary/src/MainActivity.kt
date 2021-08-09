@@ -363,6 +363,7 @@ class MainActivity : AppCompatActivity() {
             val diaryIdxRef = db!!.collection("Diary").document(email)
             diaryIdxRef.get()
                 .addOnSuccessListener { result ->
+                    println("idx성공")
                     val idxData = result.toObject<IdxList>()
                     if (idxData != null) {
                         diaryIdxList = idxData
@@ -418,9 +419,12 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         }
-
+                    }else{
+                        println("null입니다")
+                        dismissLoadingDialog()
                     }
                 }
+
         }
     }
 
@@ -484,6 +488,7 @@ class MainActivity : AppCompatActivity() {
 
         myPlanIdxRef.get()
             .addOnSuccessListener { result ->
+                println("getPlan성공")
                 val idxData = result.toObject<IdxList>()
                 if (idxData != null) {
                     myPlanIdxList = idxData
