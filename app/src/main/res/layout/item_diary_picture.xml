@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="fitXY"
-        android:contentDescription="Gallery image"
         app:layout_constraintDimensionRatio="1"
         tools:ignore="MissingConstraints"/>
 
