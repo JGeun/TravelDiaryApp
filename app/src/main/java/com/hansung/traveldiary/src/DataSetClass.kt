@@ -5,7 +5,6 @@ package com.hansung.traveldiary.src
 //Total User Email List
 data class UserList(var emailFolder: ArrayList<String> = ArrayList())
 data class UserInfo(var nickname:String= "", var profileImage: String= "") //프로필
-data class UserData(var userInfo: UserInfo = UserInfo(), var email: String = "")
 
 //Total Idx List
 data class IdxList(var idxFolder: ArrayList<Long> = ArrayList())

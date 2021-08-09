@@ -69,6 +69,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                         println("수정")
                         val intent = Intent(context, SendTravelPlanActivity::class.java)
                         intent.putExtra("index", position)
+                        intent.putExtra("isModify", true)
                         context.startActivity(intent)
                     }
                     1 -> {

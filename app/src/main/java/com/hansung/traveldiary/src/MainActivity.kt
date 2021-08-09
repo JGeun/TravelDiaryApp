@@ -412,7 +412,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     fun getMyDiaryData() {
         val myDiaryIdxRef =
             db!!.collection("Diary").document(user!!.email.toString())
