@@ -7,6 +7,30 @@
     android:paddingVertical="20dp"
     android:paddingHorizontal="25dp">
 
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_back_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_diary_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/main_font2"
+        android:text="다이어리 제목목목목목목목목목목"
+        android:maxLines="1"
+        android:maxEms="10"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_checked"
         android:layout_width="wrap_content"
@@ -44,6 +68,6 @@
         android:layout_marginTop="10dp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_checked" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.diary.write_diary.show_plan
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.FragmentPlacelistBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
+import com.hansung.traveldiary.src.diary.write_diary.WriteDiaryActivity
 import com.hansung.traveldiary.src.plan.model.SharedPlaceViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,6 +47,8 @@ class PlacelistFragment(val index: Int, val day: Int) : Fragment(){
         user = Firebase.auth.currentUser
         db = Firebase.firestore
 
+        binding.tvDiaryTitle.text = (day+1).toString()+"일차 여행 일정"
+
         binding.placelistRecyclerview.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
@@ -70,6 +74,10 @@ class PlacelistFragment(val index: Int, val day: Int) : Fragment(){
 
             binding.tvChecked.visibility = View.GONE
             binding.placelistRecyclerview.adapter?.notifyDataSetChanged()
+        }
+
+        binding.ivBack.setOnClickListener {
+            activity?.finish()
         }
 
         return binding.root

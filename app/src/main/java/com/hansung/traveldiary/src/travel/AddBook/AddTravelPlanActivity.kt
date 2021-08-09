@@ -106,7 +106,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
                 Log.d("시작날짜", date)
                 binding.atpStartDate.setText(date)
                 Log.d("달력", "OK")
-//                showDatepicker()
             }
 
             val datePickerDialog =
@@ -122,14 +121,19 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
             var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
                 enddate = String.format("$y-%02d-%02d", m + 1, d)
-//                date += " ~ " + String.format("$y-%02d-%02d", m + 1, d)
                 Log.d("끝날짜", enddate)
                 binding.atpEndDate.setText(enddate)
+                if(startdate>enddate){
+                    Log.d("날짜 뒤바뀜", "$startdate")
+                    binding.atpStartDate.setText(enddate)
+                    binding.atpEndDate.setText(startdate)
+                }
             }
 
             val datePickerDialog =
                 DatePickerDialog(this, listener, year, month, day)
             datePickerDialog.show()
+
 
         }
 
@@ -251,24 +255,6 @@ class AddTravelPlanActivity : AppCompatActivity() {
         val calcDate =
             ((endDateFormat.time - startDateFormat.time) / (60 * 60 * 24 * 1000)).toInt()
         return calcDate
-    }
-
-    fun showDatepicker() {
-        val cal = Calendar.getInstance()
-        val year = cal.get(Calendar.YEAR)
-        val month = cal.get(Calendar.MONTH)
-        val day = cal.get(Calendar.DAY_OF_MONTH)
-
-        var listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-            enddate = String.format("$y-%02d-%02d", m + 1, d)
-            date += " ~ " + String.format("$y-%02d-%02d", m + 1, d)
-            Log.d("끝날짜", date)
-            binding.atpEndDate.setText(date)
-        }
-
-        val datePickerDialog =
-            DatePickerDialog(this, listener, year, month, day)
-        datePickerDialog.show()
     }
 
     fun setRadioButton() {
