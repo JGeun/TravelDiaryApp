@@ -120,7 +120,7 @@ class EditInfoActivity : AppCompatActivity() {
         val imageStorageRef =
             storageRef.child("/profileImage/" + user!!.email + "/profileImage.png")
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 10, baos)
         val data = baos.toByteArray()
 
         val uploadTask = imageStorageRef.putBytes(data)

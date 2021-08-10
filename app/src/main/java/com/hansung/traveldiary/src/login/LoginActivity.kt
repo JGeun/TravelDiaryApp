@@ -60,16 +60,21 @@ class LoginActivity : AppCompatActivity() {
                         db!!.collection("UserInfo").document(user!!.email.toString())
                             .get()
                             .addOnSuccessListener { result ->
-                                val userInfo = result.toObject<UserInfo>()!!
-                                val pref = applicationContext.getSharedPreferences("user", 0)
-                                with(pref.edit()) {
-                                    putString("login", "success")
-                                    putString("nickname", userInfo.nickname)
-                                    putString("profileImagePath", userInfo.profileImage)
-                                    commit()
+                                val userInfo = result.toObject<UserInfo>()
+                                if (userInfo != null) {
+                                    val pref = applicationContext.getSharedPreferences("user", 0)
+                                    with(pref.edit()) {
+                                        putString("login", "success")
+                                        putString("nickname", userInfo.nickname)
+                                        putString("profileImagePath", userInfo.profileImage)
+                                        commit()
+                                    }
+                                    dismissLoadingDialog()
+                                    moveHomePage(task.result?.user)
+                                }else{
+                                    dismissLoadingDialog()
+                                    showCustomToast("실패하였습니다.")
                                 }
-                                dismissLoadingDialog()
-                                moveHomePage(task.result?.user)
                             }.addOnFailureListener {
                                 dismissLoadingDialog()
                                 showCustomToast("실패하였습니다.")

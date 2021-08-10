@@ -32,6 +32,8 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         val data = MainActivity.bulletinDiaryArray[position].userDiaryData
 
         val index = MainActivity.userList.emailFolder.indexOf(data.baseData.userEmail)
+
+        holder.userName.text = MainActivity.userInfoList[index].nickname
         val userImagePath = MainActivity.userInfoList[index].profileImage
 
         if(userImagePath == "")
@@ -39,7 +41,7 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         else
             Glide.with(context).load(userImagePath).circleCrop().into(holder.userImage)
 
-        holder.userName.text = data.baseData.userEmail
+
         holder.viewpager.adapter = BulletinViewPagerAdapter(position)
         holder.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)

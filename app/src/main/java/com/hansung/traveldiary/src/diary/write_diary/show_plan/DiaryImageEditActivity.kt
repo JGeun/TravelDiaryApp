@@ -151,9 +151,8 @@ class DiaryImageEditActivity : AppCompatActivity() {
         val imageStorageRef =
             storageRef.child("/diary/${user!!.email.toString()}/${MainActivity.userDiaryArray[index].baseData.idx}/day${day + 1}/image${count}.png")
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 20, baos)
         val data = baos.toByteArray()
-
 
         val uploadTask = imageStorageRef.putBytes(data)
         val urlTask = uploadTask.continueWithTask { task ->
@@ -182,6 +181,7 @@ class DiaryImageEditActivity : AppCompatActivity() {
     }
     
     fun putImageIntoFirestore(){
+        showLoadingDialog(this)
         db!!.collection("Diary").document(user!!.email.toString())
             .collection("DiaryData")
             .document(MainActivity.userDiaryArray[index].baseData.idx.toString())

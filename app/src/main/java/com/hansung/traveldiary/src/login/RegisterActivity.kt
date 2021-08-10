@@ -62,12 +62,12 @@ class RegisterActivity : AppCompatActivity() {
                 showCustomToast("이미 존재하는 이메일입니다.")
                 return@setOnClickListener
             }else {
-                showLoadingDialog(this)
                 auth?.createUserWithEmailAndPassword(
                     binding.registerId.text.toString(),
                     binding.registerPw.text.toString()
                 )?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        showLoadingDialog(this)
                         binding.registerBtn.isEnabled = false
                         userList.emailFolder.add(email)
                         userDataRef.set(userList)

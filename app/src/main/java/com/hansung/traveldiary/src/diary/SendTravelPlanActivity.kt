@@ -72,7 +72,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 getImagePath = result.data?.getStringExtra("imagePath")!!
-                Glide.with(this).load(getImagePath).circleCrop().into(binding.stpMainImage)
+                Glide.with(this).load(getImagePath).into(binding.stpMainImage)
 
                 val op = BitmapFactory.Options()
                 var bitmap: Bitmap? = null
@@ -214,7 +214,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
         val imageStorageRef =
             storageRef.child("/diary/${user!!.email}/${MainActivity.userPlanArray[index].baseData.idx}/mainImage.png")
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 20, baos)
         val data = baos.toByteArray()
 
         showLoadingDialog(this)
