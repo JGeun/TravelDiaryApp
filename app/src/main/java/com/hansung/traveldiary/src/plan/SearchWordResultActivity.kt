@@ -125,21 +125,25 @@ class SearchWordResultActivity : AppCompatActivity(), KakaoSearchView{
         categoryGCeMap.put("PM9", "약국")
     }
 
-    override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse) {
-        val searchWordResultList = response.documents
-        for (result in searchWordResultList) {
-            searchResult.add(SearchWordResultInfo(result.place_name, result.address_name,result.category_group_code,
-                result.category_name, result.road_address_name, result.phone, result.place_url, result.x, result.y))
+    override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse?) {
+        if(response != null){
+            val searchWordResultList = response.documents
+            Log.d("체크","현재 Page 수 : ${page} total: ${response.meta.pageable_count} is_end: ${response.meta.is_end}")
+            for (result in searchWordResultList) {
+                searchResult.add(SearchWordResultInfo(result.place_name, result.address_name,result.category_group_code,
+                    result.category_name, result.road_address_name, result.phone, result.place_url, result.x, result.y))
+            }
+            binding.srRvResult.apply{
+                setHasFixedSize(true)
+                adapter = SearchWordResultAdapter(searchResult, categoryGCeMap)
+            }
+            searchWord=""
+        }else{
+            showCustomToast("마지막 페이지 입니다.")
         }
-        binding.srRvResult.apply{
-            setHasFixedSize(true)
-            adapter = SearchWordResultAdapter(searchResult, categoryGCeMap)
-        }
-        searchWord=""
     }
 
     override fun onGetKeywordSearchFailure(message: String) {
-        dismissLoadingDialog()
         showCustomToast("오류 : $message")
     }
 

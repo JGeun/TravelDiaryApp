@@ -10,7 +10,10 @@ class KakaoSearchKeywordService(val view: KakaoSearchView){
         val kakaoKeywordSearchRetrofitInterface : KakaoSearchKeywordRetorfitInterface = TravelPlanBaseActivity.kakaoRetrofit.create(KakaoSearchKeywordRetorfitInterface::class.java)
         kakaoKeywordSearchRetrofitInterface.getKeywordSearchInfo(query, page).enqueue(object : Callback<KakaoSearchKeywordResponse>{
             override fun onResponse(call: Call<KakaoSearchKeywordResponse>, response: Response<KakaoSearchKeywordResponse>) {
-                view.onGetKeywordSearchSuccess(response.body() as KakaoSearchKeywordResponse)
+                if(response.body() != null)
+                    view.onGetKeywordSearchSuccess(response.body() as KakaoSearchKeywordResponse)
+                else
+                    view.onGetKeywordSearchSuccess(null)
             }
 
             override fun onFailure(call: Call<KakaoSearchKeywordResponse>, t: Throwable) {

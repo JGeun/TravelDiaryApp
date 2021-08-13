@@ -214,7 +214,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
         val imageStorageRef =
             storageRef.child("/diary/${user!!.email}/${MainActivity.userPlanArray[index].baseData.idx}/mainImage.png")
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 20, baos)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 10, baos)
         val data = baos.toByteArray()
 
         showLoadingDialog(this)

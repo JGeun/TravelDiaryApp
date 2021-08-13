@@ -303,8 +303,8 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse) {
-        Log.d("확인", response.documents.size.toString())
+    override fun onGetKeywordSearchSuccess(response: KakaoSearchKeywordResponse?) {
+        Log.d("확인", response!!.documents.size.toString())
 
         val intent = Intent(context, SearchWordResultActivity::class.java)
         intent.putExtra("word", searchWord)

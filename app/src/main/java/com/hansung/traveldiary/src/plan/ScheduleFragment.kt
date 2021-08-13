@@ -59,14 +59,12 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
             }
             "sky"->{
                 binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_sky_plan)
-
             }
             "yellow"->{
                 binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_yellow_plan)
             }
             "orange"->{
                 binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_orange_plan)
-
             }
             "purple"->{
                 binding.scheduleNoPlan.setBackgroundResource(R.drawable.bg_purple_plan)
@@ -88,8 +86,6 @@ class ScheduleFragment(val index: Int, val day: Int) : Fragment(){
                 binding.scheduleRecyclerview.isVisible = false
             }
         }
-
-
 
         binding.tvChecked.setOnClickListener {
             checked = false

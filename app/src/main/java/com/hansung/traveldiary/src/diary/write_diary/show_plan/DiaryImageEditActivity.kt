@@ -151,7 +151,7 @@ class DiaryImageEditActivity : AppCompatActivity() {
         val imageStorageRef =
             storageRef.child("/diary/${user!!.email.toString()}/${MainActivity.userDiaryArray[index].baseData.idx}/day${day + 1}/image${count}.png")
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 20, baos)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 10, baos)
         val data = baos.toByteArray()
 
         val uploadTask = imageStorageRef.putBytes(data)

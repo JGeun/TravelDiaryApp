@@ -22,6 +22,12 @@
         android:icon="@drawable/bottom_nav_travel_checkable" />
 
     <item
+        android:id="@+id/main_btm_message"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:icon="@drawable/bottom_nav_user_checkable" />
+
+    <item
         android:id="@+id/main_btm_profile"
         app:showAsAction="always"
         android:enabled="true"

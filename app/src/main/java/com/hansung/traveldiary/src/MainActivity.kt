@@ -20,6 +20,7 @@ import com.hansung.traveldiary.src.home.HomeFragment
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMainBinding
 import com.hansung.traveldiary.src.bulletin.BulletinFragment
+import com.hansung.traveldiary.src.message.MessageFragment
 import com.hansung.traveldiary.src.profile.ProfileFragment
 import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
 import com.hansung.traveldiary.src.travel.TravelBaseFragment
@@ -128,6 +129,13 @@ class MainActivity : AppCompatActivity() {
                             .replace(R.id.main_frm, TravelBaseFragment())
                             .commitAllowingStateLoss()
                         Log.d("확인", "travel")
+                        return@OnNavigationItemSelectedListener true
+                    }
+                    R.id.main_btm_message -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_frm, MessageFragment())
+                            .commitAllowingStateLoss()
+                        Log.d("확인", "message")
                         return@OnNavigationItemSelectedListener true
                     }
                     R.id.main_btm_profile -> {
