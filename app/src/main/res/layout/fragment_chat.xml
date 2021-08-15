@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1EAF8">
+    android:background="@color/home_bgcolor">
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/chat_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/main_font2"
         android:text="채팅"
         android:textColor="@color/black"
@@ -22,10 +22,9 @@
         android:id="@+id/iv_setting"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/chat_title"
         app:srcCompat="@drawable/ic_settings" />
 
     <ImageView
@@ -34,8 +33,8 @@
         android:layout_height="25dp"
         android:layout_marginEnd="10dp"
         android:src="@drawable/btm_chat_black"
-        app:layout_constraintEnd_toStartOf="@+id/iv_setting"
-        app:layout_constraintTop_toTopOf="@+id/iv_setting" />
+        app:layout_constraintEnd_toStartOf="@id/iv_setting"
+        app:layout_constraintTop_toTopOf="@id/chat_title" />
 
     <ImageView
         android:id="@+id/iv_find"
@@ -43,9 +42,9 @@
         android:layout_height="29dp"
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_home_find"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_newChat"
-        app:layout_constraintEnd_toStartOf="@+id/iv_newChat"
-        app:layout_constraintTop_toTopOf="@+id/iv_newChat" />
+        app:layout_constraintBottom_toBottomOf="@id/iv_newChat"
+        app:layout_constraintEnd_toStartOf="@id/iv_newChat"
+        app:layout_constraintTop_toTopOf="@id/chat_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messeage_rv"
@@ -55,21 +54,9 @@
         android:layout_marginHorizontal="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-<<<<<<< HEAD:app/src/main/res/layout/fragment_message.xml
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@id/chat_title"
+        android:overScrollMode="never"/>
 
 
-=======
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="버튼"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"
-        app:layout_constraintStart_toStartOf="parent"/>
->>>>>>> jg_branch:app/src/main/res/layout/fragment_chat.xml
 </androidx.constraintlayout.widget.ConstraintLayout>

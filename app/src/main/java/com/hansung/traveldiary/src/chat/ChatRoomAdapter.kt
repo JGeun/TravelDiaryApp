@@ -1,4 +1,4 @@
-package com.hansung.traveldiary.src.yeeun
+package com.hansung.traveldiary.src.chat
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,11 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.hansung.traveldiary.databinding.ItemMessageUserBinding
-import org.w3c.dom.Text
+import com.hansung.traveldiary.databinding.ItemChatRoomBinding
 
-class MessageAdapter(private val userMessageData: ArrayList<MessageData>):RecyclerView.Adapter<MessageAdapter.ViewHolder>(){
-    class ViewHolder(binding: ItemMessageUserBinding):RecyclerView.ViewHolder(binding.root) {
+class ChatRoomAdapter(private val userMessageData: ArrayList<MessageData>):RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>(){
+    class ViewHolder(binding: ItemChatRoomBinding):RecyclerView.ViewHolder(binding.root) {
         val userProfileImage: ImageView
         val userName: TextView
         val userPreview: TextView
@@ -28,7 +27,7 @@ class MessageAdapter(private val userMessageData: ArrayList<MessageData>):Recycl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemMessageUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemChatRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         
         return ViewHolder(binding)
     }
