@@ -11,11 +11,11 @@ import com.hansung.traveldiary.databinding.ItemBulletinDaySectionBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.UserDiaryData
 
-class BulletinDaySectionAdapter(private val index: Int, private val size: Int): RecyclerView.Adapter<BulletinDaySectionAdapter.ViewHolder>() {
+class BulletinDaySectionAdapter(private val index: Int, private val size: Int,private val userImagePath:String): RecyclerView.Adapter<BulletinDaySectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemBulletinDaySectionBinding):RecyclerView.ViewHolder(binding.root){
         val dayText = binding.itemBdsDayCount
-//        val tag = binding.dsItemTvTag
+        //        val tag = binding.dsItemTvTag
         val diaryImage = binding.itemBdsIvDiary
     }
 
@@ -26,10 +26,11 @@ class BulletinDaySectionAdapter(private val index: Int, private val size: Int): 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray[position]
-            //diaryAllList[index].diaryData
+        //diaryAllList[index].diaryData
         holder.dayText.text = (position+1).toString()
 //        holder.tag.text = data.tag
         val context = holder.itemView.context
+        println("현재 게시글을 작성한 유저의 이메일 : "+MainActivity.userList.emailFolder[index].toString())
         if (data.diaryInfo.imagePathArray.size != 0) {
             Glide.with(holder.itemView.context).load(data.diaryInfo.imagePathArray[0])
                 .into(holder.diaryImage)
@@ -42,6 +43,7 @@ class BulletinDaySectionAdapter(private val index: Int, private val size: Int): 
                 )
             ).into(holder.diaryImage)
         }
+
         holder.itemView.setOnClickListener{
             println("index: ${index} day: ${position}")
             println(MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray[position].diaryInfo.diaryTitle)
@@ -49,6 +51,7 @@ class BulletinDaySectionAdapter(private val index: Int, private val size: Int): 
             intent.putExtra("index", index)
             intent.putExtra("day", position)
             intent.putExtra("isBulletin", true)
+            intent.putExtra("image",userImagePath)
             context.startActivity(intent)
         }
     }

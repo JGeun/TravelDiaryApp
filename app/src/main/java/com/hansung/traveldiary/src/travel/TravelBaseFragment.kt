@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.travel
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.hansung.traveldiary.databinding.FragmentTravelBinding
+import com.hansung.traveldiary.src.bulletin.searchActivity
 
 class TravelBaseFragment : Fragment(){
     private lateinit var binding : FragmentTravelBinding
@@ -24,7 +26,10 @@ class TravelBaseFragment : Fragment(){
         pager.adapter = pagerAdapter
         val tab = binding.tab
         tab.setupWithViewPager(pager)
-
+        binding.imageView2.setOnClickListener{
+            val intent= Intent(activity, searchActivity::class.java)
+            startActivity(intent)
+        }
         return binding.root
     }
 }

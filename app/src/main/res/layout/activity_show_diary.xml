@@ -27,6 +27,17 @@
 
     </androidx.viewpager2.widget.ViewPager2>
 
+    <ImageView
+        android:id="@+id/iv_profile_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/sd_title"
+        app:layout_constraintStart_toStartOf="@+id/sd_title"
+        app:layout_constraintTop_toTopOf="@+id/sd_date"
+        app:layout_constraintVertical_bias="0.0"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <me.relex.circleindicator.CircleIndicator3
         android:id="@+id/sd_indicator"
         android:layout_width="match_parent"

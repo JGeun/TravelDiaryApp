@@ -1,6 +1,7 @@
 package com.hansung.traveldiary.src.bulletin
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
@@ -18,6 +19,8 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         val likeCnt=binding.btItemTvLikecnt
         val comment=binding.btItemTvComment
         val viewpager=binding.viewPager
+        var index=-1
+        var url=""
         //val thumbnail = binding.btItemIvThumbnail
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
@@ -35,12 +38,10 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
 
         holder.userName.text = MainActivity.userInfoList[index].nickname
         val userImagePath = MainActivity.userInfoList[index].profileImage
-
         if(userImagePath == "")
             Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
         else
-            Glide.with(context).load(userImagePath).circleCrop().into(holder.userImage)
-
+            Glide.with(context).load(userImagePath.toString()).circleCrop().into(holder.userImage)
 
         holder.viewpager.adapter = BulletinViewPagerAdapter(position)
         holder.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -48,15 +49,16 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         holder.likeCnt.text=data.baseData.like.toString()
         holder.comment.text=data.baseData.comments.toString()
         holder.itemView.setTag(position)
+        holder.index=index
+        holder.url=userImagePath.toString()
 
         holder.itemView.setOnClickListener{
-            println("index: ${position} 넘겨줌")
             val intent = Intent(context,BulletinDaySectionActivity::class.java)
-            intent.putExtra("index", position)
+            intent.putExtra("index", holder.index)
+            intent.putExtra("image",holder.url)
             context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int = MainActivity.bulletinDiaryArray.size
-
 }

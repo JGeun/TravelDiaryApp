@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.bulletin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -23,7 +24,10 @@ class BulletinFragment : Fragment(){
             adapter = BulletinAdapter()
             layoutManager = LinearLayoutManager(context)
         }
-
+        binding.searchIcon.setOnClickListener{
+            val intent= Intent(activity,searchActivity::class.java)
+            startActivity(intent)
+        }
         return binding.root
     }
 }
