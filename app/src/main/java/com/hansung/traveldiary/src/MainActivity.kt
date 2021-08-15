@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     R.id.main_btm_message -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_frm, MessageFragment())
+                            .replace(R.id.main_frm, com.hansung.traveldiary.src.yeeun.MessageFragment())
                             .commitAllowingStateLoss()
                         Log.d("확인", "message")
                         return@OnNavigationItemSelectedListener true
