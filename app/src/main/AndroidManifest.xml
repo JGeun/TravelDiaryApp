@@ -15,11 +15,15 @@
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.diary.write_diary.ShowPlacelistActivity"></activity>
-        <activity android:name=".src.diary.write_diary.show_plan.DiaryImageEditActivity"></activity>
+        <activity
+            android:name=".src.chat.ChatActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".src.diary.write_diary.ShowPlacelistActivity" />
+        <activity android:name=".src.diary.write_diary.show_plan.DiaryImageEditActivity" />
         <activity android:name=".src.home.weather.WeatherActivity" />
-        <activity android:name=".src.diary.write_diary.WriteDiaryActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".src.diary.write_diary.WriteDiaryActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".src.bulletin.ShowDiaryActivity" />
         <activity android:name=".src.home.WebViewActivity" />
         <activity android:name=".src.diary.MyDiaryDaySectionActivity" />
