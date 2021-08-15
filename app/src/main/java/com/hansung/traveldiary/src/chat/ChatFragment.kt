@@ -37,6 +37,10 @@ class ChatFragment : Fragment() {
             startActivity(Intent(context, ChatActivity::class.java))
         }
 
+        binding.ivNewChat.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.main_frm, NewChatFragment())?.commit()
+        }
+
         return binding.root
     }
 

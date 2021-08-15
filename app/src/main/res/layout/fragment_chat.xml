@@ -32,16 +32,16 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/btm_chat_black"
+        android:src="@drawable/ic_newchat"
         app:layout_constraintEnd_toStartOf="@id/iv_setting"
         app:layout_constraintTop_toTopOf="@id/chat_title" />
 
     <ImageView
         android:id="@+id/iv_find"
-        android:layout_width="29dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_home_find"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="9dp"
+        android:src="@drawable/ic_search"
         app:layout_constraintBottom_toBottomOf="@id/iv_newChat"
         app:layout_constraintEnd_toStartOf="@id/iv_newChat"
         app:layout_constraintTop_toTopOf="@id/chat_title" />
