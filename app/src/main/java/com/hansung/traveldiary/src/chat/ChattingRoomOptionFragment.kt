@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.chat
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +24,8 @@ class ChattingRoomOptionFragment: Fragment() {
         }
 
         binding.tvCheck.setOnClickListener {
-
+            startActivity(Intent(context, ChatActivity::class.java))
         }
-
 
         return binding.root
     }

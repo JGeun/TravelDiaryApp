@@ -32,10 +32,12 @@ class NewChatAdapter(val users : ArrayList<UserData>) : RecyclerView.Adapter<New
         holder.userName.text = users[position].name
         holder.itemView.setOnClickListener{
             if(holder.userRb.isChecked){
-                holder.userRg.clearCheck()
+                Log.d("채팅", "${position}, ${holder.userRb.isChecked}")
                 holder.userRb.isChecked = false
+                holder.userRg.clearCheck()
                 holder.background.setBackgroundColor(Color.WHITE)
             }else{
+                Log.d("채팅", "${position}, ${holder.userRb.isChecked}")
                 holder.userRb.isChecked = true
                 holder.background.setBackgroundColor(Color.parseColor("#F5F1F6"))
             }
