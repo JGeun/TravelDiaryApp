@@ -36,15 +36,17 @@ class ChatAdapter(val myUser : String) : RecyclerView.Adapter<ChatAdapter.ViewHo
         if(chatList.chatFolder[position].userEmail == myUser){
             holder.myLayout.visibility = View.VISIBLE
             holder.userLayout.visibility = View.INVISIBLE
-            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.bg_profile, null)).into(holder.myImage)
+            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).into(holder.myImage)
             holder.myName.text = chatList.chatFolder[position].userEmail
             holder.myContents.text = chatList.chatFolder[position].contents
+            holder.myContents.background = ResourcesCompat.getDrawable(context.resources, R.drawable.bg_my_chat, null)
         }else{
             holder.myLayout.visibility = View.INVISIBLE
             holder.userLayout.visibility = View.VISIBLE
-            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.bg_profile, null)).into(holder.userImage)
+            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_seoul_cup, null)).into(holder.userImage)
             holder.userName.text = chatList.chatFolder[position].userEmail
             holder.userContents.text = chatList.chatFolder[position].contents
+            holder.userContents.background = ResourcesCompat.getDrawable(context.resources, R.drawable.bg_not_my_chat, null)
         }
     }
 

@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/bg_profile" />
+                android:src="@drawable/img_beach" />
 
         </androidx.cardview.widget.CardView>
 
@@ -89,11 +89,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_my_chat"
                 android:fontFamily="@font/main_font2"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="3dp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="7dp"
                 android:text="userText\nasdasdasdasdasdasdasd"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_gravity="end"/>
         </LinearLayout>
 
@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/bg_profile" />
+                android:src="@drawable/img_seoul_cup" />
 
         </androidx.cardview.widget.CardView>
     </LinearLayout>
