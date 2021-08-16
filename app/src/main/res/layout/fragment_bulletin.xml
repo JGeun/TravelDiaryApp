@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/test_color">
+    android:background="@color/bulletin_bg_color">
 
     <TextView
         android:id="@+id/bulletinTitle"

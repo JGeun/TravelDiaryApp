@@ -10,14 +10,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivitySearchBinding
 import com.hansung.traveldiary.src.plan.KakaoSearchKeywordService
+import com.hansung.traveldiary.util.StatusBarUtil
 
 class searchActivity : AppCompatActivity() {
 
-    private lateinit var binding:ActivitySearchBinding
+    private val binding:ActivitySearchBinding by lazy{
+        ActivitySearchBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding=ActivitySearchBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
+
         val popular_words:ArrayList<String> =  arrayListOf()
         popular_words.add("경상남도 명소")
         popular_words.add("부산 맛집")

@@ -9,6 +9,6 @@
         android:radius="10dp"/>
 
     <stroke
-        android:color="@color/test_color"
+        android:color="@color/bulletin_bg_color"
         android:width="1dp"/>
 </shape>

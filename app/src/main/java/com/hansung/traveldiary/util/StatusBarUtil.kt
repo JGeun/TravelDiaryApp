@@ -13,6 +13,7 @@ class StatusBarUtil {
         DEFAULT_STATUS_BAR(R.color.white),
         DIARY_SECTION_STATUS_BAR(R.color.diary_section_bgcolor),
         MAIN_STATUS_BAR(R.color.maincolor),
+        LIGHT_MAIN_STATUS_BAR(R.color.maincolor_light),
         TRANSPARENT_STATUS_BAR(R.color.transparent),
         WEATHER_DAY_STATUS_BAR(R.color.weather_day_color)
     }
