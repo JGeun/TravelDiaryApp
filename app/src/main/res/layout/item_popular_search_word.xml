@@ -2,6 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginLeft="16dp"
+    android:layout_marginBottom="10dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -9,7 +11,6 @@
         android:id="@+id/keywords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:background="@drawable/bg_main_color_plan"
         android:fontFamily="@font/main_font2"
         android:paddingHorizontal="7dp"
@@ -17,6 +18,8 @@
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
