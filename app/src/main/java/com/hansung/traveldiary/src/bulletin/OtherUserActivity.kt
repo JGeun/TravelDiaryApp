@@ -21,7 +21,7 @@ class OtherUserActivity : AppCompatActivity() {
     private val binding by lazy{
         ActivityOtherUserBinding.inflate(layoutInflater)
     }
-    private val diarySectionAdapter = DiarySectionAdapter(MainActivity.userDiaryArray)
+    private val diarySectionAdapter = OtherUserDiaryAdapter(MainActivity.userDiaryArray)
     private var db: FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
