@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemChatBinding
+import com.hansung.traveldiary.src.ChatData
+import com.hansung.traveldiary.src.ChatFolder
 
 class ChatAdapter(val myUser : String) : RecyclerView.Adapter<ChatAdapter.ViewHolder>(){
     private val chatList = ChatFolder()

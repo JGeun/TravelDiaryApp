@@ -9,6 +9,13 @@ data class UserInfo(var nickname:String= "", var profileImage: String= "") //프
 //Total Idx List
 data class IdxList(var idxFolder: ArrayList<Long> = ArrayList())
 
+//Chat
+data class ChatIdxFolder(var chatIdxFolder: ArrayList<ChatIdxData> = ArrayList())
+data class ChatIdxData(var idx: Long, var friendsEmailList : UserList = UserList(), var title: String, var image: String, var preview: String, var lastTime: String)
+
+data class ChatFolder(var chatFolder: ArrayList<ChatData> = ArrayList())
+data class ChatData(var userEmail: String ="", var contents: String="")
+
 ////UserInfoDataSet
 //data class UserContents(var nickname: String="", var profileImage: String="")
 data class PlaceData(var latitude: Double = 37.58842461354086, var longitude: Double = 127.00601781685579, var placeName: String? = null)
@@ -37,6 +44,7 @@ data class DiaryInfo(var date: String="", var diaryInfo : DiaryData = DiaryData(
         return this.date.compareTo(other.date)
     }
 }
+
 data class UserDiaryData(var baseData: DiaryBaseData = DiaryBaseData(), var diaryArray: ArrayList<DiaryInfo> = ArrayList()) : Comparable<UserDiaryData> {
     override fun compareTo(other: UserDiaryData): Int {
         if (this.baseData.startDate.compareTo(other.baseData.startDate) < 0) {

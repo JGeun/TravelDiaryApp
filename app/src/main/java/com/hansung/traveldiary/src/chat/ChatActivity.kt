@@ -12,11 +12,12 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityChatBinding
+import com.hansung.traveldiary.src.ChatData
+import com.hansung.traveldiary.src.ChatFolder
 import com.hansung.traveldiary.src.plan.KakaoSearchKeywordService
 import com.hansung.traveldiary.util.StatusBarUtil
 
-data class ChatFolder(var chatFolder: ArrayList<ChatData> = ArrayList())
-data class ChatData(var userEmail: String ="", var contents: String="")
+
 
 class ChatActivity : AppCompatActivity() {
     private var chatList = ChatFolder()
