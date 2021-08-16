@@ -25,7 +25,13 @@ class NewChatFragment : Fragment() {
 
         initUsersData()
 
-        binding.newChatRv.apply {
+        binding.selectedUsersRv.apply {
+            adapter = SelectedUsersAdapter(usersDataList)
+            setHasFixedSize(false)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        binding.usersRv.apply {
             adapter = NewChatAdapter(usersDataList)
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
