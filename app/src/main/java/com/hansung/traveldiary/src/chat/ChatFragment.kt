@@ -25,7 +25,8 @@ class ChatFragment : Fragment() {
     ): View? {
         binding = FragmentChatBinding.inflate(inflater, container, false)
 
-        initUserMessageData()
+//        initUserMessageData()
+
 
         binding.messeageRv.apply {
             adapter = ChatRoomAdapter(userMessageDataList)
