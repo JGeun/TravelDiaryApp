@@ -67,6 +67,9 @@ class ChatFragment : Fragment() {
             }
         }
 
+    binding.ivNewChat.setOnClickListener {
+        fragmentManager?.beginTransaction()?.replace(R.id.main_frm, NewChatFragment())?.commit()
+    }
 
         binding.ivSetting.setOnClickListener {
             startActivity(Intent(context, ChatActivity::class.java))
@@ -75,68 +78,66 @@ class ChatFragment : Fragment() {
         return binding.root
     }
 
+    private fun initUserMessageData() {
+        ResourcesCompat.getDrawable(resources, R.drawable.img_seoul, null)?.let {
+            MessageData(
+                it, "프로필 이름", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:40"
+            )
+        }?.let {
+            userMessageDataList.add(
+                it
+            )
+        }
 
+        ResourcesCompat.getDrawable(resources, R.drawable.ig_home_daejeon, null)?.let {
+            MessageData(
+                it, "박진영", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:41"
+            )
+        }?.let {
+            userMessageDataList.add(
+                it
+            )
+        }
 
-//    private fun initUserMessageData() {
-//        ResourcesCompat.getDrawable(resources, R.drawable.img_seoul, null)?.let {
-//            MessageData(
-//                it, "프로필 이름", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:40"
-//            )
-//        }?.let {
-//            userMessageDataList.add(
-//                it
-//            )
-//        }
-//
-//        ResourcesCompat.getDrawable(resources, R.drawable.ig_home_daejeon, null)?.let {
-//            MessageData(
-//                it, "박진영", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:41"
-//            )
-//        }?.let {
-//            userMessageDataList.add(
-//                it
-//            )
-//        }
-//
-//        ResourcesCompat.getDrawable(resources, R.drawable.ig_home_busan, null)?.let {
-//            MessageData(
-//                it, "처돌이", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:42"
-//            )
-//        }?.let {
-//            userMessageDataList.add(
-//                it
-//            )
-//        }
-//
-//        ResourcesCompat.getDrawable(resources, R.drawable.img_seoul, null)?.let {
-//            MessageData(
-//                it, "프로필 이름", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:40"
-//            )
-//        }?.let {
-//            userMessageDataList.add(
-//                it
-//            )
-//        }
-//
-//        ResourcesCompat.getDrawable(resources, R.drawable.ig_home_daejeon, null)?.let {
-//            MessageData(
-//                it, "박진영", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:41"
-//            )
-//        }?.let {
-//            userMessageDataList.add(
-//                it
-//            )
-//        }
-//
-//        ResourcesCompat.getDrawable(resources, R.drawable.ig_home_busan, null)?.let {
-//            MessageData(
-//                it, "처돌이", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:42"
-//            )
-//        }?.let {
-//            userMessageDataList.add(
-//                it
-//            )
-//        }
-//
-//    }
+        ResourcesCompat.getDrawable(resources, R.drawable.ig_home_busan, null)?.let {
+            MessageData(
+                it, "처돌이", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:42"
+            )
+        }?.let {
+            userMessageDataList.add(
+                it
+            )
+        }
+
+        ResourcesCompat.getDrawable(resources, R.drawable.img_seoul, null)?.let {
+            MessageData(
+                it, "프로필 이름", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:40"
+            )
+        }?.let {
+            userMessageDataList.add(
+                it
+            )
+        }
+
+        ResourcesCompat.getDrawable(resources, R.drawable.ig_home_daejeon, null)?.let {
+            MessageData(
+                it, "박진영", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:41"
+            )
+        }?.let {
+            userMessageDataList.add(
+                it
+            )
+        }
+
+        ResourcesCompat.getDrawable(resources, R.drawable.ig_home_busan, null)?.let {
+            MessageData(
+                it, "처돌이", "채팅 내용들 어디까지 보이나 라랄라라라라라라라라라라라라라라라라랄ㄹ라", "오전 10:42"
+            )
+        }?.let {
+            userMessageDataList.add(
+                it
+            )
+        }
+
+    }
 }

@@ -142,8 +142,8 @@ class AddTravelPlanActivity : AppCompatActivity() {
         binding.addPlanBtn.setOnClickListener {
             val area = areaViewModel.areaData.value
             val title = binding.atpTitle.text.toString()
-            val startDate = startdate
-            val endDate = enddate
+            val startDate = binding.atpStartDate.text.toString()
+            val endDate = binding.atpEndDate.text.toString()
             val peopleCount = binding.atpPeople.text.toString().toInt()
 
             if(!isModify){
