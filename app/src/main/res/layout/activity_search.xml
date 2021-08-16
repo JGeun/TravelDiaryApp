@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -59,8 +59,8 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="7dp"
             android:src="@drawable/icon_search"
-            app:layout_constraintEnd_toEndOf="@+id/editText"
-            app:layout_constraintTop_toTopOf="@+id/editText" />
+            app:layout_constraintEnd_toEndOf="@+id/et_search"
+            app:layout_constraintTop_toTopOf="@+id/et_search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -78,7 +78,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView7">
@@ -108,32 +108,32 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv1"
+    <GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
+        android:layout_height="70dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="1dp"
-        android:orientation="horizontal"
-        android:overScrollMode="never"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </GridLayout>
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/main_font2"
         android:text="최근 검색어"
         android:textColor="@color/black"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv1" />
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
 
     <View
         android:id="@+id/view2"
@@ -150,8 +150,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />

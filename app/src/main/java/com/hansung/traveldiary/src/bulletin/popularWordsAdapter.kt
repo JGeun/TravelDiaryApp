@@ -1,6 +1,8 @@
 package com.hansung.traveldiary.src.bulletin
 
+import android.graphics.Rect
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.traveldiary.databinding.ItemDiaryBinding
@@ -26,6 +28,5 @@ class popularWordsAdapter(val popularWords:ArrayList<String>): RecyclerView.Adap
     override fun getItemCount(): Int {
         return popularWords.size
     }
-
 
 }

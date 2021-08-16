@@ -29,7 +29,7 @@
             android:id="@+id/profile_cv_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="70dp"
             app:cardCornerRadius="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -163,6 +163,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_status" />
+
+        <Button
+            android:id="@+id/btn_add_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/add_plan_btn"
+            android:fontFamily="@font/main_font2"
+            android:text="친구 추가"
+            app:layout_constraintBottom_toBottomOf="@+id/bg_profile_toppanel"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,6 +10,7 @@ class resentWordsAdapter(val resentWords:ArrayList<String>): RecyclerView.Adapte
     class ViewHolder(val binding: ItemRecentWordsBinding) : RecyclerView.ViewHolder(binding.root) {
         val words=binding.keyword
         val day=binding.searchDays
+        val delete=binding.ivDelete
     }
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,6 +22,11 @@ class resentWordsAdapter(val resentWords:ArrayList<String>): RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: resentWordsAdapter.ViewHolder, position: Int) {
         holder.words.text=resentWords[position]
+        holder.delete.setOnClickListener {
+            println("값 제거")
+            resentWords.removeAt(position)
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int {

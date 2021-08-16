@@ -2,6 +2,7 @@ package com.hansung.traveldiary.src.bulletin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -45,7 +46,12 @@ class OtherUserActivity : AppCompatActivity() {
         binding.diaryCount.text = MainActivity.userDiaryArray.size.toString()
         binding.rv.apply {
             setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
             adapter = diarySectionAdapter
+        }
+        //기능구현 x
+        binding.btnAddFriend.setOnClickListener {
+            Toast.makeText(this,"친구 추가가 완료되었습니다", Toast.LENGTH_SHORT).show()
         }
         setContentView(binding.root)
     }
