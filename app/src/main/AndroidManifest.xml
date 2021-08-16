@@ -15,8 +15,13 @@
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
+
         <activity android:name=".src.bulletin.searchActivity"></activity>
         <activity android:name=".src.bulletin.OtherUserActivity" />
+
+        <activity
+            android:name=".src.chat.ChatActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".src.diary.write_diary.ShowPlacelistActivity" />
         <activity android:name=".src.diary.write_diary.show_plan.DiaryImageEditActivity" />
         <activity android:name=".src.home.weather.WeatherActivity" />

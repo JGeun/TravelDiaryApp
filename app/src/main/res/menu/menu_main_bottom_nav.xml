@@ -25,7 +25,7 @@
         android:id="@+id/main_btm_message"
         app:showAsAction="always"
         android:enabled="true"
-        android:icon="@drawable/bottom_nav_user_checkable" />
+        android:icon="@drawable/bottom_nav_chat_checkable" />
 
     <item
         android:id="@+id/main_btm_profile"
