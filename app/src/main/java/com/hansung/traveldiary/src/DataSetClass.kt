@@ -4,14 +4,14 @@ package com.hansung.traveldiary.src
 
 //Total User Email List
 data class UserList(var emailFolder: ArrayList<String> = ArrayList())
-data class UserInfo(var nickname:String= "", var profileImage: String= "") //프로필
+data class UserInfo(var nickname:String= "", var profileImage: String= "", var friendList : ArrayList<String> = ArrayList()) //프로필
 
 //Total Idx List
 data class IdxList(var idxFolder: ArrayList<Long> = ArrayList())
 
 //Chat
 data class ChatIdxFolder(var chatIdxFolder: ArrayList<ChatIdxData> = ArrayList())
-data class ChatIdxData(var idx: Long, var friendsEmailList : UserList = UserList(), var title: String, var image: String, var preview: String, var lastTime: String)
+data class ChatIdxData(var idx: Long = 0, var friendsEmailList : UserList = UserList(), var title: String = "", var image: String = "", var preview: String = "", var lastTime: String = "")
 
 data class ChatFolder(var chatFolder: ArrayList<ChatData> = ArrayList())
 data class ChatData(var userEmail: String ="", var contents: String="")
