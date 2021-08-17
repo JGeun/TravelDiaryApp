@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         var cloudsText: String = "30%"
         var weeklyList = ArrayList<WeeklyWeatherData>()
 
+        var myFriendList  = FriendList()
         var userList = UserList() //유저 이메일 정보 리스트
         var userInfoList = ArrayList<UserInfo>() //유저 닉네임, 이미지 정보 리스트
         var idxList = IdxList() //전체 idx 리스트
@@ -234,6 +236,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initList() {
+        myFriendList.friendFolder.clear()
         userList.emailFolder.clear()
         userInfoList.clear()
         idxList.idxFolder.clear()
@@ -324,10 +327,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun getDBData() {
         showLoadingDialog(this)
+        getMyFriendList()
         getUserList()
         getTotalIdxList()
         getMyPlanData()
 //        getMyDiaryData()
+    }
+
+    private fun getMyFriendList(){
+        db!!.collection("UserInfo").document(user!!.email.toString())
+            .get().addOnSuccessListener { result ->
+                val data = result.toObject<UserInfo>()
+                if(data != null){
+                    myFriendList = data.friendList
+                }else{
+                    Toast.makeText(this, "UserInfo가 없대", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     private fun getUserList() {

@@ -20,6 +20,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.src.IdxList
 import com.hansung.traveldiary.src.UserDiaryData
+import com.hansung.traveldiary.src.UserInfo
 import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
 
 class OtherUserActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class OtherUserActivity : AppCompatActivity() {
         ActivityOtherUserBinding.inflate(layoutInflater)
     }
 
+    private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,7 @@ class OtherUserActivity : AppCompatActivity() {
             this.statusBarColor = Color.TRANSPARENT
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN }
 
+        user = Firebase.auth.currentUser
         db = Firebase.firestore
         val index = intent.getIntExtra("index", 0)
 
@@ -55,7 +58,7 @@ class OtherUserActivity : AppCompatActivity() {
             Glide.with(this).load(userImagePath).circleCrop().into(binding.userProfileImage)
 
         binding.planCount.text = "0"
-        binding.friendsCount.text = MainActivity.bulletinDiaryArray[index].userInfo.friendList.size.toString()
+        binding.friendsCount.text = MainActivity.bulletinDiaryArray[index].userInfo.friendList.friendFolder.size.toString()
 
 
 
@@ -66,6 +69,7 @@ class OtherUserActivity : AppCompatActivity() {
                 userDiaryArray.add(MainActivity.bulletinDiaryArray[i].userDiaryData)
             }
         }
+
         binding.diaryCount.text = userDiaryArray.size.toString()
         binding.rv.apply {
             setHasFixedSize(true)
@@ -73,29 +77,25 @@ class OtherUserActivity : AppCompatActivity() {
             adapter = OtherUserDiaryAdapter(userDiaryArray)
         }
 
-//        val idxRef = db!!.collection("Diary").document(email)
-//        idxRef.get()
-//            .addOnSuccessListener { result ->
-//                val data = result.toObject<IdxList>()
-//                if(data != null){
-//                    binding.diaryCount.text = data.idxFolder.size.toString()
-//                    val userDiaryArray = ArrayList<UserDiaryData>()
-//                    val dataRef  = idxRef.collection("DiaryData")
-//                    for(idx in data.idxFolder){
-//                        dataRef.document(idx.toString()).get()
-//                    }
-//
-//                }else{
-//                    binding.diaryCount.text = "0"
-//                }
-//        }
 
-
-
-
-        //기능구현 x
         binding.btnAddFriend.setOnClickListener {
-            Toast.makeText(this,"친구 추가가 완료되었습니다", Toast.LENGTH_SHORT).show()
+            val userRef = db!!.collection("UserInfo").document(user!!.email.toString())
+            userRef.get()
+                .addOnSuccessListener { result ->
+                    val data = result.toObject<UserInfo>()
+                    if(data != null){
+                        val userInfo = data
+                        userInfo.friendList.friendFolder.add(email)
+                        userRef.set(userInfo).addOnSuccessListener {
+                            Toast.makeText(this,"친구 추가가 완료되었습니다", Toast.LENGTH_SHORT).show()
+                        }.addOnFailureListener{
+                            Toast.makeText(this,"친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
+                        }
+                    }else{
+                        Toast.makeText(this,"친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
         }
         setContentView(binding.root)
     }

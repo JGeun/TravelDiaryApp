@@ -3,16 +3,15 @@ package com.hansung.traveldiary.src.chat
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.ItemChatBinding
 import com.hansung.traveldiary.databinding.ItemNewChatBinding
 
-class NewChatAdapter(val users : ArrayList<UserData>) : RecyclerView.Adapter<NewChatAdapter.ViewHolder>(){
+class ChatFriendListAdapter(val friendInfoList: ArrayList<FriendInfo> = ArrayList<FriendInfo>()) : RecyclerView.Adapter<ChatFriendListAdapter.ViewHolder>(){
+
     class ViewHolder(binding: ItemNewChatBinding) : RecyclerView.ViewHolder(binding.root){
         val userImage = binding.userImage
         val userName = binding.userName
@@ -28,8 +27,12 @@ class NewChatAdapter(val users : ArrayList<UserData>) : RecyclerView.Adapter<New
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
-        Glide.with(context).load(users[position].image).circleCrop().into(holder.userImage)
-        holder.userName.text = users[position].name
+        val imagePath = friendInfoList[position].imagePath
+        if(imagePath != "")
+            Glide.with(context).load(imagePath).circleCrop().into(holder.userImage)
+        else
+            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).into(holder.userImage)
+        holder.userName.text = friendInfoList[position].nickname
         holder.itemView.setOnClickListener{
             if(holder.userRb.isChecked){
                 Log.d("채팅", "${position}, ${holder.userRb.isChecked}")
@@ -44,6 +47,10 @@ class NewChatAdapter(val users : ArrayList<UserData>) : RecyclerView.Adapter<New
         }
     }
 
-    override fun getItemCount(): Int = users.size
+    override fun getItemCount(): Int = friendInfoList.size
+
+    fun addFriend(info: FriendInfo){
+        friendInfoList.add(info)
+    }
 
 }

@@ -4,7 +4,8 @@ package com.hansung.traveldiary.src
 
 //Total User Email List
 data class UserList(var emailFolder: ArrayList<String> = ArrayList())
-data class UserInfo(var nickname:String= "", var profileImage: String= "", var friendList : ArrayList<String> = ArrayList()) //프로필
+data class FriendList(var friendFolder: ArrayList<String> = ArrayList())
+data class UserInfo(var email: String = "", var nickname:String= "", var profileImage: String= "", var friendList : FriendList = FriendList())
 
 //Total Idx List
 data class IdxList(var idxFolder: ArrayList<Long> = ArrayList())
@@ -59,6 +60,6 @@ data class UserDiaryData(var baseData: DiaryBaseData = DiaryBaseData(), var diar
 
 data class BulletinData(var userDiaryData : UserDiaryData = UserDiaryData(), var userInfo : UserInfo = UserInfo()) : Comparable<BulletinData>{
     override fun compareTo(other: BulletinData): Int {
-        return this.userDiaryData.baseData.uploadDate.compareTo(other.userDiaryData.baseData.uploadDate)
+        return this.userDiaryData.baseData.uploadDate.compareTo(other.userDiaryData.baseData.uploadDate)*(-1)
     }
 }

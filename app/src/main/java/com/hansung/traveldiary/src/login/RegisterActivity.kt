@@ -15,6 +15,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.databinding.ActivityRegisterBinding
+import com.hansung.traveldiary.src.FriendList
 import com.hansung.traveldiary.src.UserInfo
 import com.hansung.traveldiary.src.UserList
 import com.hansung.traveldiary.util.LoadingDialog
@@ -73,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
                         userDataRef.set(userList)
                         val nickname = binding.registerNickname.text.toString()
                         val user = FirebaseAuth.getInstance().currentUser
-                        val userInfo = UserInfo(nickname, "")
+                        val userInfo = UserInfo(email, nickname, "", FriendList())
                         db!!.collection("UserInfo").document(user!!.email.toString())
                             .set(userInfo)
                             .addOnSuccessListener {

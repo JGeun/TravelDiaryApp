@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.databinding.ItemSelectedUsersBinding
 
-class SelectedUsersAdapter(val selectedusers: ArrayList<UserData>) : RecyclerView.Adapter<SelectedUsersAdapter.ViewHolder>() {
+class SelectedUsersAdapter(val selectedusers: ArrayList<FriendInfo>) : RecyclerView.Adapter<SelectedUsersAdapter.ViewHolder>() {
     class ViewHolder(binding: ItemSelectedUsersBinding) : RecyclerView.ViewHolder(binding.root) {
         val userImage = binding.userImage
         val userName = binding.userName
@@ -23,8 +23,8 @@ class SelectedUsersAdapter(val selectedusers: ArrayList<UserData>) : RecyclerVie
 
     override fun onBindViewHolder(holder: SelectedUsersAdapter.ViewHolder, position: Int) {
         val context = holder.itemView.context
-        Glide.with(context).load(selectedusers[position].image).circleCrop().into(holder.userImage)
-        holder.userName.text = selectedusers[position].name
+        Glide.with(context).load(selectedusers[position].imagePath).circleCrop().into(holder.userImage)
+        holder.userName.text = selectedusers[position].nickname
     }
 
     override fun getItemCount(): Int = selectedusers.size
