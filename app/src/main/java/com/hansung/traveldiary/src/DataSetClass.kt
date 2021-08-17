@@ -57,4 +57,8 @@ data class UserDiaryData(var baseData: DiaryBaseData = DiaryBaseData(), var diar
     }
 }
 
-data class BulletinData(var userDiaryData : UserDiaryData = UserDiaryData(), var userInfo : UserInfo = UserInfo())
+data class BulletinData(var userDiaryData : UserDiaryData = UserDiaryData(), var userInfo : UserInfo = UserInfo()) : Comparable<BulletinData>{
+    override fun compareTo(other: BulletinData): Int {
+        return this.userDiaryData.baseData.uploadDate.compareTo(other.userDiaryData.baseData.uploadDate)
+    }
+}

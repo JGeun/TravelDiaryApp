@@ -36,13 +36,13 @@ class BulletinDaySectionActivity : AppCompatActivity() {
         val index = intent.getIntExtra("index", 0)
         println("받은 index: ${index}")
         //프로필 이미지 설정
-        val userImagePath = intent.getStringExtra("image").toString()
-        println(userImagePath)
+
+        val userImagePath = MainActivity.bulletinDiaryArray[index].userInfo.profileImage
         if(userImagePath == "")
             Glide.with(this).load(ResourcesCompat.getDrawable(this.resources, R.drawable.img_beach, null)).circleCrop().into(binding.ivProfileImage)
         else
-        //Glide.with(this).load(userImagePath).circleCrop().into(binding.ivProfileImage)
-            Glide.with(this).load(ResourcesCompat.getDrawable(this.resources, R.drawable.img_beach, null)).circleCrop().into(binding.ivProfileImage)
+            Glide.with(this).load(userImagePath).circleCrop().into(binding.ivProfileImage)
+
 
         binding.bdsTitle.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.title
         binding.bdsIvBack.setOnClickListener{
@@ -56,9 +56,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         binding.ivProfileImage.setOnClickListener {
             val intent=Intent(this,OtherUserActivity::class.java)
-            intent.putExtra("nickname",MainActivity.userInfoList[index].nickname.toString())
-            intent.putExtra("image",userImagePath)
-            intent.putExtra("email",MainActivity.userList.emailFolder[index].toString())
+            intent.putExtra("index", index)
             startActivity(intent)
         }
     }

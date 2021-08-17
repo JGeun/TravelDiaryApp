@@ -420,7 +420,6 @@ class MainActivity : AppCompatActivity() {
                                                     )
                                                     println("MyBulletin SIZE: ${bulletinDiaryArray.size}")
                                                     dismissLoadingDialog()
-
                                                 }
                                             }
                                     }

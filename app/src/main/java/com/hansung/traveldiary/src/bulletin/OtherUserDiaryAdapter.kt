@@ -1,6 +1,7 @@
 package com.hansung.traveldiary.src.bulletin
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
@@ -21,7 +22,7 @@ import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity
 import com.hansung.traveldiary.src.diary.SendTravelPlanActivity
 import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
 
-class OtherUserDiaryAdapter (val userDiaryArray : ArrayList<UserDiaryData>):
+class OtherUserDiaryAdapter (val userDiaryArray: ArrayList<UserDiaryData> = ArrayList()):
     RecyclerView.Adapter<OtherUserDiaryAdapter.ViewHolder>() {
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
@@ -73,9 +74,7 @@ class OtherUserDiaryAdapter (val userDiaryArray : ArrayList<UserDiaryData>):
             context.startActivity(intent)
             //(context as MainActivity).overridePendingTransition(0, 0)
         }
-
-
     }
 
-    override fun getItemCount(): Int = MainActivity.userDiaryArray.size
+    override fun getItemCount(): Int = userDiaryArray.size
 }

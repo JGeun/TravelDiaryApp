@@ -54,7 +54,6 @@
         <activity android:name=".src.travel.DiaryActivity" />
         <activity android:name=".src.login.LoginActivity" />
         <activity android:name=".src.bulletin.BulletinDaySectionActivity" />
-        <activity android:name=".src.plan.TravelPlanActivity" />
         <activity
             android:name=".src.MainActivity"
             android:screenOrientation="portrait" />
