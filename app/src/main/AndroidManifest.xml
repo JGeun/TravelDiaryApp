@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.bulletin.OtherDiarySectionActivity"></activity>
+        <activity android:name=".src.diary.CommentListActivity"></activity>
+        <activity android:name=".src.bulletin.OtherDiarySectionActivity" />
         <activity android:name=".src.bulletin.searchActivity" />
         <activity android:name=".src.bulletin.OtherUserActivity" />
         <activity

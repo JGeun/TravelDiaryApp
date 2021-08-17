@@ -17,6 +17,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
     private val binding by lazy{
         ActivityMyDiaryDaySectionBinding.inflate(layoutInflater)
     }
+    private lateinit var likeCount:LikeViewModel
     private val viewModel :DiaryDayViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?){
@@ -24,7 +25,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
         setContentView(binding.root)
         println("여기 들어옴")
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
-
+        likeCount=LikeViewModel()
         val showDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_find_black, null)
         val writeDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_edit, null)
 
@@ -48,6 +49,23 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
             setHasFixedSize(true)
             adapter= MyDiaryDaySectionAdapter(index, viewModel)
             layoutManager= LinearLayoutManager(this@MyDiaryDaySectionActivity)
+        }
+        var chk_like=false
+        var count_like=binding.countLikes.text.toString()
+
+        binding.ivLike.setOnClickListener {
+            if(!chk_like){
+                binding.ivLike.setImageResource(R.drawable.ic_full_heart)
+                chk_like=true
+            }else{
+                binding.ivLike.setImageResource(R.drawable.emptyheart)
+                chk_like=false
+            }
+        }
+
+        binding.commentLayout.setOnClickListener {
+            val intent=Intent(this, CommentListActivity::class.java)
+            startActivity(intent)
         }
     }
 
