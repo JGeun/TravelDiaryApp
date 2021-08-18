@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemNewChatBinding
 
-class ChatFriendListAdapter(val friendInfoList: ArrayList<FriendInfo> = ArrayList<FriendInfo>()) : RecyclerView.Adapter<ChatFriendListAdapter.ViewHolder>(){
+class ChatFriendListAdapter(val friendInfoList: ArrayList<FriendInfo> = ArrayList<FriendInfo>(), val fragment: NewChatFragment) : RecyclerView.Adapter<ChatFriendListAdapter.ViewHolder>(){
 
     class ViewHolder(binding: ItemNewChatBinding) : RecyclerView.ViewHolder(binding.root){
         val userImage = binding.userImage
@@ -33,16 +33,31 @@ class ChatFriendListAdapter(val friendInfoList: ArrayList<FriendInfo> = ArrayLis
         else
             Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).into(holder.userImage)
         holder.userName.text = friendInfoList[position].nickname
+
+        if(!friendInfoList[position].selected){
+            holder.userRb.isChecked = false
+            holder.userRg.clearCheck()
+            holder.background.setBackgroundColor(Color.WHITE)
+        }else{
+            friendInfoList[position].selected = true
+            holder.userRb.isChecked = true
+            holder.background.setBackgroundColor(Color.parseColor("#F5F1F6"))
+        }
+
         holder.itemView.setOnClickListener{
-            if(holder.userRb.isChecked){
+            if(friendInfoList[position].selected){
                 Log.d("채팅", "${position}, ${holder.userRb.isChecked}")
+                friendInfoList[position].selected = false
                 holder.userRb.isChecked = false
                 holder.userRg.clearCheck()
                 holder.background.setBackgroundColor(Color.WHITE)
+                fragment.notifySelectedArr(friendInfoList[position], false)
             }else{
                 Log.d("채팅", "${position}, ${holder.userRb.isChecked}")
+                friendInfoList[position].selected = true
                 holder.userRb.isChecked = true
                 holder.background.setBackgroundColor(Color.parseColor("#F5F1F6"))
+                fragment.notifySelectedArr(friendInfoList[position], true)
             }
         }
     }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -17,10 +18,11 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentNewChatBinding
 import com.hansung.traveldiary.src.*
+import kotlinx.coroutines.selects.select
 import java.util.*
 import kotlin.collections.ArrayList
 
-data class FriendInfo(var nickname: String = "", var imagePath: String = "") :
+data class FriendInfo(var nickname: String = "", var imagePath: String = "", var selected: Boolean) :
     Comparable<FriendInfo> {
     override fun compareTo(other: FriendInfo): Int {
         return this.nickname.compareTo(other.nickname)
@@ -29,7 +31,8 @@ data class FriendInfo(var nickname: String = "", var imagePath: String = "") :
 
 class NewChatFragment : Fragment() {
     private lateinit var binding: FragmentNewChatBinding
-    private val selectUserList = ArrayList<FriendInfo>()
+    val selectedArray = ArrayList<FriendInfo>()
+    val friendArray = ArrayList<FriendInfo>()
 
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
@@ -42,23 +45,26 @@ class NewChatFragment : Fragment() {
     ): View? {
         binding = FragmentNewChatBinding.inflate(inflater, container, false)
         user = Firebase.auth.currentUser
+
         db = Firebase.firestore
 
-        binding.selectedUsersRv.visibility = View.INVISIBLE
+
+
+//        binding.selectedUsersRv.visibility = View.INVISIBLE
+        binding.selectedUsersRv.adapter = SelectedUsersAdapter(selectedArray, this)
         binding.selectedUsersRv.apply {
-            adapter = SelectedUsersAdapter(selectUserList)
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
-        val friendArray = ArrayList<FriendInfo>()
 
         for (friendEmail in MainActivity.myFriendList.friendFolder) {
             for (i in 0 until MainActivity.userInfoList.size) {
                 if (MainActivity.userInfoList[i].email == friendEmail) {
                     val friendInfo = FriendInfo(
                         MainActivity.userInfoList[i].nickname,
-                        MainActivity.userInfoList[i].profileImage
+                        MainActivity.userInfoList[i].profileImage,
+                        false
                     )
                     friendArray.add(friendInfo)
                     break
@@ -66,8 +72,8 @@ class NewChatFragment : Fragment() {
             }
         }
 
+        binding.usersRv.adapter = ChatFriendListAdapter(friendArray, this)
         binding.usersRv.apply {
-            adapter = ChatFriendListAdapter(friendArray)
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
         }
@@ -91,6 +97,24 @@ class NewChatFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    fun notifySelectedArr(data: FriendInfo, selected: Boolean){
+        if (selected){
+            selectedArray.add(data)
+        }else{
+            selectedArray.remove(data)
+        }
+        Log.d("NOTIFY", "작동함!")
+        binding.selectedUsersRv.adapter?.notifyDataSetChanged()
+    }
+
+    fun notifyFreindArr(data: FriendInfo){
+        var idx = friendArray.indexOf(data)
+        data.selected = false
+        friendArray.set(idx, data)
+        Log.d("유저리스트", "${idx}, $friendArray")  //selected true/false는 어댑터에서만 적용
+        binding.usersRv.adapter?.notifyDataSetChanged()
     }
 
     private fun makeNewChatRoom() {
