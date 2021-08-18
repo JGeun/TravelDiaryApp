@@ -29,10 +29,10 @@ class CommentsAdapter():RecyclerView.Adapter<CommentsAdapter.PagerViewHolder>() 
         var chk_like=false
         holder.iconLike.setOnClickListener {
             if(!chk_like){
-                Glide.with(holder.itemView.context).load(R.drawable.ic_full_heart).circleCrop().into(holder.iconLike)
+                Glide.with(holder.itemView.context).load(R.drawable.ic_full_heart).into(holder.iconLike)
                 chk_like=true
             }else{
-                Glide.with(holder.itemView.context).load(R.drawable.emptyheart).circleCrop().into(holder.iconLike)
+                Glide.with(holder.itemView.context).load(R.drawable.ic_heart).into(holder.iconLike)
                 chk_like=false
             }
         }

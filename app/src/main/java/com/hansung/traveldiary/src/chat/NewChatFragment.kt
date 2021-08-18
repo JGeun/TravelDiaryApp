@@ -20,8 +20,7 @@ import com.hansung.traveldiary.src.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-data class FriendInfo(var nickname: String = "", var imagePath: String = "") :
-    Comparable<FriendInfo> {
+data class FriendInfo(var nickname: String = "", var imagePath: String = "") : Comparable<FriendInfo> {
     override fun compareTo(other: FriendInfo): Int {
         return this.nickname.compareTo(other.nickname)
     }
