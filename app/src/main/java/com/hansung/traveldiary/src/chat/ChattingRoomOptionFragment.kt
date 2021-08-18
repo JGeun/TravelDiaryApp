@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentChattingRoomOptionBinding
 
-class ChattingRoomOptionFragment: Fragment() {
+class ChattingRoomOptionFragment(fragment: NewChatFragment): Fragment() {
     private lateinit var binding: FragmentChattingRoomOptionBinding
+    private var fragment = fragment
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +25,8 @@ class ChattingRoomOptionFragment: Fragment() {
         }
 
         binding.tvCheck.setOnClickListener {
-            startActivity(Intent(context, ChatActivity::class.java))
+            fragment.makeNewChatRoom()
+            fragmentManager?.beginTransaction()?.replace(R.id.main_frm, ChatFragment())?.commit()
         }
 
         return binding.root
