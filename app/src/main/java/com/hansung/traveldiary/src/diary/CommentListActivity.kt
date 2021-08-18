@@ -19,5 +19,8 @@ class CommentListActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = commentsAdapter
         }
+        binding.ivX.setOnClickListener {
+            finish()
+        }
     }
 }

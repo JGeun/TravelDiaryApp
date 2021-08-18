@@ -1,9 +1,11 @@
 package com.hansung.traveldiary.src.bulletin
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -56,6 +58,12 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
 
         holder.itemView.setOnClickListener{
             val intent = Intent(context,BulletinDaySectionActivity::class.java)
+            intent.putExtra("index", position)
+            context.startActivity(intent)
+        }
+
+        holder.userImage.setOnClickListener {
+            val intent = Intent(context,OtherUserActivity::class.java)
             intent.putExtra("index", position)
             context.startActivity(intent)
         }
