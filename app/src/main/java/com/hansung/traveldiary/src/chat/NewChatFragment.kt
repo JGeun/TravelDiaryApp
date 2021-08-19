@@ -152,6 +152,7 @@ class NewChatFragment : Fragment() {
                     if (data != null) {
                         chatFolder = data
                     }
+
                     chatFolder.chatIdxFolder.add(
                         ChatIdxData(
                             idx,
