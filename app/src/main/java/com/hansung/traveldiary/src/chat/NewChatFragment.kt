@@ -2,6 +2,7 @@ package com.hansung.traveldiary.src.chat
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -87,14 +89,15 @@ class NewChatFragment : Fragment() {
         }
 
         binding.tvMake.setOnClickListener {
-            Log.d("에러 체크", "NewChatFragment쪽임?")
-//            if (usersDataList.size==1){
-            makeNewChatRoom()
-//            startActivity(Intent(context, ChatActivity::class.java))
-
-//            }else{
-//                fragmentManager?.beginTransaction()?.replace(R.id.main_frm, ChattingRoomOptionFragment())?.commit()
-//            }
+            Log.d("에러 체크", selectedArray.size.toString())
+            if (selectedArray.size==0){
+                Snackbar.make(it, "대화상대를 선택해주세요", Snackbar.LENGTH_SHORT).show()
+            }else if (selectedArray.size==1){
+                makeNewChatRoom()
+//                startActivity(Intent(context, ChatActivity::class.java))
+            }else{
+                fragmentManager?.beginTransaction()?.replace(R.id.main_frm, ChattingRoomOptionFragment(this))?.commit()
+            }
         }
 
         return binding.root
@@ -118,7 +121,7 @@ class NewChatFragment : Fragment() {
         binding.usersRv.adapter?.notifyDataSetChanged()
     }
 
-    private fun makeNewChatRoom() {
+    fun makeNewChatRoom() {
         Log.d("에러 체크", "NewChatFragment쪽임? 여긴가?")
         val db = Firebase.firestore
         val user = Firebase.auth.currentUser
