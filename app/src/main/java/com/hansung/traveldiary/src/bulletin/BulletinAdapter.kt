@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemBulletinBinding
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.diary.CommentListActivity
 
 class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
     private val db = Firebase.firestore
@@ -67,6 +68,12 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
             intent.putExtra("index", position)
             context.startActivity(intent)
         }
+
+        holder.comment.setOnClickListener { 
+            val intent= Intent(context,CommentListActivity::class.java)
+            context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int = MainActivity.bulletinDiaryArray.size
