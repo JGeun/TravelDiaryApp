@@ -51,8 +51,6 @@ class NewChatFragment : Fragment() {
 
         db = Firebase.firestore
 
-
-
 //        binding.selectedUsersRv.visibility = View.INVISIBLE
         binding.selectedUsersRv.adapter = SelectedUsersAdapter(selectedArray, this)
         binding.selectedUsersRv.apply {
@@ -81,9 +79,6 @@ class NewChatFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-
-
-
         binding.ivBack.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.main_frm, ChatFragment())?.commit()
         }
@@ -91,7 +86,7 @@ class NewChatFragment : Fragment() {
         binding.tvMake.setOnClickListener {
             Log.d("에러 체크", selectedArray.size.toString())
             if (selectedArray.size==0){
-                Snackbar.make(it, "대화상대를 선택해주세요", Snackbar.LENGTH_SHORT).show()
+                Toast.makeText(context, "대화상대를 선택해주세요", Toast.LENGTH_SHORT).show()
             }else if (selectedArray.size==1){
                 makeNewChatRoom()
 //                startActivity(Intent(context, ChatActivity::class.java))
@@ -171,8 +166,6 @@ class NewChatFragment : Fragment() {
                             ?.commit()
                     }
                 }
-
-
             }.addOnFailureListener {
                 Toast.makeText(context, "대화방 만들기 실패.", Toast.LENGTH_SHORT).show()
                 fragmentManager?.beginTransaction()?.replace(R.id.main_frm, ChatFragment())

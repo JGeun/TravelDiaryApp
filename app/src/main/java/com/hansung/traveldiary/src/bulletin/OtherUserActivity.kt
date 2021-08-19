@@ -11,16 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityOtherUserBinding
-import com.hansung.traveldiary.src.MainActivity
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.hansung.traveldiary.src.IdxList
-import com.hansung.traveldiary.src.UserDiaryData
-import com.hansung.traveldiary.src.UserInfo
+import com.hansung.traveldiary.src.*
 import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
 
 class OtherUserActivity : AppCompatActivity() {
@@ -88,6 +85,7 @@ class OtherUserActivity : AppCompatActivity() {
                         userInfo.friendList.friendFolder.add(email)
                         userRef.set(userInfo).addOnSuccessListener {
                             Toast.makeText(this,"친구 추가가 완료되었습니다", Toast.LENGTH_SHORT).show()
+                            MainActivity.myFriendList.friendFolder.add(email)
                         }.addOnFailureListener{
                             Toast.makeText(this,"친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
                         }
