@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.hansung.traveldiary.src.diary.CommentListActivity
 
 class ShowDiaryActivity : AppCompatActivity(){
     private val binding by lazy{
@@ -56,6 +57,24 @@ class ShowDiaryActivity : AppCompatActivity(){
             diary= MainActivity.bulletinDiaryArray[index].userDiaryData
         }else{
             diary = MainActivity.userDiaryArray[index]
+        }
+
+        var chk_like=false
+        var count_like=binding.countLikes.text.toString()
+
+        binding.ivLike.setOnClickListener {
+            if(!chk_like){
+                binding.ivLike.setImageResource(R.drawable.asset7)
+                chk_like=true
+            }else{
+                binding.ivLike.setImageResource(R.drawable.emptyheart)
+                chk_like=false
+            }
+        }
+
+        binding.commentLayout.setOnClickListener {
+            val intent=Intent(this, CommentListActivity::class.java)
+            startActivity(intent)
         }
 
 
