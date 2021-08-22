@@ -3,39 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="10dp">
+    android:layout_height="match_parent">
 
 
     <TextView
         android:id="@+id/bds_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="영진이의 부산여행"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/main_font2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="영진이의 부산여행"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/bds_iv_back"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginStart="20dp"
         android:src="@drawable/back"
-        app:layout_constraintTop_toTopOf="@id/bds_title"
         app:layout_constraintBottom_toBottomOf="@id/bds_title"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bds_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bds_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="24dp"
         android:overScrollMode="never"
         android:paddingBottom="30dp"
@@ -49,7 +51,6 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="@+id/bds_recyclerview"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -60,8 +61,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="@+id/bds_recyclerview"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/bds_recyclerview">
 
         <ImageView
             android:id="@+id/iv_like"
@@ -123,21 +125,12 @@
 
     <View
         android:id="@+id/view5"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="#80808080"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="300dp"
-        android:layout_height="4dp"
-        android:background="#66808080"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/view5"
-        app:layout_constraintStart_toStartOf="@+id/view5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

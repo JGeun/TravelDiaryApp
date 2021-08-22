@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -20,7 +23,7 @@ import com.hansung.traveldiary.src.diary.CommentListActivity
 
 class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
     private val db = Firebase.firestore
-
+    private val viewModel=SearchWordVIewModel()
     inner class ViewHolder(binding: ItemBulletinBinding):RecyclerView.ViewHolder(binding.root){
         val userImage = binding.btItemUserImage
         val userName = binding.btItemUserName
@@ -41,7 +44,10 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
         val data = MainActivity.bulletinDiaryArray[position].userDiaryData
-
+        println("BUlletinAdapter에 들어옴")
+        viewModel.searchWord.observeForever {
+            println(viewModel.searchWord.value.toString())
+        }
         holder.userName.text = MainActivity.bulletinDiaryArray[position].userInfo.nickname
         val userImagePath = MainActivity.bulletinDiaryArray[position].userInfo.profileImage
         if(userImagePath == "")

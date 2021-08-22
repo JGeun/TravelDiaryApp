@@ -66,7 +66,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         binding.ivLike.setOnClickListener {
             if(!chk_like){
-                binding.ivLike.setImageResource(R.drawable.ic_full_heart)
+                binding.ivLike.setImageResource(R.drawable.asset7)
                 chk_like=true
             }else{
                 binding.ivLike.setImageResource(R.drawable.emptyheart)
