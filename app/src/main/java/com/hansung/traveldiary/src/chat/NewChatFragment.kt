@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.chat
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -21,6 +23,8 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentNewChatBinding
 import com.hansung.traveldiary.src.*
 import kotlinx.coroutines.selects.select
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -42,6 +46,7 @@ class NewChatFragment : Fragment() {
     private lateinit var friendListAdapter: ChatFriendListAdapter
     private val TAG = "NewChatFragment"
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -116,6 +121,7 @@ class NewChatFragment : Fragment() {
         binding.usersRv.adapter?.notifyDataSetChanged()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun makeNewChatRoom() {
         Log.d("에러 체크", "NewChatFragment쪽임? 여긴가?")
         val db = Firebase.firestore
@@ -151,14 +157,16 @@ class NewChatFragment : Fragment() {
                         chatFolder = data
                     }
 
+                    val current = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
                     chatFolder.chatIdxFolder.add(
                         ChatIdxData(
                             idx,
                             UserList(),
-                            "테스트용",
+                            "${selectedArray[0].nickname}",
+                            "${selectedArray[0].imagePath}",
                             "",
-                            "",
-                            "2021-08-16 17:07:41"
+                            current
                         )
                     )
                     userChatIdxRef.set(chatFolder).addOnSuccessListener {

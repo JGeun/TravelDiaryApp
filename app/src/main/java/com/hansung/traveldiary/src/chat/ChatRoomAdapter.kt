@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemChatRoomBinding
 import com.hansung.traveldiary.src.ChatIdxFolder
+import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
 
 class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>(){
     private var user: FirebaseUser? = null
@@ -61,7 +64,17 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
 
         holder.userName.text = data[position].title
         holder.userPreview.text = data[position].preview
-        holder.currentTime.text = data[position].lastTime
+
+        var ampm = ""
+        var hour = data[position].lastTime.substring(11, 13).toInt()
+        if(hour>=12){
+            ampm = "오후 "
+            hour -= 12
+        }else{
+            ampm = "오전 "
+        }
+        var time = ampm + hour.toString() + data[position].lastTime.substring(13, 16)
+        holder.currentTime.text = time
         
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
@@ -70,29 +83,21 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
         }
 
         holder.itemView.setOnLongClickListener {
-            val builder = AlertDialog.Builder(context)
-            builder.setMessage("채팅방에서 나가시겠습니까?")
+            val intent = Intent(context, EditChatroomActivity::class.java)
+//            intent.putExtra("data", chatIdxFolder.chatIdxFolder)
+            intent.putExtra("position", position)
+            intent.putExtra("username", data[position].title)
 
-            var listener = object : DialogInterface.OnClickListener{
-                override fun onClick(dialog: DialogInterface?, which: Int) {
-                    when(which){
-                        DialogInterface.BUTTON_POSITIVE -> return
-                        DialogInterface.BUTTON_NEGATIVE -> {
-                            data.removeAt(position)
-                            notifyDataSetChanged()
-                            val userChatIdxRef = db!!.collection("UserChat").document(user!!.email.toString())
-                            userChatIdxRef.set(chatIdxFolder)
-                        }
-                    }
-                }
-            }
+            context.startActivity(intent)
 
-            builder.setPositiveButton("취소", listener)
-            builder.setNegativeButton("확인", listener)
+            notifyDataSetChanged()
 
-            builder.show()
             return@setOnLongClickListener false //다음 이벤트 계속 진행: false, 이벤트 완료 true
         }
+    }
+
+    fun del(){
+
     }
 
     override fun getItemCount(): Int = chatIdxFolder.chatIdxFolder.size

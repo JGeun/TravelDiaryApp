@@ -21,9 +21,10 @@ class ChatActivity : AppCompatActivity() {
     private val binding by lazy{
         ActivityChatBinding.inflate(layoutInflater)
     }
+
     private val TAG =  "ChatActivity"
-    private val checkUser = "User3"
-    private val chatAdapter = ChatAdapter(checkUser)
+//    private val checkUser = "USER3"
+//    private val chatAdapter = ChatAdapter(checkUser)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -31,6 +32,9 @@ class ChatActivity : AppCompatActivity() {
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.LIGHT_MAIN_STATUS_BAR)
         val user = Firebase.auth.currentUser
         val db = Firebase.firestore
+
+        val checkUser = user!!.email.toString()
+        val chatAdapter = ChatAdapter(checkUser)
 
         binding.rv.apply{
             setHasFixedSize(false)

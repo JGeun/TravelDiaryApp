@@ -3,11 +3,14 @@ package com.hansung.traveldiary.src.chat
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
@@ -18,10 +21,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentChatBinding
-import com.hansung.traveldiary.src.ChatFolder
-import com.hansung.traveldiary.src.ChatIdxFolder
-import com.hansung.traveldiary.src.IdxList
-import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,6 +32,7 @@ class ChatFragment : Fragment() {
     private var chatIdxFolder = ChatIdxFolder()
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
+    private var searchChat = ChatIdxFolder()
 
     private val TAG = "ChatFragment"
 
@@ -52,6 +53,37 @@ class ChatFragment : Fragment() {
 //        }
 
         Log.d("에러 체크", "ChatFragment쪽임?")
+
+        binding.searchChatroom.visibility = View.GONE
+        binding.ivSearch.visibility = View.GONE
+        binding.ivFind.setOnClickListener {
+            if (binding.searchChatroom.visibility == View.GONE) {
+                binding.searchChatroom.visibility = View.VISIBLE
+                binding.ivSearch.visibility = View.VISIBLE
+            }else{
+//                chatIdxFolder.chatIdxFolder.addAll(searchChat.chatIdxFolder)
+//                binding.messeageRv.adapter?.notifyDataSetChanged()
+                binding.ivSearch.visibility = View.GONE
+                binding.searchChatroom.visibility = View.GONE
+            }
+        }
+
+        binding.searchChatroom.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var text = binding.searchChatroom.text.toString()
+                Log.d("검색", text)
+                searchChatroom(text)
+                if (text.isEmpty())
+                    searchEmptyChatroom()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
 
         binding.ivNewChat.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.main_frm, NewChatFragment())?.commit()
@@ -85,6 +117,7 @@ class ChatFragment : Fragment() {
                 val data = snapshot.toObject<ChatIdxFolder>()
                 if (data != null) {
                     chatIdxFolder = data
+                    searchChat = data
                     if (chatIdxFolder.chatIdxFolder.size == 0) {
                         binding.chatNoRooms.visibility = View.VISIBLE
                         binding.messeageRv.visibility = View.INVISIBLE
@@ -106,6 +139,30 @@ class ChatFragment : Fragment() {
                 Log.d(TAG, "$source data: null")
             }
         }
+    }
+
+    fun searchChatroom(search: String){
+//        chatIdxFolder.chatIdxFolder.clear()
+
+        if (search.length==0){
+            chatIdxFolder.chatIdxFolder.addAll(searchChat.chatIdxFolder)
+        }else{
+            for(i in 0..searchChat.chatIdxFolder.size-1){
+//                    Log.d("추가됨", searchChat.chatIdxFolder[i].title)
+                if (searchChat.chatIdxFolder[i].title.contains(search)){
+                    chatIdxFolder.chatIdxFolder.add(searchChat.chatIdxFolder[i])
+                }
+            }
+        }
+
+        binding.messeageRv.adapter?.notifyDataSetChanged()
+    }
+
+    fun searchEmptyChatroom(){
+        Log.d("문자입력없음", "searchemptyChatroom")
+        chatIdxFolder.chatIdxFolder.clear()
+        chatIdxFolder.chatIdxFolder.addAll(searchChat.chatIdxFolder)
+        binding.messeageRv.adapter?.notifyDataSetChanged()
     }
 
     /*private fun initUserMessageData() {
