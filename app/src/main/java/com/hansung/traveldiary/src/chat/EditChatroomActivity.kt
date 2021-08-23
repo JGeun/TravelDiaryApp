@@ -42,6 +42,10 @@ class EditChatroomActivity : AppCompatActivity() {
             db!!.collection("UserChat").document(user!!.email.toString())
 
         val position = intent.getIntExtra("position", -1)
+        val username =  intent.getStringExtra("username")
+
+        binding.userName.text = username
+
         userChatIdxRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)

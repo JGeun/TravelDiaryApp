@@ -86,6 +86,7 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
             val intent = Intent(context, EditChatroomActivity::class.java)
 //            intent.putExtra("data", chatIdxFolder.chatIdxFolder)
             intent.putExtra("position", position)
+            intent.putExtra("username", data[position].title)
 
             context.startActivity(intent)
 

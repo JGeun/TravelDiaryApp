@@ -21,8 +21,8 @@
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
-        android:paddingHorizontal="40dp"
-        android:paddingVertical="20dp"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +36,7 @@
             android:textSize="24dp"
             android:fontFamily="@font/main_font2"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="유저이름" />
 
         <TextView
@@ -45,6 +46,7 @@
             android:layout_marginVertical="5dp"
             android:textSize="20dp"
             android:fontFamily="@font/main_font2"
+            android:textColor="@color/black"
             android:text="채팅방 이름 설정" />
 
         <TextView
@@ -54,6 +56,7 @@
             android:layout_marginVertical="5dp"
             android:textSize="20dp"
             android:fontFamily="@font/main_font2"
+            android:textColor="@color/black"
             android:text="나가기" />
 
     </LinearLayout>
