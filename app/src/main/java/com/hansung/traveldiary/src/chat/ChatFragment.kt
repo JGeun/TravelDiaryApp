@@ -55,10 +55,15 @@ class ChatFragment : Fragment() {
         Log.d("에러 체크", "ChatFragment쪽임?")
 
         binding.searchChatroom.visibility = View.GONE
+        binding.ivSearch.visibility = View.GONE
         binding.ivFind.setOnClickListener {
             if (binding.searchChatroom.visibility == View.GONE) {
                 binding.searchChatroom.visibility = View.VISIBLE
+                binding.ivSearch.visibility = View.VISIBLE
             }else{
+//                chatIdxFolder.chatIdxFolder.addAll(searchChat.chatIdxFolder)
+//                binding.messeageRv.adapter?.notifyDataSetChanged()
+                binding.ivSearch.visibility = View.GONE
                 binding.searchChatroom.visibility = View.GONE
             }
         }
@@ -155,6 +160,7 @@ class ChatFragment : Fragment() {
 
     fun searchEmptyChatroom(){
         Log.d("문자입력없음", "searchemptyChatroom")
+        chatIdxFolder.chatIdxFolder.clear()
         chatIdxFolder.chatIdxFolder.addAll(searchChat.chatIdxFolder)
         binding.messeageRv.adapter?.notifyDataSetChanged()
     }
