@@ -1,5 +1,9 @@
 package com.hansung.traveldiary.src.home.adapter
 
+import android.app.Activity
+import android.app.PendingIntent.getActivity
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMainBinding.inflate
 import com.hansung.traveldiary.databinding.ItemRecommandBinding
+import com.hansung.traveldiary.src.home.RecommandActivity
 import com.hansung.traveldiary.src.home.RecommandLocationData
 
 class RecommandAdapter(private val locationData: ArrayList<RecommandLocationData>) : RecyclerView.Adapter<RecommandAdapter.ViewHolder>() {
@@ -31,14 +36,19 @@ class RecommandAdapter(private val locationData: ArrayList<RecommandLocationData
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val binding = ItemRecommandBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
-
         return ViewHolder(binding)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val context=holder.itemView.context
         Glide.with(holder.itemView.context).load(locationData[position].image).apply(RequestOptions().circleCrop()).into(holder.locationImage)
         holder.locationName.text = locationData[position].name
+        holder.itemView.setOnClickListener {
+            val intent =Intent(context, RecommandActivity::class.java)
+            context.startActivity(intent)
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

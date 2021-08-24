@@ -76,6 +76,7 @@
             android:hint="공감글을 입력하세요."
             android:paddingStart="8dp"
             android:textSize="18sp"
+            android:fontFamily="@font/main_font2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView7"
             app:layout_constraintHorizontal_bias="0.0"

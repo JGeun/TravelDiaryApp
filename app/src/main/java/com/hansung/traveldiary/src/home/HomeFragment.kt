@@ -90,6 +90,7 @@ class HomeFragment : Fragment(), HomeView{
             layoutManager = horizontalManager
         }
 
+
         binding.homeRvBulletin.apply{
             adapter = HomeBulletinAdapter(homeBulletinList)
             setHasFixedSize(false)

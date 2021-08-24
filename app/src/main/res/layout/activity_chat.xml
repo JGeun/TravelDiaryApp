@@ -70,19 +70,19 @@
 
         <ImageView
             android:id="@+id/send"
-            android:layout_width="40dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_map_black"
-            android:background="@drawable/bg_chat_send"
-            android:paddingVertical="5dp"
+            android:layout_width="35dp"
+            android:layout_height="34dp"
             android:layout_marginVertical="5dp"
-            android:paddingHorizontal="5dp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/bg_chat_send"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="5dp"
+            android:src="@drawable/ic_send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:clickable="true"
-            android:focusable="true"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/input"
