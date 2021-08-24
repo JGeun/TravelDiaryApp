@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemCommentsListBinding
+import com.hansung.traveldiary.src.CommentsFolder
+import com.hansung.traveldiary.src.DiaryBaseData
+import com.hansung.traveldiary.src.MainActivity
 
-class CommentsAdapter():RecyclerView.Adapter<CommentsAdapter.PagerViewHolder>() {
+class CommentsAdapter(val commentsList: CommentsFolder):RecyclerView.Adapter<CommentsAdapter.PagerViewHolder>() {
     class PagerViewHolder(val binding:ItemCommentsListBinding)
         :RecyclerView.ViewHolder(binding.root){
         val profileImage=binding.ivProfile
@@ -25,7 +28,25 @@ class CommentsAdapter():RecyclerView.Adapter<CommentsAdapter.PagerViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        Glide.with(holder.itemView.context).load(R.drawable.bg_profile).circleCrop().into(holder.profileImage)
+        val data = commentsList.commentsFolder[position]
+        var userNickname = "user1"
+        var userImage = ""
+        for(userInfo in MainActivity.userInfoList){
+            if(userInfo.email == data.userEmail){
+                userNickname = userInfo.nickname
+                userImage = userInfo.profileImage
+                break
+            }
+        }
+        holder.nickname.text = userNickname
+        if(userImage == "")
+            Glide.with(holder.itemView.context).load(R.drawable.bg_profile).circleCrop().into(holder.profileImage)
+        else
+            Glide.with(holder.itemView.context).load(userImage).circleCrop().into(holder.profileImage)
+
+        holder.comment.text = data.contents
+        holder.date.text = data.date
+
         var chk_like=false
 
         holder.likelayout.setOnClickListener {
@@ -37,10 +58,9 @@ class CommentsAdapter():RecyclerView.Adapter<CommentsAdapter.PagerViewHolder>() 
                 chk_like=false
             }
         }
-
     }
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = commentsList.commentsFolder.size
 
 
 

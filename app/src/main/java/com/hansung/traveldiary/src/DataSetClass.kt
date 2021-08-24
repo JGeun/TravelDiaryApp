@@ -35,8 +35,12 @@ data class UserPlanData(var baseData: PlanBaseData = PlanBaseData(), var placeAr
     }
 }
 
+data class LikeFolder(var likeUserFolder: ArrayList<String> = ArrayList())
+data class CommentsData(var userEmail: String = "", var contents: String = "", var date: String = "")
+data class CommentsFolder(var commentsFolder: ArrayList<CommentsData> = ArrayList())
 data class DiaryBaseData(var idx : Long = 0, var title: String="", var mainImage: String="", var userEmail: String="", var uploadDate: String="",
-                         var startDate: String = "", var endDate: String = "", var color: String = "", var area: String="", var peopleCount: Int= 1, var like: Int=0, var comments: Int=0,)//기본정보
+                         var startDate: String = "", var endDate: String = "", var color: String = "", var area: String="", var peopleCount: Int= 1,
+                         var like: LikeFolder=LikeFolder(), var comments: CommentsFolder = CommentsFolder())//기본정보
 
 data class DiaryData(var imagePathArray : ArrayList<String> = ArrayList(), var diaryTitle : String = "", var diaryContents : String = "")
 

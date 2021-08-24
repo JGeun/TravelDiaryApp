@@ -19,7 +19,8 @@
         <activity
             android:name=".src.chat.EditChatroomActivity"
             android:theme="@style/Transparent" />
-        <activity android:name=".src.diary.CommentListActivity" />
+        <activity android:name=".src.diary.CommentListActivity"
+            android:theme="@style/LightStatusBarTheme"/>
         <activity android:name=".src.bulletin.OtherDiarySectionActivity" />
         <activity android:name=".src.bulletin.searchActivity" />
         <activity android:name=".src.bulletin.OtherUserActivity" />

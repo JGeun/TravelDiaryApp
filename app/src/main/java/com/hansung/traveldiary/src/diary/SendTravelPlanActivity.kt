@@ -139,8 +139,8 @@ class SendTravelPlanActivity : AppCompatActivity() {
             MainActivity.userPlanArray[index].baseData.color,
             MainActivity.userPlanArray[index].baseData.area,
             MainActivity.userPlanArray[index].baseData.peopleCount,
-            0,
-            0
+            LikeFolder(),
+            CommentsFolder()
         )
 
         diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
@@ -199,7 +199,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
                     if (MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == idx) {
                         MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.title = diaryTitle
                         MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.mainImage = mainImagePath
-                        showCustomToast("끝")
+                        showCustomToast("다이어리가 생성되었습니다")
                         setResult(RESULT_OK)
                         finish()
                     }

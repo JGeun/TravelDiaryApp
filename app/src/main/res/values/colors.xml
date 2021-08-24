@@ -33,5 +33,6 @@
     <color name="mapLineColor">#F3A41E</color>
     <color name="maincolor_light">#EEEAF2</color>
 
+    <color name="comments_status_color">#2C2C2C</color>
 <!--    <color name="mapLineColor2">#F3A41E</color>-->
 </resources>

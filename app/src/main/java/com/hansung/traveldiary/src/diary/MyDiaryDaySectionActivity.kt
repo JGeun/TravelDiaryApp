@@ -8,6 +8,8 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMyDiaryDaySectionBinding
 import com.hansung.traveldiary.src.MainActivity
@@ -19,13 +21,14 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
     }
     private lateinit var likeCount:LikeViewModel
     private val viewModel :DiaryDayViewModel by viewModels()
+    private var index = 0
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        println("여기 들어옴")
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
         likeCount=LikeViewModel()
+
         val showDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_find_black, null)
         val writeDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_edit, null)
 
@@ -41,7 +44,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
             overridePendingTransition(0, 0)
         }
 
-        val index = intent.getIntExtra("index", 0)
+        index = intent.getIntExtra("index", 0)
 
         binding.dsTitle.text = MainActivity.userDiaryArray[index].baseData.title
 
@@ -50,8 +53,8 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
             adapter= MyDiaryDaySectionAdapter(index, viewModel)
             layoutManager= LinearLayoutManager(this@MyDiaryDaySectionActivity)
         }
+
         var chk_like=false
-        var count_like=binding.countLikes.text.toString()
 
         binding.ivLike.setOnClickListener {
             if(!chk_like){
@@ -65,13 +68,18 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
 
         binding.commentLayout.setOnClickListener {
             val intent=Intent(this, CommentListActivity::class.java)
+            intent.putExtra("index", index)
+            intent.putExtra("myDiary", true)
             startActivity(intent)
         }
     }
 
     override fun onStart() {
         super.onStart()
+        Log.d("체크", "MyDiaryDaySection Start")
         binding.dsRecyclerview.adapter!!.notifyDataSetChanged()
+        binding.countComments.text = MainActivity.userDiaryArray[index].baseData.comments.commentsFolder.size.toString()
+        binding.countLikes.text = MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.size.toString()
     }
 
     override fun onBackPressed() {
