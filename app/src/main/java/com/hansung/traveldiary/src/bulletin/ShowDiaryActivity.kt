@@ -59,18 +59,29 @@ class ShowDiaryActivity : AppCompatActivity(){
         }
 
         var chk_like=false
+        if(diary.baseData.like.likeUserFolder.contains(user!!.email.toString())) {
+            chk_like = true
+            binding.ivLike.setImageResource(R.drawable.asset7)
+        }
+
         binding.countComments.text = diary.baseData.comments.commentsFolder.size.toString()
         binding.countLikes.text = diary.baseData.like.likeUserFolder.size.toString()
 
-        var count_like=binding.countLikes.text.toString()
-
+        val likeRef = db!!.collection("Diary").document(user!!.email.toString())
+            .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
         binding.ivLike.setOnClickListener {
             if(!chk_like){
                 binding.ivLike.setImageResource(R.drawable.asset7)
                 chk_like=true
+                diary.baseData.like.likeUserFolder.add(user!!.email.toString())
+                likeRef.set(diary.baseData)
+                binding.countLikes.text = diary.baseData.like.likeUserFolder.size.toString()
             }else{
                 binding.ivLike.setImageResource(R.drawable.emptyheart)
                 chk_like=false
+                diary.baseData.like.likeUserFolder.remove(user!!.email.toString())
+                likeRef.set(diary.baseData)
+                binding.countLikes.text = diary.baseData.like.likeUserFolder.size.toString()
             }
         }
 
