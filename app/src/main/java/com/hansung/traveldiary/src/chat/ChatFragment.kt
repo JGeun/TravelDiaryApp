@@ -13,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -112,6 +113,8 @@ class ChatFragment : Fragment() {
             else
                 "Server"
 
+
+
             if (snapshot != null && snapshot.exists()) {
                 Log.d(TAG, "$source data: ${snapshot.data}")
                 val data = snapshot.toObject<ChatIdxFolder>()
@@ -129,6 +132,7 @@ class ChatFragment : Fragment() {
                             setHasFixedSize(false)
                             layoutManager = LinearLayoutManager(context)
                         }
+                        binding.messeageRv.setItemViewCacheSize(chatIdxFolder.chatIdxFolder.size)
                     }
 
                 } else {

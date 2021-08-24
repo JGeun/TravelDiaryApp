@@ -101,6 +101,10 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
+        binding.back.setOnClickListener {
+            finish()
+        }
+
 //        val testChatRef = db.collection("ChatTest").document("test")
 //        testChatRef.addSnapshotListener { snapshot, e ->
 //            if (e != null) {

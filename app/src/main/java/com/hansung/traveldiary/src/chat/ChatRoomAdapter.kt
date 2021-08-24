@@ -90,7 +90,7 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
 
             context.startActivity(intent)
 
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
 
             return@setOnLongClickListener false //다음 이벤트 계속 진행: false, 이벤트 완료 true
         }
