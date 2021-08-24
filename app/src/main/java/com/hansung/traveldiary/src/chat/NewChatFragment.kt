@@ -2,6 +2,8 @@ package com.hansung.traveldiary.src.chat
 
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -40,6 +42,7 @@ class NewChatFragment : Fragment() {
     private lateinit var binding: FragmentNewChatBinding
     val selectedArray = ArrayList<FriendInfo>()
     val friendArray = ArrayList<FriendInfo>()
+    val searchArray = ArrayList<FriendInfo>()
 
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
@@ -63,6 +66,23 @@ class NewChatFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
+        binding.searchUser.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var text = binding.searchUser.text.toString()
+                Log.d("검색", text)
+                searchChatroom(text)
+//                if (text.isEmpty())
+//                    searchEmptyChatroom()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
 
         for (friendEmail in MainActivity.myFriendList.friendFolder) {
             for (i in 0 until MainActivity.userInfoList.size) {
@@ -73,6 +93,7 @@ class NewChatFragment : Fragment() {
                         false
                     )
                     friendArray.add(friendInfo)
+                    searchArray.add(friendInfo)
                     break
                 }
             }
@@ -101,6 +122,18 @@ class NewChatFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    fun searchChatroom(search: String){
+        friendArray.clear()
+
+        for(i in 0..searchArray.size-1){
+            if (searchArray[i].nickname.contains(search)){
+                friendArray.add(searchArray[i])
+            }
+        }
+
+        binding.usersRv.adapter?.notifyDataSetChanged()
     }
 
     fun notifySelectedArr(data: FriendInfo, selected: Boolean){

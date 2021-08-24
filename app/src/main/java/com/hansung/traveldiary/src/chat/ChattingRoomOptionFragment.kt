@@ -1,12 +1,14 @@
 package com.hansung.traveldiary.src.chat
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -15,12 +17,15 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentChattingRoomOptionBinding
 import com.hansung.traveldiary.src.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class ChattingRoomOptionFragment(fragment: NewChatFragment): Fragment() {
     private lateinit var binding: FragmentChattingRoomOptionBinding
     private var fragment = fragment
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,6 +45,7 @@ class ChattingRoomOptionFragment(fragment: NewChatFragment): Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun makeNewChatRoom() {
         Log.d("에러 체크", "NewChatFragment쪽임? 여긴가?")
         val db = Firebase.firestore
@@ -75,6 +81,8 @@ class ChattingRoomOptionFragment(fragment: NewChatFragment): Fragment() {
                         chatFolder = data
                     }
 
+                    val current = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
                     chatFolder.chatIdxFolder.add(
                         ChatIdxData(
                             idx,
@@ -82,7 +90,7 @@ class ChattingRoomOptionFragment(fragment: NewChatFragment): Fragment() {
                             "${binding.chatroomTitle.text}",
                             "",
                             "",
-                            "2021-08-16 17:07:41"
+                            current
                         )
                     )
                     userChatIdxRef.set(chatFolder).addOnSuccessListener {
