@@ -30,7 +30,6 @@ class BulletinDaySectionAdapter(private val index: Int, private val size: Int,pr
         holder.dayText.text = (position+1).toString()
 //        holder.tag.text = data.tag
         val context = holder.itemView.context
-        println("현재 게시글을 작성한 유저의 이메일 : "+MainActivity.userList.emailFolder[index].toString())
         if (data.diaryInfo.imagePathArray.size != 0) {
             Glide.with(holder.itemView.context).load(data.diaryInfo.imagePathArray[0])
                 .into(holder.diaryImage)

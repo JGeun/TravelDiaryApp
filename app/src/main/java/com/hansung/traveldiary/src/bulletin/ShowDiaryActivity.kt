@@ -68,7 +68,7 @@ class ShowDiaryActivity : AppCompatActivity(){
         binding.countLikes.text = diary.baseData.like.likeUserFolder.size.toString()
 
         val likeRef = db!!.collection("Diary").document(user!!.email.toString())
-            .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
+            .collection("DiaryData").document(diary.baseData.idx.toString())
         binding.ivLike.setOnClickListener {
             if(!chk_like){
                 binding.ivLike.setImageResource(R.drawable.asset7)
@@ -87,10 +87,10 @@ class ShowDiaryActivity : AppCompatActivity(){
 
         binding.commentLayout.setOnClickListener {
             val intent=Intent(this, CommentListActivity::class.java)
+            intent.putExtra("index",index)
+            intent.putExtra("myDiary", false)
             startActivity(intent)
         }
-
-
 
         println("Show index: ${index} day: ${day}")
         binding.sdDate.text = afterDate(diary.baseData.startDate, day)
