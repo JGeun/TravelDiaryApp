@@ -155,6 +155,45 @@
 
         </LinearLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_status">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_add_friend"
+                android:layout_width="180dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/radius_btn"
+                android:fontFamily="@font/main_font2"
+                android:text="친구 추가"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_send_message"
+                android:layout_width="180dp"
+                android:layout_height="33dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_maincolor_radius"
+                android:fontFamily="@font/main_font2"
+                android:text="메세지 보내기"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
@@ -162,19 +201,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_status" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_layout" />
 
-        <Button
-            android:id="@+id/btn_add_friend"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginBottom="13dp"
-            android:background="@drawable/add_plan_btn"
-            android:fontFamily="@font/main_font2"
-            android:text="친구 추가"
-            app:layout_constraintBottom_toBottomOf="@+id/bg_profile_toppanel"
-            app:layout_constraintEnd_toEndOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

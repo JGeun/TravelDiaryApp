@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
@@ -54,8 +55,10 @@ class OtherUserActivity : AppCompatActivity() {
         else
             Glide.with(this).load(userImagePath).circleCrop().into(binding.userProfileImage)
 
-        binding.planCount.text = "0"
-        binding.friendsCount.text = MainActivity.bulletinDiaryArray[index].userInfo.friendList.friendFolder.size.toString()
+        if(user!!.email.toString().equals(email.toString())){
+            binding.btnLayout.isGone=true
+        }
+
 
         Log.d("프로필", "email: ${email}")
         println("현재 로그인 중인 유저의 이메일은 : "+ user!!.email.toString())
@@ -65,8 +68,6 @@ class OtherUserActivity : AppCompatActivity() {
                 userDiaryArray.add(MainActivity.bulletinDiaryArray[i].userDiaryData)
             }
         }
-
-        binding.diaryCount.text = userDiaryArray.size.toString()
         binding.rv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)

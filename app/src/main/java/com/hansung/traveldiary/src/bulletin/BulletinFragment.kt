@@ -28,7 +28,6 @@ class BulletinFragment : Fragment(){
             adapter = BulletinAdapter()
             layoutManager = LinearLayoutManager(context)
         }
-
         binding.searchIcon.setOnClickListener{
             val intent= Intent(activity,searchActivity::class.java)
             startActivity(intent)

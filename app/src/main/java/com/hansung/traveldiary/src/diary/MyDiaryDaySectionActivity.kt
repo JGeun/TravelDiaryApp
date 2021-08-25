@@ -62,21 +62,33 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
             layoutManager= LinearLayoutManager(this@MyDiaryDaySectionActivity)
         }
 
+
+
+
         val likeRef = db.collection("Diary").document(user!!.email.toString())
             .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
+
+        if(!MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.contains(user!!.email.toString())){
+            binding.ivLike.setImageResource(R.drawable.emptyheart)
+            likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+            binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
+        }else{
+            binding.ivLike.setImageResource(R.drawable.asset7)
+            likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+            binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
+        }
+
         binding.ivLike.setOnClickListener {
-            if(!chk_like){
-                binding.ivLike.setImageResource(R.drawable.ic_full_heart)
-                chk_like=true
-                MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.add(user!!.email.toString())
-                likeRef.set(MainActivity.userDiaryArray[index].baseData)
-                binding.countLikes.text = MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.size.toString()
+            if(!MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.contains(user!!.email.toString())){
+                binding.ivLike.setImageResource(R.drawable.asset7)
+                MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.add(user!!.email.toString())
+                likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+                binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
             }else{
                 binding.ivLike.setImageResource(R.drawable.emptyheart)
-                chk_like=false
-                MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.remove(user!!.email.toString())
-                likeRef.set(MainActivity.userDiaryArray[index].baseData)
-                binding.countLikes.text = MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.size.toString()
+                MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.remove(user!!.email.toString())
+                likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+                binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
             }
         }
 

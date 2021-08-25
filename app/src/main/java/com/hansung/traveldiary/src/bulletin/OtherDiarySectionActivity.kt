@@ -1,5 +1,6 @@
 package com.hansung.traveldiary.src.bulletin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.hansung.traveldiary.src.diary.CommentListActivity
 import com.hansung.traveldiary.src.diary.MyDiaryDaySectionAdapter
 import com.hansung.traveldiary.util.StatusBarUtil
 
@@ -58,23 +60,8 @@ class OtherDiarySectionActivity : AppCompatActivity() {
         }
 
         Log.d("체크", "Email: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail}")
-        val likeRef = db!!.collection("Diary").document(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail)
-            .collection("DiaryData").document(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx.toString())
-        binding.ivLike.setOnClickListener {
-            if(!chk_like){
-                binding.ivLike.setImageResource(R.drawable.asset7)
-                chk_like=true
-                MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.add(user!!.email.toString())
-                likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
-                binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
-            }else{
-                binding.ivLike.setImageResource(R.drawable.emptyheart)
-                chk_like=false
-                MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.remove(user!!.email.toString())
-                likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
-                binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
-            }
-        }
+
+
     }
 
     override fun onStart() {
