@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
         <activity android:name=".src.chat.ChangeChattingroomTitleActivity"></activity>
+        <activity android:name=".src.home.RecommandActivity"></activity>
         <activity
             android:name=".src.chat.EditChatroomActivity"
             android:theme="@style/Transparent" />
