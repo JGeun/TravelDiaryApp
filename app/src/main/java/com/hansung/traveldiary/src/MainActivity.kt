@@ -390,6 +390,8 @@ class MainActivity : AppCompatActivity() {
                     val idxData = result.toObject<IdxList>()
                     if (idxData != null) {
                         diaryIdxList = idxData
+                        if(user!!.email.toString() == email)
+                            myDiaryIdxList = diaryIdxList
                         for (idx in diaryIdxList.idxFolder) {
                             var diaryBaseData = DiaryBaseData()
                             val baseRef =

@@ -68,7 +68,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
         }
 
 
-        val likeRef = db!!.collection("Diary").document(user!!.email.toString())
+        val likeRef = db!!.collection("Diary").document(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail)
             .collection("DiaryData").document(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx.toString())
         binding.ivLike.setOnClickListener {
             if(!chk_like){
@@ -88,6 +88,7 @@ class BulletinDaySectionActivity : AppCompatActivity() {
 
         binding.commentLayout.setOnClickListener {
             val intent=Intent(this, CommentListActivity::class.java)
+            intent.putExtra("index", index)
             startActivity(intent)
         }
     }

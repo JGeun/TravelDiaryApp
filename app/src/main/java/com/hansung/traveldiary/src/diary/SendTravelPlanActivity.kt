@@ -115,8 +115,10 @@ class SendTravelPlanActivity : AppCompatActivity() {
         val planIdxRef = db!!.collection("Plan").document(user!!.email.toString())
         planIdxRef.set(MainActivity.myPlanIdxList)
 
+        Log.d("체크", "추가 전 ${MainActivity.myDiaryIdxList.idxFolder.size.toString()}")
         if (!MainActivity.myDiaryIdxList.idxFolder.contains(idx))
             MainActivity.myDiaryIdxList.idxFolder.add(idx)
+        Log.d("체크", "추가 후 ${MainActivity.myDiaryIdxList.idxFolder.size.toString()}")
         val diaryIdxRef = db!!.collection("Diary").document(user!!.email.toString())
         diaryIdxRef.set(MainActivity.myDiaryIdxList)
 

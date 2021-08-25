@@ -12,17 +12,20 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityCommentListBinding
 import com.hansung.traveldiary.src.CommentsData
+import com.hansung.traveldiary.src.CommentsFolder
 import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.plan.diary
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class CommentListActivity : AppCompatActivity() {
-    private val binding by lazy{
+    private val binding by lazy {
         ActivityCommentListBinding.inflate(layoutInflater)
     }
     private var index = 0
     private var myDiary = false
+    private var diaryComments = CommentsFolder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,57 +41,72 @@ class CommentListActivity : AppCompatActivity() {
         val db = Firebase.firestore
 
         index = intent.getIntExtra("index", 0)
+        Log.d("체크", "CommentsList 받은 index: ${index}")
         myDiary = intent.getBooleanExtra("myDiary", false)
 
-        if(myDiary){
-            binding.recyclerView.apply{
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(context)
-                adapter = CommentsAdapter(MainActivity.userDiaryArray[index].baseData.comments)
-            }
-        }else{
-            binding.recyclerView.apply{
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(context)
-                adapter = CommentsAdapter(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.comments)
-            }
+        if (myDiary) {
+            diaryComments = MainActivity.userDiaryArray[index].baseData.comments
+        } else {
+            diaryComments = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.comments
+            Log.d(
+                "체크",
+                "글쓴 제목: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.title}"
+            )
         }
 
+
+        binding.recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = CommentsAdapter(diaryComments)
+        }
 
         binding.ivX.setOnClickListener {
             finish()
         }
 
-        binding.commentsIvSend.setOnClickListener{
+        binding.commentsIvSend.setOnClickListener {
             val text = binding.writeComment.text.toString()
             var diaryUserEmail = ""
             val userEmail = user!!.email.toString()
-            if(text == "") showCustomToast("댓글을 입력해주세요")
-            else{
+            if (text == "") showCustomToast("댓글을 입력해주세요")
+            else {
                 var idx = 0L
 
-                var date = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm", Locale.getDefault()).format(Date())
+                var date =
+                    SimpleDateFormat("yyyy년 MM월 dd일 HH:mm", Locale.getDefault()).format(Date())
 
-                if(myDiary){
+                if (myDiary) {
                     Log.d("체크", "MyDiary")
                     idx = MainActivity.userDiaryArray[index].baseData.idx
                     diaryUserEmail = MainActivity.userDiaryArray[index].baseData.userEmail
-                    MainActivity.userDiaryArray[index].baseData.comments.commentsFolder.add(CommentsData(userEmail, text, date))
-                }else{
+                    MainActivity.userDiaryArray[index].baseData.comments.commentsFolder.add(
+                        CommentsData(userEmail, text, date)
+                    )
+
+                    db.collection("Diary").document(diaryUserEmail)
+                        .collection("DiaryData").document(idx.toString())
+                        .set(MainActivity.userDiaryArray[index].baseData).addOnSuccessListener {
+                            Log.d("체크", "성공")
+                            binding.recyclerView.adapter!!.notifyDataSetChanged()
+                            binding.writeComment.setText("")
+                        }
+                } else {
                     Log.d("체크", "Bulletin")
                     idx = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx
-                    diaryUserEmail = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail
-                    MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.comments.commentsFolder.add(CommentsData(userEmail, text, date))
+                    diaryUserEmail =
+                        MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail
+                    MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.comments.commentsFolder.add(
+                        CommentsData(userEmail, text, date)
+                    )
+                    db.collection("Diary").document(diaryUserEmail)
+                        .collection("DiaryData").document(idx.toString())
+                        .set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData).addOnSuccessListener {
+                            Log.d("체크", "성공")
+                            binding.recyclerView.adapter!!.notifyDataSetChanged()
+                            binding.writeComment.setText("")
+                        }
                 }
-
-                db.collection("Diary").document(diaryUserEmail)
-                    .collection("DiaryData").document(idx.toString())
-                    .set(MainActivity.userDiaryArray[index].baseData).addOnSuccessListener {
-                        Log.d("체크", "성공")
-                        binding.recyclerView.adapter!!.notifyDataSetChanged()
-                    }
-
-                binding.writeComment.setText("")
             }
         }
     }
@@ -103,7 +121,7 @@ class CommentListActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun showCustomToast(message: String){
+    private fun showCustomToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

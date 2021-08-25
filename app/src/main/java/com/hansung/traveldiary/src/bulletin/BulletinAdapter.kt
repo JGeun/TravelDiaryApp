@@ -75,6 +75,7 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
 
         holder.comment.setOnClickListener {
             val intent= Intent(context,CommentListActivity::class.java)
+            intent.putExtra("index", position)
             context.startActivity(intent)
         }
 
