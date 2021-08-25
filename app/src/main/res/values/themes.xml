@@ -21,7 +21,9 @@
 <!--        <item name="android:windowLightStatusBar">true</item>-->
 <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
 <!--    </style>-->
-
+    <style name="LightStatusBarTheme" parent="Theme.TravelDiary">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
     <style name="Transparent" parent="@style/Theme.AppCompat">
         <!--Titlebar 없애는 옵션
         true : Titlebar x

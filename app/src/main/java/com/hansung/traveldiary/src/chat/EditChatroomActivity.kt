@@ -3,6 +3,7 @@ package com.hansung.traveldiary.src.chat
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -69,29 +70,11 @@ class EditChatroomActivity : AppCompatActivity() {
         }
 
         binding.setChatroom.setOnClickListener {
-            val builder = AlertDialog.Builder(it.context)
-            builder.setTitle("채팅방 이름 설정")
-            builder.setView(layoutInflater.inflate(R.layout.dialog_edit_chatroom, null))
+            val intent = Intent(it.context, ChangeChattingroomTitleActivity::class.java)
+            intent.putExtra("position", position)
+            startActivity(intent)
 
-            val listener = DialogInterface.OnClickListener { dialog, which ->
-                var alertDialog = dialog as AlertDialog
-                var chatroomTitle: EditText? = alertDialog.findViewById<EditText>(R.id.tv_edit_chatroom)
 
-                when (which) {
-                    DialogInterface.BUTTON_POSITIVE -> return@OnClickListener
-                    DialogInterface.BUTTON_NEGATIVE -> {
-                        chatIdxFolder.chatIdxFolder[position].title = chatroomTitle?.text.toString()
-                        userChatIdxRef.set(chatIdxFolder)
-                        finish()
-                    }
-                }
-
-            }
-
-            builder.setPositiveButton("취소", listener)
-            builder.setNegativeButton("확인", listener)
-
-            builder.show()
         }
 
         binding.tvExit.setOnClickListener {

@@ -15,7 +15,8 @@ class StatusBarUtil {
         MAIN_STATUS_BAR(R.color.maincolor),
         LIGHT_MAIN_STATUS_BAR(R.color.maincolor_light),
         TRANSPARENT_STATUS_BAR(R.color.transparent),
-        WEATHER_DAY_STATUS_BAR(R.color.weather_day_color)
+        WEATHER_DAY_STATUS_BAR(R.color.weather_day_color),
+        COMMENTS_STATUS_BAR(R.color.comments_status_color)
     }
 
     companion object{

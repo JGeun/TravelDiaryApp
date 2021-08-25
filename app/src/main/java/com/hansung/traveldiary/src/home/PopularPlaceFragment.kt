@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayoutMediator
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPopularPlaceBinding
 import com.hansung.traveldiary.databinding.FragmentUserNameBinding

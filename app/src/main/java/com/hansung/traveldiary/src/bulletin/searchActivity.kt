@@ -59,7 +59,6 @@ class searchActivity : AppCompatActivity() {
                 1->tab.text="게시글"
                 2->tab.text="유저"
             }
-
         }.attach()
 
         binding.ivBack.setOnClickListener {

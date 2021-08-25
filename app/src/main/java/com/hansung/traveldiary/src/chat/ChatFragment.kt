@@ -13,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -56,34 +57,34 @@ class ChatFragment : Fragment() {
 
         binding.searchChatroom.visibility = View.GONE
         binding.ivSearch.visibility = View.GONE
-        binding.ivFind.setOnClickListener {
-            if (binding.searchChatroom.visibility == View.GONE) {
-                binding.searchChatroom.visibility = View.VISIBLE
-                binding.ivSearch.visibility = View.VISIBLE
-            }else{
-//                chatIdxFolder.chatIdxFolder.addAll(searchChat.chatIdxFolder)
-//                binding.messeageRv.adapter?.notifyDataSetChanged()
-                binding.ivSearch.visibility = View.GONE
-                binding.searchChatroom.visibility = View.GONE
-            }
-        }
+//        binding.ivFind.setOnClickListener {
+//            if (binding.searchChatroom.visibility == View.GONE) {
+//                binding.searchChatroom.visibility = View.VISIBLE
+//                binding.ivSearch.visibility = View.VISIBLE
+//            }else{
+////                chatIdxFolder.chatIdxFolder.addAll(searchChat.chatIdxFolder)
+////                binding.messeageRv.adapter?.notifyDataSetChanged()
+//                binding.ivSearch.visibility = View.GONE
+//                binding.searchChatroom.visibility = View.GONE
+//            }
+//        }
 
-        binding.searchChatroom.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                var text = binding.searchChatroom.text.toString()
-                Log.d("검색", text)
-                searchChatroom(text)
-                if (text.isEmpty())
-                    searchEmptyChatroom()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-        })
+//        binding.searchChatroom.addTextChangedListener(object : TextWatcher{
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                var text = binding.searchChatroom.text.toString()
+//                Log.d("검색", text)
+//                searchChatroom(text)
+//                if (text.isEmpty())
+//                    searchEmptyChatroom()
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//            }
+//
+//        })
 
         binding.ivNewChat.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.main_frm, NewChatFragment())?.commit()
@@ -112,6 +113,8 @@ class ChatFragment : Fragment() {
             else
                 "Server"
 
+
+
             if (snapshot != null && snapshot.exists()) {
                 Log.d(TAG, "$source data: ${snapshot.data}")
                 val data = snapshot.toObject<ChatIdxFolder>()
@@ -129,6 +132,7 @@ class ChatFragment : Fragment() {
                             setHasFixedSize(false)
                             layoutManager = LinearLayoutManager(context)
                         }
+                        binding.messeageRv.setItemViewCacheSize(chatIdxFolder.chatIdxFolder.size)
                     }
 
                 } else {
@@ -142,18 +146,15 @@ class ChatFragment : Fragment() {
     }
 
     fun searchChatroom(search: String){
-//        chatIdxFolder.chatIdxFolder.clear()
+        chatIdxFolder.chatIdxFolder.clear()
+        Log.d("첫번째", searchChat.chatIdxFolder[0].title)
 
-        if (search.length==0){
-            chatIdxFolder.chatIdxFolder.addAll(searchChat.chatIdxFolder)
-        }else{
             for(i in 0..searchChat.chatIdxFolder.size-1){
-//                    Log.d("추가됨", searchChat.chatIdxFolder[i].title)
                 if (searchChat.chatIdxFolder[i].title.contains(search)){
                     chatIdxFolder.chatIdxFolder.add(searchChat.chatIdxFolder[i])
                 }
             }
-        }
+
 
         binding.messeageRv.adapter?.notifyDataSetChanged()
     }
@@ -162,6 +163,7 @@ class ChatFragment : Fragment() {
         Log.d("문자입력없음", "searchemptyChatroom")
         chatIdxFolder.chatIdxFolder.clear()
         chatIdxFolder.chatIdxFolder.addAll(searchChat.chatIdxFolder)
+        Log.d("첫번째", searchChat.chatIdxFolder[0].title)
         binding.messeageRv.adapter?.notifyDataSetChanged()
     }
 

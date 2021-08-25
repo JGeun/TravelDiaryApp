@@ -36,7 +36,6 @@ class ShowDiaryActivity : AppCompatActivity(){
         db = Firebase.firestore
         println("현재 유저의 이메일은 "+ user?.email.toString())
 
-
         window?.apply {
             this.statusBarColor = ResourcesCompat.getColor(resources, R.color.transparent, null)
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -60,6 +59,9 @@ class ShowDiaryActivity : AppCompatActivity(){
         }
 
         var chk_like=false
+        binding.countComments.text = diary.baseData.comments.commentsFolder.size.toString()
+        binding.countLikes.text = diary.baseData.like.likeUserFolder.size.toString()
+
         var count_like=binding.countLikes.text.toString()
 
         binding.ivLike.setOnClickListener {

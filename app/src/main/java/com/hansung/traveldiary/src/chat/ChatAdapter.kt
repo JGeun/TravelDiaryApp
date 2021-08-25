@@ -11,6 +11,7 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemChatBinding
 import com.hansung.traveldiary.src.ChatData
 import com.hansung.traveldiary.src.ChatFolder
+import com.hansung.traveldiary.src.MainActivity
 
 class ChatAdapter(val myUser : String) : RecyclerView.Adapter<ChatAdapter.ViewHolder>(){
     private val chatList = ChatFolder()
@@ -37,14 +38,26 @@ class ChatAdapter(val myUser : String) : RecyclerView.Adapter<ChatAdapter.ViewHo
             holder.myLayout.visibility = View.VISIBLE
             holder.userLayout.visibility = View.INVISIBLE
             Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).into(holder.myImage)
-            holder.myName.text = chatList.chatFolder[position].userEmail
+
+            var myname = ""
+            for(i in 0..MainActivity.userInfoList.size-1){
+                if(chatList.chatFolder[position].userEmail == MainActivity.userInfoList[i].email)
+                    myname = MainActivity.userInfoList[i].nickname
+            }
+            holder.myName.text = myname
             holder.myContents.text = chatList.chatFolder[position].contents
             holder.myContents.background = ResourcesCompat.getDrawable(context.resources, R.drawable.bg_my_chat, null)
         }else{
             holder.myLayout.visibility = View.INVISIBLE
             holder.userLayout.visibility = View.VISIBLE
             Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_seoul_cup, null)).into(holder.userImage)
-            holder.userName.text = chatList.chatFolder[position].userEmail
+
+            var username = ""
+            for(i in 0..MainActivity.userInfoList.size-1){
+                if(chatList.chatFolder[position].userEmail == MainActivity.userInfoList[i].email)
+                    username = MainActivity.userInfoList[i].nickname
+            }
+            holder.userName.text = username
             holder.userContents.text = chatList.chatFolder[position].contents
             holder.userContents.background = ResourcesCompat.getDrawable(context.resources, R.drawable.bg_not_my_chat, null)
         }

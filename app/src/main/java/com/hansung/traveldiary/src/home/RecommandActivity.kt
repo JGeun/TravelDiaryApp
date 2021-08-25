@@ -31,6 +31,13 @@ class RecommandActivity : AppCompatActivity() {
         binding.viewpager.adapter= RecommandViewPagerAdapter(this)
 
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
+        TabLayoutMediator(binding.tabLayout,binding.viewpager){tab, position->
+            when(position){
+                0->tab.text="인스타"
+                1->tab.text="게시글"
+                2->tab.text="유저"
+            }
+        }.attach()
         binding.ivBack.setOnClickListener {
             finish()
         }
