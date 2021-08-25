@@ -22,7 +22,7 @@ class BulletinFragment : Fragment(){
         binding = FragmentBulletinBinding.inflate(inflater, container, false)
 
         MainActivity.bulletinDiaryArray.sortedBy{it.userDiaryData.baseData.uploadDate}
-
+        println(MainActivity.bulletinDiaryArray.size)
         binding.bulletinRecyclerView.apply{
             setHasFixedSize(true)
             adapter = BulletinAdapter()

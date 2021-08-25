@@ -45,6 +45,7 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         val context = holder.itemView.context
         val data = MainActivity.bulletinDiaryArray[position].userDiaryData
         println("BUlletinAdapter에 들어옴")
+        println(MainActivity.bulletinDiaryArray.size)
         holder.userName.text = MainActivity.bulletinDiaryArray[position].userInfo.nickname
         val userImagePath = MainActivity.bulletinDiaryArray[position].userInfo.profileImage
         if(userImagePath == "")
@@ -72,7 +73,7 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
             context.startActivity(intent)
         }
 
-        holder.comment.setOnClickListener { 
+        holder.comment.setOnClickListener {
             val intent= Intent(context,CommentListActivity::class.java)
             intent.putExtra("index", position)
             context.startActivity(intent)

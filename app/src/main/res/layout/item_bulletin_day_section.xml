@@ -56,4 +56,6 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/gwangwhamun" />
 
+
+
 </LinearLayout>

@@ -44,10 +44,9 @@ class searchActivity : AppCompatActivity() {
 
         binding.editText2.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                if ((event!!.action == KeyEvent.ACTION_DOWN) || keyCode == KeyEvent.KEYCODE_ENTER) {
+                if ((event!!.action == KeyEvent.ACTION_DOWN) || keyCode == KeyEvent.KEYCODE_ENTER ||keyCode==KeyEvent.KEYCODE_DPAD_DOWN) {
                     viewModel.searchWord.value=binding.editText2.text.toString()
                     binding.editText2.text= null
-
                 }
                 return false
             }
@@ -59,7 +58,6 @@ class searchActivity : AppCompatActivity() {
                 1->tab.text="게시글"
                 2->tab.text="유저"
             }
-
         }.attach()
 
         binding.ivBack.setOnClickListener {

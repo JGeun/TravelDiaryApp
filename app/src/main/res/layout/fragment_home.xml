@@ -222,7 +222,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bg_ll_round"
+            android:background="@drawable/bg_lll_round"
             android:orientation="vertical"
             android:paddingVertical="20dp"
             app:layout_constraintEnd_toEndOf="parent"
