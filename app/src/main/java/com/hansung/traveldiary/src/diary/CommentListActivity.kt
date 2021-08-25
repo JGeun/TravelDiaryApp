@@ -1,7 +1,9 @@
 package com.hansung.traveldiary.src.diary
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -90,6 +92,8 @@ class CommentListActivity : AppCompatActivity() {
                             Log.d("체크", "성공")
                             binding.recyclerView.adapter!!.notifyDataSetChanged()
                             binding.writeComment.setText("")
+                            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
                         }
                 } else {
                     Log.d("체크", "Bulletin")
@@ -105,6 +109,8 @@ class CommentListActivity : AppCompatActivity() {
                             Log.d("체크", "성공")
                             binding.recyclerView.adapter!!.notifyDataSetChanged()
                             binding.writeComment.setText("")
+                            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
                         }
                 }
             }
