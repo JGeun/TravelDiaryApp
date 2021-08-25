@@ -8,312 +8,338 @@
     android:id="@+id/weather_totalLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradation_day">
+    android:background="@color/home_bgcolor">
 
-    <TextView
-        android:id="@+id/weather_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/main_font2"
-        android:text="서울"
-        android:textColor="@color/white"
-        android:textSize="40sp"
-        android:textStyle="bold"
+    <ImageView
+        android:id="@+id/iv_weatherbg"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/seoul_forest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/weather_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Mon,"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/weather_current_time"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weather_place" />
-
-    <TextView
-        android:id="@+id/weather_current_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="1:20 am"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/weather_day"
-        app:layout_constraintTop_toTopOf="@id/weather_day" />
-
     <ImageView
-        android:id="@+id/iv_weather_condition"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="45dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weather_day"
-        app:srcCompat="@drawable/ic_cloudy_white" />
-
-    <TextView
-        android:id="@+id/tv_weather_condition"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/main_font2"
-        android:text="맑음"
-        android:textColor="@color/white"
-        android:textSize="35sp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_weather_condition"
-        app:layout_constraintStart_toEndOf="@id/iv_weather_condition" />
-
-    <TextView
-        android:id="@+id/tv_current_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/number_font"
-        android:text="23°"
-        android:textAlignment="viewStart"
-        android:textColor="@color/white"
-        android:textSize="140sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_weather_condition" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_marginEnd="7dp"
-        android:src="@drawable/ic_high_temperature"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_maximum_temperature"
-        app:layout_constraintEnd_toStartOf="@+id/tv_maximum_temperature"
-        app:layout_constraintTop_toTopOf="@+id/tv_maximum_temperature" />
-
-    <TextView
-        android:id="@+id/tv_maximum_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/number_font"
-        android:text="23°C"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_minimum_temperature"
-        app:layout_constraintStart_toEndOf="@id/tv_current_temperature" />
-
-    <ImageView
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_marginEnd="7dp"
-        android:src="@drawable/ic_low_temperature"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_minimum_temperature"
-        app:layout_constraintEnd_toStartOf="@+id/tv_minimum_temperature"
-        app:layout_constraintTop_toTopOf="@+id/tv_minimum_temperature" />
-
-    <TextView
-        android:id="@+id/tv_minimum_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/number_font"
-        android:text="23°C"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_current_temperature"
-        app:layout_constraintEnd_toEndOf="@id/tv_maximum_temperature" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="65dp"
-        android:layout_height="1dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/tv_minimum_temperature"
-        app:layout_constraintEnd_toEndOf="@id/tv_maximum_temperature"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@id/tv_maximum_temperature" />
-
-    <LinearLayout
-        android:id="@+id/feels_like_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_weather_weekly"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@+id/wind_speed_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_current_temperature">
-
-        <ImageView
-            android:id="@+id/iv_feels_like"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_feel_like_temperature_white" />
-
-        <TextView
-            android:id="@+id/feels_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="체감온도"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/feels_like_temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="23°C"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/wind_speed_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:background="@drawable/bg_weather_weekly"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/feels_like_layout"
-        app:layout_constraintEnd_toStartOf="@+id/humidity_layout"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/feels_like_layout"
-        app:layout_constraintTop_toTopOf="@+id/feels_like_layout">
-
-        <ImageView
-            android:id="@+id/iv_wind_speed"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_windy_white" />
-
-        <TextView
-            android:id="@+id/wind_speed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="풍속"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/tv_windSpeed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="5m/s"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/humidity_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:background="@drawable/bg_weather_weekly"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/wind_speed_layout"
-        app:layout_constraintEnd_toStartOf="@+id/fine_dust_layout"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/wind_speed_layout"
-        app:layout_constraintTop_toTopOf="@+id/wind_speed_layout">
-
-        <ImageView
-            android:id="@+id/iv_humidity"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_humidity_white" />
-
-        <TextView
-            android:id="@+id/humidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="습도"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/tv_humidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="10%"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/fine_dust_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:background="@drawable/bg_weather_weekly"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/humidity_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/humidity_layout"
-        app:layout_constraintTop_toTopOf="@+id/humidity_layout">
-
-        <ImageView
-            android:id="@+id/iv_clouds"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_cloudy_white" />
-
-        <TextView
-            android:id="@+id/clouds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="흐림정도"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/tv_clouds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="10%"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/weekly_weather_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/iv_backbtn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/back"
         android:layout_marginTop="30dp"
-        android:fontFamily="@font/main_font2"
-        android:text="주간 날씨"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/feels_like_layout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/weather_rv_weekly"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:overScrollMode="never"
-        android:paddingBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weekly_weather_title" />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="15dp"
+        android:padding="5dp"
+        android:background="@drawable/bg_ll_round"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_weatherbg">
 
-    <View
+        <TextView
+            android:id="@+id/weather_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/main_font2"
+            android:text="서울"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weather_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Mon,"
+            app:layout_constraintStart_toStartOf="@id/weather_place"
+            app:layout_constraintTop_toBottomOf="@id/weather_place" />
+
+        <TextView
+            android:id="@+id/weather_current_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="1:20 am"
+            app:layout_constraintBottom_toBottomOf="@+id/weather_day"
+            app:layout_constraintStart_toEndOf="@+id/weather_day"
+            app:layout_constraintTop_toTopOf="@id/weather_day" />
+
+        <ImageView
+            android:id="@+id/iv_weather_condition"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintStart_toStartOf="@id/weather_day"
+            app:layout_constraintTop_toBottomOf="@id/weather_day"
+            app:srcCompat="@drawable/ic_new_sunny" />
+
+        <TextView
+            android:id="@+id/tv_current_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/number_font"
+            android:text="23°"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="60sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_weather_condition"
+            app:layout_constraintTop_toTopOf="@+id/iv_weather_condition" />
+
+        <TextView
+            android:id="@+id/tv_weather_condition"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/main_font2"
+            android:text="맑음"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_weather_condition" />
+
+        <TextView
+            android:id="@+id/tv_maximum_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/number_font"
+            android:layout_marginEnd="3dp"
+            android:text="23°"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/number_font"
+            android:text="/"
+            android:layout_marginEnd="3dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_minimum_temperature"
+            app:layout_constraintEnd_toStartOf="@+id/tv_minimum_temperature"
+            app:layout_constraintTop_toTopOf="@+id/tv_minimum_temperature" />
+
+
+        <TextView
+            android:id="@+id/tv_minimum_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/number_font"
+            android:text="23°"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_weather_condition"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weather_condition" />
+
+        <LinearLayout
+            android:id="@+id/feels_like_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/wind_speed_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_current_temperature">
+
+            <ImageView
+                android:id="@+id/iv_feels_like"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_new_feeltemparature" />
+
+            <TextView
+                android:id="@+id/feels_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/main_font2"
+                android:text="체감온도"/>
+
+            <TextView
+                android:id="@+id/feels_like_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/number_font"
+                android:text="23°C" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wind_speed_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/feels_like_layout"
+            app:layout_constraintEnd_toStartOf="@+id/humidity_layout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/feels_like_layout"
+            app:layout_constraintTop_toTopOf="@+id/feels_like_layout">
+
+            <ImageView
+                android:id="@+id/iv_wind_speed"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_new_windy" />
+
+            <TextView
+                android:id="@+id/wind_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/main_font2"
+                android:text="풍속"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/tv_windSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/number_font"
+                android:text="5m/s"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/humidity_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/wind_speed_layout"
+            app:layout_constraintEnd_toStartOf="@+id/fine_dust_layout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/wind_speed_layout"
+            app:layout_constraintTop_toTopOf="@+id/wind_speed_layout">
+
+            <ImageView
+                android:id="@+id/iv_humidity"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_new_humidity" />
+
+            <TextView
+                android:id="@+id/humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/main_font2"
+                android:text="습도"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/tv_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/number_font"
+                android:text="10%"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fine_dust_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/humidity_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/humidity_layout"
+            app:layout_constraintTop_toTopOf="@+id/humidity_layout">
+
+            <ImageView
+                android:id="@+id/iv_clouds"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_cloudy_white" />
+
+            <TextView
+                android:id="@+id/clouds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/main_font2"
+                android:text="흐림정도"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/tv_clouds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/number_font"
+                android:text="10%" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weather_rv_weekly" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_ll_round"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+        <TextView
+            android:id="@+id/weekly_weather_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/main_font2"
+            android:layout_marginTop="20dp"
+            android:text="주간 날씨"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/weather_rv_weekly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/weekly_weather_title" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/weather_rv_weekly" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

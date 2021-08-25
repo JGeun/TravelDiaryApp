@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 
         initList()
 
-        weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
+        weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_new_sunny, null)!!
         user = Firebase.auth.currentUser
         db = Firebase.firestore
         getDBData()
