@@ -2,6 +2,7 @@ package com.hansung.traveldiary.src.bulletin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +31,9 @@ class OtherDiarySectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        println("여기 들어옴")
+
+        db = Firebase.firestore
+
         StatusBarUtil.setStatusBarColor(
             this,
             StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR
@@ -40,12 +43,11 @@ class OtherDiarySectionActivity : AppCompatActivity() {
         val writeDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_edit, null)
         binding.dsIvBack.setOnClickListener {
             finish()
-            //overridePendingTransition(0, 0)
         }
 
         val index = intent.getIntExtra("index", 0)
 
-        binding.dsTitle.text = MainActivity.userDiaryArray[index].baseData.title
+        binding.dsTitle.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.title
         binding.dsIvBack.setOnClickListener{
             finish()
         }
@@ -55,7 +57,8 @@ class OtherDiarySectionActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@OtherDiarySectionActivity)
         }
 
-        val likeRef = db!!.collection("Diary").document(user!!.email.toString())
+        Log.d("체크", "Email: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail}")
+        val likeRef = db!!.collection("Diary").document(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail)
             .collection("DiaryData").document(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx.toString())
         binding.ivLike.setOnClickListener {
             if(!chk_like){

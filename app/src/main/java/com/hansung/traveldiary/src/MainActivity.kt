@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 
         initList()
 
-        weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
+        weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_new_sunny, null)!!
         user = Firebase.auth.currentUser
         db = Firebase.firestore
         getDBData()
@@ -383,10 +383,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
             var diaryIdxList = IdxList()
+            println("getDiary email:${email}")
             val diaryIdxRef = db!!.collection("Diary").document(email)
             diaryIdxRef.get()
                 .addOnSuccessListener { result ->
-                    println("idx성공")
                     val idxData = result.toObject<IdxList>()
                     if (idxData != null) {
                         diaryIdxList = idxData
@@ -394,6 +394,7 @@ class MainActivity : AppCompatActivity() {
                             myDiaryIdxList = diaryIdxList
                         for (idx in diaryIdxList.idxFolder) {
                             var diaryBaseData = DiaryBaseData()
+                            println("${email} idx: ${idx}")
                             val baseRef =
                                 diaryIdxRef.collection("DiaryData").document(idx.toString())
                             baseRef.get().addOnSuccessListener { baseResult ->
@@ -407,7 +408,7 @@ class MainActivity : AppCompatActivity() {
                                         baseRef.collection("DayList").document(date)
                                             .get().addOnSuccessListener { dayResult ->
                                                 val diaryData = dayResult.toObject<DiaryInfo>()!!
-                                                println(diaryData.date)
+                                                diaryArray.add(diaryData)
                                                 if (diaryArray.size == calcDate+1) {
                                                     diaryArray.sortBy { it.date }
                                                     println("---------------------Bulletin체크  idx:${idx}-----------------")
@@ -444,7 +445,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }else{
-                        println("null입니다")
+                        println("${email} idx null입니다")
                         dismissLoadingDialog()
                     }
                 }
@@ -516,7 +517,7 @@ class MainActivity : AppCompatActivity() {
                 val idxData = result.toObject<IdxList>()
                 if (idxData != null) {
                     myPlanIdxList = idxData
-
+                    println("플랜 idx: ${myPlanIdxList.idxFolder.size}")
                     for (myIdx in myPlanIdxList.idxFolder) {
                         var planBaseData = PlanBaseData()
                         var placeArray = ArrayList<PlaceInfo>()
@@ -544,6 +545,8 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
+                }else{
+                    println("plan Idx null 아님")
                 }
             }
     }

@@ -37,7 +37,7 @@ class PopularPlaceAdapter (val popularPlace:ArrayList<RecommandActivity.place>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.Image.setImageResource(popularPlace[position].placeImage)
+        Glide.with(holder.itemView.context).load(popularPlace[position].placeImage).into(holder.Image)
         holder.placeName.text = popularPlace[position].placeName
         holder.placeAddress.text = popularPlace[position].placeAddress
         holder.placeWebsite.text = popularPlace[position].placeURL

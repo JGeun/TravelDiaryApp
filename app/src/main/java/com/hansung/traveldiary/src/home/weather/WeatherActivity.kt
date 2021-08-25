@@ -60,6 +60,10 @@ class WeatherActivity : AppCompatActivity() {
             layoutManager = horizontalManager
         }
 
+        binding.ivBackbtn.setOnClickListener {
+            finish()
+        }
+
     }
 
     fun getDateDay(now : Long) : String {

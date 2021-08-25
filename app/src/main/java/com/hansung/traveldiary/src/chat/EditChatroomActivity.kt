@@ -74,7 +74,7 @@ class EditChatroomActivity : AppCompatActivity() {
             intent.putExtra("position", position)
             startActivity(intent)
 
-
+            finish()
         }
 
         binding.tvExit.setOnClickListener {
