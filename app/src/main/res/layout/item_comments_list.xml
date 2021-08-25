@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:ems="15"
+        android:ems="14"
         android:fontFamily="@font/main_font2"
         android:text="너무너무 재밌어보여요 하하 저도 다음에 꼭 놀러가보고 싶어요"
         android:textColor="@color/black"
@@ -97,6 +97,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/iv_edit"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_dots2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

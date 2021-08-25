@@ -19,6 +19,7 @@
             android:id="@+id/day_select_layout"
             android:layout_width="144dp"
             android:layout_height="36dp"
+            app:layout_constraintBottom_toBottomOf="@+id/show_placelist"
             app:layout_constraintEnd_toStartOf="@+id/show_placelist"
             app:layout_constraintStart_toEndOf="@+id/write_diary_iv_cancle"
             app:layout_constraintTop_toTopOf="@+id/show_placelist">
@@ -27,7 +28,7 @@
                 android:id="@+id/atp_tv_days"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="25dp"
                 android:fontFamily="@font/main_font2"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -40,10 +41,10 @@
                 android:id="@+id/imageView3"
                 android:layout_width="16dp"
                 android:layout_height="12dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_down_btn"
                 app:layout_constraintBottom_toBottomOf="@id/atp_tv_days"
-                app:layout_constraintStart_toEndOf="@id/atp_tv_days"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/atp_tv_days" />
 
 
