@@ -158,7 +158,6 @@ class MainActivity : AppCompatActivity() {
                 showLoadingDialog(this)
                 println("resultcode 들어옴")
                 val idx = result.data?.getLongExtra("idx", 0)!!
-
                 var addPlanBaseData: PlanBaseData
                 var addPlanPlaceArray = ArrayList<PlaceInfo>()
                 val addPlanRef =
@@ -406,7 +405,7 @@ class MainActivity : AppCompatActivity() {
                                         baseRef.collection("DayList").document(date)
                                             .get().addOnSuccessListener { dayResult ->
                                                 val diaryData = dayResult.toObject<DiaryInfo>()!!
-                                                diaryArray.add(diaryData)
+                                                println(diaryData.date)
                                                 if (diaryArray.size == calcDate+1) {
                                                     diaryArray.sortBy { it.date }
                                                     println("---------------------Bulletin체크  idx:${idx}-----------------")

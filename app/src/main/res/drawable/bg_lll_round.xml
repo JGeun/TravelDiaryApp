@@ -6,6 +6,7 @@
         android:color="@color/bulletin_bg_color"/>
 
     <corners
-        android:radius="20dp"/>
+        android:topLeftRadius="20dp"
+        android:topRightRadius="20dp"/>
 
 </shape>

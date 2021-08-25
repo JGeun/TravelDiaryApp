@@ -153,13 +153,4 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         tools:layout_editor_absoluteX="20dp" />
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="300dp"
-        android:layout_height="4dp"
-        android:background="#66808080"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/view5"
-        app:layout_constraintStart_toStartOf="@+id/view5" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
