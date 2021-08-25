@@ -14,7 +14,7 @@ class NaturePlaceFragment () : Fragment() {
     val popularPlace=ArrayList<RecommandActivity.place>()
     private lateinit var binding: FragmentPopularPlaceBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        popularPlace.add(RecommandActivity.place(R.drawable.cheonggyecheon,
+       /* popularPlace.add(RecommandActivity.place(R.drawable.cheonggyecheon,
             "청계천","서울 종로구 무교로 37 (서린동)  ","https://hanok.seoul.go.kr/front/index.do","02-2133-1372"))
 
         popularPlace.add(RecommandActivity.place(R.drawable.seoul_tower_of_namsan,
@@ -27,7 +27,7 @@ class NaturePlaceFragment () : Fragment() {
             "한강","서울 영등포구 여의공원로 68","https://hangang.seoul.go.kr/","(주) 02-120 (야) 3780-0777"))
 
         popularPlace.add(RecommandActivity.place(R.drawable.seoul_forest,
-            "서울숲","서울특별시 성동구 뚝섬로 273 (성수동1가)","https://seoulforest.or.kr/","02-460-2905"))
+            "서울숲","서울특별시 성동구 뚝섬로 273 (성수동1가)","https://seoulforest.or.kr/","02-460-2905"))*/
 
         super.onCreate(savedInstanceState)
     }
