@@ -14,7 +14,7 @@ class HistoryPlaceFragment () : Fragment() {
     val popularPlace=ArrayList<RecommandActivity.place>()
     private lateinit var binding: FragmentPopularPlaceBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        /*popularPlace.add(RecommandActivity.place(
+        popularPlace.add(RecommandActivity.place(
             R.drawable.changdeokhgung,
             "창덕궁","서울 종로구 율곡로 99 (와룡동, 창덕궁)","http://www.cdg.go.kr/default.jsp","02-3668-2300"))
 
@@ -35,7 +35,7 @@ class HistoryPlaceFragment () : Fragment() {
             "명동성당","서울 중구 명동길 74 (명동성당)","http://www.mdsd.or.kr/","02-774-1784"))
 
         popularPlace.add(RecommandActivity.place(R.drawable.jogyesa_temple,
-            "조계사","서울특별시 종로구 우정국로 55 (조계사)","http://www.jogyesa.kr/user/jogye/","02-768-8600"))*/
+            "조계사","서울특별시 종로구 우정국로 55 (조계사)","http://www.jogyesa.kr/user/jogye/","02-768-8600"))
         super.onCreate(savedInstanceState)
     }
 
