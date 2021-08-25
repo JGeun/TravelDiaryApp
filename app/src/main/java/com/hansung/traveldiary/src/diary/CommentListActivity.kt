@@ -91,16 +91,16 @@ class CommentListActivity : AppCompatActivity() {
                 binding.writeComment.setText("")
             }
         }
+    }
 
-//        binding.writeComment.setOnKeyListener(object : View.OnKeyListener {
-//            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-//                if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
-//                    println("클릭을 했따")
-//                    return true
-//                }
-//                return false
-//            }
-//        })
+    override fun onStart() {
+        super.onStart()
+        Log.d("체크", "CommentList Activity Start")
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
     private fun showCustomToast(message: String){

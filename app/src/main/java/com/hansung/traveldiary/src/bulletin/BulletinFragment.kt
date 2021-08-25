@@ -35,4 +35,9 @@ class BulletinFragment : Fragment(){
         }
         return binding.root
     }
+
+    override fun onStart() {
+        super.onStart()
+        binding.bulletinRecyclerView.adapter!!.notifyDataSetChanged()
+    }
 }

@@ -64,8 +64,8 @@ class OtherUserDiaryAdapter (val userDiaryArray: ArrayList<UserDiaryData> = Arra
             Glide.with(holder.itemView.context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_no_main_image, null)).into(holder.thumbnail)
         }
 
-        holder.likeCnt.text = data.baseData.like.toString()
-        holder.commentCnt.text = data.baseData.comments.toString()
+        holder.likeCnt.text = data.baseData.like.likeUserFolder.size.toString()
+        holder.commentCnt.text = data.baseData.comments.commentsFolder.size.toString()
         holder.itemView.setTag(position)
 
         holder.itemView.setOnClickListener{

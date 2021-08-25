@@ -29,6 +29,7 @@ class OtherUserActivity : AppCompatActivity() {
     private var db: FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
         window.apply {
             this.statusBarColor = Color.TRANSPARENT
@@ -56,8 +57,6 @@ class OtherUserActivity : AppCompatActivity() {
 
         binding.planCount.text = "0"
         binding.friendsCount.text = MainActivity.bulletinDiaryArray[index].userInfo.friendList.friendFolder.size.toString()
-
-
 
         Log.d("프로필", "email: ${email}")
         val userDiaryArray = ArrayList<UserDiaryData>()
@@ -95,6 +94,6 @@ class OtherUserActivity : AppCompatActivity() {
                 }
 
         }
-        setContentView(binding.root)
+
     }
 }
