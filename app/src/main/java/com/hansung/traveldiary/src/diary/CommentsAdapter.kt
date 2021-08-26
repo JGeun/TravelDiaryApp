@@ -95,18 +95,18 @@ class CommentsAdapter(val commentsList: CommentsFolder, val index: Int):Recycler
                             builder.show()
                         }
                         1 -> { //삭제
-//                            var idx = 0L
-//                            commentsList.commentsFolder.removeAt(position)
-//                            idx = MainActivity.userDiaryArray[index].baseData.idx
-//                            MainActivity.userDiaryArray[index].baseData.comments.commentsFolder.remove(data)
-                            Log.d("체크", "$index")
+                            var idx = 0L
+                            commentsList.commentsFolder.removeAt(position)
+                            idx = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx
+                            MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.comments.commentsFolder.remove(data)
+                            Log.d("체크", "$idx")
 
                             Log.d("유저 이메일", data.userEmail)
-//                        db.collection("Diary").document(data.userEmail)
-//                            .collection("DiaryData").document(idx.toString())
-//                            .set(MainActivity.userDiaryArray[index].baseData).addOnSuccessListener {
-//                                Log.d("댓글 삭제", "성공")
-//                            }
+                        db.collection("Diary").document(data.userEmail)
+                            .collection("DiaryData").document(idx.toString())
+                            .set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData).addOnSuccessListener {
+                                Log.d("댓글 삭제", "성공")
+                            }
 
                             notifyDataSetChanged()
                         }
