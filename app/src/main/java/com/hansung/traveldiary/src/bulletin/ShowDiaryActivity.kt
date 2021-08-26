@@ -67,7 +67,7 @@ class ShowDiaryActivity : AppCompatActivity(){
         binding.countComments.text = diary.baseData.comments.commentsFolder.size.toString()
         binding.countLikes.text = diary.baseData.like.likeUserFolder.size.toString()
 
-        val likeRef = db!!.collection("Diary").document(user!!.email.toString())
+        val likeRef = db!!.collection("Diary").document(diary.baseData.userEmail)
             .collection("DiaryData").document(diary.baseData.idx.toString())
         binding.ivLike.setOnClickListener {
             if(!chk_like){
