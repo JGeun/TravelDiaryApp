@@ -59,6 +59,7 @@ class OtherUserActivity : AppCompatActivity() {
 
         Log.d("프로필", "email: ${email}")
         println("현재 로그인 중인 유저의 이메일은 : "+ user!!.email.toString())
+
         val userDiaryArray = ArrayList<UserDiaryData>()
         for(i in 0 until MainActivity.bulletinDiaryArray.size){
             if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.userEmail == email){

@@ -88,7 +88,10 @@ class ShowDiaryActivity : AppCompatActivity(){
         binding.commentLayout.setOnClickListener {
             val intent=Intent(this, CommentListActivity::class.java)
             intent.putExtra("index",index)
-            intent.putExtra("myDiary", false)
+            if(isBulletin)
+                intent.putExtra("myDiary", false)
+            else
+                intent.putExtra("myDiary", true)
             startActivity(intent)
         }
 

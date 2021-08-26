@@ -46,14 +46,17 @@ class CommentListActivity : AppCompatActivity() {
         Log.d("체크", "CommentsList 받은 index: ${index}")
         myDiary = intent.getBooleanExtra("myDiary", false)
 
-        if (myDiary) {
+
+        if (myDiary){
             diaryComments = MainActivity.userDiaryArray[index].baseData.comments
+            Log.d("체크", "CommentsList 제 다이어리입니다")
+            Log.d("체크", "idx: ${MainActivity.userDiaryArray[index].baseData.idx}}")
+            Log.d("체크", "idx: ${MainActivity.userDiaryArray[index].baseData.userEmail}}")
         } else {
             diaryComments = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.comments
-            Log.d(
-                "체크",
-                "글쓴 제목: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.title}"
-            )
+            Log.d("체크", "CommentsList Bulletin 다이어리입니다")
+            Log.d("체크", "idx: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx}}")
+            Log.d("체크", "idx: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail}}")
         }
 
 
@@ -98,8 +101,7 @@ class CommentListActivity : AppCompatActivity() {
                 } else {
                     Log.d("체크", "Bulletin")
                     idx = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx
-                    diaryUserEmail =
-                        MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail
+                    diaryUserEmail = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail
                     MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.comments.commentsFolder.add(
                         CommentsData(userEmail, text, date)
                     )
