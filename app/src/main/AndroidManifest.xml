@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary">
-        <activity android:name=".src.travel.MyDiaryCommentListActivity"></activity>
+
+        <activity android:name=".src.home.GimpoAirportTipActivity"></activity>
         <activity android:name=".src.travel.MyDiaryCommentListActiviyy" />
         <activity android:name=".src.home.RecommandActivity" />
         <activity android:name=".src.chat.ChangeChattingroomTitleActivity" />

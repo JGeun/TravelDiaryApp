@@ -26,28 +26,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="20dp"/>
 
-        <ImageView
-            android:id="@+id/userImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/bg_profile"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/back"
-            android:layout_marginStart="10dp"/>
-
         <TextView
             android:id="@+id/roomText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/userImage"
-            android:text="asdasdasdasdads"
-            android:layout_marginStart="20dp"
             android:fontFamily="@font/main_font2"
+            android:layout_marginStart="15dp"
+            android:text="asdasdasdasdads"
+            android:textColor="@color/black"
             android:textSize="22sp"
-            android:textColor="@color/black"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/back"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:layout_width="20dp"
@@ -71,18 +61,19 @@
         <ImageView
             android:id="@+id/send"
             android:layout_width="35dp"
-            android:layout_height="34dp"
-            android:layout_marginVertical="5dp"
-            android:layout_marginEnd="18dp"
-            android:background="@drawable/bg_chat_send"
-            android:clickable="true"
-            android:focusable="true"
-            android:paddingHorizontal="6dp"
-            android:paddingVertical="5dp"
+            android:layout_height="35dp"
+            android:layout_marginVertical="9dp"
+            android:layout_marginEnd="16dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="5dp"
+            android:paddingHorizontal="7dp"
             android:src="@drawable/ic_send"
+            android:background="@drawable/bg_chat_send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true"
+            android:focusable="true"/>
 
         <EditText
             android:id="@+id/input"

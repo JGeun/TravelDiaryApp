@@ -50,8 +50,7 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
 
         val context = holder.itemView.context
         val data = MainActivity.bulletinDiaryArray[position].userDiaryData
-        println("BUlletinAdapter에 들어옴")
-        println(MainActivity.bulletinDiaryArray.size)
+        println("BulletinAdapter에 들어옴")
         holder.userName.text = MainActivity.bulletinDiaryArray[position].userInfo.nickname
         val userImagePath = MainActivity.bulletinDiaryArray[position].userInfo.profileImage
         if(userImagePath == "")
@@ -88,7 +87,6 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
             intent.putExtra("index", position)
             context.startActivity(intent)
         }
-
     }
 
     override fun getItemCount(): Int = MainActivity.bulletinDiaryArray.size

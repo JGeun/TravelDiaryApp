@@ -6,21 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="20dp"
-    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="true"
     app:strokeColor="#A2A2A2">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
         android:paddingTop="10dp">
 
         <ImageView
             android:id="@+id/btItem_userImage"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,6 +52,7 @@
             android:id="@+id/relativeLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"

@@ -32,6 +32,12 @@ class BulletinFragment : Fragment(){
             val intent= Intent(activity,searchActivity::class.java)
             startActivity(intent)
         }
+
+        for(i in 0 until MainActivity.bulletinDiaryArray.size){
+            println("작성한 사람: ${MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.userEmail}")
+            println("작성한 idx: ${MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx}")
+            println("작성한 userInfo: ${MainActivity.bulletinDiaryArray[i].userInfo.nickname}")
+        }
         return binding.root
     }
 
