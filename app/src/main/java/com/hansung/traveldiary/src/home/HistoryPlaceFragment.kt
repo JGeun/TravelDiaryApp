@@ -20,7 +20,7 @@ class HistoryPlaceFragment () : Fragment() {
 
         popularPlace.add(RecommandActivity.place(
             R.drawable.hanok_street_ikseon_dong,
-            "익선동 한옥거리","서울 종로구 돈화문로11가길 17 (익선동)  3,5호선 종로3가역","",""))
+            "익선동 한옥거리","서울 종로구 돈화문로11가길 17${"\n"} (익선동)  3,5호선 종로3가역","",""))
 
         popularPlace.add(RecommandActivity.place(
             R.drawable.gyeongbokgung,

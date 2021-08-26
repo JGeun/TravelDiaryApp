@@ -18,6 +18,7 @@ import com.hansung.traveldiary.databinding.ItemDiaryBinding
 import com.hansung.traveldiary.databinding.ItemOtherUserDiaryBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.UserDiaryData
+import com.hansung.traveldiary.src.diary.CommentListActivity
 import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity
 import com.hansung.traveldiary.src.diary.SendTravelPlanActivity
 import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
@@ -33,6 +34,7 @@ class OtherUserDiaryAdapter (val userDiaryArray: ArrayList<UserDiaryData> = Arra
         val date = binding.btItemTvDate
         val area = binding.btItemTvArea
         val person = binding.btItemTvPerson
+        val ivComment=binding.btItemIvComment
         val likeCnt = binding.btItemTvLikecnt
         val commentCnt = binding.btItemTvComment
     }
@@ -74,6 +76,11 @@ class OtherUserDiaryAdapter (val userDiaryArray: ArrayList<UserDiaryData> = Arra
             context.startActivity(intent)
             //(context as MainActivity).overridePendingTransition(0, 0)
         }
+        /*holder.ivComment.setOnClickListener {
+            val intent= Intent(context, CommentListActivity::class.java)
+            intent.putExtra("index",position)
+            context.startActivity(intent)
+        }*/
     }
 
     override fun getItemCount(): Int = userDiaryArray.size

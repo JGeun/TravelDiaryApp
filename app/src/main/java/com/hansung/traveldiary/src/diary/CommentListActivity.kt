@@ -46,7 +46,6 @@ class CommentListActivity : AppCompatActivity() {
         Log.d("체크", "CommentsList 받은 index: ${index}")
         myDiary = intent.getBooleanExtra("myDiary", false)
 
-
         if (myDiary){
             diaryComments = MainActivity.userDiaryArray[index].baseData.comments
             Log.d("체크", "CommentsList 제 다이어리입니다")

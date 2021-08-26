@@ -26,7 +26,7 @@ class PopularPlaceFragment() : Fragment() {
             "북촌한옥마을","서울 종로구 계동길 37  북촌문화센터 일대 (계동)","https://hanok.seoul.go.kr/front/index.do","02-2133-1372"))
 
         popularPlace.add(RecommandActivity.place(R.drawable.hanok_street_ikseon_dong,
-            "익선동 한옥거리","서울 종로구 돈화문로11가길 17 (익선동)  3,5호선 종로3가역","",""))
+            "익선동 한옥거리","서울 종로구 돈화문로11가길 17 (익선동)"+"\n"+"3,5호선 종로3가역","",""))
 
         popularPlace.add(RecommandActivity.place(R.drawable.gyeongbokgung,
             "경복궁","서울 종로구 사직로 161 (세종로, 경복궁)","http://www.royalpalace.go.kr/","02-3700-3900"))
@@ -48,7 +48,7 @@ class PopularPlaceFragment() : Fragment() {
 
 
         popularPlace.add(RecommandActivity.place(R.drawable.myeong_dong,
-            "명동","서울 중구 명동8길 27 (명동2가, 엠 플라자) 4호선 명동역 5~10번 출구 일대 02-120","",""))
+            "명동","서울 중구 명동8길 27 (명동2가, 엠 플라자)${"\n"} 4호선 명동역 5~10번 출구 일대 02-120","",""))
 
         popularPlace.add(RecommandActivity.place(R.drawable.insa_dong_street,
             "인사동길","서울 종로구 인사동길 39-1 (관훈동) 일대 1호선 종로3가역 4번,5번 출구 도보 10분 3호선 안국 5번,6번 출구 도보 5분 02-120","",""))

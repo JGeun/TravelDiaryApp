@@ -16,6 +16,7 @@ import com.hansung.traveldiary.config.DeleteBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemDiaryBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.UserDiaryData
+import com.hansung.traveldiary.src.diary.CommentListActivity
 import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity
 import com.hansung.traveldiary.src.diary.SendTravelPlanActivity
 
@@ -29,6 +30,8 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
         val date = binding.btItemTvDate
         val area = binding.btItemTvArea
         val person = binding.btItemTvPerson
+        val ivcomment=binding.btItemIvComment
+        val ivLike = binding.btItemIvLike
         val likeCnt = binding.btItemTvLikecnt
         val commentCnt = binding.btItemTvComment
         val edtBtn = binding.btItemIvEdit
@@ -60,7 +63,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
         else{
             Glide.with(holder.itemView.context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_no_main_image, null)).into(holder.thumbnail)
         }
-
+        
         holder.likeCnt.text = data.baseData.like.likeUserFolder.size.toString()
         holder.commentCnt.text = data.baseData.comments.commentsFolder.size.toString()
         holder.itemView.setTag(position)
@@ -86,6 +89,8 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
             )
         }
 
+
+
         holder.itemView.setOnClickListener{
             val intent = Intent(context, MyDiaryDaySectionActivity::class.java)
             intent.putExtra("index", position)
@@ -93,6 +98,20 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
             (context as MainActivity).overridePendingTransition(0, 0)
         }
 
+        holder.commentCnt.setOnClickListener {
+            val intent =Intent(context, CommentListActivity::class.java)
+            intent.putExtra("myDiary",true)
+            intent.putExtra("index",position)
+            context.startActivity(intent)
+
+        }
+        holder.ivcomment.setOnClickListener {
+            val intent =Intent(context, CommentListActivity::class.java)
+            intent.putExtra("myDiary",true)
+            intent.putExtra("index",position)
+            context.startActivity(intent)
+
+        }
 
     }
 

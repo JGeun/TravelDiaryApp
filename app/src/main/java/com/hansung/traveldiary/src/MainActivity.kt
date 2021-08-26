@@ -1,4 +1,4 @@
- package com.hansung.traveldiary.src
+package com.hansung.traveldiary.src
 
 import android.content.Context
 import android.content.Intent
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         var cloudsText: String = "30%"
         var weeklyList = ArrayList<WeeklyWeatherData>()
 
-        var myFriendList  = FriendList()
+        var myFriendList = FriendList()
         var userList = UserList() //유저 이메일 정보 리스트
         var userInfoList = ArrayList<UserInfo>() //유저 닉네임, 이미지 정보 리스트
         var idxList = IdxList() //전체 idx 리스트
@@ -333,13 +333,13 @@ class MainActivity : AppCompatActivity() {
 //        getMyDiaryData()
     }
 
-    private fun getMyFriendList(){
+    private fun getMyFriendList() {
         db!!.collection("UserInfo").document(user!!.email.toString())
             .get().addOnSuccessListener { result ->
                 val data = result.toObject<UserInfo>()
-                if(data != null){
+                if (data != null) {
                     myFriendList = data.friendList
-                }else{
+                } else {
                     Toast.makeText(this, "UserInfo가 없대", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -390,7 +390,7 @@ class MainActivity : AppCompatActivity() {
                     val idxData = result.toObject<IdxList>()
                     if (idxData != null) {
                         diaryIdxList = idxData
-                        if(user!!.email.toString() == email)
+                        if (user!!.email.toString() == email)
                             myDiaryIdxList = diaryIdxList
                         for (idx in diaryIdxList.idxFolder) {
                             var diaryBaseData = DiaryBaseData()
@@ -402,49 +402,53 @@ class MainActivity : AppCompatActivity() {
                                 if (baseData != null) {
                                     diaryBaseData = baseData
                                     var diaryArray = ArrayList<DiaryInfo>()
-                                    val calcDate = getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
+                                    val calcDate =
+                                        getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
                                     for (i in 0..calcDate) {
                                         val date = afterDate(diaryBaseData.startDate, i)
                                         baseRef.collection("DayList").document(date)
                                             .get().addOnSuccessListener { dayResult ->
-                                                val diaryData = dayResult.toObject<DiaryInfo>()!!
-                                                diaryArray.add(diaryData)
-                                                if (diaryArray.size == calcDate+1) {
-                                                    diaryArray.sortBy { it.date }
-                                                    println("---------------------Bulletin체크  idx:${idx}-----------------")
-                                                    for (j in 0 until diaryArray.size) {
-                                                        println(diaryArray[j].date + " / " + diaryArray[j].diaryInfo.diaryTitle + " / " + diaryArray[j].diaryInfo.diaryContents)
-                                                    }
-
-                                                    if (email == user!!.email.toString()) {
-                                                        println("---------------------MyDiary체크-----------------")
+                                                val diaryData = dayResult.toObject<DiaryInfo>()
+                                                if (diaryData != null) {
+                                                    diaryArray.add(diaryData)
+                                                    if (diaryArray.size == calcDate + 1) {
+                                                        diaryArray.sortBy { it.date }
+                                                        println("---------------------Bulletin체크  idx:${idx}-----------------")
                                                         for (j in 0 until diaryArray.size) {
                                                             println(diaryArray[j].date + " / " + diaryArray[j].diaryInfo.diaryTitle + " / " + diaryArray[j].diaryInfo.diaryContents)
                                                         }
-                                                        userDiaryArray.add(
-                                                            UserDiaryData(
-                                                                diaryBaseData,
-                                                                diaryArray
+
+                                                        if (email == user!!.email.toString()) {
+                                                            println("---------------------MyDiary체크-----------------")
+                                                            for (j in 0 until diaryArray.size) {
+                                                                println(diaryArray[j].date + " / " + diaryArray[j].diaryInfo.diaryTitle + " / " + diaryArray[j].diaryInfo.diaryContents)
+                                                            }
+                                                            userDiaryArray.add(
+                                                                UserDiaryData(
+                                                                    diaryBaseData,
+                                                                    diaryArray
+                                                                )
+                                                            )
+                                                        }
+                                                        bulletinDiaryArray.add(
+                                                            BulletinData(
+                                                                UserDiaryData(
+                                                                    diaryBaseData,
+                                                                    diaryArray
+                                                                ), userInfo
                                                             )
                                                         )
+                                                        println("MyBulletin SIZE: ${bulletinDiaryArray.size}")
+                                                        dismissLoadingDialog()
                                                     }
-                                                    bulletinDiaryArray.add(
-                                                        BulletinData(
-                                                            UserDiaryData(
-                                                                diaryBaseData,
-                                                                diaryArray
-                                                            ), userInfo
-                                                        )
-                                                    )
-                                                    println("MyBulletin SIZE: ${bulletinDiaryArray.size}")
-                                                    dismissLoadingDialog()
                                                 }
+
                                             }
                                     }
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         println("${email} idx null입니다")
                         dismissLoadingDialog()
                     }
@@ -545,7 +549,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
-                }else{
+                } else {
                     println("plan Idx null 아님")
                 }
             }

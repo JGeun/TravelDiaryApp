@@ -18,7 +18,7 @@ class NaturePlaceFragment () : Fragment() {
             "청계천","서울 종로구 무교로 37 (서린동)  ","https://hanok.seoul.go.kr/front/index.do","02-2133-1372"))
 
         popularPlace.add(RecommandActivity.place(R.drawable.seoul_tower_of_namsan,
-            "남산서울타워","서울 용산구 남산공원길 105 (용산동2가, YTN서울타워)","https://www.sisul.or.kr/open_content/cheonggye/","02-2290-6114"))
+            "남산서울타워","서울 용산구 남산공원길 105${"\n"} (용산동2가, YTN서울타워)","https://www.sisul.or.kr/open_content/cheonggye/","02-2290-6114"))
 
         popularPlace.add(RecommandActivity.place(R.drawable.namsan_park,
             "남산공원","서울특별시 중구 삼일대로 231","http://parks.seoul.go.kr/template/sub/namsan.do","02-3783-5900"))
