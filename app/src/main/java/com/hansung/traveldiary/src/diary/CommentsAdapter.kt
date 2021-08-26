@@ -19,7 +19,7 @@ import com.hansung.traveldiary.src.CommentsData
 import com.hansung.traveldiary.src.CommentsFolder
 import com.hansung.traveldiary.src.MainActivity
 
-class CommentsAdapter(val commentsList: CommentsFolder):RecyclerView.Adapter<CommentsAdapter.PagerViewHolder>() {
+class CommentsAdapter(val commentsList: CommentsFolder, val index: Int):RecyclerView.Adapter<CommentsAdapter.PagerViewHolder>() {
     class PagerViewHolder(val binding:ItemCommentsListBinding)
         :RecyclerView.ViewHolder(binding.root){
         val profileImage=binding.ivProfile
@@ -97,24 +97,16 @@ class CommentsAdapter(val commentsList: CommentsFolder):RecyclerView.Adapter<Com
                         1 -> { //삭제
                             var idx = 0L
                             commentsList.commentsFolder.removeAt(position)
-//                        if(myDiary){
-//                            Log.d("체크", "MyDiary")
-//                            idx = MainActivity.userDiaryArray[index].baseData.idx
-////                            diaryUserEmail = MainActivity.userDiaryArray[index].baseData.userEmail
-//                            MainActivity.userDiaryArray[index].baseData.comments.commentsFolder.remove(data)
-//                        }else{
-//                            Log.d("체크", "Bulletin")
-//                            idx = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx
-////                            diaryUserEmail = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail
-//                            MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.comments.commentsFolder.remove(data)
-//                        }
+                            idx = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx
+                            MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.comments.commentsFolder.remove(data)
+                            Log.d("체크", "$idx")
 
                             Log.d("유저 이메일", data.userEmail)
-//                        db.collection("Diary").document(data.userEmail)
-//                            .collection("DiaryData").document(idx.toString())
-//                            .set(MainActivity.userDiaryArray[index].baseData).addOnSuccessListener {
-//                                Log.d("댓글 삭제", "성공")
-//                            }
+                        db.collection("Diary").document(data.userEmail)
+                            .collection("DiaryData").document(idx.toString())
+                            .set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData).addOnSuccessListener {
+                                Log.d("댓글 삭제", "성공")
+                            }
 
                             notifyDataSetChanged()
                         }

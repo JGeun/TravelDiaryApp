@@ -377,7 +377,7 @@ class HomeFragment : Fragment(), HomeView{
             MainActivity.weatherMain = "눈"
             MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                 requireContext().resources,
-                R.drawable.ic_snow_white,
+                R.drawable.ic_new_snow,
                 null
             )!!
         }else if(MainActivity.weatherId.equals("800")){

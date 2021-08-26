@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".src.home.GimpoAirportTipActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back_btn" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/main_font2"
+            android:layout_marginStart="20dp"
+            android:text="김포공항 이용 팁"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
+            app:layout_constraintStart_toEndOf="@+id/iv_back"
+            app:layout_constraintTop_toTopOf="@+id/iv_back" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font2"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingHorizontal="25dp"
+                android:lineSpacingExtra="3dp"
+                android:text="1. 무료 충전 거치대\n\n
+김포공항에는 곳곳에 무료 충전 거치대가 설치되어 있습니다.
+전자기기 충전을 위한 콘센트가 설치된 테이블 충전대에서
+노트북 이나 기타 스마트기기 등을 비행기 탑승 전 미리
+빵빵하게 충전해 놓으면 보다 여행 시 배터리 걱정은 잠시
+미뤄둘 수 있겠죠?\n\n
+밑에 링크를 보면 김포공항 뿐만 아니라 국내 공항들의 충전
+거치대의 위치와 여러 꿀팁들을 알수 있습니다.\n\n
+김포국제공항 홈페이지 - https://www.airport.co.kr/gimpo/
+cms/frCon/index.do?MENU_ID=2390"/>
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:paddingHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/iv_gimpo_charge" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font2"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingHorizontal="25dp"
+                android:layout_marginTop="40dp"
+                android:lineSpacingExtra="3dp"
+                android:text="2. 바이오 등록\n\n
+국내선 비행기 탑승수속할 때 사람들이 많아서 줄을 서서
+기다리느라 기분이 나빴던 경험이 있으신가요?\n
+이제는 바이오등록을 통해 빠르게 탑승수속을 마칠 수
+있답니다. 바이오 등록은 손바닥의 장정맥을 이용합니다.
+신분증으로 국내선 출발장 인근 무인 등록대에서 등록을 한
+후 등록여객 전용통로로 들어가면 되는데 게이트에서
+탑승권 인식과 바이오인증만 한 후 바로 들어갈 수 있어 매우
+빠르답니다. "/>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:paddingHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/iv_gimpo_palm"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font2"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingHorizontal="25dp"
+                android:layout_marginTop="40dp"
+                android:lineSpacingExtra="3dp"
+                android:text="3. 전망대\n\n
+김포공항 전망대가 있다는 사실! 알고계셨나요? 김포공항 앞
+한국공항공사 청사 6층에 김포공항 전망대가 있는데요.
+비행기가 이착륙하는 모습과 활주로가 훤히 내려다보여
+가족단위 방문객들에게 인기가 높다고 합니다.\n
+입장이 무료니까 김포공항을 이용하지 않더라도 한번쯤
+방문해보면 좋을거같네요."/>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:paddingHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/iv_gimpo_telescope"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

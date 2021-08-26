@@ -60,7 +60,7 @@ class CommentListActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = CommentsAdapter(diaryComments)
+            adapter = CommentsAdapter(diaryComments, index)
         }
 
         binding.ivX.setOnClickListener {

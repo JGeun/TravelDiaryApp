@@ -3,6 +3,7 @@ package com.hansung.traveldiary.src.chat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.res.ResourcesCompat
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityChangeChattingroomTitleBinding
 import com.hansung.traveldiary.src.ChatIdxFolder
+import com.hansung.traveldiary.util.StatusBarUtil
 
 class ChangeChattingroomTitleActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -24,6 +26,8 @@ class ChangeChattingroomTitleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        window.statusBarColor = ResourcesCompat.getColor(resources, R.color.white, null)
+
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
