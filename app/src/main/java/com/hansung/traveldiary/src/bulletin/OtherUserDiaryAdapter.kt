@@ -23,7 +23,7 @@ import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity
 import com.hansung.traveldiary.src.diary.SendTravelPlanActivity
 import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
 
-class OtherUserDiaryAdapter (val userDiaryArray: ArrayList<UserDiaryData> = ArrayList()):
+class OtherUserDiaryAdapter (val userDiaryArray: ArrayList<UserDiaryData> = ArrayList(),val index:Int):
     RecyclerView.Adapter<OtherUserDiaryAdapter.ViewHolder>() {
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
@@ -46,9 +46,8 @@ class OtherUserDiaryAdapter (val userDiaryArray: ArrayList<UserDiaryData> = Arra
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         user = Firebase.auth.currentUser
         db = Firebase.firestore
-
-        val data = userDiaryArray[position]
         val context = holder.itemView.context
+        val data = MainActivity.bulletinDiaryArray[index].userDiaryData
         holder.title.text = data.baseData.title
         val area = "#${data.baseData.area}"
         holder.area.text = area
@@ -65,14 +64,15 @@ class OtherUserDiaryAdapter (val userDiaryArray: ArrayList<UserDiaryData> = Arra
         else{
             Glide.with(holder.itemView.context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_no_main_image, null)).into(holder.thumbnail)
         }
-
+        Log.d("포지션", MainActivity.userDiaryArray.size.toString())
         holder.likeCnt.text = data.baseData.like.likeUserFolder.size.toString()
         holder.commentCnt.text = data.baseData.comments.commentsFolder.size.toString()
         holder.itemView.setTag(position)
 
         holder.itemView.setOnClickListener{
             val intent = Intent(context, OtherDiarySectionActivity::class.java)
-            intent.putExtra("index", position)
+            intent.putExtra("index", index)
+            //intent.putExtra("email",email.toString())
             context.startActivity(intent)
             //(context as MainActivity).overridePendingTransition(0, 0)
         }
