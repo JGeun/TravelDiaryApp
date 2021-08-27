@@ -45,8 +45,6 @@ class OtherDiarySectionActivity() : AppCompatActivity() {
             StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR
         )
 
-        val showDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_find_black, null)
-        val writeDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_edit, null)
         binding.dsIvBack.setOnClickListener {
             finish()
         }
@@ -55,7 +53,7 @@ class OtherDiarySectionActivity() : AppCompatActivity() {
         val data = MainActivity.bulletinDiaryArray[index].userDiaryData
 
 
-        getDiary(email.toString(),index)
+//        getDiary(email.toString(),index)
 
         Log.d("이메일", email.toString())
         binding.countLikes.text = data.baseData.like.likeUserFolder.size.toString()
@@ -66,16 +64,9 @@ class OtherDiarySectionActivity() : AppCompatActivity() {
         }
         binding.dsRecyclerview.apply {
             setHasFixedSize(true)
-            adapter = OtherUserDiarySectionAdapter(index, viewModel)
+            adapter = OtherUserDiarySectionAdapter(index)
             layoutManager = LinearLayoutManager(this@OtherDiarySectionActivity)
         }
-
-        Log.d(
-            "체크",
-            "Email: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail}"
-        )
-
-
     }
 
     override fun onStart() {
@@ -87,37 +78,5 @@ class OtherDiarySectionActivity() : AppCompatActivity() {
         super.onBackPressed()
         finish()
         overridePendingTransition(0, 0)
-    }
-
-    fun getDiary(email: String, index: Int) {
-        println("여기로 들어왔음 777777")
-        DBD = ArrayList<DiaryBaseData>()
-        val idxList = IdxList()
-        var diaryIdxList = IdxList()
-        val diaryIdxRef =
-            db!!.collection("Diary").document(email.toString())
-        diaryIdxRef.get()
-            .addOnSuccessListener { result ->
-                val idxData = result.toObject<IdxList>()
-                println(idxData.toString())
-                if (idxData != null) {
-                    diaryIdxList = idxData
-                    println("폴더의 길이" + diaryIdxList.idxFolder.size.toString())
-                    var diaryBaseData = DiaryBaseData()
-                    val baseRef =
-                        diaryIdxRef.collection("DiaryData").document(index.toString())
-                    baseRef.get().addOnSuccessListener { baseResult ->
-                        val baseData = baseResult.toObject<DiaryBaseData>()
-                        if (baseData != null) {
-                            diaryBaseData = baseData
-                            DBD.add(diaryBaseData)
-                        }
-                    }
-                    println("666666666666666666666666666666666")
-                    println(DBD[0].area)
-
-                }
-
-            }
     }
 }

@@ -26,7 +26,7 @@ import com.hansung.traveldiary.src.diary.SendTravelPlanActivity
 import com.hansung.traveldiary.src.diary.write_diary.WriteDiaryActivity
 import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
 
-class OtherUserDiarySectionAdapter (private val index: Int, private var viewModel: DiaryDayViewModel) :
+class OtherUserDiarySectionAdapter (private val index: Int) :
     RecyclerView.Adapter<OtherUserDiarySectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemDiaryDaySectionBinding) :
@@ -43,7 +43,7 @@ class OtherUserDiarySectionAdapter (private val index: Int, private var viewMode
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = MainActivity.userDiaryArray[index].diaryArray[position]
+        val data = MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray[position]
         holder.dayText.text = (position + 1).toString()
 //        holder.tag.text = data.tag
         val context = holder.itemView.context
@@ -64,7 +64,6 @@ class OtherUserDiarySectionAdapter (private val index: Int, private var viewMode
 
         holder.itemView.setOnClickListener {
             val intent: Intent
-            val showImage = R.drawable.ic_find_black
             intent = Intent(context, ShowDiaryActivity::class.java)
             intent.putExtra("index", index)
             intent.putExtra("day", position)
@@ -72,6 +71,6 @@ class OtherUserDiarySectionAdapter (private val index: Int, private var viewMode
         }
     }
 
-    override fun getItemCount() = MainActivity.userDiaryArray[index].diaryArray.size
+    override fun getItemCount() = MainActivity.bulletinDiaryArray[index].userDiaryData.diaryArray.size
 }
 

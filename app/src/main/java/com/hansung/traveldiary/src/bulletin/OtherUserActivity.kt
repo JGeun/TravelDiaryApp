@@ -1,11 +1,8 @@
 package com.hansung.traveldiary.src.bulletin
 
-import android.content.Context
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
@@ -21,21 +18,13 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.src.*
-import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 import kotlinx.coroutines.*
 
 class OtherUserActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityOtherUserBinding.inflate(layoutInflater)
     }
-    companion object{
 
-    }
-    private var countlike=Integer.MAX_VALUE
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,8 +48,6 @@ class OtherUserActivity : AppCompatActivity() {
         val nickname = MainActivity.bulletinDiaryArray[index].userInfo.nickname
         val userImagePath = MainActivity.bulletinDiaryArray[index].userInfo.profileImage
         binding.userName.text = nickname
-        //println(db!!.collection("DiaryData").document(email.toString()).collection("DiaryDaya"))
-        //프로필 이미지 유무 검사
 
         if (userImagePath == "")
             Glide.with(this).load(
@@ -73,25 +60,25 @@ class OtherUserActivity : AppCompatActivity() {
         else
             Glide.with(this).load(userImagePath).circleCrop().into(binding.userProfileImage)
 
-        if (user!!.email.toString().equals(email.toString())) {
+        if (user!!.email.toString() == email) {
             binding.btnLayout.isGone = true
+        }else{
+            binding.profileStatus.isGone = true
         }
 
-
-        Log.d("프로필", "email: ${MainActivity.bulletinDiaryArray[index].userInfo.email}")
-        println("현재 로그인 중인 유저의 이메일은 : " + user!!.email.toString())
-        println(email)
-        val userDiaryArray = ArrayList<UserDiaryData>()
+        val otherUserIdxArray = ArrayList<Int>()
         for (i in 0 until MainActivity.bulletinDiaryArray.size) {
             if (MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.userEmail == email) {
-                userDiaryArray.add(MainActivity.bulletinDiaryArray[i].userDiaryData)
+                otherUserIdxArray.add(i)
             }
         }
 
-        getDiary(email,index)
-
-
-
+        binding.rv.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = OtherUserDiaryAdapter(otherUserIdxArray)
+        }
+//        getDiary(email,index)
 
         binding.btnAddFriend.setOnClickListener {
             val userRef = db!!.collection("UserInfo").document(user!!.email.toString())
@@ -140,11 +127,7 @@ class OtherUserActivity : AppCompatActivity() {
                                  DBD.add(diaryBaseData)
                              }
                              println("길이" + DBD.size)
-                             binding.rv.apply {
-                                 setHasFixedSize(true)
-                                 layoutManager = LinearLayoutManager(context)
-                                 adapter = OtherUserDiaryAdapter(DBD,index)
-                             }
+
                          }
 
                      }

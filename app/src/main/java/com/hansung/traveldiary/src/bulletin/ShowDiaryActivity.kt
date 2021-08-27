@@ -46,10 +46,9 @@ class ShowDiaryActivity : AppCompatActivity(){
         val index = intent.getIntExtra("index", 0)
         val day = intent.getIntExtra("day", 0)
         val isBulletin = intent.getBooleanExtra("isBulletin", false)
-        val profileImage=intent.getStringExtra("image")
-        val email=intent.getStringExtra("email")
-        println(profileImage.toString())
-        println(email.toString())
+        val profileImage= MainActivity.bulletinDiaryArray[index].userInfo.profileImage
+        val email= MainActivity.bulletinDiaryArray[index].userInfo.email
+
         val diary : UserDiaryData
 
         if(isBulletin){
