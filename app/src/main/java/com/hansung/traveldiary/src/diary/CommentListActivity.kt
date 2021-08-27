@@ -45,7 +45,7 @@ class CommentListActivity : AppCompatActivity() {
         index = intent.getIntExtra("index", 0)
         Log.d("체크", "CommentsList 받은 index: ${index}")
         myDiary = intent.getBooleanExtra("myDiary", false)
-
+        println("넘어온 값은 "+myDiary)
         if (myDiary){
             diaryComments = MainActivity.userDiaryArray[index].baseData.comments
             Log.d("체크", "CommentsList 제 다이어리입니다")

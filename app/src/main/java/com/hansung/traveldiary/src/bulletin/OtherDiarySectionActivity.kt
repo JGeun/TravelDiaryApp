@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hansung.traveldiary.R
-import com.hansung.traveldiary.databinding.ActivityMyDiaryDaySectionBinding
 import com.hansung.traveldiary.databinding.ActivityOtherDiarySectionBinding
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.DiaryDayViewModel
@@ -37,7 +36,7 @@ class OtherDiarySectionActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        user = Firebase.auth.currentUser
         db = Firebase.firestore
 
         StatusBarUtil.setStatusBarColor(
@@ -51,13 +50,35 @@ class OtherDiarySectionActivity() : AppCompatActivity() {
         val index = intent.getIntExtra("index", 0)
         val email = intent.getStringExtra("email")
         val data = MainActivity.bulletinDiaryArray[index].userDiaryData
-
-
+        var myDiary=false
+        if(user!!.email.toString().equals(email)){
+            myDiary=true
+        }
 //        getDiary(email.toString(),index)
-
-        Log.d("이메일", email.toString())
         binding.countLikes.text = data.baseData.like.likeUserFolder.size.toString()
         binding.countComments.text = data.baseData.comments.commentsFolder.size.toString()
+
+
+        val likeRef = db!!.collection("Diary").document(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail)
+            .collection("DiaryData").document(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.idx.toString())
+        binding.ivLike.setOnClickListener {
+            if(!chk_like){
+                binding.ivLike.setImageResource(R.drawable.asset7)
+                chk_like=true
+                MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.add(user!!.email.toString())
+                likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+                binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
+            }else{
+                binding.ivLike.setImageResource(R.drawable.emptyheart)
+                chk_like=false
+                MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.remove(user!!.email.toString())
+                likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+                binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
+            }
+        }
+
+        Log.d("이메일", email.toString())
+
         binding.dsTitle.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.title
         binding.dsIvBack.setOnClickListener {
             finish()
@@ -66,6 +87,13 @@ class OtherDiarySectionActivity() : AppCompatActivity() {
             setHasFixedSize(true)
             adapter = OtherUserDiarySectionAdapter(index)
             layoutManager = LinearLayoutManager(this@OtherDiarySectionActivity)
+        }
+
+        binding.commentLayout.setOnClickListener {
+            val intent =Intent(this, CommentListActivity::class.java)
+            intent.putExtra("index",index)
+            //intent.putExtra("myDiary",myDiary)
+            startActivity(intent)
         }
     }
 
