@@ -33,7 +33,6 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
         setContentView(binding.root)
         StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.DIARY_SECTION_STATUS_BAR)
         likeCount=LikeViewModel()
-
         user = Firebase.auth.currentUser
         val db = Firebase.firestore
 
@@ -70,11 +69,11 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
 
         if(!MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.contains(user!!.email.toString())){
             binding.ivLike.setImageResource(R.drawable.emptyheart)
-            likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+            likeRef.set(MainActivity.userDiaryArray[index].baseData)
             binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
         }else{
             binding.ivLike.setImageResource(R.drawable.asset7)
-            likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+            likeRef.set(MainActivity.userDiaryArray[index].baseData)
             binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
         }
 
@@ -82,12 +81,12 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
             if(!MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.contains(user!!.email.toString())){
                 binding.ivLike.setImageResource(R.drawable.asset7)
                 MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.add(user!!.email.toString())
-                likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+                likeRef.set(MainActivity.userDiaryArray[index].baseData)
                 binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
             }else{
                 binding.ivLike.setImageResource(R.drawable.emptyheart)
                 MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.remove(user!!.email.toString())
-                likeRef.set(MainActivity.bulletinDiaryArray[index].userDiaryData.baseData)
+                likeRef.set(MainActivity.userDiaryArray[index].baseData)
                 binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
             }
         }
