@@ -40,7 +40,6 @@
         android:fontFamily="@font/main_font2"
         app:layout_constraintStart_toEndOf="@id/btItem_cardview"
         app:layout_constraintTop_toTopOf="@id/btItem_cardview"
-        app:layout_constraintEnd_toStartOf="@id/btItem_iv_edit"
         tools:text="assssssssssssssssssssssssasdas" />
 
     <TextView

@@ -17,11 +17,9 @@
         android:theme="@style/Theme.TravelDiary">
 
         <activity android:name=".src.home.GimpoAirportTipActivity"></activity>
-        <activity android:name=".src.travel.MyDiaryCommentListActiviyy" />
         <activity android:name=".src.home.RecommandActivity" />
         <activity android:name=".src.chat.ChangeChattingroomTitleActivity" />
-        <activity android:name=".src.chat.ChangeChattingroomTitleActivity" />
-        <activity android:name=".src.home.RecommandActivity" />
+
         <activity
             android:name=".src.chat.EditChatroomActivity"
             android:theme="@style/Transparent" />
