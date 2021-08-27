@@ -18,20 +18,22 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.hansung.traveldiary.src.DiaryBaseData
+import com.hansung.traveldiary.src.IdxList
 import com.hansung.traveldiary.src.MainActivity.Companion.userDiaryArray
 import com.hansung.traveldiary.src.diary.CommentListActivity
 import com.hansung.traveldiary.src.diary.MyDiaryDaySectionAdapter
 import com.hansung.traveldiary.util.StatusBarUtil
 
-class OtherDiarySectionActivity : AppCompatActivity() {
+class OtherDiarySectionActivity() : AppCompatActivity() {
     private val binding by lazy {
         ActivityOtherDiarySectionBinding.inflate(layoutInflater)
     }
-
+    private var DBD = ArrayList<DiaryBaseData>()
     private val viewModel: DiaryDayViewModel by viewModels()
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
-    private var chk_like=false
+    private var chk_like = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -48,15 +50,18 @@ class OtherDiarySectionActivity : AppCompatActivity() {
         binding.dsIvBack.setOnClickListener {
             finish()
         }
-
         val index = intent.getIntExtra("index", 0)
-        val email=intent.getStringExtra("email")
+        val email = intent.getStringExtra("email")
         val data = MainActivity.bulletinDiaryArray[index].userDiaryData
+
+
+        getDiary(email.toString(),index)
+
         Log.d("이메일", email.toString())
-        binding.countLikes.text=data.baseData.like.likeUserFolder.size.toString()
-        binding.countComments.text= data.baseData.comments.commentsFolder.size.toString()
+        binding.countLikes.text = data.baseData.like.likeUserFolder.size.toString()
+        binding.countComments.text = data.baseData.comments.commentsFolder.size.toString()
         binding.dsTitle.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.title
-        binding.dsIvBack.setOnClickListener{
+        binding.dsIvBack.setOnClickListener {
             finish()
         }
         binding.dsRecyclerview.apply {
@@ -65,7 +70,10 @@ class OtherDiarySectionActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@OtherDiarySectionActivity)
         }
 
-        Log.d("체크", "Email: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail}")
+        Log.d(
+            "체크",
+            "Email: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail}"
+        )
 
 
     }
@@ -79,5 +87,37 @@ class OtherDiarySectionActivity : AppCompatActivity() {
         super.onBackPressed()
         finish()
         overridePendingTransition(0, 0)
+    }
+
+    fun getDiary(email: String, index: Int) {
+        println("여기로 들어왔음 777777")
+        DBD = ArrayList<DiaryBaseData>()
+        val idxList = IdxList()
+        var diaryIdxList = IdxList()
+        val diaryIdxRef =
+            db!!.collection("Diary").document(email.toString())
+        diaryIdxRef.get()
+            .addOnSuccessListener { result ->
+                val idxData = result.toObject<IdxList>()
+                println(idxData.toString())
+                if (idxData != null) {
+                    diaryIdxList = idxData
+                    println("폴더의 길이" + diaryIdxList.idxFolder.size.toString())
+                    var diaryBaseData = DiaryBaseData()
+                    val baseRef =
+                        diaryIdxRef.collection("DiaryData").document(index.toString())
+                    baseRef.get().addOnSuccessListener { baseResult ->
+                        val baseData = baseResult.toObject<DiaryBaseData>()
+                        if (baseData != null) {
+                            diaryBaseData = baseData
+                            DBD.add(diaryBaseData)
+                        }
+                    }
+                    println("666666666666666666666666666666666")
+                    println(DBD[0].area)
+
+                }
+
+            }
     }
 }

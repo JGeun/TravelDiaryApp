@@ -1,8 +1,10 @@
 package com.hansung.traveldiary.src.bulletin
 
+import android.content.Context
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -20,12 +22,20 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.src.*
 import com.hansung.traveldiary.src.travel.adapter.DiarySectionAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.internal.wait
+import kotlinx.coroutines.*
 
 class OtherUserActivity : AppCompatActivity() {
-    private val binding by lazy{
+    private val binding by lazy {
         ActivityOtherUserBinding.inflate(layoutInflater)
     }
+    companion object{
 
+    }
+    private var countlike=Integer.MAX_VALUE
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +48,9 @@ class OtherUserActivity : AppCompatActivity() {
         }
         window.apply {
             this.statusBarColor = Color.TRANSPARENT
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN }
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
 
         user = Firebase.auth.currentUser
         db = Firebase.firestore
@@ -50,30 +62,35 @@ class OtherUserActivity : AppCompatActivity() {
         //println(db!!.collection("DiaryData").document(email.toString()).collection("DiaryDaya"))
         //프로필 이미지 유무 검사
 
-        if(userImagePath == "")
-            Glide.with(this).load(ResourcesCompat.getDrawable(this.resources, R.drawable.img_basic_profile, null)).circleCrop().into(binding.userProfileImage)
+        if (userImagePath == "")
+            Glide.with(this).load(
+                ResourcesCompat.getDrawable(
+                    this.resources,
+                    R.drawable.img_basic_profile,
+                    null
+                )
+            ).circleCrop().into(binding.userProfileImage)
         else
             Glide.with(this).load(userImagePath).circleCrop().into(binding.userProfileImage)
 
-        if(user!!.email.toString().equals(email.toString())){
-            binding.btnLayout.isGone=true
+        if (user!!.email.toString().equals(email.toString())) {
+            binding.btnLayout.isGone = true
         }
 
 
         Log.d("프로필", "email: ${MainActivity.bulletinDiaryArray[index].userInfo.email}")
-        println("현재 로그인 중인 유저의 이메일은 : "+ user!!.email.toString())
-
+        println("현재 로그인 중인 유저의 이메일은 : " + user!!.email.toString())
+        println(email)
         val userDiaryArray = ArrayList<UserDiaryData>()
-        for(i in 0 until MainActivity.bulletinDiaryArray.size){
-            if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.userEmail == email){
+        for (i in 0 until MainActivity.bulletinDiaryArray.size) {
+            if (MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.userEmail == email) {
                 userDiaryArray.add(MainActivity.bulletinDiaryArray[i].userDiaryData)
             }
         }
-        binding.rv.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
-            adapter = OtherUserDiaryAdapter(userDiaryArray,index)
-        }
+
+        getDiary(email,index)
+
+
 
 
         binding.btnAddFriend.setOnClickListener {
@@ -81,21 +98,59 @@ class OtherUserActivity : AppCompatActivity() {
             userRef.get()
                 .addOnSuccessListener { result ->
                     val data = result.toObject<UserInfo>()
-                    if(data != null){
+                    if (data != null) {
                         val userInfo = data
                         userInfo.friendList.friendFolder.add(email)
                         userRef.set(userInfo).addOnSuccessListener {
-                            Toast.makeText(this,"친구 추가가 완료되었습니다", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "친구 추가가 완료되었습니다", Toast.LENGTH_SHORT).show()
                             MainActivity.myFriendList.friendFolder.add(email)
-                        }.addOnFailureListener{
-                            Toast.makeText(this,"친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
+                        }.addOnFailureListener {
+                            Toast.makeText(this, "친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
                         }
-                    }else{
-                        Toast.makeText(this,"친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
                     }
                 }
 
         }
-
     }
+
+     fun getDiary(email: String,index:Int) {
+         val DBD = ArrayList<DiaryBaseData>()
+         val idxList = IdxList()
+         var diaryIdxList = IdxList()
+         val diaryIdxRef =
+             db!!.collection("Diary").document(email.toString())
+         diaryIdxRef.get()
+             .addOnSuccessListener { result ->
+                 val idxData = result.toObject<IdxList>()
+                 println(idxData.toString())
+                 if (idxData != null) {
+                     diaryIdxList = idxData
+                     println("폴더의 길이" + diaryIdxList.idxFolder.size.toString())
+                     for (idx in diaryIdxList.idxFolder) {
+                         var diaryBaseData = DiaryBaseData()
+                         println("${email} idx: ${idx}")
+                         val baseRef =
+                             diaryIdxRef.collection("DiaryData").document(idx.toString())
+                         baseRef.get().addOnSuccessListener { baseResult ->
+                             val baseData = baseResult.toObject<DiaryBaseData>()
+                             if (baseData != null) {
+                                 diaryBaseData = baseData
+                                 DBD.add(diaryBaseData)
+                             }
+                             println("길이" + DBD.size)
+                             binding.rv.apply {
+                                 setHasFixedSize(true)
+                                 layoutManager = LinearLayoutManager(context)
+                                 adapter = OtherUserDiaryAdapter(DBD,index)
+                             }
+                         }
+
+                     }
+
+                 }
+             }
+     }
+
 }
