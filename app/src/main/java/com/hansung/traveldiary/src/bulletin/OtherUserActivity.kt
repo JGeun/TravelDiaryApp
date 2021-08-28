@@ -78,62 +78,34 @@ class OtherUserActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = OtherUserDiaryAdapter(otherUserIdxArray)
         }
-//        getDiary(email,index)
 
-        binding.btnAddFriend.setOnClickListener {
-            val userRef = db!!.collection("UserInfo").document(user!!.email.toString())
-            userRef.get()
-                .addOnSuccessListener { result ->
-                    val data = result.toObject<UserInfo>()
-                    if (data != null) {
-                        val userInfo = data
-                        userInfo.friendList.friendFolder.add(email)
-                        userRef.set(userInfo).addOnSuccessListener {
-                            Toast.makeText(this, "친구 추가가 완료되었습니다", Toast.LENGTH_SHORT).show()
-                            MainActivity.myFriendList.friendFolder.add(email)
-                        }.addOnFailureListener {
+        var isFriednBtnEnabled = true
+        if(MainActivity.myFriendList.friendFolder.contains(email)){
+            binding.btnAddFriend.text = "친구"
+            isFriednBtnEnabled = false
+        }
+
+        if(isFriednBtnEnabled){
+            binding.btnAddFriend.setOnClickListener {
+                val userRef = db!!.collection("UserInfo").document(user!!.email.toString())
+                userRef.get()
+                    .addOnSuccessListener { result ->
+                        val data = result.toObject<UserInfo>()
+                        if (data != null) {
+                            val userInfo = data
+                            userInfo.friendList.friendFolder.add(email)
+                            userRef.set(userInfo).addOnSuccessListener {
+                                Toast.makeText(this, "친구 추가가 완료되었습니다", Toast.LENGTH_SHORT).show()
+                                MainActivity.myFriendList.friendFolder.add(email)
+                            }.addOnFailureListener {
+                                Toast.makeText(this, "친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
                             Toast.makeText(this, "친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
                         }
-                    } else {
-                        Toast.makeText(this, "친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
                     }
-                }
 
+            }
         }
     }
-
-     fun getDiary(email: String,index:Int) {
-         val DBD = ArrayList<DiaryBaseData>()
-         val idxList = IdxList()
-         var diaryIdxList = IdxList()
-         val diaryIdxRef =
-             db!!.collection("Diary").document(email.toString())
-         diaryIdxRef.get()
-             .addOnSuccessListener { result ->
-                 val idxData = result.toObject<IdxList>()
-                 println(idxData.toString())
-                 if (idxData != null) {
-                     diaryIdxList = idxData
-                     println("폴더의 길이" + diaryIdxList.idxFolder.size.toString())
-                     for (idx in diaryIdxList.idxFolder) {
-                         var diaryBaseData = DiaryBaseData()
-                         println("${email} idx: ${idx}")
-                         val baseRef =
-                             diaryIdxRef.collection("DiaryData").document(idx.toString())
-                         baseRef.get().addOnSuccessListener { baseResult ->
-                             val baseData = baseResult.toObject<DiaryBaseData>()
-                             if (baseData != null) {
-                                 diaryBaseData = baseData
-                                 DBD.add(diaryBaseData)
-                             }
-                             println("길이" + DBD.size)
-
-                         }
-
-                     }
-
-                 }
-             }
-     }
-
 }

@@ -26,8 +26,6 @@ class CommentsAdapter(val commentsList: CommentsFolder, val index: Int):Recycler
         val nickname=binding.tvNickname
         val comment=binding.tvCommet
         val date=binding.tvDate
-        val likeImage=binding.commentLike
-        val likelayout=binding.likeLayout
         val editBtn=binding.ivEdit
     }
 
@@ -55,18 +53,6 @@ class CommentsAdapter(val commentsList: CommentsFolder, val index: Int):Recycler
 
         holder.comment.text = data.contents
         holder.date.text = data.date
-
-        var chk_like=false
-
-        holder.likelayout.setOnClickListener {
-            if(!chk_like){
-                Glide.with(holder.itemView.context).load(R.drawable.asset7).into(holder.likeImage)
-                chk_like=true
-            }else{
-                Glide.with(holder.itemView.context).load(R.drawable.emptyheart).into(holder.likeImage)
-                chk_like=false
-            }
-        }
 
         var context = holder.itemView.context
         val user = Firebase.auth.currentUser

@@ -82,7 +82,7 @@ class WeatherActivity : AppCompatActivity() {
             3 -> day = "Tue";
             4 -> day = "Wed";
             5 -> day = "Thr";
-            6 -> day = "Fir";
+            6 -> day = "Fri";
             7 -> day = "Sat";
         }
 
