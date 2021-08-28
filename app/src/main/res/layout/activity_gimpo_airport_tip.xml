@@ -71,7 +71,7 @@ cms/frCon/index.do?MENU_ID=2390"/>
                 android:paddingHorizontal="25dp"
                 android:layout_marginTop="20dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/iv_gimpo_charge" />
+                app:srcCompat="@drawable/iv_gimpo_charge2" />
 
             <TextView
                 android:id="@+id/textView"
@@ -100,7 +100,7 @@ cms/frCon/index.do?MENU_ID=2390"/>
                 android:paddingHorizontal="25dp"
                 android:layout_marginTop="20dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/iv_gimpo_palm"/>
+                app:srcCompat="@drawable/iv_gimpo_palm2"/>
 
             <TextView
                 android:id="@+id/textView2"
@@ -126,8 +126,9 @@ cms/frCon/index.do?MENU_ID=2390"/>
                 android:layout_height="200dp"
                 android:paddingHorizontal="25dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/iv_gimpo_telescope"/>
+                app:srcCompat="@drawable/iv_gimpo_telescope2"/>
 
         </LinearLayout>
     </ScrollView>
