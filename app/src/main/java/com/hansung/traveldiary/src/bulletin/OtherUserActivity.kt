@@ -97,6 +97,8 @@ class OtherUserActivity : AppCompatActivity() {
                             userRef.set(userInfo).addOnSuccessListener {
                                 Toast.makeText(this, "친구 추가가 완료되었습니다", Toast.LENGTH_SHORT).show()
                                 MainActivity.myFriendList.friendFolder.add(email)
+                                binding.btnAddFriend.text = "친구"
+                                isFriednBtnEnabled = false
                             }.addOnFailureListener {
                                 Toast.makeText(this, "친구 추가에 실패했습니다", Toast.LENGTH_SHORT).show()
                             }

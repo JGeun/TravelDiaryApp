@@ -89,7 +89,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.35"
+        app:layout_constraintVertical_bias="0.45"
         android:visibility="invisible"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -103,7 +103,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_chatroom"
         android:overScrollMode="never"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

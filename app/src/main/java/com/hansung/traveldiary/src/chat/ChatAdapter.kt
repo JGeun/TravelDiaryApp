@@ -13,7 +13,7 @@ import com.hansung.traveldiary.src.ChatData
 import com.hansung.traveldiary.src.ChatFolder
 import com.hansung.traveldiary.src.MainActivity
 
-class ChatAdapter(val myUser : String) : RecyclerView.Adapter<ChatAdapter.ViewHolder>(){
+class ChatAdapter(private val myUser : String) : RecyclerView.Adapter<ChatAdapter.ViewHolder>(){
     private val chatList = ChatFolder()
     class ViewHolder(binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root){
         val myLayout = binding.myChat

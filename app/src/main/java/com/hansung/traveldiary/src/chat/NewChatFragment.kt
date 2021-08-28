@@ -31,7 +31,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-data class FriendInfo(var nickname: String = "", var imagePath: String = "", var selected: Boolean) :
+data class FriendInfo(
+    var email: String,
+    var nickname: String = "",
+    var imagePath: String = "",
+    var selected: Boolean
+) :
     Comparable<FriendInfo> {
     override fun compareTo(other: FriendInfo): Int {
         return this.nickname.compareTo(other.nickname)
@@ -88,6 +93,7 @@ class NewChatFragment : Fragment() {
             for (i in 0 until MainActivity.userInfoList.size) {
                 if (MainActivity.userInfoList[i].email == friendEmail) {
                     val friendInfo = FriendInfo(
+                        MainActivity.userInfoList[i].email,
                         MainActivity.userInfoList[i].nickname,
                         MainActivity.userInfoList[i].profileImage,
                         false
@@ -111,24 +117,21 @@ class NewChatFragment : Fragment() {
 
         binding.tvMake.setOnClickListener {
             Log.d("에러 체크", selectedArray.size.toString())
-            if (selectedArray.size==0){
+            if (selectedArray.size == 0) {
                 Toast.makeText(context, "대화상대를 선택해주세요", Toast.LENGTH_SHORT).show()
-            }else if (selectedArray.size==1){
+            } else {
                 makeNewChatRoom()
-//                startActivity(Intent(context, ChatActivity::class.java))
-            }else{
-                fragmentManager?.beginTransaction()?.replace(R.id.main_frm, ChattingRoomOptionFragment(this))?.commit()
             }
         }
 
         return binding.root
     }
 
-    fun searchChatroom(search: String){
+    fun searchChatroom(search: String) {
         friendArray.clear()
 
-        for(i in 0..searchArray.size-1){
-            if (searchArray[i].nickname.contains(search)){
+        for (i in 0..searchArray.size - 1) {
+            if (searchArray[i].nickname.contains(search)) {
                 friendArray.add(searchArray[i])
             }
         }
@@ -136,17 +139,17 @@ class NewChatFragment : Fragment() {
         binding.usersRv.adapter?.notifyDataSetChanged()
     }
 
-    fun notifySelectedArr(data: FriendInfo, selected: Boolean){
-        if (selected){
+    fun notifySelectedArr(data: FriendInfo, selected: Boolean) {
+        if (selected) {
             selectedArray.add(data)
-        }else{
+        } else {
             selectedArray.remove(data)
         }
         Log.d("NOTIFY", "작동함!")
         binding.selectedUsersRv.adapter?.notifyDataSetChanged()
     }
 
-    fun notifyFreindArr(data: FriendInfo){
+    fun notifyFreindArr(data: FriendInfo) {
         var idx = friendArray.indexOf(data)
         data.selected = false
         friendArray.set(idx, data)
@@ -178,34 +181,26 @@ class NewChatFragment : Fragment() {
                 chatIdxList.idxFolder.add(idx)
                 chatTotalIdxRef.set(chatIdxList)
 
-                db.collection("ChatData").document(idx.toString())
-                    .set(ChatFolder())
+                db.collection("ChatData").document(idx.toString()).set(ChatFolder())
 
                 //여기서 유저한테 idx추가 하면 됨
-                var chatFolder = ChatIdxFolder()
-                val userChatIdxRef = db.collection("UserChat").document(user!!.email.toString())
-                userChatIdxRef.get().addOnSuccessListener { result ->
-                    val data = result.toObject<ChatIdxFolder>()
-                    if (data != null) {
-                        chatFolder = data
-                    }
+                val userList = UserList()
+                for (selectUser in selectedArray)
+                    userList.emailFolder.add(selectUser.email)
+                userList.emailFolder.add(user!!.email.toString())
 
-                    val current = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                var title = "${selectedArray[0].nickname}"
+                val image = selectedArray[0].imagePath
+                if (selectedArray.size > 1)
+                    title += "외 ${selectedArray.size - 1}명"
 
-                    chatFolder.chatIdxFolder.add(
-                        ChatIdxData(
-                            idx,
-                            UserList(),
-                            "${selectedArray[0].nickname}",
-                            "${selectedArray[0].imagePath}",
-                            "",
-                            current
-                        )
-                    )
-                    userChatIdxRef.set(chatFolder).addOnSuccessListener {
-                        fragmentManager?.beginTransaction()?.replace(R.id.main_frm, ChatFragment())
-                            ?.commit()
-                    }
+                val size = userList.emailFolder.size
+                println("채팅방 인원 size: ${size}")
+                for(i in 0 until size){
+                    val userListEmail = userList.emailFolder[0];
+                    userList.emailFolder.removeAt(0)
+                    addChatIdxToUser(userListEmail, userList, idx, title, image, i, size)
+                    userList.emailFolder.add(userListEmail)
                 }
             }.addOnFailureListener {
                 Toast.makeText(context, "대화방 만들기 실패.", Toast.LENGTH_SHORT).show()
@@ -222,6 +217,40 @@ class NewChatFragment : Fragment() {
             str.append(num.toString())
         }
         return str.toString().toLong()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun addChatIdxToUser(email: String, userList: UserList,idx: Long, title:String, image:String, index: Int, size: Int) {
+        var chatFolder = ChatIdxFolder()
+        val userChatIdxRef = db!!.collection("UserChat").document(email)
+        userChatIdxRef.get().addOnSuccessListener { result ->
+            val data = result.toObject<ChatIdxFolder>()
+            if (data != null) {
+                chatFolder = data
+            }
+
+            val current = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+            chatFolder.chatIdxFolder.add(
+                ChatIdxData(
+                    idx,
+                    userList,
+                    title,
+                    image,
+                    "",
+                    current
+                )
+            )
+            userChatIdxRef.set(chatFolder).addOnSuccessListener {
+                if(index == size-1)
+                    fragmentManager?.beginTransaction()?.replace(R.id.main_frm, ChatFragment())?.commit()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(context, "대화방 만들기 실패.", Toast.LENGTH_SHORT).show()
+            fragmentManager?.beginTransaction()?.replace(R.id.main_frm, ChatFragment())
+                ?.commit()
+        }
     }
 
     private fun showCustomToast(message: String) {
