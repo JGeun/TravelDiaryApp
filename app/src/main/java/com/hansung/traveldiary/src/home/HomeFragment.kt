@@ -356,42 +356,42 @@ class HomeFragment : Fragment(), HomeView{
             MainActivity.weatherMain = "뇌우"
             MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                 requireContext().resources,
-                R.drawable.ic_new_thunderstorm,
+                R.drawable.ic_thunderstorm_white,
                 null
             )!!
         }else if(MainActivity.weatherId.substring(0, 1).equals("3")){
             MainActivity.weatherMain = "이슬비"
             MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                 requireContext().resources,
-                R.drawable.ic_new_drizzling,
+                R.drawable.ic_drizzling_white,
                 null
             )!!
         }else if(MainActivity.weatherId.substring(0, 1).equals("5")){
             MainActivity.weatherMain = "비"
             MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                 requireContext().resources,
-                R.drawable.ic_new_rain,
+                R.drawable.ic_rain_white,
                 null
             )!!
         }else if(MainActivity.weatherId.substring(0, 1).equals("6")){
             MainActivity.weatherMain = "눈"
             MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                 requireContext().resources,
-                R.drawable.ic_new_snow,
+                R.drawable.ic_snow_white,
                 null
             )!!
         }else if(MainActivity.weatherId.equals("800")){
             MainActivity.weatherMain = "맑음"
             MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                 requireContext().resources,
-                R.drawable.ic_new_sunny,
+                R.drawable.ic_sunny_white,
                 null
             )!!
         }else if(MainActivity.weatherId.substring(0, 1).equals("8")){
             MainActivity.weatherMain = "구름"
             MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                 requireContext().resources,
-                R.drawable.ic_new_cloudy,
+                R.drawable.ic_cloudy_white,
                 null
             )!!
         }else{
@@ -399,7 +399,7 @@ class HomeFragment : Fragment(), HomeView{
                 MainActivity.weatherMain = "돌풍"
                 MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                     requireContext().resources,
-                    R.drawable.ic_new_windy,
+                    R.drawable.ic_windy_white,
                     null
                 )!!
             }else if(MainActivity.weatherId.equals("731") || MainActivity.weatherId.equals("751") || MainActivity.weatherId.equals(
@@ -408,21 +408,21 @@ class HomeFragment : Fragment(), HomeView{
                 MainActivity.weatherMain = "먼지"
                 MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                     requireContext().resources,
-                    R.drawable.ic_new_dust,
+                    R.drawable.ic_dust_white,
                     null
                 )!!
             }else if(MainActivity.weatherId.substring(0, 1).equals("7")){
                 MainActivity.weatherMain = "안개"
                 MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                     requireContext().resources,
-                    R.drawable.ic_new_fog,
+                    R.drawable.ic_fog_white,
                     null
                 )!!
             }else{
                 MainActivity.weatherMain = "맑음"
                 MainActivity.weatherIcon = ResourcesCompat.getDrawable(
                     requireContext().resources,
-                    R.drawable.ic_new_sunny,
+                    R.drawable.ic_sunny_white,
                     null
                 )!!
             }

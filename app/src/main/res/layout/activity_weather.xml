@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/home_bgcolor"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/weather_totalLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/home_bgcolor">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/iv_weatherbg"
@@ -334,15 +334,9 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:overScrollMode="never"
-            android:paddingBottom="50dp"
+            android:paddingBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/weekly_weather_title" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weather_rv_weekly" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

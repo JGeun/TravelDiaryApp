@@ -1,8 +1,10 @@
 package com.hansung.traveldiary.src.home.weather
 
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -44,7 +46,74 @@ class WeatherActivity : AppCompatActivity() {
 //            binding.weatherTotalLayout.background = ResourcesCompat.getDrawable(resources, R.drawable.gradation_night, null)
 //        }
         binding.tvClouds.text = MainActivity.cloudsText
-        Glide.with(this).load(MainActivity.weatherIcon).into(binding.ivWeatherCondition)
+
+        var weatherImg : Drawable
+        if(MainActivity.weatherId.substring(0, 1).equals("2")){
+            weatherImg = ResourcesCompat.getDrawable(
+                applicationContext.resources,
+                R.drawable.ic_new_thunderstorm,
+                null
+            )!!
+        }else if(MainActivity.weatherId.substring(0, 1).equals("3")){
+            weatherImg = ResourcesCompat.getDrawable(
+                applicationContext.resources,
+                R.drawable.ic_new_drizzling,
+                null
+            )!!
+        }else if(MainActivity.weatherId.substring(0, 1).equals("5")){
+            weatherImg = ResourcesCompat.getDrawable(
+                applicationContext.resources,
+                R.drawable.ic_new_rain,
+                null
+            )!!
+        }else if(MainActivity.weatherId.substring(0, 1).equals("6")){
+            weatherImg = ResourcesCompat.getDrawable(
+                applicationContext.resources,
+                R.drawable.ic_new_snow,
+                null
+            )!!
+        }else if(MainActivity.weatherId.equals("800")){
+            weatherImg = ResourcesCompat.getDrawable(
+                applicationContext.resources,
+                R.drawable.ic_new_sunny,
+                null
+            )!!
+        }else if(MainActivity.weatherId.substring(0, 1).equals("8")){
+            weatherImg = ResourcesCompat.getDrawable(
+                applicationContext.resources,
+                R.drawable.ic_new_cloudy,
+                null
+            )!!
+        }else{
+            if(MainActivity.weatherId.equals("771") || MainActivity.weatherId.equals("781")){
+                weatherImg = ResourcesCompat.getDrawable(
+                    applicationContext.resources,
+                    R.drawable.ic_new_windy,
+                    null
+                )!!
+            }else if(MainActivity.weatherId.equals("731") || MainActivity.weatherId.equals("751") || MainActivity.weatherId.equals(
+                    "761"
+                ) || MainActivity.weatherId.equals("762")){
+                weatherImg = ResourcesCompat.getDrawable(
+                    applicationContext.resources,
+                    R.drawable.ic_new_dust,
+                    null
+                )!!
+            }else if(MainActivity.weatherId.substring(0, 1).equals("7")){
+                weatherImg = ResourcesCompat.getDrawable(
+                    applicationContext.resources,
+                    R.drawable.ic_new_fog,
+                    null
+                )!!
+            }else{
+                weatherImg = ResourcesCompat.getDrawable(
+                    applicationContext.resources,
+                    R.drawable.ic_new_sunny,
+                    null
+                )!!
+            }
+        }
+        Glide.with(this).load(weatherImg).into(binding.ivWeatherCondition)
         binding.tvWeatherCondition.text = MainActivity.weatherMain
         binding.feelsLikeTemperature.text = MainActivity.feelLikeTempText
         binding.tvCurrentTemperature.text = MainActivity.tempText.substring(0,MainActivity.tempText.length-1)

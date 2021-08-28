@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -58,6 +59,7 @@ class CommentListActivity : AppCompatActivity() {
             Log.d("체크", "idx: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail}}")
         }
 
+        binding.commentSectionNoComment.isVisible = diaryComments.commentsFolder.size == 0
 
         binding.recyclerView.apply {
             setHasFixedSize(true)
