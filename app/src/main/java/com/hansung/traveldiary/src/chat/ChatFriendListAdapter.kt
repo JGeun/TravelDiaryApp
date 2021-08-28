@@ -31,7 +31,7 @@ class ChatFriendListAdapter(val friendInfoList: ArrayList<FriendInfo> = ArrayLis
         if(imagePath != "")
             Glide.with(context).load(imagePath).circleCrop().into(holder.userImage)
         else
-            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).into(holder.userImage)
+            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
         holder.userName.text = friendInfoList[position].nickname
 
         if(!friendInfoList[position].selected){
