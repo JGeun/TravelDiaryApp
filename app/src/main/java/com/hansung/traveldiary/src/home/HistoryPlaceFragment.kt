@@ -52,7 +52,6 @@ class HistoryPlaceFragment () : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-
         return binding.root
     }
 }
