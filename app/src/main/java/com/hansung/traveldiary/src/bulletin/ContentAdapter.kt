@@ -72,8 +72,8 @@ class ContentAdapter (val items:ArrayList<BulletinData>) : RecyclerView.Adapter<
         holder.viewpager.adapter = BulletinViewPagerAdapter(idx)
         holder.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
-        holder.likeCnt.text = data.baseData.like.toString()
-        holder.comment.text = data.baseData.comments.toString()
+        holder.likeCnt.text = data.baseData.like.likeUserFolder.size.toString()
+        holder.comment.text = data.baseData.comments.commentsFolder.size.toString()
         holder.itemView.setTag(position)
         holder.url = userImagePath.toString()
 

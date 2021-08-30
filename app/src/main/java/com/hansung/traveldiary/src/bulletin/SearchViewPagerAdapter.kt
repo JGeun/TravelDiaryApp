@@ -11,21 +11,17 @@ import androidx.viewpager2.adapter.FragmentViewHolder
 
 class SearchViewPagerAdapter(fragment: FragmentActivity): FragmentStateAdapter( fragment) {
     override fun getItemCount(): Int {
-        return 3
+        return 2
     }
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0->{
-                InstargramFragment()
-
-            }
-            1->{
                 ContentFragment()
             }
-            else->{
-
+            else ->{
                 UserNameFragment()
+
             }
         }
     }
