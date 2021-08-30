@@ -22,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemChatRoomBinding
 import com.hansung.traveldiary.src.ChatIdxFolder
+import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
 
 class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>(){
@@ -55,6 +56,8 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
 
         val data = chatIdxFolder.chatIdxFolder
         val context = holder.itemView.context
+
+
         val tempImage = ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)
         if(data[position].image != ""){
             Glide.with(context).load(data[position].image).apply(RequestOptions().circleCrop()).into(holder.userProfileImage)
@@ -63,6 +66,26 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
         }
 
         holder.userName.text = data[position].title
+
+        var otherUserEmail = ""
+        if (data[position].friendsEmailList.emailFolder.size<3){
+            for(i in 0..MainActivity.userInfoList.size-1){
+                if (data[position].title==MainActivity.userInfoList[i].nickname){
+                    for (it in data[position].friendsEmailList.emailFolder){
+                        if (it!=user!!.email.toString()){
+                            otherUserEmail = it
+                        }
+                    }
+                }
+            }
+//            Log.d("다른유저이메일", otherUserEmail)
+            for (i in 0..MainActivity.userInfoList.size-1){
+                if (otherUserEmail==MainActivity.userInfoList[i].email){
+                    holder.userName.text = MainActivity.userInfoList[i].nickname
+                }
+            }
+        }
+
         holder.userPreview.text = data[position].preview
 
         var ampm = ""
