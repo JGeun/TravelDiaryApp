@@ -26,10 +26,6 @@ class TravelBaseFragment : Fragment(){
         pager.adapter = pagerAdapter
         val tab = binding.tab
         tab.setupWithViewPager(pager)
-        binding.imageView2.setOnClickListener{
-            val intent= Intent(activity, searchActivity::class.java)
-            startActivity(intent)
-        }
         return binding.root
     }
 }

@@ -54,9 +54,8 @@ class searchActivity : AppCompatActivity() {
 
         TabLayoutMediator(binding.tabLayout,binding.viewpager){tab, position->
             when(position){
-                0->tab.text="인스타"
-                1->tab.text="게시글"
-                2->tab.text="유저"
+                0->tab.text="게시글"
+                1->tab.text="유저"
             }
         }.attach()
 

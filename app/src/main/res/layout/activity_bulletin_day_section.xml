@@ -129,6 +129,7 @@
         android:layout_height="1dp"
         android:background="#80808080"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        android:layout_marginHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
