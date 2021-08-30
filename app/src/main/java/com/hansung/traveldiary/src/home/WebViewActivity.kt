@@ -11,6 +11,6 @@ class WebViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_web_view)
 
         val myWebView: WebView = findViewById(R.id.webview)
-        myWebView.loadUrl("https://www.skyscanner.co.kr/")
+        myWebView.loadUrl("https://kr.trip.com/flights/shouer-to-jeju/tickets-sel-cju?dcity=sel&acity=cju&ddate=2021-09-01&rdate=2021-09-05&flighttype=rt&class=y&quantity=1&searchboxarg=t")
     }
 }

@@ -14,7 +14,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/img_splash"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TravelDiary">
+        android:theme="@style/Theme.TravelDiary"
+        android:usesCleartextTraffic="true">
+
 
         <activity android:name=".src.home.GimpoAirportTipActivity"></activity>
         <activity android:name=".src.home.RecommandActivity" />
