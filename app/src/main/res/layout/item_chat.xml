@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:id="@+id/userChat"
@@ -89,11 +89,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_my_chat"
                 android:fontFamily="@font/main_font2"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="7dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
                 android:text="userText\nasdasdasdasdasdasdasd"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:layout_gravity="end"/>
         </LinearLayout>
 

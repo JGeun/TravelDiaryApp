@@ -47,12 +47,6 @@ class ChatFragment : Fragment() {
         user = Firebase.auth.currentUser
         db = Firebase.firestore
 
-//        binding.messeageRv.apply {
-//            adapter = ChatRoomAdapter(userMessageDataList)
-//            setHasFixedSize(false)
-//            layoutManager = LinearLayoutManager(context)
-//        }
-
         Log.d("에러 체크", "ChatFragment쪽임?")
 
         binding.searchChatroom.visibility = View.GONE

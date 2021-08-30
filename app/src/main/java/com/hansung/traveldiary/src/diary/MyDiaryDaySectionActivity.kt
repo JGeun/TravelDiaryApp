@@ -61,39 +61,37 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
             layoutManager= LinearLayoutManager(this@MyDiaryDaySectionActivity)
         }
 
-
-
-
         val likeRef = db.collection("Diary").document(user!!.email.toString())
             .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
 
-        if(!MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.contains(user!!.email.toString())){
+        if(!MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.contains(user!!.email.toString())){
             binding.ivLike.setImageResource(R.drawable.emptyheart)
             likeRef.set(MainActivity.userDiaryArray[index].baseData)
-            binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
+            binding.countLikes.text = MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.size.toString()
         }else{
             binding.ivLike.setImageResource(R.drawable.asset7)
             likeRef.set(MainActivity.userDiaryArray[index].baseData)
-            binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
+            binding.countLikes.text = MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.size.toString()
         }
 
         binding.ivLike.setOnClickListener {
-            if(!MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.contains(user!!.email.toString())){
+            if(!MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.contains(user!!.email.toString())){
                 binding.ivLike.setImageResource(R.drawable.asset7)
-                MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.add(user!!.email.toString())
+                MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.add(user!!.email.toString())
                 likeRef.set(MainActivity.userDiaryArray[index].baseData)
-                binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
+                binding.countLikes.text = MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.size.toString()
             }else{
                 binding.ivLike.setImageResource(R.drawable.emptyheart)
-                MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.remove(user!!.email.toString())
+                MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.remove(user!!.email.toString())
                 likeRef.set(MainActivity.userDiaryArray[index].baseData)
-                binding.countLikes.text = MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.like.likeUserFolder.size.toString()
+                binding.countLikes.text = MainActivity.userDiaryArray[index].baseData.like.likeUserFolder.size.toString()
             }
         }
 
         binding.commentLayout.setOnClickListener {
             val intent=Intent(this, CommentListActivity::class.java)
             intent.putExtra("index", index)
+            intent.putExtra("myDiary", true)
             startActivity(intent)
         }
     }

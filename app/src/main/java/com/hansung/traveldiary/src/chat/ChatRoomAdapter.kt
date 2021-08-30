@@ -79,6 +79,7 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra("idx", data[position].idx)
+            intent.putExtra("title", data[position].title)
             context.startActivity(intent)
         }
 
