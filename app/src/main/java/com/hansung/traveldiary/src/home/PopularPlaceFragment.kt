@@ -51,7 +51,7 @@ class PopularPlaceFragment() : Fragment() {
             "명동","서울 중구 명동8길 27 (명동2가, 엠 플라자)${"\n"} 4호선 명동역 5~10번 출구 일대 02-120","",""))
 
         popularPlace.add(RecommandActivity.place(R.drawable.insa_dong_street,
-            "인사동길","서울 종로구 인사동길 39-1 (관훈동) 일대 1호선 종로3가역 4번,5번 출구 도보 10분 3호선 안국 5번,6번 출구 도보 5분 02-120","",""))
+            "인사동길","서울 종로구 인사동길 39-1 (관훈동) 일대${"\n"} 1호선 종로3가역 4번,5번 출구 도보 10분 ${"\n"} 02-120","",""))
         popularPlace.add(RecommandActivity.place(R.drawable.cheonggyecheon,
             "청계천","서울 종로구 무교로 37 (서린동)","https://www.sisul.or.kr/open_content/cheonggye/","02-2290-6114"))
         binding.rv.apply{

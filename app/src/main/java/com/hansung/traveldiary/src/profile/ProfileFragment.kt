@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
 
         binding.planCount.text = MainActivity.userPlanArray.size.toString()
         binding.diaryCount.text = MainActivity.userDiaryArray.size.toString()
-
+        binding.friendsCount.text=MainActivity.myFriendList.friendFolder.size.toString()
         return binding.root
     }
 
