@@ -23,14 +23,11 @@ class RecommandActivity : AppCompatActivity() {
         binding=ActivityRecommandBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        //더미 데이터
 
-        val naturePlace=ArrayList<place>()
-        val historyPlace=ArrayList<place>()
 
         binding.viewpager.adapter= RecommandViewPagerAdapter(this)
 
-        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.RECOMMEND_STATUS_BAR)
         TabLayoutMediator(binding.tabLayout,binding.viewpager){tab, position->
             when(position){
                 0->tab.text="인기"
