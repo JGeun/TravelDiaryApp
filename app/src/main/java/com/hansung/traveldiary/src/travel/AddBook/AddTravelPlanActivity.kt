@@ -18,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityAddTravelPlanBinding
 import com.hansung.traveldiary.src.*
+import com.hansung.traveldiary.src.chat.NewChatFragment
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -133,8 +134,10 @@ class AddTravelPlanActivity : AppCompatActivity() {
             val datePickerDialog =
                 DatePickerDialog(this, listener, year, month, day)
             datePickerDialog.show()
+        }
 
-
+        binding.atpAddFriends.setOnClickListener {
+            supportFragmentManager?.beginTransaction()?.replace(R.id.main_frm, AtpAddFriendsFragment()).commit()
         }
 
         setRadioButton()

@@ -47,7 +47,7 @@ class CommentsAdapter(val commentsList: CommentsFolder, val index: Int):Recycler
         }
         holder.nickname.text = userNickname
         if(userImage == "")
-            Glide.with(holder.itemView.context).load(R.drawable.ic_user).circleCrop().into(holder.profileImage)
+            Glide.with(holder.itemView.context).load(R.drawable.img_basic_profile).circleCrop().into(holder.profileImage)
         else
             Glide.with(holder.itemView.context).load(userImage).circleCrop().into(holder.profileImage)
 

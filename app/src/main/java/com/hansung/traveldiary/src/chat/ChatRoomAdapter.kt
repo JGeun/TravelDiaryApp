@@ -58,7 +58,7 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
         val context = holder.itemView.context
 
 
-        val tempImage = ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)
+        val tempImage = ResourcesCompat.getDrawable(context.resources, R.drawable.img_basic_profile, null)
         if(data[position].image != ""){
             Glide.with(context).load(data[position].image).apply(RequestOptions().circleCrop()).into(holder.userProfileImage)
         }else{

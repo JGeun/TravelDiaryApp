@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="8dp"
                     android:paddingTop="20dp"
                     android:text="첵 제목"
                     android:textSize="16sp"
@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="8dp"
                     android:text="여행 장소"
                     android:textSize="16sp"
                     android:fontFamily="@font/main_font2"
@@ -134,7 +134,7 @@
                         android:id="@+id/atp_start_date"
                         android:layout_width="120dp"
                         android:layout_height="40dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:background="@drawable/add_plan_btn"
                         android:clickable="true"
                         android:focusable="true"
@@ -198,7 +198,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="8dp"
                     android:text="여행 인원"
                     android:textSize="16sp"
                     android:fontFamily="@font/main_font2"
@@ -216,12 +216,18 @@
                     android:fontFamily="@font/main_font2"
                     android:textColor="@color/black" />
 
+                <ImageView
+                    android:id="@+id/atp_addFriends"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_add_user"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="8dp"
                     android:text="책 색상"
                     android:textSize="16sp"
                     android:fontFamily="@font/main_font2"
