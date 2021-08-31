@@ -41,15 +41,16 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="30dp"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:fontFamily="@font/main_font2"
         android:maxEms="10"
+        android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:fontFamily="@font/main_font2"
+        app:layout_constraintEnd_toStartOf="@id/btItem_iv_edit"
         app:layout_constraintStart_toEndOf="@id/btItem_cardview"
         app:layout_constraintTop_toTopOf="@id/btItem_cardview"
-        app:layout_constraintEnd_toStartOf="@id/btItem_iv_edit"
         tools:text="assssssssssssssssssssssssasdas" />
 
     <TextView
@@ -127,5 +128,14 @@
         app:layout_constraintEnd_toStartOf="@id/btItem_tv_likecnt"
         app:layout_constraintTop_toTopOf="@+id/btItem_tv_area"
         app:srcCompat="@drawable/ic_heart" />
+
+    <ImageView
+        android:id="@+id/lock"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/btItem_iv_edit"
+        app:layout_constraintStart_toEndOf="@+id/btItem_tv_title"
+        app:layout_constraintTop_toTopOf="@+id/btItem_iv_edit"
+        app:srcCompat="@drawable/ic_lock" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
