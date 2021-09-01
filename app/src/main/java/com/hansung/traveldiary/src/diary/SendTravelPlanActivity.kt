@@ -129,7 +129,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
 
         val startDate = MainActivity.userPlanArray[index].baseData.startDate
         val endDate = MainActivity.userPlanArray[index].baseData.endDate
-
+        val lock= "false"
         val diaryBaseData = DiaryBaseData(
             idx,
             diaryTitle,
@@ -142,7 +142,8 @@ class SendTravelPlanActivity : AppCompatActivity() {
             MainActivity.userPlanArray[index].baseData.area,
             MainActivity.userPlanArray[index].baseData.peopleCount,
             LikeFolder(),
-            CommentsFolder()
+            CommentsFolder(),
+            lock
         )
 
         diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
@@ -151,6 +152,8 @@ class SendTravelPlanActivity : AppCompatActivity() {
         val diaryRef =
             diaryIdxRef.collection("DiaryData").document(idx.toString()).collection("DayList")
         val calcDate = getCalcDate(startDate, endDate)
+
+
         for (i in 0..calcDate) {
             val date = afterDate(startDate, i)
             val dayRef = diaryRef.document(date)
