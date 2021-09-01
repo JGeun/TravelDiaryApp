@@ -1,8 +1,14 @@
 package com.hansung.traveldiary.src.travel.adapter
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,8 +20,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.config.DeleteBottomDialogFragment
 import com.hansung.traveldiary.databinding.ItemDiaryBinding
-import com.hansung.traveldiary.src.MainActivity
-import com.hansung.traveldiary.src.UserDiaryData
+import com.hansung.traveldiary.src.*
 import com.hansung.traveldiary.src.diary.CommentListActivity
 import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity
 import com.hansung.traveldiary.src.diary.SendTravelPlanActivity
@@ -35,6 +40,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
         val likeCnt = binding.btItemTvLikecnt
         val commentCnt = binding.btItemTvComment
         val edtBtn = binding.btItemIvEdit
+        val lock = binding.lock
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding= ItemDiaryBinding.inflate(LayoutInflater.from(parent.context), parent,false)
@@ -112,7 +118,86 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
             context.startActivity(intent)
 
         }
+        val diaryIdxRef = db!!.collection("Diary").document(user!!.email.toString())
+        var lock= data.baseData.lock.toString()
+        val idx=data.baseData.idx
+        if(lock == "false"){
+            holder.lock.setImageResource(R.drawable.ic_unlock)
+        }else if(lock == "true"){
+            holder.lock.setImageResource(R.drawable.ic_lock)
+        }
 
+
+        holder.lock.setOnClickListener {
+            if(lock == "false"){
+                val mDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_lock, null)
+                val mBuilder = AlertDialog.Builder(context)
+                    .setView(mDialogView)
+                val mAlertDialog=mBuilder.show()
+                mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                val okbtn=mDialogView.findViewById<Button>(R.id.btn_yes)
+                okbtn.setOnClickListener {
+                    Glide.with(holder.itemView.context).load(R.drawable.ic_lock).into(holder.lock)
+                    lock="true"
+                    val diaryBaseData = DiaryBaseData(
+                        data.baseData.idx,
+                        data.baseData.title,
+                        data.baseData.mainImage,
+                        user!!.email.toString(),
+                        data.baseData.uploadDate,
+                        data.baseData.startDate,
+                        data.baseData.endDate,
+                        data.baseData.color,
+                        data.baseData.area,
+                        data.baseData.peopleCount,
+                        LikeFolder(),
+                        CommentsFolder(),
+                        lock
+                    )
+                    diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+                    mAlertDialog.dismiss()
+                }
+                val cancelbtn=mDialogView.findViewById<Button>(R.id.btn_no)
+                cancelbtn.setOnClickListener {
+                    mAlertDialog.dismiss()
+                }
+
+            }else if(lock == "true"){
+                val mDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_lock, null)
+                val mBuilder = AlertDialog.Builder(context)
+                    .setView(mDialogView)
+                val alertText=mDialogView.findViewById<TextView>(R.id.alert_text)
+                alertText.text="다이어리를 공개 하시겠어요?"
+                val mAlertDialog=mBuilder.show()
+                mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                val okbtn=mDialogView.findViewById<Button>(R.id.btn_yes)
+                okbtn.setOnClickListener {
+                    Glide.with(holder.itemView.context).load(R.drawable.ic_unlock).into(holder.lock)
+                    lock="false"
+                    val diaryBaseData = DiaryBaseData(
+                        data.baseData.idx,
+                        data.baseData.title,
+                        data.baseData.mainImage,
+                        user!!.email.toString(),
+                        data.baseData.uploadDate,
+                        data.baseData.startDate,
+                        data.baseData.endDate,
+                        data.baseData.color,
+                        data.baseData.area,
+                        data.baseData.peopleCount,
+                        LikeFolder(),
+                        CommentsFolder(),
+                        lock
+                    )
+                    diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+                    mAlertDialog.dismiss()
+                }
+                val cancelbtn=mDialogView.findViewById<Button>(R.id.btn_no)
+                cancelbtn.setOnClickListener {
+                    mAlertDialog.dismiss()
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int = MainActivity.userDiaryArray.size
