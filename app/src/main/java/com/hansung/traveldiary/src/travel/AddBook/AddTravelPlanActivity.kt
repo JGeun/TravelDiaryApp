@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,6 +20,7 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityAddTravelPlanBinding
 import com.hansung.traveldiary.src.*
 import com.hansung.traveldiary.src.chat.NewChatFragment
+import com.hansung.traveldiary.src.travel.AddBook.adapter.SelectedFriendsAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -39,6 +41,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
     var startdate = ""
     var enddate = ""
     private val areaViewModel: AreaViewModel by viewModels()
+    var activity = AtpAddFriendsActivity()
 
     private var isModify = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,7 +141,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
         binding.atpAddFriends.setOnClickListener {
 //            supportFragmentManager?.beginTransaction()?.replace(R.id.main_frm, AtpAddFriendsFragment()).commit()
-            var intent = Intent(it.context, AtpAddFriendsActivity::class.java)
+            var intent = Intent(it.context, activity::class.java)
             startActivity(intent)
         }
 
@@ -196,6 +199,25 @@ class AddTravelPlanActivity : AppCompatActivity() {
             binding.atpTitle.clearFocus()
             binding.atpPeople.clearFocus()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        binding.atpFriendsRv.adapter = SelectedFriendsAdapter(AtpAddFriendsActivity.selectedArray, activity, this)
+        binding.atpFriendsRv.apply {
+            setHasFixedSize(false)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        binding.atpFriendsRv.adapter?.notifyDataSetChanged()
+        if (AtpAddFriendsActivity.selectedArray.size != 0)
+            binding.atpAddFriends.visibility = View.GONE
+        Log.d("친구리스트", AtpAddFriendsActivity.selectedArray.size.toString())
+    }
+
+    fun showBtn(){
+        binding.atpAddFriends.visibility = View.VISIBLE
     }
 
     fun uploadData(idx: Long, title: String, color: String, startDate: String, endDate: String, area: String, peopleCount: Int){

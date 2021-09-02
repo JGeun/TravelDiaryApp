@@ -34,13 +34,16 @@ class AtpAddFriendsActivity : AppCompatActivity() {
     private val binding: ActivityAtpAddFriendsBinding by lazy {
         ActivityAtpAddFriendsBinding.inflate(layoutInflater)
     }
-    val selectedArray = ArrayList<FriendInfo>()
+    companion object{
+        val selectedArray = ArrayList<FriendInfo>()
+    }
     val friendArray = ArrayList<FriendInfo>()
     val searchArray = ArrayList<FriendInfo>()
 
     private var user: FirebaseUser? = null
     private var db: FirebaseFirestore? = null
     private lateinit var friendListAdapter: ChatFriendListAdapter
+    var showBtn : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +54,7 @@ class AtpAddFriendsActivity : AppCompatActivity() {
         db = Firebase.firestore
 
 //        binding.selectedUsersRv.visibility = View.INVISIBLE
-        binding.selectedUsersRv.adapter = SelectedFriendsAdapter(selectedArray, this)
+        binding.selectedUsersRv.adapter = SelectedFriendsAdapter(selectedArray, this, null)
         binding.selectedUsersRv.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -91,6 +94,7 @@ class AtpAddFriendsActivity : AppCompatActivity() {
             }
         }
 
+
         binding.usersRv.adapter = AtpFriendListAdapter(friendArray, this)
         binding.usersRv.apply {
             setHasFixedSize(false)
@@ -108,6 +112,8 @@ class AtpAddFriendsActivity : AppCompatActivity() {
         }
 
     }
+
+
     fun searchChatroom(search: String) {
         friendArray.clear()
 

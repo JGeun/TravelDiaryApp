@@ -198,7 +198,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginBottom="8dp"
                     android:text="여행 인원"
                     android:textSize="16sp"
                     android:fontFamily="@font/main_font2"
@@ -207,11 +206,17 @@
                 <ImageView
                     android:id="@+id/atp_addFriends"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="21dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/ic_add_friends_gray"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/atp_friends_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"/>
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/atp_people"
@@ -230,7 +235,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="8dp"
                     android:text="책 색상"
                     android:textSize="16sp"
