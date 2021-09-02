@@ -137,7 +137,9 @@ class AddTravelPlanActivity : AppCompatActivity() {
         }
 
         binding.atpAddFriends.setOnClickListener {
-            supportFragmentManager?.beginTransaction()?.replace(R.id.main_frm, AtpAddFriendsFragment()).commit()
+//            supportFragmentManager?.beginTransaction()?.replace(R.id.main_frm, AtpAddFriendsFragment()).commit()
+            var intent = Intent(it.context, AtpAddFriendsActivity::class.java)
+            startActivity(intent)
         }
 
         setRadioButton()

@@ -1,6 +1,5 @@
-package com.hansung.traveldiary.src.chat
+package com.hansung.traveldiary.src.travel.AddBook.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
@@ -8,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemSelectedUsersBinding
+import com.hansung.traveldiary.src.chat.NewChatFragment
+import com.hansung.traveldiary.src.travel.AddBook.AtpAddFriendsActivity
+import com.hansung.traveldiary.src.travel.AddBook.FriendInfo
 
-class SelectedUsersAdapter(val selectedusers: ArrayList<FriendInfo>, val fragment: NewChatFragment) : RecyclerView.Adapter<SelectedUsersAdapter.ViewHolder>() {
+class SelectedFriendsAdapter(val selectedusers: ArrayList<FriendInfo>, val activity: AtpAddFriendsActivity) : RecyclerView.Adapter<SelectedFriendsAdapter.ViewHolder>() {
     class ViewHolder(binding: ItemSelectedUsersBinding) : RecyclerView.ViewHolder(binding.root) {
         val userImage = binding.userImage
         val userName = binding.userName
@@ -25,7 +27,7 @@ class SelectedUsersAdapter(val selectedusers: ArrayList<FriendInfo>, val fragmen
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: SelectedUsersAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SelectedFriendsAdapter.ViewHolder, position: Int) {
         val context = holder.itemView.context
         val imagePath = selectedusers[position].imagePath
         if(imagePath != "")
@@ -38,7 +40,7 @@ class SelectedUsersAdapter(val selectedusers: ArrayList<FriendInfo>, val fragmen
             var data = selectedusers[position]
             selectedusers.removeAt(position)
             notifyDataSetChanged()
-            fragment.notifyFreindArr(data)
+            activity.notifyFreindArr(data)
         }
     }
 

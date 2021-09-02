@@ -1,4 +1,5 @@
-package com.hansung.traveldiary.src.chat
+package com.hansung.traveldiary.src.travel.AddBook.adapter
+
 
 import android.graphics.Color
 import android.util.Log
@@ -9,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ItemNewChatBinding
+import com.hansung.traveldiary.src.travel.AddBook.AtpAddFriendsActivity
+import com.hansung.traveldiary.src.travel.AddBook.FriendInfo
 
-class ChatFriendListAdapter(val friendInfoList: ArrayList<FriendInfo> = ArrayList<FriendInfo>(), val fragment: NewChatFragment) : RecyclerView.Adapter<ChatFriendListAdapter.ViewHolder>(){
+class AtpFriendListAdapter(val friendInfoList: ArrayList<FriendInfo> = ArrayList<FriendInfo>(), val activity: AtpAddFriendsActivity) : RecyclerView.Adapter<AtpFriendListAdapter.ViewHolder>(){
 
     class ViewHolder(binding: ItemNewChatBinding) : RecyclerView.ViewHolder(binding.root){
         val userImage = binding.userImage
@@ -46,18 +49,18 @@ class ChatFriendListAdapter(val friendInfoList: ArrayList<FriendInfo> = ArrayLis
 
         holder.itemView.setOnClickListener{
             if(friendInfoList[position].selected){
-                Log.d("채팅", "${position}, ${holder.userRb.isChecked}")
+                Log.d("여행친구", "${position}, ${holder.userRb.isChecked}")
                 friendInfoList[position].selected = false
                 holder.userRb.isChecked = false
                 holder.userRg.clearCheck()
                 holder.background.setBackgroundColor(Color.WHITE)
-                fragment.notifySelectedArr(friendInfoList[position], false)
+                activity.notifySelectedArr(friendInfoList[position], false)
             }else{
-                Log.d("채팅", "${position}, ${holder.userRb.isChecked}")
+                Log.d("여행친구", "${position}, ${holder.userRb.isChecked}")
                 friendInfoList[position].selected = true
                 holder.userRb.isChecked = true
                 holder.background.setBackgroundColor(Color.parseColor("#F5F1F6"))
-                fragment.notifySelectedArr(friendInfoList[position], true)
+                activity.notifySelectedArr(friendInfoList[position], true)
             }
         }
     }

@@ -204,23 +204,27 @@
                     android:fontFamily="@font/main_font2"
                     android:textColor="@color/black" />
 
+                <ImageView
+                    android:id="@+id/atp_addFriends"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_add_friends_gray"/>
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/atp_people"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/add_plan_btn"
+                    android:visibility="gone"
                     tools:text=""
                     android:textSize="14sp"
                     android:inputType="number"
                     android:paddingHorizontal="15dp"
                     android:fontFamily="@font/main_font2"
                     android:textColor="@color/black" />
-
-                <ImageView
-                    android:id="@+id/atp_addFriends"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_add_user"/>
 
                 <TextView
                     android:layout_width="match_parent"

@@ -16,12 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDiary"
         android:usesCleartextTraffic="true">
-
-
-        <activity android:name=".src.home.GimpoAirportTipActivity"></activity>
+        <activity android:name=".src.travel.AddBook.AtpAddFriendsActivity"></activity>
+        <activity android:name=".src.home.GimpoAirportTipActivity" />
         <activity android:name=".src.home.RecommandActivity" />
         <activity android:name=".src.chat.ChangeChattingroomTitleActivity" />
-
         <activity
             android:name=".src.chat.EditChatroomActivity"
             android:theme="@style/Transparent" />
