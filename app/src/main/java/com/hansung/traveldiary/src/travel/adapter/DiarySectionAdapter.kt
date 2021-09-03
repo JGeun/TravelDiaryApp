@@ -122,9 +122,9 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
         var lock= data.baseData.lock.toString()
         val idx=data.baseData.idx
         if(lock == "false"){
-            holder.lock.setImageResource(R.drawable.ic_unlock)
+            Glide.with(holder.itemView.context).load(R.drawable.ic_unlock).into(holder.lock)
         }else if(lock == "true"){
-            holder.lock.setImageResource(R.drawable.ic_lock)
+            Glide.with(holder.itemView.context).load(R.drawable.lock_gray).into(holder.lock)
         }
 
 
@@ -137,7 +137,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                 mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 val okbtn=mDialogView.findViewById<Button>(R.id.btn_yes)
                 okbtn.setOnClickListener {
-                    Glide.with(holder.itemView.context).load(R.drawable.ic_lock).into(holder.lock)
+                    Glide.with(holder.itemView.context).load(R.drawable.lock_gray).into(holder.lock)
                     lock="true"
                     val diaryBaseData = DiaryBaseData(
                         data.baseData.idx,

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -102,15 +103,10 @@ class HomeFragment : Fragment(), HomeView{
             layoutManager = horizontalManager
         }
 
-        binding.homeRvSale.apply{
-            adapter = HomeSaleAdapter(homeSaleList)
-            setHasFixedSize(false)
-            val horizontalManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            layoutManager = horizontalManager
+        binding.homeSale.apply {
+            val transaction =
+                (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
+                    .replace(R.id.home_sale, HomeSaleFragment()).commit()
         }
 
         binding.homeRvTip.apply{
