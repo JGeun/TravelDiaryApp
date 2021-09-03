@@ -218,18 +218,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"/>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/atp_people"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/add_plan_btn"
-                    android:visibility="gone"
-                    tools:text=""
-                    android:textSize="14sp"
-                    android:inputType="number"
-                    android:paddingHorizontal="15dp"
-                    android:fontFamily="@font/main_font2"
-                    android:textColor="@color/black" />
+<!--                <androidx.appcompat.widget.AppCompatEditText-->
+<!--                    android:id="@+id/atp_people"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:background="@drawable/add_plan_btn"-->
+<!--                    android:visibility="gone"-->
+<!--                    tools:text=""-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:inputType="number"-->
+<!--                    android:paddingHorizontal="15dp"-->
+<!--                    android:fontFamily="@font/main_font2"-->
+<!--                    android:textColor="@color/black" />-->
 
                 <TextView
                     android:layout_width="match_parent"

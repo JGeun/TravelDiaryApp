@@ -140,7 +140,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
             endDate,
             MainActivity.userPlanArray[index].baseData.color,
             MainActivity.userPlanArray[index].baseData.area,
-            MainActivity.userPlanArray[index].baseData.peopleCount,
+            MainActivity.userPlanArray[index].baseData.friendsList,
             LikeFolder(),
             CommentsFolder()
         )

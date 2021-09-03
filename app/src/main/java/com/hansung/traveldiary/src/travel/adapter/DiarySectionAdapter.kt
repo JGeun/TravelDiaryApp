@@ -29,7 +29,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
         val thumbnail = binding.btItemIvThumbnail
         val date = binding.btItemTvDate
         val area = binding.btItemTvArea
-        val person = binding.btItemTvPerson
+//        val person = binding.btItemTvPerson
         val ivcomment=binding.btItemIvComment
         val ivLike = binding.btItemIvLike
         val likeCnt = binding.btItemTvLikecnt
@@ -50,8 +50,8 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
         holder.title.text = data.baseData.title
         val area = "#${data.baseData.area}"
         holder.area.text = area
-        val person = "#${data.baseData.peopleCount}명이서 여행"
-        holder.person.text = person
+//        val person = "#${data.baseData.peopleCount}명이서 여행"
+//        holder.person.text = person
         val startDate = data.baseData.startDate.split("-")
         val endDate = data.baseData.endDate.split("-")
         val date = "${startDate[1]}/${startDate[2]} ~ ${endDate[1]}/${endDate[2]}"

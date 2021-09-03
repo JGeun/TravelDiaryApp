@@ -21,7 +21,7 @@ data class ChatData(var userEmail: String ="", var contents: String="")
 //data class UserContents(var nickname: String="", var profileImage: String="")
 data class PlaceData(var latitude: Double = 37.58842461354086, var longitude: Double = 127.00601781685579, var placeName: String? = null)
 data class PlaceInfo(var placeFolder : ArrayList<PlaceData> = ArrayList())
-data class PlanBaseData(var idx: Long = 0, var title: String="", var color: String = "", var startDate: String = "", var endDate: String = "", var area: String="서울", var peopleCount: Int= 1)
+data class PlanBaseData(var idx: Long = 0, var title: String="", var color: String = "", var startDate: String = "", var endDate: String = "", var area: String="서울", var friendsList: FriendList = FriendList())
 
 data class UserPlanData(var baseData: PlanBaseData = PlanBaseData(), var placeArray : ArrayList<PlaceInfo> = ArrayList()) : Comparable<UserPlanData>{
     override fun compareTo(other: UserPlanData): Int {
@@ -39,7 +39,7 @@ data class LikeFolder(var likeUserFolder: ArrayList<String> = ArrayList())
 data class CommentsData(var userEmail: String = "", var contents: String = "", var date: String = "")
 data class CommentsFolder(var commentsFolder: ArrayList<CommentsData> = ArrayList())
 data class DiaryBaseData(var idx : Long = 0, var title: String="", var mainImage: String="", var userEmail: String="", var uploadDate: String="",
-                         var startDate: String = "", var endDate: String = "", var color: String = "", var area: String="", var peopleCount: Int= 1,
+                         var startDate: String = "", var endDate: String = "", var color: String = "", var area: String="", var friendsList: FriendList = FriendList(),
                          var like: LikeFolder=LikeFolder(), var comments: CommentsFolder = CommentsFolder())//기본정보
 
 data class DiaryData(var imagePathArray : ArrayList<String> = ArrayList(), var diaryTitle : String = "", var diaryContents : String = "")
