@@ -132,7 +132,8 @@
     <ImageView
         android:id="@+id/lock"
         android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btItem_iv_edit"
         app:layout_constraintEnd_toStartOf="@+id/btItem_iv_edit"
         app:layout_constraintStart_toEndOf="@+id/btItem_tv_title"
         app:layout_constraintTop_toTopOf="@+id/btItem_iv_edit"
