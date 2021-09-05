@@ -54,7 +54,7 @@ class BulletinAdapter():RecyclerView.Adapter<BulletinAdapter.ViewHolder>() {
         holder.userName.text = MainActivity.bulletinDiaryArray[position].userInfo.nickname
         val userImagePath = MainActivity.bulletinDiaryArray[position].userInfo.profileImage
         if(userImagePath == "")
-            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.ic_user, null)).circleCrop().into(holder.userImage)
+            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_basic_profile, null)).circleCrop().into(holder.userImage)
         else
             Glide.with(context).load(userImagePath.toString()).circleCrop().into(holder.userImage)
 

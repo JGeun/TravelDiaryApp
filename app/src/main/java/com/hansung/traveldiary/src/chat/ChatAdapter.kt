@@ -49,7 +49,7 @@ class ChatAdapter(private val myUser : String) : RecyclerView.Adapter<ChatAdapte
             }
 
             if(myImagePath == "")
-                Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.ic_user, null)).circleCrop().into(holder.myImage)
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_basic_profile, null)).circleCrop().into(holder.myImage)
             else
                 Glide.with(context).load(myImagePath).circleCrop().into(holder.userImage)
             holder.myName.text = myname
@@ -71,7 +71,7 @@ class ChatAdapter(private val myUser : String) : RecyclerView.Adapter<ChatAdapte
 
 //            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_seoul_cup, null)).into(holder.userImage)
             if(userImagePath == "")
-                Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.ic_user, null)).circleCrop().into(holder.userImage)
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_basic_profile, null)).circleCrop().into(holder.userImage)
             else
                 Glide.with(context).load(userImagePath).circleCrop().into(holder.userImage)
             holder.userName.text = username

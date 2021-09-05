@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,6 +19,7 @@ import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityAddTravelPlanBinding
 import com.hansung.traveldiary.src.*
+import com.hansung.traveldiary.src.travel.AddBook.adapter.SelectedFriendsAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -38,6 +40,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
     var startdate = ""
     var enddate = ""
     private val areaViewModel: AreaViewModel by viewModels()
+    var activity = AtpAddFriendsActivity()
 
     private var isModify = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +55,31 @@ class AddTravelPlanActivity : AppCompatActivity() {
             val index = intent.getIntExtra("index", 0)
             binding.atpTitle.setText(MainActivity.userPlanArray[index].baseData.title)
             val data = MainActivity.userPlanArray[index].baseData
-            binding.atpPeople.setText(data.peopleCount.toString())
+//            binding.atpPeople.setText(data.peopleCount.toString())
+            //이미 선택된 친구 리스트 뜨게 : 친구 리스트 중에서 이메일 비교해서 같으면 추가?
+            AtpAddFriendsActivity.selectedArray.clear()
+            for (friendsemail in data.friendsList.friendFolder){
+                Log.d("추가된 친구", friendsemail)
+                for (i in 0.. MainActivity.myFriendList.friendFolder.size-1){
+                    if (MainActivity.myFriendList.friendFolder[i] == friendsemail){
+                        //userinfo랑 일치하는거 찾아서 add
+                        for (j in 0 until MainActivity.userInfoList.size) {
+                            if (MainActivity.userInfoList[j].email == friendsemail) {
+                                val friendInfo = FriendInfo(
+                                    MainActivity.userInfoList[j].email,
+                                    MainActivity.userInfoList[j].nickname,
+                                    MainActivity.userInfoList[j].profileImage,
+                                    false
+                                )
+                                AtpAddFriendsActivity.selectedArray.add(friendInfo)
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
             areaViewModel.setArea(data.area)
             binding.atpStartDate.text = data.startDate
             binding.atpEndDate.text = data.endDate
@@ -71,16 +98,16 @@ class AddTravelPlanActivity : AppCompatActivity() {
                 }
             }
 
-        binding.atpPeople.onFocusChangeListener =
-            View.OnFocusChangeListener { v, hasFocus ->
-                if (!hasFocus) {
-                    inputMethodManager.hideSoftInputFromWindow(binding.atpTitle.windowToken, 0)
-                }
-            }
+//        binding.atpPeople.onFocusChangeListener =
+//            View.OnFocusChangeListener { v, hasFocus ->
+//                if (!hasFocus) {
+//                    inputMethodManager.hideSoftInputFromWindow(binding.atpTitle.windowToken, 0)
+//                }
+//            }
 
         binding.atpTvPlace.setOnClickListener {
             binding.atpTitle.clearFocus()
-            binding.atpPeople.clearFocus()
+//            binding.atpPeople.clearFocus()
             val bottomDialog = SelectAreaBtmDialog()
             bottomDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomDialogTheme)
             bottomDialog.show(supportFragmentManager, "bottomPlanlistSheet")
@@ -94,7 +121,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
 
         binding.atpStartDate.setOnClickListener {
             binding.atpTitle.clearFocus()
-            binding.atpPeople.clearFocus()
+//            binding.atpPeople.clearFocus()
             val cal = Calendar.getInstance()
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
@@ -133,8 +160,12 @@ class AddTravelPlanActivity : AppCompatActivity() {
             val datePickerDialog =
                 DatePickerDialog(this, listener, year, month, day)
             datePickerDialog.show()
+        }
 
-
+        binding.atpAddFriends.setOnClickListener {
+//            supportFragmentManager?.beginTransaction()?.replace(R.id.main_frm, AtpAddFriendsFragment()).commit()
+            val intent = Intent(it.context, activity::class.java)
+            startActivity(intent)
         }
 
         setRadioButton()
@@ -144,7 +175,12 @@ class AddTravelPlanActivity : AppCompatActivity() {
             val title = binding.atpTitle.text.toString()
             val startDate = binding.atpStartDate.text.toString()
             val endDate = binding.atpEndDate.text.toString()
-            val peopleCount = binding.atpPeople.text.toString().toInt()
+//            val peopleCount = binding.atpPeople.text.toString().toInt()
+            //selectedarray 에 있는 친구 이메일만 추가, MainActivity, Dataclass 수정
+            val friendList = FriendList()
+            for (selectFriends in AtpAddFriendsActivity.selectedArray)
+                friendList.friendFolder.add(selectFriends.email)
+
 
             if(!isModify){
                 val totalIdxRef = db!!.collection("IdxDatabase").document("IdxData")
@@ -173,10 +209,10 @@ class AddTravelPlanActivity : AppCompatActivity() {
                         userIdxList.idxFolder.add(idx)
                         userIdxRef.set(userIdxList)
                     }
-                uploadData(idx, title, color, startDate, endDate, area!!, peopleCount)
+                uploadData(idx, title, color, startDate, endDate, area!!, friendList)
             }else{
                 val index = intent.getIntExtra("index", 0)
-                uploadData(MainActivity.userPlanArray[index].baseData.idx, title, color, startDate, endDate, area!!, peopleCount)
+                uploadData(MainActivity.userPlanArray[index].baseData.idx, title, color, startDate, endDate, area!!, friendList)
             }
         }
 
@@ -189,11 +225,30 @@ class AddTravelPlanActivity : AppCompatActivity() {
         binding.apaMainblock.setOnClickListener {
             println("메인")
             binding.atpTitle.clearFocus()
-            binding.atpPeople.clearFocus()
+//            binding.atpPeople.clearFocus()
         }
     }
 
-    fun uploadData(idx: Long, title: String, color: String, startDate: String, endDate: String, area: String, peopleCount: Int){
+    override fun onStart() {
+        super.onStart()
+
+        binding.atpFriendsRv.adapter = SelectedFriendsAdapter(AtpAddFriendsActivity.selectedArray, activity, this)
+        binding.atpFriendsRv.apply {
+            setHasFixedSize(false)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        binding.atpFriendsRv.adapter?.notifyDataSetChanged()
+        if (AtpAddFriendsActivity.selectedArray.size != 0)
+            binding.atpAddFriends.visibility = View.GONE
+        Log.d("친구리스트", AtpAddFriendsActivity.selectedArray.size.toString())
+    }
+
+    fun showBtn(){
+        binding.atpAddFriends.visibility = View.VISIBLE
+    }
+
+    fun uploadData(idx: Long, title: String, color: String, startDate: String, endDate: String, area: String, friendList: FriendList){
         val planRef = db!!.collection("Plan").document(user!!.email.toString())
             .collection("PlanData").document(idx.toString())
         planRef.set(
@@ -204,7 +259,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
                 startDate,
                 endDate,
                 area,
-                peopleCount
+                friendList
             )
         )
         for (i in 0..getCalcDate(startDate, endDate)) {

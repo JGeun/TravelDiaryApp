@@ -31,7 +31,7 @@ class SelectedUsersAdapter(val selectedusers: ArrayList<FriendInfo>, val fragmen
         if(imagePath != "")
             Glide.with(context).load(imagePath).circleCrop().into(holder.userImage)
         else
-            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)).circleCrop().into(holder.userImage)
+            Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_basic_profile, null)).circleCrop().into(holder.userImage)
         holder.userName.text = selectedusers[position].nickname
 
         holder.DeleteBtn.setOnClickListener {

@@ -55,17 +55,6 @@
         app:layout_constraintStart_toEndOf="@+id/btItem_cardview" />
 
     <TextView
-        android:id="@+id/btItem_tv_person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="#1인"
-        android:textSize="14sp"
-        android:fontFamily="@font/main_font2"
-        app:layout_constraintStart_toEndOf="@id/btItem_tv_area"
-        app:layout_constraintTop_toTopOf="@id/btItem_tv_area"
-        android:layout_marginStart="6dp"/>
-
-    <TextView
         android:id="@+id/btItem_tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

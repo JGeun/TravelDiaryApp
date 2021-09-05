@@ -58,7 +58,7 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
         val context = holder.itemView.context
 
 
-        val tempImage = ResourcesCompat.getDrawable(context.resources, R.drawable.img_beach, null)
+        val tempImage = ResourcesCompat.getDrawable(context.resources, R.drawable.img_basic_profile, null)
         if(data[position].image != ""){
             Glide.with(context).load(data[position].image).apply(RequestOptions().circleCrop()).into(holder.userProfileImage)
         }else{
@@ -66,7 +66,10 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
         }
 
         holder.userName.text = data[position].title
+        Log.d("원래 제목", holder.userName.text.toString())
 
+
+        //chatidxfolder에 있는 타이틀이 userinfo에 들어있는 닉네임이랑 같으면 그 이메일에 해당하는 닉네임으로 채팅방 이름 설정
         var otherUserEmail = ""
         if (data[position].friendsEmailList.emailFolder.size<3){
             for(i in 0..MainActivity.userInfoList.size-1){
@@ -78,13 +81,14 @@ class ChatRoomAdapter(private val chatIdxFolder: ChatIdxFolder):RecyclerView.Ada
                     }
                 }
             }
-//            Log.d("다른유저이메일", otherUserEmail)
-            for (i in 0..MainActivity.userInfoList.size-1){
+//            Log.d("다른유저이메일", "otherUserEmail $otherUserEmail")
+            for (i in 0 until MainActivity.userInfoList.size){
                 if (otherUserEmail==MainActivity.userInfoList[i].email){
                     holder.userName.text = MainActivity.userInfoList[i].nickname
                 }
             }
         }
+        Log.d("채팅방 제목", holder.userName.text as String)
 
         holder.userPreview.text = data[position].preview
 
