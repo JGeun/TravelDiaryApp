@@ -86,7 +86,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
                         MainActivity.userDiaryArray[index].baseData.endDate,
                         MainActivity.userDiaryArray[index].baseData.color,
                         MainActivity.userDiaryArray[index].baseData.area,
-                        MainActivity.userDiaryArray[index].baseData.peopleCount,
+                        MainActivity.userDiaryArray[index].baseData.friendsList,
                         LikeFolder(),
                         CommentsFolder(),
                         lock
@@ -121,7 +121,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
                         MainActivity.userDiaryArray[index].baseData.endDate,
                         MainActivity.userDiaryArray[index].baseData.color,
                         MainActivity.userDiaryArray[index].baseData.area,
-                        MainActivity.userDiaryArray[index].baseData.peopleCount,
+                        MainActivity.userDiaryArray[index].baseData.friendsList,
                         LikeFolder(),
                         CommentsFolder(),
                         lock

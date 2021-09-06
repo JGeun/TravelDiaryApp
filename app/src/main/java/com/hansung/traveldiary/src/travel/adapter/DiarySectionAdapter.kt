@@ -149,7 +149,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                         data.baseData.endDate,
                         data.baseData.color,
                         data.baseData.area,
-                        data.baseData.peopleCount,
+                        data.baseData.friendsList,
                         LikeFolder(),
                         CommentsFolder(),
                         lock
@@ -184,7 +184,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                         data.baseData.endDate,
                         data.baseData.color,
                         data.baseData.area,
-                        data.baseData.peopleCount,
+                        data.baseData.friendsList,
                         LikeFolder(),
                         CommentsFolder(),
                         lock
