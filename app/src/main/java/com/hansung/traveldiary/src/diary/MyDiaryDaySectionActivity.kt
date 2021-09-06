@@ -109,24 +109,40 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
                 mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 val okbtn = mDialogView.findViewById<Button>(R.id.btn_yes)
                 okbtn.setOnClickListener {
-                    Glide.with(this).load(R.drawable.ic_unlock).into(binding.ivLock)
-                    lock = "false"
-                    val diaryBaseData = DiaryBaseData(
-                        MainActivity.userDiaryArray[index].baseData.idx,
-                        MainActivity.userDiaryArray[index].baseData.title,
-                        MainActivity.userDiaryArray[index].baseData.mainImage,
-                        user!!.email.toString(),
-                        MainActivity.userDiaryArray[index].baseData.uploadDate,
-                        MainActivity.userDiaryArray[index].baseData.startDate,
-                        MainActivity.userDiaryArray[index].baseData.endDate,
-                        MainActivity.userDiaryArray[index].baseData.color,
-                        MainActivity.userDiaryArray[index].baseData.area,
-                        MainActivity.userDiaryArray[index].baseData.friendsList,
-                        LikeFolder(),
-                        CommentsFolder(),
-                        lock
-                    )
-                    diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+                    for (i in 0 until MainActivity.userDiaryArray[index].diaryArray.size){
+                        if (MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.imagePathArray.size==0||
+                            MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.diaryTitle==""||
+                            MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.diaryContents==""){
+                                val mCheckDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_lock_check, null)
+                            val mCheckBuilder = AlertDialog.Builder(this).setView(mCheckDialogView)
+                            val mAlertCheckDialog = mCheckBuilder.show()
+                            mAlertCheckDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                            mCheckDialogView.findViewById<Button>(R.id.btn_ok).setOnClickListener {
+                                mAlertCheckDialog.dismiss()
+                            }
+                            break
+                        }else{
+                            Glide.with(this).load(R.drawable.ic_unlock).into(binding.ivLock)
+                            lock = "false"
+                            val diaryBaseData = DiaryBaseData(
+                                MainActivity.userDiaryArray[index].baseData.idx,
+                                MainActivity.userDiaryArray[index].baseData.title,
+                                MainActivity.userDiaryArray[index].baseData.mainImage,
+                                user!!.email.toString(),
+                                MainActivity.userDiaryArray[index].baseData.uploadDate,
+                                MainActivity.userDiaryArray[index].baseData.startDate,
+                                MainActivity.userDiaryArray[index].baseData.endDate,
+                                MainActivity.userDiaryArray[index].baseData.color,
+                                MainActivity.userDiaryArray[index].baseData.area,
+                                MainActivity.userDiaryArray[index].baseData.friendsList,
+                                LikeFolder(),
+                                CommentsFolder(),
+                                lock
+                            )
+                            diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+
+                        }
+                    }
                     mAlertDialog.dismiss()
                 }
                 val cancelbtn = mDialogView.findViewById<Button>(R.id.btn_no)
