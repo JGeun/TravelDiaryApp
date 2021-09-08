@@ -232,6 +232,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+
         binding.atpFriendsRv.adapter = SelectedFriendsAdapter(AtpAddFriendsActivity.selectedArray, activity, this)
         binding.atpFriendsRv.apply {
             setHasFixedSize(false)
@@ -242,6 +243,12 @@ class AddTravelPlanActivity : AppCompatActivity() {
         if (AtpAddFriendsActivity.selectedArray.size != 0)
             binding.atpAddFriends.visibility = View.GONE
         Log.d("친구리스트", AtpAddFriendsActivity.selectedArray.size.toString())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        AtpAddFriendsActivity.selectedArray.clear()
     }
 
     fun showBtn(){
