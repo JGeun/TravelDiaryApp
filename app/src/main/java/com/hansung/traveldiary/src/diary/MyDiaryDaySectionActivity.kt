@@ -113,7 +113,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
                         if (MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.imagePathArray.size==0||
                             MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.diaryTitle==""||
                             MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.diaryContents==""){
-                                val mCheckDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_lock_check, null)
+                            val mCheckDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_lock_check, null)
                             val mCheckBuilder = AlertDialog.Builder(this).setView(mCheckDialogView)
                             val mAlertCheckDialog = mCheckBuilder.show()
                             mAlertCheckDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
