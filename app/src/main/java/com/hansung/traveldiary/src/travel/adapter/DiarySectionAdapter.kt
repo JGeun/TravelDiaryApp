@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.config.DeleteBottomDialogFragment
@@ -127,7 +128,6 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
             Glide.with(holder.itemView.context).load(R.drawable.lock_gray).into(holder.lock)
         }
 
-
         holder.lock.setOnClickListener {
             if(lock == "false"){
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_lock, null)
@@ -155,6 +155,18 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                         lock
                     )
                     diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+                    //여기 넣어야함.
+                    val bulletinIdxRef =  db!!.collection("Bulletin").document("BulletinData")
+                    MainActivity.bulletinIdxList.idxFolder.remove(data.baseData.idx)
+                    bulletinIdxRef.set(MainActivity.bulletinIdxList)
+
+                    for(i in 0 until MainActivity.bulletinDiaryArray.size){
+                        if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == data.baseData.idx){
+                            MainActivity.bulletinDiaryArray.removeAt(i)
+                            break
+                        }
+                    }
+
                     mAlertDialog.dismiss()
                 }
                 val cancelbtn=mDialogView.findViewById<Button>(R.id.btn_no)
@@ -190,6 +202,17 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                         lock
                     )
                     diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+                    val bulletinIdxRef =  db!!.collection("Bulletin").document("BulletinData")
+                    MainActivity.bulletinIdxList.idxFolder.add(data.baseData.idx)
+                    bulletinIdxRef.set(MainActivity.bulletinIdxList)
+
+                    db!!.collection("UserInfo").document(user!!.email.toString())
+                        .get().addOnSuccessListener { result ->
+                            val userInfo = result.toObject<UserInfo>()!!
+                            bulletinIdxRef.collection(data.baseData.idx.toString()).document("idxUserData").set(userInfo)
+                            MainActivity.bulletinDiaryArray.add(BulletinData(MainActivity.userDiaryArray[position], userInfo))
+                        }
+
                     mAlertDialog.dismiss()
                 }
                 val cancelbtn=mDialogView.findViewById<Button>(R.id.btn_no)

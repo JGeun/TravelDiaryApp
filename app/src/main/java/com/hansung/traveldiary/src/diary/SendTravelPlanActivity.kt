@@ -170,12 +170,6 @@ class SendTravelPlanActivity : AppCompatActivity() {
                         }
                     }
 
-//                    db!!.collection("UserInfo").document(user!!.email.toString())
-//                        .get().addOnSuccessListener { result->
-//                            val userInfo = result.toObject<UserInfo>()!!
-//                            MainActivity.bulletinDiaryArray.add(BulletinData(userDiaryData, userInfo))
-//                        }
-
                     planIdxRef.collection("PlanData").document(idx.toString())
                         .delete().addOnSuccessListener {
                             showCustomToast("끝")
