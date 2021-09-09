@@ -2,6 +2,7 @@ package com.hansung.traveldiary.src.diary.write_diary.show_plan
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentPlacelistBinding
+import com.hansung.traveldiary.src.DiaryInfo
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity
 import com.hansung.traveldiary.src.diary.write_diary.WriteDiaryActivity
@@ -95,6 +97,7 @@ class PlacelistFragment(val index: Int, val day: Int) : Fragment(){
 //            var day = MainActivity().afterDate(MainActivity.userDiaryArray[index].baseData.startDate, 0).toInt()
 //            var placeinfo = MainActivity.userDiaryArray[index].diaryArray[day].placeInfo
 
+            MainActivity.userDiaryArray[index].diaryArray[day].placeInfo = userPlaceDataModel.items
             db!!.collection("Diary").document(user!!.email.toString())
                 .collection("DiaryData").document(MainActivity.userDiaryArray[index].baseData.idx.toString())
                 .collection("DayList").document(afterDate(MainActivity.userDiaryArray[index].baseData.startDate, day))
