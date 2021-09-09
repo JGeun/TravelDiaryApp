@@ -129,7 +129,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
 
         val startDate = MainActivity.userPlanArray[index].baseData.startDate
         val endDate = MainActivity.userPlanArray[index].baseData.endDate
-        val lock= "false"
+        val lock= "true"
         val diaryBaseData = DiaryBaseData(
             idx,
             diaryTitle,
@@ -188,6 +188,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
     }
 
 
+//   여기 지금 수정해야함.
     fun isModifyDiary(diaryTitle: String) {
         println("isModifyDiary")
         val idx = MainActivity.userDiaryArray[index].baseData.idx
