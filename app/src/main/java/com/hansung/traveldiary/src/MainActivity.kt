@@ -474,15 +474,16 @@ class MainActivity : AppCompatActivity() {
                     bulletinRef.collection(idx.toString()).document("idxUserData")
                         .get().addOnSuccessListener { userResult ->
                             val userInfo = userResult.toObject<UserInfo>()!!
+                            Log.d("BulletinGet", userInfo.email+"/"+idx)
                             val baseRef = db!!.collection("Diary").document(userInfo.email)
                                 .collection("DiaryData").document(idx.toString())
                             baseRef.get().addOnSuccessListener { baseResult ->
                                 val baseData = baseResult.toObject<DiaryBaseData>()
-                                if (baseData != null) {
+                                if (baseData != null && baseData.lock == "false") {
+                                    Log.d("Bulletin Get", "${baseData.idx} / ${baseData.userEmail}")
                                     diaryBaseData = baseData
                                     var diaryArray = ArrayList<DiaryInfo>()
-                                    val calcDate =
-                                        getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
+                                    val calcDate = getCalcDate(diaryBaseData.startDate, diaryBaseData.endDate)
                                     for (i in 0..calcDate) {
                                         val date = afterDate(diaryBaseData.startDate, i)
                                         baseRef.collection("DayList").document(date)

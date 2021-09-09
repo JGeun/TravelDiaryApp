@@ -8,25 +8,27 @@
     android:backgroundTint="@color/bulletin_bg_color"
     tools:context=".src.diary.CommentListActivity">
 
-    <LinearLayout
-        android:id="@+id/commentSection_no_comment"
-        android:layout_width="200dp"
-        android:layout_height="65dp"
-        android:background="@drawable/bg_no_plan"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="center">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/commentSection_no_comment"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="65dp"-->
+<!--        android:background="@drawable/bg_no_plan"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:gravity="center"-->
+<!--        android:visibility="gone">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="댓글이 없습니다.\n 첫번째 댓글을 남겨주세요."
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:gravity="center"/>
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="댓글이 없습니다.\n 첫번째 댓글을 남겨주세요."-->
+<!--            android:textSize="15sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:gravity="center"-->
+<!--            android:visibility="invisible"/>-->
+<!--    </LinearLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"

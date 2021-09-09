@@ -3,6 +3,7 @@ package com.hansung.traveldiary.src.diary
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -59,7 +60,8 @@ class CommentListActivity : AppCompatActivity() {
             Log.d("체크", "idx: ${MainActivity.bulletinDiaryArray[index].userDiaryData.baseData.userEmail}}")
         }
 
-        binding.commentSectionNoComment.isVisible = diaryComments.commentsFolder.size == 0
+//        if(diaryComments.commentsFolder.size == 0) binding.commentSectionNoComment.visibility = View.VISIBLE
+//        else binding.commentSectionNoComment.visibility = View.INVISIBLE
 
         binding.recyclerView.apply {
             setHasFixedSize(true)
@@ -116,6 +118,7 @@ class CommentListActivity : AppCompatActivity() {
                             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
                         }
                 }
+
             }
         }
     }

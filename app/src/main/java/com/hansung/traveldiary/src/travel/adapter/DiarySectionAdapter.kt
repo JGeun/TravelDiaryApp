@@ -120,7 +120,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
 
         }
         val diaryIdxRef = db!!.collection("Diary").document(user!!.email.toString())
-        var lock= data.baseData.lock.toString()
+        var lock= data.baseData.lock
         val idx=data.baseData.idx
         if(lock == "false"){
             Glide.with(holder.itemView.context).load(R.drawable.ic_unlock).into(holder.lock)
@@ -160,6 +160,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                     MainActivity.bulletinIdxList.idxFolder.remove(data.baseData.idx)
                     bulletinIdxRef.set(MainActivity.bulletinIdxList)
 
+                    MainActivity.userDiaryArray[position].baseData.lock = "true"
                     for(i in 0 until MainActivity.bulletinDiaryArray.size){
                         if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == data.baseData.idx){
                             MainActivity.bulletinDiaryArray.removeAt(i)
@@ -205,6 +206,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                     val bulletinIdxRef =  db!!.collection("Bulletin").document("BulletinData")
                     MainActivity.bulletinIdxList.idxFolder.add(data.baseData.idx)
                     bulletinIdxRef.set(MainActivity.bulletinIdxList)
+                    MainActivity.userDiaryArray[position].baseData.lock = "false"
 
                     db!!.collection("UserInfo").document(user!!.email.toString())
                         .get().addOnSuccessListener { result ->
