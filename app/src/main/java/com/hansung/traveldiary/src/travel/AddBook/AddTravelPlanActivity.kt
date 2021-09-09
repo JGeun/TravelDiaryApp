@@ -74,10 +74,7 @@ class AddTravelPlanActivity : AppCompatActivity() {
                                 AtpAddFriendsActivity.selectedArray.add(friendInfo)
                             }
                         }
-
-
                     }
-
                 }
             }
             areaViewModel.setArea(data.area)

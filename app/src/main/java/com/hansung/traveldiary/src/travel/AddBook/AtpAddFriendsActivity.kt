@@ -17,6 +17,7 @@ import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.chat.ChatFriendListAdapter
 import com.hansung.traveldiary.src.travel.AddBook.adapter.AtpFriendListAdapter
 import com.hansung.traveldiary.src.travel.AddBook.adapter.SelectedFriendsAdapter
+import com.hansung.traveldiary.util.StatusBarUtil
 
 data class FriendInfo(
     var email: String,
@@ -52,6 +53,8 @@ class AtpAddFriendsActivity : AppCompatActivity() {
         user = Firebase.auth.currentUser
 
         db = Firebase.firestore
+
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.WHITE_STATUS_BAR)
 
 //        binding.selectedUsersRv.visibility = View.INVISIBLE
         binding.selectedUsersRv.adapter = SelectedFriendsAdapter(selectedArray, this, null)

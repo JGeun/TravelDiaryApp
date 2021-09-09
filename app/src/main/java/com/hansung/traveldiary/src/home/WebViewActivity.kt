@@ -9,6 +9,7 @@ import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityWebViewBinding
+import com.hansung.traveldiary.util.StatusBarUtil
 
 class WebViewActivity() : AppCompatActivity() {
     private val binding by lazy{
@@ -18,6 +19,8 @@ class WebViewActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        StatusBarUtil.setStatusBarColor(this, StatusBarUtil.StatusBarColorType.TRIP_COM_STATUS_BAR)
         val ToCityId=intent.getStringExtra("ToCityId")
         val FromCityId=intent.getStringExtra("FromCityId")
         val deperatureDay=intent.getStringExtra("deperature").toString().split("-")

@@ -170,11 +170,11 @@ class SendTravelPlanActivity : AppCompatActivity() {
                         }
                     }
 
-                    db!!.collection("UserInfo").document(user!!.email.toString())
-                        .get().addOnSuccessListener { result->
-                            val userInfo = result.toObject<UserInfo>()!!
-                            MainActivity.bulletinDiaryArray.add(BulletinData(userDiaryData, userInfo))
-                        }
+//                    db!!.collection("UserInfo").document(user!!.email.toString())
+//                        .get().addOnSuccessListener { result->
+//                            val userInfo = result.toObject<UserInfo>()!!
+//                            MainActivity.bulletinDiaryArray.add(BulletinData(userDiaryData, userInfo))
+//                        }
 
                     planIdxRef.collection("PlanData").document(idx.toString())
                         .delete().addOnSuccessListener {
@@ -204,7 +204,7 @@ class SendTravelPlanActivity : AppCompatActivity() {
                     if (MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == idx) {
                         MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.title = diaryTitle
                         MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.mainImage = mainImagePath
-                        showCustomToast("다이어리가 생성되었습니다")
+//                        showCustomToast("다이어리가 생성되었습니다")
                         setResult(RESULT_OK)
                         finish()
                     }

@@ -17,7 +17,8 @@ class StatusBarUtil {
         TRANSPARENT_STATUS_BAR(R.color.transparent),
         WEATHER_DAY_STATUS_BAR(R.color.weather_day_color),
         COMMENTS_STATUS_BAR(R.color.comments_status_color),
-        RECOMMEND_STATUS_BAR(R.color.bulletin_bg_color)
+        RECOMMEND_STATUS_BAR(R.color.bulletin_bg_color),
+        TRIP_COM_STATUS_BAR(R.color.tripcom)
 
     }
 
