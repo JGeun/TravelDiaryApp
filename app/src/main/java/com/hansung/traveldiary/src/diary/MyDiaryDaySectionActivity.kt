@@ -21,10 +21,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMyDiaryDaySectionBinding
-import com.hansung.traveldiary.src.CommentsFolder
-import com.hansung.traveldiary.src.DiaryBaseData
-import com.hansung.traveldiary.src.LikeFolder
-import com.hansung.traveldiary.src.MainActivity
+import com.hansung.traveldiary.src.*
 import com.hansung.traveldiary.util.StatusBarUtil
 
 class MyDiaryDaySectionActivity : AppCompatActivity() {
@@ -65,6 +62,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
         }else if(lock == "true") {
             Glide.with(this).load(R.drawable.lock_gray).into(binding.ivLock)
         }
+
         binding.ivLock.setOnClickListener {
             if (lock == "false") {
                 val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_lock, null)
@@ -92,6 +90,17 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
                         lock
                     )
                     diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+                    val bulletinIdxRef =  db!!.collection("Bulletin").document("BulletinData")
+                    MainActivity.bulletinIdxList.idxFolder.remove(MainActivity.userDiaryArray[index].baseData.idx)
+                    bulletinIdxRef.set(MainActivity.bulletinIdxList)
+
+                    MainActivity.userDiaryArray[index].baseData.lock = "true"
+                    for(i in 0 until MainActivity.bulletinDiaryArray.size){
+                        if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == MainActivity.userDiaryArray[index].baseData.idx){
+                            MainActivity.bulletinDiaryArray.removeAt(i)
+                            break
+                        }
+                    }
                     mAlertDialog.dismiss()
                 }
                 val cancelbtn = mDialogView.findViewById<Button>(R.id.btn_no)
@@ -108,6 +117,7 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
                 val mAlertDialog = mBuilder.show()
                 mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 val okbtn = mDialogView.findViewById<Button>(R.id.btn_yes)
+
                 okbtn.setOnClickListener {
                     for (i in 0 until MainActivity.userDiaryArray[index].diaryArray.size){
                         if (MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.imagePathArray.size==0||
@@ -140,7 +150,18 @@ class MyDiaryDaySectionActivity : AppCompatActivity() {
                                 lock
                             )
                             diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+                            val bulletinIdxRef =  db!!.collection("Bulletin").document("BulletinData")
+                            MainActivity.bulletinIdxList.idxFolder.remove(MainActivity.userDiaryArray[index].baseData.idx)
+                            bulletinIdxRef.set(MainActivity.bulletinIdxList)
 
+                            MainActivity.userDiaryArray[index].baseData.lock = "true"
+                            for(i in 0 until MainActivity.bulletinDiaryArray.size){
+                                if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == MainActivity.userDiaryArray[index].baseData.idx){
+                                    MainActivity.bulletinDiaryArray.removeAt(i)
+                                    break
+                                }
+                            }
+                            mAlertDialog.dismiss()
                         }
                     }
                     mAlertDialog.dismiss()
