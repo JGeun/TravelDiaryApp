@@ -44,9 +44,10 @@ class searchActivity : AppCompatActivity() {
 
         binding.editText2.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                if ((event!!.action == KeyEvent.ACTION_DOWN) || keyCode == KeyEvent.KEYCODE_ENTER ||keyCode==KeyEvent.KEYCODE_DPAD_DOWN) {
+                if ((event!!.action == KeyEvent.ACTION_DOWN) && keyCode == KeyEvent.KEYCODE_ENTER) {
                     viewModel.searchWord.value=binding.editText2.text.toString()
                     binding.editText2.text= null
+                    //return true
                 }
                 return false
             }
