@@ -7,7 +7,7 @@ class AirportViewModel : ViewModel() {
     val airport : MutableLiveData<String> = MutableLiveData()
     val destinationAirPort:MutableLiveData<String> = MutableLiveData()
     init {
-        airport.value = "출발"
+        airport.value = "출발지"
         destinationAirPort.value="목적지"
     }
 
