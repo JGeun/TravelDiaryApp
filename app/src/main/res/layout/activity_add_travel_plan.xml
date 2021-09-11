@@ -42,7 +42,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="다이어리 설정"
+                    android:layout_marginTop="25dp"
+                    android:text="여행 계획 설정"
                     android:fontFamily="@font/main_font2"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -54,7 +55,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="8dp"
                     android:paddingTop="20dp"
-                    android:text="첵 제목"
+                    android:text="책 제목"
                     android:textSize="16sp"
                     android:fontFamily="@font/main_font2"
                     android:textColor="@color/black" />
