@@ -27,7 +27,8 @@ import com.hansung.traveldiary.src.diary.MyDiaryDaySectionActivity
 import com.hansung.traveldiary.src.diary.SendTravelPlanActivity
 import com.hansung.traveldiary.src.diary.write_diary.ShowPlacelistActivity.Companion.index
 
-class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):RecyclerView.Adapter<DiarySectionAdapter.ViewHolder>() {
+class DiarySectionAdapter(val userDiaryArray: ArrayList<UserDiaryData>) :
+    RecyclerView.Adapter<DiarySectionAdapter.ViewHolder>() {
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
 
@@ -36,16 +37,18 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
         val thumbnail = binding.btItemIvThumbnail
         val date = binding.btItemTvDate
         val area = binding.btItemTvArea
-//        val person = binding.btItemTvPerson
-        val ivcomment=binding.btItemIvComment
+
+        //        val person = binding.btItemTvPerson
+        val ivcomment = binding.btItemIvComment
         val ivLike = binding.btItemIvLike
         val likeCnt = binding.btItemTvLikecnt
         val commentCnt = binding.btItemTvComment
         val edtBtn = binding.btItemIvEdit
         val lock = binding.lock
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding= ItemDiaryBinding.inflate(LayoutInflater.from(parent.context), parent,false)
+        val binding = ItemDiaryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -234,19 +237,21 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                             bulletinIdxRef.set(MainActivity.bulletinIdxList)
                             MainActivity.userDiaryArray[position].baseData.lock = "false"
 
+
                             db!!.collection("UserInfo").document(user!!.email.toString())
                                 .get().addOnSuccessListener { result ->
                                     val userInfo = result.toObject<UserInfo>()!!
                                     bulletinIdxRef.collection(data.baseData.idx.toString())
                                         .document("idxUserData").set(userInfo)
                                     MainActivity.bulletinDiaryArray.add(
+                                        0,
                                         BulletinData(
                                             MainActivity.userDiaryArray[position],
                                             userInfo
                                         )
                                     )
                                 }
-
+                            
                             mAlertDialog.dismiss()
                         }
                     }
