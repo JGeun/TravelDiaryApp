@@ -2,6 +2,7 @@ package com.hansung.traveldiary.src.bulletin
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
@@ -34,7 +35,7 @@ class BulletinViewPagerAdapter(private val index: Int): RecyclerView.Adapter<Bul
         if(position == 0){
             holder.title.text = data.userDiaryData.baseData.title
             if(position==0){
-                holder.contents.isVisible=false
+                holder.contents.visibility= View.INVISIBLE
             }
             holder.contents.text="아직 미정이예요"
             val mainImagePath = data.userDiaryData.baseData.mainImage
