@@ -15,10 +15,12 @@ import com.hansung.traveldiary.databinding.ItemHomebulletinBinding
 import com.hansung.traveldiary.databinding.ItemRecommandBinding
 import com.hansung.traveldiary.src.home.HomeBulletinData
 import com.hansung.traveldiary.src.home.RecommandLocationData
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeBulletinAdapter(private val bulletinData: ArrayList<HomeBulletinData>) : RecyclerView.Adapter<HomeBulletinAdapter.ViewHolder>() {
     private lateinit var binding : ItemRecommandBinding
-
+    private var random = Random()
     class ViewHolder(val binding: ItemHomebulletinBinding) : RecyclerView.ViewHolder(binding.root) {
         val bulletinImage : ImageView
         val bulletinTitle: TextView
@@ -26,6 +28,9 @@ class HomeBulletinAdapter(private val bulletinData: ArrayList<HomeBulletinData>)
         val userProfileImage:ImageView
         val userId:TextView
         val userImage:ImageView
+        val likeCnt : TextView = binding.itemHbLookCount
+        val commentsCnt : TextView = binding.itemHbLikeCount
+
         init {
             // Define click listener for the ViewHolder's View.
             bulletinImage = binding.itemHbImage
@@ -51,6 +56,8 @@ class HomeBulletinAdapter(private val bulletinData: ArrayList<HomeBulletinData>)
         holder.bulletinTitle.text = bulletinData[position].title
         holder.bulletinContents.text = bulletinData[position].contents
         holder.userId.text = bulletinData[position].nickname
+        holder.likeCnt.text = bulletinData[position].likeCnt.toString()
+        holder.commentsCnt.text = bulletinData[position].commentsCnt.toString()
     }
 
     // Return the size of your dataset (invoked by the layout manager)
