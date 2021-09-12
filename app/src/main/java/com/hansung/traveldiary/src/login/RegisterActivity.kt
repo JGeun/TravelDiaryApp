@@ -41,8 +41,8 @@ class RegisterActivity : AppCompatActivity() {
         val userDataRef = db!!.collection("UserData").document("UserEmail")
         userDataRef.get()
             .addOnSuccessListener { result->
-                val data = result.toObject<UserList>()!!
-                userList = data
+                val data = result.toObject<UserList>()
+                if(data != null) userList = data
             }
 
         binding.registerBtn.setOnClickListener {

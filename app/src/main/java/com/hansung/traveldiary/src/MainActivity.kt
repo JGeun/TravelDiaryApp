@@ -344,7 +344,7 @@ class MainActivity : AppCompatActivity() {
                 if (data != null) {
                     myFriendList = data.friendList
                 } else {
-                    Toast.makeText(this, "UserInfo가 없대", Toast.LENGTH_SHORT).show()
+                    println("친구 없어")
                 }
             }
     }
@@ -353,8 +353,11 @@ class MainActivity : AppCompatActivity() {
         db!!.collection("UserData").document("UserEmail")
             .get()
             .addOnSuccessListener { result ->
-                userList = result.toObject<UserList>()!!
-                getUserInfoList()
+                val data = result.toObject<UserList>()
+                if(data != null){
+                    userList = data
+                    getUserInfoList()
+                }
 //                getAllDiaryData()
             }
     }
@@ -375,7 +378,8 @@ class MainActivity : AppCompatActivity() {
         db!!.collection("IdxDatabase").document("IdxData")
             .get()
             .addOnSuccessListener { result ->
-                idxList = result.toObject<IdxList>()!!
+                val data = result.toObject<IdxList>()
+                if(data != null) idxList = data
             }
     }
 
