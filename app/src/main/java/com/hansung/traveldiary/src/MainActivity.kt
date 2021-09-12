@@ -567,6 +567,7 @@ class MainActivity : AppCompatActivity() {
                 "서울 데이트코스 덕수궁 돌담길 야경 맛집"
             ))
         )
+        var count:Int=0
         bulletinDiaryArray.add(
             BulletinData(
                 UserDiaryData(DiaryBaseData(0, "서울당일치기여행","https://data.si.re.kr/sites/default/files/2021-04/chimg_%281%29.png", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "플린트", "https://cdn.pixabay.com/photo/2014/11/16/15/15/field-533541_960_720.jpg", FriendList())

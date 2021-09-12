@@ -42,13 +42,13 @@ class ContentFragment : Fragment() {
                 setHasFixedSize(true)
                 println("배열의 길이는 "+ (MainActivity.bulletinDiaryArray.size-1).toString())
                 for(i in 0..MainActivity.bulletinDiaryArray.size-1){
-                    for(j in 0..MainActivity.bulletinDiaryArray[i].userDiaryData.diaryArray.size-1) {
+                    //for(j in 0..MainActivity.bulletinDiaryArray[i].userDiaryData.diaryArray.size-1) {
+                        Log.d("검색",(MainActivity.bulletinDiaryArray.size-1).toString())
                         if (MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.title.contains(searchWord)) {
-                            Log.d("제목",MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.title.toString())
                             items.add(MainActivity.bulletinDiaryArray[i])
-                            break
+                            //break
                         }
-                    }
+                    //}
                 }
                 adapter = ContentAdapter(items)
                 layoutManager = LinearLayoutManager(context)
