@@ -44,6 +44,7 @@ class ContentFragment : Fragment() {
                 for(i in 0..MainActivity.bulletinDiaryArray.size-1){
                     for(j in 0..MainActivity.bulletinDiaryArray[i].userDiaryData.diaryArray.size-1) {
                         if (MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.title.contains(searchWord)) {
+                            Log.d("제목",MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.title.toString())
                             items.add(MainActivity.bulletinDiaryArray[i])
                             break
                         }

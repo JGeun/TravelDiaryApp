@@ -85,7 +85,7 @@ class ChatFragment : Fragment() {
         }
 
         binding.ivSetting.setOnClickListener {
-            startActivity(Intent(context, ChatActivity::class.java))
+//            startActivity(Intent(context, ChatActivity::class.java))
         }
 
         return binding.root
