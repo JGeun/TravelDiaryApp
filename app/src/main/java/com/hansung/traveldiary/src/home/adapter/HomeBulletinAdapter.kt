@@ -24,12 +24,16 @@ class HomeBulletinAdapter(private val bulletinData: ArrayList<HomeBulletinData>)
         val bulletinTitle: TextView
         val bulletinContents: TextView
         val userProfileImage:ImageView
+        val userId:TextView
+        val userImage:ImageView
         init {
             // Define click listener for the ViewHolder's View.
             bulletinImage = binding.itemHbImage
             bulletinTitle = binding.itemHbTitle
             bulletinContents = binding.itemHbContents
             userProfileImage=binding.userImage
+            userId = binding.userId
+            userImage = binding.userImage
         }
     }
 
@@ -43,9 +47,10 @@ class HomeBulletinAdapter(private val bulletinData: ArrayList<HomeBulletinData>)
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.itemView.context).load(bulletinData[position].image).apply(RequestOptions()).into(holder.bulletinImage)
-        Glide.with(holder.itemView.context).load(R.drawable.img_basic_profile).circleCrop().into(holder.userProfileImage)
+        Glide.with(holder.itemView.context).load(bulletinData[position].userImage).circleCrop().into(holder.userProfileImage)
         holder.bulletinTitle.text = bulletinData[position].title
         holder.bulletinContents.text = bulletinData[position].contents
+        holder.userId.text = bulletinData[position].nickname
     }
 
     // Return the size of your dataset (invoked by the layout manager)
