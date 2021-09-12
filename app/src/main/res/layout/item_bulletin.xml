@@ -18,9 +18,9 @@
 
         <ImageView
             android:id="@+id/btItem_userImage"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="25dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +66,7 @@
                 android:id="@+id/btItem_tv_likecnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="7dp"
                 android:layout_toEndOf="@id/btItem_iv_like"
                 android:fontFamily="@font/number_font"
                 android:text="23"
@@ -106,7 +106,7 @@
                 android:id="@+id/btItem_tv_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="7dp"
                 android:layout_toEndOf="@+id/btItem_iv_comment"
                 android:fontFamily="@font/number_font"
                 android:text="11"
@@ -115,31 +115,6 @@
                 app:layout_constraintBottom_toBottomOf="@+id/btItem_iv_comment"
                 app:layout_constraintStart_toEndOf="@+id/btItem_iv_comment"
                 app:layout_constraintTop_toTopOf="@+id/btItem_iv_comment" />
-
-            <ImageView
-                android:id="@+id/btItem_iv_share"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/btItem_tv_sharepeople"
-                app:layout_constraintBottom_toBottomOf="@+id/btItem_tv_sharepeople"
-                app:layout_constraintEnd_toStartOf="@+id/btItem_tv_sharepeople"
-                app:layout_constraintTop_toTopOf="@+id/btItem_tv_sharepeople"
-                app:srcCompat="@drawable/ic_share_gray" />
-
-            <TextView
-                android:id="@+id/btItem_tv_sharepeople"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/number_font"
-                android:text="11"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

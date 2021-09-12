@@ -86,7 +86,7 @@
             android:id="@+id/item_hb_lookImage"
             android:layout_width="13dp"
             android:layout_height="13dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="5dp"
             android:src="@drawable/ic_heart"
             app:layout_constraintBottom_toBottomOf="@id/item_hb_lookCount"
             app:layout_constraintEnd_toStartOf="@id/item_hb_lookCount" />
@@ -105,7 +105,7 @@
             android:id="@+id/item_hb_likeImage"
             android:layout_width="13dp"
             android:layout_height="13dp"
-            android:layout_marginEnd="2dp"
+            android:layout_marginEnd="5dp"
             android:src="@drawable/ic_comment"
             app:layout_constraintBottom_toBottomOf="@id/item_hb_likeCount"
             app:layout_constraintEnd_toStartOf="@id/item_hb_likeCount" />
@@ -114,7 +114,7 @@
             android:id="@+id/item_hb_likeCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
             android:text="1"
             android:textSize="10sp"

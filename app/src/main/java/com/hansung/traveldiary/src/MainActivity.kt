@@ -567,33 +567,51 @@ class MainActivity : AppCompatActivity() {
                 "서울 데이트코스 덕수궁 돌담길 야경 맛집"
             ))
         )
+
+        var likeList3 = LikeFolder()
+        for(i in 0 until 5) likeList3.likeUserFolder.add("1")
+
+        var commentsList3 = CommentsFolder()
+        for(i in 0 until 2) commentsList3.commentsFolder.add(CommentsData())
         bulletinDiaryArray.add(
             BulletinData(
-                UserDiaryData(DiaryBaseData(0, "서울당일치기여행","https://data.si.re.kr/sites/default/files/2021-04/chimg_%281%29.png", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "플린트", "https://cdn.pixabay.com/photo/2014/11/16/15/15/field-533541_960_720.jpg", FriendList())
+                UserDiaryData(DiaryBaseData(0, "제주도 핫한 여행지 5곳","https://api.cdn.visitjeju.net/photomng/imgpath/201911/28/1b150513-5d25-4212-826a-c70c6fd0ac78.jpg", "", "", "", "", "", "", FriendList(), likeList3, commentsList3,"")), UserInfo("", "이영진", "https://cdn.pixabay.com/photo/2017/04/25/22/28/despaired-2261021_960_720.jpg", FriendList())
             )
         )
 
+        var likeList4 = LikeFolder()
+        for(i in 0 until 2) likeList4.likeUserFolder.add("1")
+
+        var commentsList4 = CommentsFolder()
+        for(i in 0 until 2) commentsList4.commentsFolder.add(CommentsData())
         bulletinDiaryArray.add(
             BulletinData(
-                UserDiaryData(DiaryBaseData(0, "잊지못할 부산 1박 2일","https://bto.or.kr/resources/homepage/kor/_Img/Content/img-tour-city-01.jpg", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "스티브", "https://cdn.pixabay.com/photo/2017/11/26/15/16/smiley-2979107_960_720.jpg", FriendList())
+                UserDiaryData(DiaryBaseData(0, "국내 여행 : 여수, 순천 여행","https://www.yeosu.go.kr/tour/contents/7/odong1.jpg", "", "", "", "", "", "", FriendList(), likeList4, commentsList4,"")), UserInfo("", "한영원", "https://cdn.pixabay.com/photo/2012/02/23/08/38/rocks-15712_960_720.jpg", FriendList())
             )
         )
 
-        bulletinDiaryArray.add(
-            BulletinData(
-                UserDiaryData(DiaryBaseData(0, "제주도 핫한 여행지 5곳","https://api.cdn.visitjeju.net/photomng/imgpath/201911/28/1b150513-5d25-4212-826a-c70c6fd0ac78.jpg", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "에디스", "https://cdn.pixabay.com/photo/2017/04/25/22/28/despaired-2261021_960_720.jpg", FriendList())
-            )
-        )
+        var likeList1 = LikeFolder()
+        for(i in 0 until 4) likeList1.likeUserFolder.add("1")
+
+        var commentsList1 = CommentsFolder()
+        for(i in 0 until 5) commentsList1.commentsFolder.add(CommentsData())
 
         bulletinDiaryArray.add(
             BulletinData(
-                UserDiaryData(DiaryBaseData(0, "국내 여행 : 여수, 순천 여행","https://www.yeosu.go.kr/tour/contents/7/odong1.jpg", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "사과", "https://cdn.pixabay.com/photo/2012/02/23/08/38/rocks-15712_960_720.jpg", FriendList())
+                UserDiaryData(DiaryBaseData(0, "서울당일치기여행","https://data.si.re.kr/sites/default/files/2021-04/chimg_%281%29.png", "", "", "", "", "", "", FriendList(), likeList1, commentsList1,"")), UserInfo("", "박정근", "https://cdn.pixabay.com/photo/2014/11/16/15/15/field-533541_960_720.jpg", FriendList())
             )
         )
 
+
+
+        var likeList5 = LikeFolder()
+        for(i in 0 until 4) likeList5.likeUserFolder.add("1")
+
+        var commentsList5 = CommentsFolder()
+        for(i in 0 until 2) commentsList5.commentsFolder.add(CommentsData())
         bulletinDiaryArray.add(
             BulletinData(
-                UserDiaryData(DiaryBaseData(0, "아름다운 풍경 가득한 강릉 여행 코스","https://www.gn.go.kr/tour/images/tour/sub03/sub030210_img01.jpg", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "루시", "https://cdn.pixabay.com/photo/2017/07/25/01/22/cat-2536662_960_720.jpg", FriendList())
+                UserDiaryData(DiaryBaseData(0, "아름다운 풍경 가득한 강릉 여행 코스","https://www.gn.go.kr/tour/images/tour/sub03/sub030210_img01.jpg", "", "", "", "", "", "", FriendList(), likeList5, commentsList5,"")), UserInfo("", "정예은", "https://cdn.pixabay.com/photo/2017/07/25/01/22/cat-2536662_960_720.jpg", FriendList())
             )
         )
 
