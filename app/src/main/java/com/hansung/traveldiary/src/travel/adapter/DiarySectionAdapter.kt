@@ -229,14 +229,13 @@ class DiarySectionAdapter(val userDiaryArray: ArrayList<UserDiaryData>) :
                                 CommentsFolder(),
                                 lock
                             )
-                            diaryIdxRef.collection("DiaryData").document(idx.toString())
-                                .set(diaryBaseData)
-                            val bulletinIdxRef =
-                                db!!.collection("Bulletin").document("BulletinData")
-                            MainActivity.bulletinIdxList.idxFolder.add(data.baseData.idx)
-                            bulletinIdxRef.set(MainActivity.bulletinIdxList)
-                            MainActivity.userDiaryArray[position].baseData.lock = "false"
-
+                            diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
+                            val bulletinIdxRef = db!!.collection("Bulletin").document("BulletinData")
+                            if(!MainActivity.bulletinIdxList.idxFolder.contains(data.baseData.idx)){
+                                MainActivity.bulletinIdxList.idxFolder.add(data.baseData.idx)
+                                bulletinIdxRef.set(MainActivity.bulletinIdxList)
+                                MainActivity.userDiaryArray[position].baseData.lock = "false"
+                            }
 
                             db!!.collection("UserInfo").document(user!!.email.toString())
                                 .get().addOnSuccessListener { result ->
