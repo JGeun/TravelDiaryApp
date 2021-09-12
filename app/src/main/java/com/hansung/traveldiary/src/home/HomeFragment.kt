@@ -175,14 +175,14 @@ class HomeFragment : Fragment(), HomeView{
         )
     }
 
-    private fun initBulletinList(){
+    fun initBulletinList(){
         homeBulletinList.add(
             HomeBulletinData(
                 ResourcesCompat.getDrawable(
                     resources,
                     R.drawable.ig_home_seoul,
                     null
-                )!!, "서울 2박3일 여행~", "친구들과 여행을 다녀왔는데 너무 좋았어요."
+                )!!, "서울 당일치기 여행", "서울 데이트코스 덕수궁 돌담길 야경 맛집"
             )
         )
         homeBulletinList.add(
@@ -191,7 +191,7 @@ class HomeFragment : Fragment(), HomeView{
                     resources,
                     R.drawable.ig_home_busan,
                     null
-                )!!, "부산 캡슐열차타러 !!", "캡슐열차 강추 무조건!!"
+                )!!, "잊지못할 부산 1박 2일", "부산 해운데 더베이 101, 주변 여행 코스"
             )
         )
         homeBulletinList.add(
@@ -200,7 +200,7 @@ class HomeFragment : Fragment(), HomeView{
                     resources,
                     R.drawable.ig_home_gangneung,
                     null
-                )!!, "제주도 미쳤다", "힐링하려는 분들 제 글보고 가보세요"
+                )!!, "제주도 핫한 여행지 5곳", "천지연 폭포, 휴애리자연생활공원, 노형수퍼마켙, 제주 블라썸, 외돌개 황우지해안을 따라"
             )
         )
         homeBulletinList.add(
@@ -209,7 +209,7 @@ class HomeFragment : Fragment(), HomeView{
                     resources,
                     R.drawable.ig_home_seoul_nearby,
                     null
-                )!!, "서울근교 데이트코스가 필요하다면?", "남친이랑 다녀왔는데.."
+                )!!, "국내 여행 : 여수, 순천 여행", "아르떼 뮤지엄/구백식당/향일암/베네치아 호텔/이순신 광장 등 가볼만한 곳 추천"
             )
         )
         homeBulletinList.add(
@@ -218,7 +218,7 @@ class HomeFragment : Fragment(), HomeView{
                     resources,
                     R.drawable.ig_home_daejeon,
                     null
-                )!!, "1박2일 가볍게 다녀왔습니다", "강릉바다 보고싶어서 다녀왔는데 아쉬웠어요"
+                )!!, "아름다운 풍경 가득한 강릉 여행 코스", "정동진 레일바이크로 예쁜 풍경 구경하며 시원한 바닷바람 즐기기"
             )
         )
     }
