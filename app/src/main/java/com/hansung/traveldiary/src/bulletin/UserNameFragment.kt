@@ -41,7 +41,7 @@ class UserNameFragment : Fragment() {
                 setHasFixedSize(true)
                 for(i in 0..MainActivity.bulletinDiaryArray.size-1){
                     println(MainActivity.bulletinDiaryArray[i].userInfo.nickname+"                   "+searchWord.toString())
-                    if(MainActivity.bulletinDiaryArray[i].userInfo.nickname.equals(searchWord.toString())){
+                    if(MainActivity.bulletinDiaryArray[i].userInfo.nickname.equals(searchWord)){
                         println(MainActivity.bulletinDiaryArray[i].userInfo.nickname)
                         items.add(MainActivity.bulletinDiaryArray[i])
                     }
