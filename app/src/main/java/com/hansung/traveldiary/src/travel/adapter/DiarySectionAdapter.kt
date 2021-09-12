@@ -251,8 +251,7 @@ class DiarySectionAdapter(val userDiaryArray: ArrayList<UserDiaryData>) :
                                         )
                                     )
                                 }
-
-
+                            
                             mAlertDialog.dismiss()
                         }
                     }
