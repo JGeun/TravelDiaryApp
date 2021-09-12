@@ -212,7 +212,7 @@ class DiarySectionAdapter(val userDiaryArray : ArrayList<UserDiaryData>):Recycle
                         .get().addOnSuccessListener { result ->
                             val userInfo = result.toObject<UserInfo>()!!
                             bulletinIdxRef.collection(data.baseData.idx.toString()).document("idxUserData").set(userInfo)
-                            MainActivity.bulletinDiaryArray.add(BulletinData(MainActivity.userDiaryArray[position], userInfo))
+                            MainActivity.bulletinDiaryArray.add(0, BulletinData(MainActivity.userDiaryArray[position], userInfo))
                         }
 
                     mAlertDialog.dismiss()
