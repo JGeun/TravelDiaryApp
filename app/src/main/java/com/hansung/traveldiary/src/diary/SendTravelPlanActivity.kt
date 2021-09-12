@@ -172,7 +172,6 @@ class SendTravelPlanActivity : AppCompatActivity() {
 
                     planIdxRef.collection("PlanData").document(idx.toString())
                         .delete().addOnSuccessListener {
-                            showCustomToast("끝")
                             setResult(RESULT_OK)
                             finish()
                         }

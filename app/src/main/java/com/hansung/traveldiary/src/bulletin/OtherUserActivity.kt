@@ -84,7 +84,9 @@ class OtherUserActivity : AppCompatActivity() {
             binding.btnAddFriend.text = "친구"
             isFriednBtnEnabled = false
         }
-
+        binding.planCount.text= MainActivity.userPlanArray.size.toString()
+        binding.diaryCount.text=MainActivity.userDiaryArray.size.toString()
+        binding.friendsCount.text=MainActivity.myFriendList.friendFolder.size.toString()
         if(isFriednBtnEnabled){
             binding.btnAddFriend.setOnClickListener {
                 val userRef = db!!.collection("UserInfo").document(user!!.email.toString())

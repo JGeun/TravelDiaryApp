@@ -141,7 +141,7 @@ class HomeFragment : Fragment(), HomeView{
             RecommandLocationData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.img_seoul_cup,
+                    R.drawable.busan,
                     null
                 )!!, "부산"
             )
@@ -150,7 +150,7 @@ class HomeFragment : Fragment(), HomeView{
             RecommandLocationData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.img_beach,
+                    R.drawable.forest   ,
                     null
                 )!!, "강릉"
             )
@@ -168,7 +168,7 @@ class HomeFragment : Fragment(), HomeView{
             RecommandLocationData(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.img_seoul_cup,
+                    R.drawable.seoul_ingen,
                     null
                 )!!, "서울 근교"
             )
