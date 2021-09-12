@@ -41,12 +41,15 @@ class ChatAdapter(private val myUser : String) : RecyclerView.Adapter<ChatAdapte
 
             var myname = ""
             var myImagePath = ""
-            for(i in 0..MainActivity.userInfoList.size-1){
+            for(i in 0 until MainActivity.userInfoList.size){
                 if(chatList.chatFolder[position].userEmail == MainActivity.userInfoList[i].email) {
                     myname = MainActivity.userInfoList[i].nickname
                     myImagePath = MainActivity.userInfoList[i].profileImage
+                    break
                 }
             }
+
+            Log.d("chat", "이름: " + myname)
 
             if(myImagePath == "")
                 Glide.with(context).load(ResourcesCompat.getDrawable(context.resources, R.drawable.img_basic_profile, null)).circleCrop().into(holder.myImage)
@@ -62,10 +65,11 @@ class ChatAdapter(private val myUser : String) : RecyclerView.Adapter<ChatAdapte
 
             var userImagePath = ""
             var username = ""
-            for(i in 0..MainActivity.userInfoList.size-1){
+            for(i in 0 until MainActivity.userInfoList.size){
                 if(chatList.chatFolder[position].userEmail == MainActivity.userInfoList[i].email) {
                     username = MainActivity.userInfoList[i].nickname
                     userImagePath = MainActivity.userInfoList[i].profileImage
+                    break
                 }
             }
 
