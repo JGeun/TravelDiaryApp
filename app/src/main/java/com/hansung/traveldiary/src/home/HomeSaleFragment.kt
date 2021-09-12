@@ -2,12 +2,14 @@
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -15,6 +17,8 @@ import androidx.fragment.app.activityViewModels
 import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.FragmentHomeSaleBinding
 import com.hansung.traveldiary.src.travel.AddBook.SelectAreaBtmDialog
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
     class HomeSaleFragment(): Fragment() {
         var date = ""
@@ -28,6 +32,7 @@ import java.util.*
             super.onCreate(savedInstanceState)
         }
 
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -39,6 +44,11 @@ import java.util.*
                 bottomDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomDialogTheme)
                 bottomDialog.show(  (activity as AppCompatActivity).supportFragmentManager, "bottomPlanlistSheet")
             }
+
+            val current = LocalDate.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+            binding.tvDeperatureDay.text = current.format(formatter)
+            binding.tvReturnDay.text = current.format(formatter)
 
             airportViewModel.airport.observe(viewLifecycleOwner, androidx.lifecycle.Observer<String> {
                 binding.deperatureArea.text = airportViewModel.airport.value
@@ -56,7 +66,6 @@ import java.util.*
                     "여수"->{binding.tvDeperature.text="RSU"
                     ToCityId="RSU"}
                     else->{binding.tvDeperature.text=""}
-
                 }
             })
             binding.airDown.setOnClickListener {
