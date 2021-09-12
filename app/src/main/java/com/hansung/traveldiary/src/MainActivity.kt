@@ -557,23 +557,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initBulletinList(){
-        var imagepath = ArrayList<String>()
-        imagepath.add("")
-        var diaryInfo = ArrayList<DiaryInfo>()
-        diaryInfo.add(
-            DiaryInfo("", DiaryData(
-                imagepath,
-                "서울 당일치기 여행",
-                "서울 데이트코스 덕수궁 돌담길 야경 맛집"
-            ))
-        )
-        var count:Int=0
-        bulletinDiaryArray.add(
-            BulletinData(
-                UserDiaryData(DiaryBaseData(0, "서울당일치기여행","https://data.si.re.kr/sites/default/files/2021-04/chimg_%281%29.png", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "플린트", "https://cdn.pixabay.com/photo/2014/11/16/15/15/field-533541_960_720.jpg", FriendList())
-            )
-        )
-
         var likeList3 = LikeFolder()
         for(i in 0 until 5) likeList3.likeUserFolder.add("1")
 

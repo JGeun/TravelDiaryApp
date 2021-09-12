@@ -13,9 +13,10 @@ import com.hansung.traveldiary.src.BulletinData
 import com.hansung.traveldiary.src.MainActivity
 
 class UserNameFragment : Fragment() {
-    var items: ArrayList<BulletinData> =ArrayList<BulletinData>()
-    private val viewModel:SearchWordVIewModel by activityViewModels()
-    private lateinit var binding:FragmentUserNameBinding
+    var items: ArrayList<BulletinData> = ArrayList<BulletinData>()
+    private val viewModel: SearchWordVIewModel by activityViewModels()
+    private lateinit var binding: FragmentUserNameBinding
+    private val userNameAdapter = UserNameAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -27,35 +28,36 @@ class UserNameFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        binding=FragmentUserNameBinding.inflate(inflater, container, false)
-        var searchWord:String
-        val searchArray= BulletinData()
+        binding = FragmentUserNameBinding.inflate(inflater, container, false)
+        var searchWord: String
+        val searchArray = BulletinData()
 
 
-        viewModel.searchWord.observe(viewLifecycleOwner){
-            items.clear()
-            Log.d("췤","변경된 값은 ${viewModel.searchWord.value}")
-            searchWord=viewModel.searchWord.value.toString()
-            println("새롭게 넣은 리스트의 길이"+items.size)
+        binding.rv.apply {
+            setHasFixedSize(true)
+            adapter = userNameAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+        viewModel.searchWord.observe(viewLifecycleOwner) {
+            userNameAdapter.clear()
+            searchWord = viewModel.searchWord.value.toString()
+            println("새롭게 넣은 리스트의 길이" + items.size)
             binding.rv.apply {
                 setHasFixedSize(true)
-                for(i in 0..MainActivity.bulletinDiaryArray.size-1){
-                    println(MainActivity.bulletinDiaryArray[i].userInfo.nickname+"                   "+searchWord.toString())
-                    if(MainActivity.bulletinDiaryArray[i].userInfo.nickname.equals(searchWord)){
+                for (i in 0 until MainActivity.bulletinDiaryArray.size) {
+                    println(MainActivity.bulletinDiaryArray[i].userInfo.nickname + "                   " + searchWord.toString())
+                    if (MainActivity.bulletinDiaryArray[i].userInfo.nickname.equals(searchWord.toString())) {
                         println(MainActivity.bulletinDiaryArray[i].userInfo.nickname)
-                        items.add(MainActivity.bulletinDiaryArray[i])
+                        Log.d("체크", MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.title)
+                        userNameAdapter.add(MainActivity.bulletinDiaryArray[i])
                     }
                 }
-                println("새롭게 넣은 리스트의 길이       "+items.size)
-                println()
-                adapter = UserNameAdapter(items)
-                layoutManager = LinearLayoutManager(context)
-
+                binding.rv.adapter!!.notifyDataSetChanged()
             }
 
-        }
-        //binding.rv.isVisible=false
 
+        }
         return binding.root
     }
 }

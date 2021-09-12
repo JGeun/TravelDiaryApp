@@ -62,14 +62,14 @@ class ContentAdapter (val items:ArrayList<BulletinData>) : RecyclerView.Adapter<
                 .into(holder.userImage)
 
 
-        var idx=Integer.MAX_VALUE
-        for(i in 0..MainActivity.bulletinDiaryArray.size-1){
-            if(MainActivity.bulletinDiaryArray[i].userInfo.nickname.equals(items[position].userInfo.nickname)){
-                idx=i
+        var index=0
+        for(i in 0 until MainActivity.bulletinDiaryArray.size){
+            if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == data.baseData.idx){
+                index=i
                 break
             }
         }
-        holder.viewpager.adapter = BulletinViewPagerAdapter(idx)
+        holder.viewpager.adapter = BulletinViewPagerAdapter(index)
         holder.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
         holder.likeCnt.text = data.baseData.like.likeUserFolder.size.toString()
@@ -81,13 +81,13 @@ class ContentAdapter (val items:ArrayList<BulletinData>) : RecyclerView.Adapter<
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, BulletinDaySectionActivity::class.java)
-            intent.putExtra("index", idx)
+            intent.putExtra("index", index)
             context.startActivity(intent)
         }
 
         holder.userImage.setOnClickListener {
             val intent = Intent(context, OtherUserActivity::class.java)
-            intent.putExtra("index", idx)
+            intent.putExtra("index", index)
             context.startActivity(intent)
         }
 

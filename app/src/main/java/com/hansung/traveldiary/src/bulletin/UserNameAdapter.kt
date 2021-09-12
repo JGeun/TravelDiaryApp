@@ -24,7 +24,8 @@ import com.hansung.traveldiary.src.BulletinData
 import com.hansung.traveldiary.src.MainActivity
 import com.hansung.traveldiary.src.diary.CommentListActivity
 
-class UserNameAdapter(val items:ArrayList<BulletinData>) : RecyclerView.Adapter<UserNameAdapter.ViewHolder>() {
+class UserNameAdapter() : RecyclerView.Adapter<UserNameAdapter.ViewHolder>() {
+    private val items:ArrayList<BulletinData> = ArrayList()
     private val db = Firebase.firestore
     private val viewModel=SearchWordVIewModel()
     inner class ViewHolder(binding: ItemBulletinBinding): RecyclerView.ViewHolder(binding.root){
@@ -48,12 +49,9 @@ class UserNameAdapter(val items:ArrayList<BulletinData>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
         val data = items[position].userDiaryData
-        println("BUlletinAdapter에 들어옴")
-        println(items.size)
         println(items[position].userInfo.nickname)
         println(items[position].userDiaryData.baseData.title)
         holder.userName.text = items[position].userInfo.nickname
-
 
         val userImagePath =items[position].userInfo.profileImage
         if (userImagePath == "")
@@ -65,16 +63,16 @@ class UserNameAdapter(val items:ArrayList<BulletinData>) : RecyclerView.Adapter<
                 )
             ).circleCrop().into(holder.userImage)
         else
-            Glide.with(context).load(userImagePath.toString()).circleCrop()
+            Glide.with(context).load(userImagePath).circleCrop()
                 .into(holder.userImage)
-        var idx=Integer.MAX_VALUE
-        for(i in 0..MainActivity.bulletinDiaryArray.size-1){
-            if(MainActivity.bulletinDiaryArray[i].userInfo.nickname.equals(items[position].userInfo.nickname)){
-                idx=i
+        var index=0
+        for(i in 0 until MainActivity.bulletinDiaryArray.size){
+            if(MainActivity.bulletinDiaryArray[i].userDiaryData.baseData.idx == data.baseData.idx){
+                index= i
                 break
             }
         }
-        holder.viewpager.adapter = BulletinViewPagerAdapter(idx)
+        holder.viewpager.adapter = BulletinViewPagerAdapter(index)
         holder.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //Glide.with(context).load(data.diaryBaseData.mainImage).into(holder.thumbnail)
         holder.likeCnt.text = data.baseData.like.likeUserFolder.size.toString()
@@ -84,13 +82,13 @@ class UserNameAdapter(val items:ArrayList<BulletinData>) : RecyclerView.Adapter<
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, BulletinDaySectionActivity::class.java)
-            intent.putExtra("index", idx)
+            intent.putExtra("index", index)
             context.startActivity(intent)
         }
 
         holder.userImage.setOnClickListener {
             val intent = Intent(context, OtherUserActivity::class.java)
-            intent.putExtra("index", idx)
+            intent.putExtra("index", index)
             context.startActivity(intent)
         }
 
@@ -101,6 +99,14 @@ class UserNameAdapter(val items:ArrayList<BulletinData>) : RecyclerView.Adapter<
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun add(data : BulletinData){
+        items.add(data)
+    }
+
+    fun clear(){
+        items.clear()
+    }
 }
 
 
