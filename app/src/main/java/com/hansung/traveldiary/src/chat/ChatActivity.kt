@@ -35,6 +35,7 @@ class ChatActivity : AppCompatActivity() {
         val db = Firebase.firestore
 
         val checkUser = user!!.email.toString()
+        Log.d("chat", checkUser)
         val chatAdapter = ChatAdapter(checkUser)
 
         binding.roomTitle.text = intent.getStringExtra("title")
@@ -101,7 +102,6 @@ class ChatActivity : AppCompatActivity() {
                 chatList.chatFolder.add(ChatData(checkUser, text))
                 chatRef.set(chatList)
                 binding.input.setText("")
-
 
                 db.collection("UserChat").document(user.email.toString())
                     .get().addOnSuccessListener { result ->

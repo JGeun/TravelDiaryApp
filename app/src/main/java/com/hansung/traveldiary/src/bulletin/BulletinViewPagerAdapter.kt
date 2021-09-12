@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -32,6 +33,9 @@ class BulletinViewPagerAdapter(private val index: Int): RecyclerView.Adapter<Bul
 
         if(position == 0){
             holder.title.text = data.userDiaryData.baseData.title
+            if(position==0){
+                holder.contents.isVisible=false
+            }
             holder.contents.text="아직 미정이예요"
             val mainImagePath = data.userDiaryData.baseData.mainImage
             if(mainImagePath != "") {

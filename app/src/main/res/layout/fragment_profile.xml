@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/main_font2"
-                    android:text="여행 계"
+                    android:text="여행 계획"
                     android:textStyle="bold" />
             </LinearLayout>
 

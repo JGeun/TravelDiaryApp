@@ -18,17 +18,17 @@
 
     <TextView
         android:id="@+id/item_plan_title"
-        android:layout_width="170dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="7dp"
         android:ellipsize="end"
-        android:maxLength="13"
+        android:fontFamily="@font/main_font2"
+        android:maxLength="20"
         android:maxLines="1"
         android:text="부산 힐링 여행 아아아아아아아아"
-        android:fontFamily="@font/main_font2"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/item_plan_image"
         app:layout_constraintTop_toTopOf="@id/item_plan_image" />
 

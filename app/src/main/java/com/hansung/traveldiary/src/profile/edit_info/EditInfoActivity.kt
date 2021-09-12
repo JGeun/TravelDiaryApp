@@ -98,7 +98,7 @@ class EditInfoActivity : AppCompatActivity() {
             } else {
                 val nickname = binding.editEtNickname.text.toString()
                 val userRef = db!!.collection("UserInfo").document(user!!.email.toString())
-                val userInfo = UserInfo(nickname, pref.getString("profileImagePath", "").toString())
+                val userInfo = UserInfo(user!!.email.toString(), nickname, pref.getString("profileImagePath", "").toString())
                 userRef.set(userInfo)
                 with(pref.edit()) {
                     putString("nickname", nickname)
@@ -137,7 +137,7 @@ class EditInfoActivity : AppCompatActivity() {
                 val nickname = binding.editEtNickname.text.toString()
                 Log.d("체크", downloadUri.toString())
                 val userRef = db!!.collection("UserInfo").document(user!!.email.toString())
-                val userInfo = UserInfo(nickname, downloadUri.toString())
+                val userInfo = UserInfo(user!!.email.toString(), nickname, downloadUri.toString())
                 userRef.set(userInfo)
                 with(pref.edit()) {
                     putString("nickname", nickname)

@@ -66,7 +66,6 @@ import java.util.*
                     "여수"->{binding.tvDeperature.text="RSU"
                     ToCityId="RSU"}
                     else->{binding.tvDeperature.text=""}
-
                 }
             })
             binding.airDown.setOnClickListener {
