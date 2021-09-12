@@ -22,6 +22,7 @@ import com.hansung.traveldiary.R
 import com.hansung.traveldiary.databinding.ActivityMainBinding
 import com.hansung.traveldiary.src.bulletin.BulletinFragment
 import com.hansung.traveldiary.src.chat.ChatFragment
+import com.hansung.traveldiary.src.home.HomeBulletinData
 import com.hansung.traveldiary.src.profile.ProfileFragment
 import com.hansung.traveldiary.src.travel.AddBook.AddTravelPlanActivity
 import com.hansung.traveldiary.src.travel.TravelBaseFragment
@@ -98,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initList()
+        initBulletinList()
 
         weatherIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_sunny_white, null)!!
         user = Firebase.auth.currentUser
@@ -553,6 +555,88 @@ class MainActivity : AppCompatActivity() {
 
         return format.format(calendar.time)
     }
+
+    fun initBulletinList(){
+        var imagepath = ArrayList<String>()
+        imagepath.add("")
+        var diaryInfo = ArrayList<DiaryInfo>()
+        diaryInfo.add(
+            DiaryInfo("", DiaryData(
+                imagepath,
+                "서울 당일치기 여행",
+                "서울 데이트코스 덕수궁 돌담길 야경 맛집"
+            ))
+        )
+        bulletinDiaryArray.add(
+            BulletinData(
+                UserDiaryData(DiaryBaseData(0, "서울당일치기여행","https://data.si.re.kr/sites/default/files/2021-04/chimg_%281%29.png", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "플린트", "https://cdn.pixabay.com/photo/2014/11/16/15/15/field-533541_960_720.jpg", FriendList())
+            )
+        )
+
+        bulletinDiaryArray.add(
+            BulletinData(
+                UserDiaryData(DiaryBaseData(0, "잊지못할 부산 1박 2일","https://bto.or.kr/resources/homepage/kor/_Img/Content/img-tour-city-01.jpg", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "스티브", "https://cdn.pixabay.com/photo/2017/11/26/15/16/smiley-2979107_960_720.jpg", FriendList())
+            )
+        )
+
+        bulletinDiaryArray.add(
+            BulletinData(
+                UserDiaryData(DiaryBaseData(0, "제주도 핫한 여행지 5곳","https://api.cdn.visitjeju.net/photomng/imgpath/201911/28/1b150513-5d25-4212-826a-c70c6fd0ac78.jpg", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "에디스", "https://cdn.pixabay.com/photo/2017/04/25/22/28/despaired-2261021_960_720.jpg", FriendList())
+            )
+        )
+
+        bulletinDiaryArray.add(
+            BulletinData(
+                UserDiaryData(DiaryBaseData(0, "국내 여행 : 여수, 순천 여행","https://www.yeosu.go.kr/tour/contents/7/odong1.jpg", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "사과", "https://cdn.pixabay.com/photo/2012/02/23/08/38/rocks-15712_960_720.jpg", FriendList())
+            )
+        )
+
+        bulletinDiaryArray.add(
+            BulletinData(
+                UserDiaryData(DiaryBaseData(0, "아름다운 풍경 가득한 강릉 여행 코스","https://www.gn.go.kr/tour/images/tour/sub03/sub030210_img01.jpg", "", "", "", "", "", "", FriendList(), LikeFolder(), CommentsFolder(),"")), UserInfo("", "루시", "https://cdn.pixabay.com/photo/2017/07/25/01/22/cat-2536662_960_720.jpg", FriendList())
+            )
+        )
+
+
+
+//        bulletinDiaryArray.add(
+//            BulletinData(
+//                ResourcesCompat.getDrawable(
+//                    resources,
+//                    R.drawable.ig_home_busan,
+//                    null
+//                )!!, "잊지못할 부산 1박 2일", "부산 해운데 더베이 101, 주변 여행 코스"
+//            )
+//        )
+//        bulletinDiaryArray.add(
+//            BulletinData(
+//                ResourcesCompat.getDrawable(
+//                    resources,
+//                    R.drawable.ig_home_gangneung,
+//                    null
+//                )!!, "제주도 핫한 여행지 5곳", "천지연 폭포, 휴애리자연생활공원, 노형수퍼마켙, 제주 블라썸, 외돌개 황우지해안을 따라"
+//            )
+//        )
+//        bulletinDiaryArray.add(
+//            BulletinData(
+//                ResourcesCompat.getDrawable(
+//                    resources,
+//                    R.drawable.ig_home_seoul_nearby,
+//                    null
+//                )!!, "국내 여행 : 여수, 순천 여행", "아르떼 뮤지엄/구백식당/향일암/베네치아 호텔/이순신 광장 등 가볼만한 곳 추천"
+//            )
+//        )
+//        bulletinDiaryArray.add(
+//            BulletinData(
+//                ResourcesCompat.getDrawable(
+//                    resources,
+//                    R.drawable.ig_home_daejeon,
+//                    null
+//                )!!, "아름다운 풍경 가득한 강릉 여행 코스", "정동진 레일바이크로 예쁜 풍경 구경하며 시원한 바닷바람 즐기기"
+//            )
+//        )
+    }
+
 }
 
 

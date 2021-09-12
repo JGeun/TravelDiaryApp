@@ -27,7 +27,7 @@ import kotlin.math.floor
 
 data class  TipData(var image: Drawable, var content: String)
 data class RecommandLocationData(val image: Drawable, val name: String)
-data class HomeBulletinData(val image: Drawable, val title: String, val contents: String)
+data class HomeBulletinData(val image: String, val title: String, val contents: String, val nickname:String, val userImage:String)
 
 class HomeFragment : Fragment(), HomeView{
     private lateinit var binding : FragmentHomeBinding
@@ -175,50 +175,30 @@ class HomeFragment : Fragment(), HomeView{
         )
     }
 
-    private fun initBulletinList(){
+    fun initBulletinList(){
         homeBulletinList.add(
             HomeBulletinData(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.ig_home_seoul,
-                    null
-                )!!, "서울 2박3일 여행~", "친구들과 여행을 다녀왔는데 너무 좋았어요."
+                "https://data.si.re.kr/sites/default/files/2021-04/chimg_%281%29.png", "서울 당일치기 여행", "서울 데이트코스 덕수궁 돌담길 야경 맛집", "플린트", "https://cdn.pixabay.com/photo/2014/11/16/15/15/field-533541_960_720.jpg"
             )
         )
         homeBulletinList.add(
             HomeBulletinData(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.ig_home_busan,
-                    null
-                )!!, "부산 캡슐열차타러 !!", "캡슐열차 강추 무조건!!"
+                "https://bto.or.kr/resources/homepage/kor/_Img/Content/img-tour-city-01.jpg", "잊지못할 부산 1박 2일", "부산 해운데 더베이 101, 주변 여행 코스", "스티브", "https://cdn.pixabay.com/photo/2017/11/26/15/16/smiley-2979107_960_720.jpg"
             )
         )
         homeBulletinList.add(
             HomeBulletinData(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.ig_home_gangneung,
-                    null
-                )!!, "제주도 미쳤다", "힐링하려는 분들 제 글보고 가보세요"
+                "https://api.cdn.visitjeju.net/photomng/imgpath/201911/28/1b150513-5d25-4212-826a-c70c6fd0ac78.jpg", "제주도 핫한 여행지 5곳", "천지연 폭포, 휴애리자연생활공원, 노형수퍼마켙, 제주 블라썸, 외돌개 황우지해안을 따라", "에디스", "https://cdn.pixabay.com/photo/2017/04/25/22/28/despaired-2261021_960_720.jpg"
             )
         )
         homeBulletinList.add(
             HomeBulletinData(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.ig_home_seoul_nearby,
-                    null
-                )!!, "서울근교 데이트코스가 필요하다면?", "남친이랑 다녀왔는데.."
+                "https://www.yeosu.go.kr/tour/contents/7/odong1.jpg", "국내 여행 : 여수, 순천 여행", "아르떼 뮤지엄/구백식당/향일암/베네치아 호텔/이순신 광장 등 가볼만한 곳 추천", "아그네스", "https://cdn.pixabay.com/photo/2012/02/23/08/38/rocks-15712_960_720.jpg"
             )
         )
         homeBulletinList.add(
             HomeBulletinData(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.ig_home_daejeon,
-                    null
-                )!!, "1박2일 가볍게 다녀왔습니다", "강릉바다 보고싶어서 다녀왔는데 아쉬웠어요"
+                "https://www.gn.go.kr/tour/images/tour/sub03/sub030210_img01.jpg", "아름다운 풍경 가득한 강릉 여행 코스", "정동진 레일바이크로 예쁜 풍경 구경하며 시원한 바닷바람 즐기기", "루시", "https://cdn.pixabay.com/photo/2017/07/25/01/22/cat-2536662_960_720.jpg"
             )
         )
     }
