@@ -195,11 +195,13 @@ class DiarySectionAdapter(val userDiaryArray: ArrayList<UserDiaryData>) :
                 mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 val okbtn = mDialogView.findViewById<Button>(R.id.btn_yes)
                 okbtn.setOnClickListener {
+                    var isValidate = true
                     for (i in 0 until MainActivity.userDiaryArray[index].diaryArray.size) {
                         if (MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.imagePathArray.size == 0 ||
                             MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.diaryTitle == "" ||
                             MainActivity.userDiaryArray[index].diaryArray[i].diaryInfo.diaryContents == ""
                         ) {
+                            isValidate = false
                             val mCheckDialogView = LayoutInflater.from(it.context)
                                 .inflate(R.layout.dialog_lock_check, null)
                             val mCheckBuilder =
@@ -210,54 +212,56 @@ class DiarySectionAdapter(val userDiaryArray: ArrayList<UserDiaryData>) :
                                 mAlertCheckDialog.dismiss()
                             }
                             break
-                        } else {
-                            Glide.with(holder.itemView.context).load(R.drawable.ic_unlock)
-                                .into(holder.lock)
-                            lock = "false"
-                            val diaryBaseData = DiaryBaseData(
-                                data.baseData.idx,
-                                data.baseData.title,
-                                data.baseData.mainImage,
-                                user!!.email.toString(),
-                                data.baseData.uploadDate,
-                                data.baseData.startDate,
-                                data.baseData.endDate,
-                                data.baseData.color,
-                                data.baseData.area,
-                                data.baseData.friendsList,
-                                LikeFolder(),
-                                CommentsFolder(),
-                                lock
-                            )
-                            diaryIdxRef.collection("DiaryData").document(idx.toString()).set(diaryBaseData)
-                            val bulletinIdxRef = db!!.collection("Bulletin").document("BulletinData")
-                            if(!MainActivity.bulletinIdxList.idxFolder.contains(data.baseData.idx)){
-                                MainActivity.bulletinIdxList.idxFolder.add(data.baseData.idx)
-                                bulletinIdxRef.set(MainActivity.bulletinIdxList)
-                                MainActivity.userDiaryArray[position].baseData.lock = "false"
-                            }
-
-                            db!!.collection("UserInfo").document(user!!.email.toString())
-                                .get().addOnSuccessListener { result ->
-                                    val userInfo = result.toObject<UserInfo>()!!
-                                    bulletinIdxRef.collection(data.baseData.idx.toString())
-                                        .document("idxUserData").set(userInfo)
-                                    MainActivity.bulletinDiaryArray.add(
-                                        0,
-                                        BulletinData(
-                                            MainActivity.userDiaryArray[position],
-                                            userInfo
-                                        )
-                                    )
-                                }
-                            
-                            mAlertDialog.dismiss()
                         }
                     }
-                    val cancelbtn = mDialogView.findViewById<Button>(R.id.btn_no)
-                    cancelbtn.setOnClickListener {
+                    if (isValidate) {
+                        Glide.with(holder.itemView.context).load(R.drawable.ic_unlock)
+                            .into(holder.lock)
+                        lock = "false"
+                        val diaryBaseData = DiaryBaseData(
+                            data.baseData.idx,
+                            data.baseData.title,
+                            data.baseData.mainImage,
+                            user!!.email.toString(),
+                            data.baseData.uploadDate,
+                            data.baseData.startDate,
+                            data.baseData.endDate,
+                            data.baseData.color,
+                            data.baseData.area,
+                            data.baseData.friendsList,
+                            LikeFolder(),
+                            CommentsFolder(),
+                            lock
+                        )
+                        diaryIdxRef.collection("DiaryData").document(idx.toString())
+                            .set(diaryBaseData)
+                        val bulletinIdxRef = db!!.collection("Bulletin").document("BulletinData")
+                        if (!MainActivity.bulletinIdxList.idxFolder.contains(data.baseData.idx)) {
+                            MainActivity.bulletinIdxList.idxFolder.add(data.baseData.idx)
+                            bulletinIdxRef.set(MainActivity.bulletinIdxList)
+                            MainActivity.userDiaryArray[position].baseData.lock = "false"
+                        }
+
+                        db!!.collection("UserInfo").document(user!!.email.toString())
+                            .get().addOnSuccessListener { result ->
+                                val userInfo = result.toObject<UserInfo>()!!
+                                bulletinIdxRef.collection(data.baseData.idx.toString())
+                                    .document("idxUserData").set(userInfo)
+                                MainActivity.bulletinDiaryArray.add(
+                                    0,
+                                    BulletinData(
+                                        MainActivity.userDiaryArray[position],
+                                        userInfo
+                                    )
+                                )
+                            }
+
                         mAlertDialog.dismiss()
                     }
+                }
+                val cancelbtn = mDialogView.findViewById<Button>(R.id.btn_no)
+                cancelbtn.setOnClickListener {
+                    mAlertDialog.dismiss()
                 }
             }
         }
