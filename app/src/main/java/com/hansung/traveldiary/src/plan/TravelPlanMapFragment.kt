@@ -218,10 +218,10 @@ class TravelPlanMapFragment(val index: Int, val day: Int) : Fragment(), OnMapRea
                     .reason(3)
                     .animate(CameraAnimation.Easing, 2000)
                     .finishCallback {
-                        Log.d(TAG, "완료")
+                        println("지도 완료")
                     }
                     .cancelCallback {
-                        Log.d(TAG, "취소")
+                        println("지도 취소")
                     }
                 naverMap.moveCamera(cameraUpdate)
 
